@@ -1,5 +1,6 @@
 package com.ssafy.BOSS.domain;
 
+import com.ssafy.BOSS.repository.AdminRepository;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

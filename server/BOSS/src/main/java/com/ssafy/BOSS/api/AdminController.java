@@ -18,8 +18,7 @@ public class AdminController {
     @PostMapping("api/admin/login")
     public ResponseEntity<?> login(@RequestParam String adminId, @RequestParam String adminPw) {
         try {
-            Admin admin = new Admin();
-            admin = adminService.login(adminId, adminPw);
+            Admin admin = adminService.login(adminId, adminPw);
             if(admin != null) {
                 AdminReturnDto adminReturnDto = new AdminReturnDto();
                 adminReturnDto.setAdminId(adminId);

@@ -1,0 +1,17 @@
+name: boss-dev
+
+services:
+  frontend:
+    build:
+    ports:
+      - "8080:80"
+    networks:
+      - wire
+  backend:
+    image: nginx
+    networks:
+      - wire
+
+networks:
+  wire:
+    driver: bridge

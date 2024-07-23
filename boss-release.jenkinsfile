@@ -1,0 +1,30 @@
+{
+    agent: any
+
+    stages {
+        stage('get scm') {
+            steps {
+                step {
+                }
+                post {
+                }
+            }
+        }
+        stage('build & test') {
+            steps {
+                step {
+                }
+                post {
+                }
+            }
+        }
+        stage('rolling update') {
+            steps {
+                step {
+                }
+                post {
+                }
+            }
+        }
+    }
+}

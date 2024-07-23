@@ -1,6 +1,13 @@
 {
     agent: any
 
+    environment {
+        REPOSITORY_BACKEND = "server/BOSS"
+        DOCKERFILE_DIRECTORY_BACKEND = "server"
+        DOCKER_IMAGE_BACKEND = "boss-backend:latest"
+        ARTIFACT="server/BOSS/build/libs/BOSS-0.0.1.jar"
+    }
+
     stages {
         stage('get scm') {
             steps {
@@ -13,18 +20,38 @@
         stage('build & test') {
             steps {
                 step {
+                    dir(REPOSITORY_BACKEND) {
+                        sh "gradlew clean build"
+                    }
                 }
                 post {
+                    success {
+                        archiveArtifacts artifacts: ARTIFACT, followSymlinks: false
+                    }
                 }
             }
         }
-        stage('rolling update') {
+        stage('build docker iamge') {
             steps {
                 step {
-                }
-                post {
+                    dir(DOCKERFILE_DIRECTORY_BACKEND) {
+                        script {
+                            docker.build(DOCKER_IMAGE_BACKEND)
+                        }
+                    }
                 }
             }
         }
+        stage('run container') {
+            sh "docker run --name boss-dev-backend " + DOCKER_IMAGE_BACKEND
+        }
+        // stage('rolling update') {
+        //     steps {
+        //         step {
+        //         }
+        //         post {
+        //         }
+        //     }
+        // }
     }
 }

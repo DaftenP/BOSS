@@ -1,0 +1,40 @@
+.layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden; /* 전체 화면에서 스크롤바가 생기지 않도록 설정 */
+  }
+  
+  .sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+  }
+  
+  .mainArea {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden; /* 전체 화면에서 스크롤바가 생기지 않도록 설정 */
+  }
+  
+  .navbar {
+    width: 100%;
+    height: 60px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+  }
+  
+  .mainContent {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto; /* 세로 스크롤만 허용 */
+    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+  }
+  

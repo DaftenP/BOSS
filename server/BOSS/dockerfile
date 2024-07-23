@@ -1,7 +1,7 @@
 FROM openjdk:17-jdk
 
 ENV ARTIFACT=BOSS-0.0.1-SNAPSHOT.jar
-ENV ARTIFACT_PATH=./BOSS/build/libs
+ENV ARTIFACT_PATH=./build/libs
 
 COPY ${ARTIFACT_PATH}/${ARTIFACT} app.jar
 

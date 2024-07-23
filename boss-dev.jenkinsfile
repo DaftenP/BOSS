@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPOSITORY_BACKEND = 'server/BOSS'
-        DOCKERFILE_DIRECTORY_BACKEND = 'server'
+        DOCKERFILE_DIRECTORY_BACKEND = 'server/BOSS'
         DOCKER_IMAGE_BACKEND = 'boss-backend:latest'
         ARTIFACT='server/BOSS/build/libs/BOSS-0.0.1.jar'
     }

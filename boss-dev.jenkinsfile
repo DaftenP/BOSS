@@ -17,6 +17,7 @@ pipeline {
         stage('build & test') {
             steps {
                 dir(REPOSITORY_BACKEND) {
+                    sh 'chmod +x ./gradlew'
                     sh './gradlew clean build'
                 }
                 post {

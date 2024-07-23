@@ -1,16 +1,9 @@
-import { createStore } from 'redux'
-import { createSlice } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 
-const initialState = { counter: 0, showCounter: true};
+import loginReducer from './login'
 
-createSlice({
-    name: 'counter',
-    initialState: initialState,
-    reducers: {
-
-    }
+const store = configureStore({
+    reducer: { login: loginReducer }
 })
-
-const store = createStore(counterReducer)
 
 export default store

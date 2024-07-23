@@ -1,14 +1,19 @@
 package com.ssafy.BOSS.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
-@Getter @Setter
+@Table(indexes = {@Index(name = "time_index", columnList = "time")})
 public class EnteringLog {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "log_id")
     private Long logId;
 

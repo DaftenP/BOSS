@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
+@Table(name = "administrator")
 @Getter @Setter
 public class Admin {
 
@@ -19,4 +20,6 @@ public class Admin {
     private List<LoginLog> loginLogs;
 
     private String adminPw;
+
+    private String adminName;
 }

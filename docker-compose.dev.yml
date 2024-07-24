@@ -3,6 +3,11 @@ name: boss-dev
 services:
   db:
     image: mysql
+    container_name: boss-dev-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=ssafy
+    # volumes:
+    #   - mysql_data_dev:/var/lib/mysql:rw
     networks:
       - wire
 

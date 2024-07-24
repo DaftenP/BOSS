@@ -6,13 +6,15 @@ pipeline {
     }
 
     environment {
+        TARGET_BRANCH='feat/infra/docker-and-jenkins'
+        TARGET_REPOSITORY_URL='https://lab.ssafy.com/s11-webmobile3-sub2/S11P12E102'
+        
         REPOSITORY_BACKEND = 'server/BOSS'
         DOCKERFILE_DIRECTORY_BACKEND = 'server/BOSS'
         DOCKER_IMAGE_BACKEND = 'boss-backend:latest'
         ARTIFACT='server/BOSS/build/libs/BOSS-0.0.1.jar'
         
-        TARGET_BRANCH='feat/infra/docker-and-jenkins'
-        TARGET_REPOSITORY_URL='https://lab.ssafy.com/s11-webmobile3-sub2/S11P12E102'
+        COMPOSE_DEV='docker-compose.dev.yml'
     }
 
     stages {
@@ -43,11 +45,13 @@ pipeline {
                 }
             }
         }
-        // stage('run container') {
-        //     steps {
-        //         sh 'docker run --name boss-dev-backend ${DOCKER_IMAGE_BACKEND}'
-        //     }
-        // }
+        stage('run container') {
+            steps {
+                // sh 'docker run --name boss-dev-backend -p 8081:8080'
+                sh 'docker compose -f $COMPOSE_DEV down'
+                sh 'docker compose -f $COMPOSE_DEV up -d'
+            }
+        }
         // stage('rolling update') {
         //     steps {
         //         step {

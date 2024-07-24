@@ -9,10 +9,10 @@ pipeline {
         TARGET_BRANCH='feat/infra/docker-and-jenkins'
         TARGET_REPOSITORY_URL='https://lab.ssafy.com/s11-webmobile3-sub2/S11P12E102'
         
-        REPOSITORY_BACKEND = 'server/BOSS'
-        DOCKERFILE_DIRECTORY_BACKEND = 'server/BOSS'
-        DOCKER_IMAGE_BACKEND = 'boss-backend:latest'
-        ARTIFACT='server/BOSS/build/libs/BOSS-0.0.1.jar'
+        BACKEND_REPOSITORY = 'server/BOSS'
+        BACKEND_DOCKERFILE_DIRECTORY = 'server/BOSS'
+        BACKEND_DOCKER_IMAGE = 'boss-backend:latest'
+        BACKEND_ARTIFACT='server/BOSS/build/libs/BOSS-0.0.1.jar'
         
         COMPOSE_DEV='docker-compose.dev.yml'
     }
@@ -25,22 +25,22 @@ pipeline {
         }
         stage('build & test') {
             steps {
-                dir(REPOSITORY_BACKEND) {
+                dir(BACKEND_REPOSITORY) {
                     sh 'chmod +x ./gradlew'
                     sh './gradlew clean build'
                 }
                 // post {
                 //     success {
-                //         archiveArtifacts artifacts: ARTIFACT, followSymlinks: false
+                //         archiveArtifacts artifacts: BACKEND_ARTIFACT, followSymlinks: false
                 //     }
                 // }
             }
         }
         stage('build docker iamge') {
             steps {
-                dir(DOCKERFILE_DIRECTORY_BACKEND) {
+                dir(BACKEND_DOCKERFILE_DIRECTORY) {
                     script {
-                        docker.build(DOCKER_IMAGE_BACKEND)
+                        docker.build(BACKEND_DOCKER_IMAGE)
                     }
                 }
             }

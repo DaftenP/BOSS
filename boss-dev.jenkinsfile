@@ -27,9 +27,10 @@ pipeline {
         stage('build docker iamge') {
             steps {
                 dir(BACKEND_DOCKERFILE_DIRECTORY) {
-                    script {
-                        docker.build(BACKEND_DOCKER_IMAGE)
-                    }
+                    // script {
+                    //     docker.build(BACKEND_DOCKER_IMAGE)
+                    // }
+                    sh 'docker build -t $BACKEND_DOCKER_IMAGE .'
                 }
             }
         }

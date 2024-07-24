@@ -4,29 +4,36 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .sidebar ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sidebar ul li {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 .sidebar ul li a {
   text-decoration: none;
-  color: #ffffff; /* 기본 텍스트 색상 하얀색 */
+  color: #ffffff; 
+  font-size: 20px;
   display: flex;
-  align-items: center; /* 아이콘과 텍스트를 수평으로 정렬 */
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar ul li a .labelIcon {
-  margin-right: 8px; /* 아이콘과 텍스트 사이 간격 */
-  filter: brightness(0) invert(1); /* 아이콘 색상을 하얀색으로 변경 */
+  margin-right: 30px;
+  filter: brightness(0) invert(1);
 }
 
 .activeLink {
@@ -34,9 +41,15 @@
 }
 
 .activeText {
-  color: #000000 !important; /* 활성화된 링크 텍스트 색상 검은색 */
+  color: black !important;
+  font-size: 23px;
+  transform: scale(1.1);
+  font-weight: bold;
 }
 
 .logoImage {
-  width: 130px;
+  width: 160px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid white;
 }

@@ -2,7 +2,7 @@
   width: 100%;
   height: 60px;
   background-color: #ffffff;
-  color: white;
+  color: black;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,8 +12,13 @@
 }
 
 .adminName {
-  color: black;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.loginTime {
+  font-size: 14px;
+  color: grey;
 }
 
 .logoutButton {

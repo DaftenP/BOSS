@@ -28,4 +28,4 @@ RUN apt-get install -y tzdata && \
 # Allow Jenkins user to use Docker
 RUN usermod -aG docker jenkins
 
-USER jenkins
+# USER jenkins

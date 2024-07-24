@@ -17,8 +17,8 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
 
-    public Admin login(String adminId, String adminPw) {
-        Optional<Admin> admin = adminRepository.findByAdminIdAndAdminPw(adminId, adminPw);
+    public Admin login(String adminLoginId, String adminLoginPw) {
+        Optional<Admin> admin = adminRepository.findByAdminIdAndAdminPw(adminLoginId, adminLoginPw);
         if(admin.isPresent()) {
             return admin.get();
         }

@@ -16,12 +16,12 @@ public class Admin {
     @Column(name = "admin_id")
     private Long id;
 
-    private String adminID;
+    private String adminLoginId;
 
     @OneToMany(mappedBy = "admin")
     private List<LoginLog> loginLogs;
 
-    private String adminPw;
+    private String adminLoginPw;
 
     private String adminName;
 }

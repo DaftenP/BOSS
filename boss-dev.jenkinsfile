@@ -1,14 +1,7 @@
 pipeline {
     agent any
 
-    tools {
-        dockerTool 'docker!'
-    }
-
     environment {
-        TARGET_BRANCH='feat/infra/docker-and-jenkins'
-        TARGET_REPOSITORY_URL='https://lab.ssafy.com/s11-webmobile3-sub2/S11P12E102'
-        
         BACKEND_REPOSITORY = 'server/BOSS'
         BACKEND_DOCKERFILE_DIRECTORY = 'server/BOSS'
         BACKEND_DOCKER_IMAGE = 'boss-backend:latest'
@@ -18,11 +11,6 @@ pipeline {
     }
 
     stages {
-        stage('get scm') {
-            steps {
-                git branch: TARGET_BRANCH, credentialsId: 'ssafygit', url: TARGET_REPOSITORY_URL
-            }
-        }
         stage('build & test') {
             steps {
                 dir(BACKEND_REPOSITORY) {

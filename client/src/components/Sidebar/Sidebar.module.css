@@ -31,11 +31,10 @@
 
 .activeLink {
   font-weight: bold;
-  color: #000000; /* 활성화된 링크 텍스트 색상 검은색 */
 }
 
-.activeLink .labelIcon {
-  filter: brightness(0) invert(0); /* 활성화된 링크 아이콘 색상 검은색 */
+.activeText {
+  color: #000000 !important; /* 활성화된 링크 텍스트 색상 검은색 */
 }
 
 .logoImage {

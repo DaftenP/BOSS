@@ -14,7 +14,10 @@ function Navbar() {
   return (
     <div className={classes.navbar}>
       <span className={classes.adminName}>관리자 이름</span>
-      <button onClick={logoutHandler} className={classes.logoutButton}>로그아웃</button>
+      <button onClick={logoutHandler} className={classes.logoutButton}>
+        로그아웃
+        <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
+      </button>
     </div>
   );
 }

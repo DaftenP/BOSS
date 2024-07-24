@@ -1,37 +1,43 @@
 .sidebar {
-    height: 100%;
-    background-color: #515151;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .sidebar ul li {
-    margin: 20px 0;
-  }
-  
-  .sidebar ul li a {
-    text-decoration: none;
-    color: #333;
-  }
-  
-  .activeLink {
-    font-weight: bold;
-    color: blue;
-  }
+  height: 100%;
+  background-color: #515151;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
+}
 
-  .logoImage {
-    width: 130px;
-  }
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-  .labelIcon {
-    
-  }
-  
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul li a {
+  text-decoration: none;
+  color: #ffffff; /* 기본 텍스트 색상 하얀색 */
+  display: flex;
+  align-items: center; /* 아이콘과 텍스트를 수평으로 정렬 */
+}
+
+.sidebar ul li a .labelIcon {
+  margin-right: 8px; /* 아이콘과 텍스트 사이 간격 */
+  filter: brightness(0) invert(1); /* 아이콘 색상을 하얀색으로 변경 */
+}
+
+.activeLink {
+  font-weight: bold;
+  color: #000000; /* 활성화된 링크 텍스트 색상 검은색 */
+}
+
+.activeLink .labelIcon {
+  filter: brightness(0) invert(0); /* 활성화된 링크 아이콘 색상 검은색 */
+}
+
+.logoImage {
+  width: 130px;
+}

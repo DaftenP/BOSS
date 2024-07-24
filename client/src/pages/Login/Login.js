@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import classes from './Login.module.css';
 import { loginAction } from "../../store/login";
 import sampleImage from '../../assets/Login/Login_background_image.png';
-import logoImage from '../../assets/Login/Logo_white.png';
+import logoImage from '../../assets/Login/Logo_icon.png';
 import idIcon from '../../assets/Login/Id_icon.png'
 import passwordIcon from '../../assets/Login/Password_icon.png'
 import loginIcon from '../../assets/Login/Login_icon.png'

@@ -1,32 +1,39 @@
 .navbar {
-    width: 100%;
-    height: 60px;
-    background-color: #ffffff;
-    box-shadow: 10px 10px 5px #888888;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기 계산 */
-  }
-  
-  .adminName {
-    font-size: 18px;
-  }
-  
-  .logoutButton {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .logoutButton:hover {
-    background-color: #ff1a1a;
-  }
-  
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.adminName {
+  color: black;
+  font-size: 18px;
+}
+
+.logoutButton {
+  background: none;
+  color: black;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.logoutButton:hover {
+  color: #ff1a1a;
+}
+
+.labelIcon {
+  margin-left: 8px;
+  width: 30px;
+  height: 35px;
+}

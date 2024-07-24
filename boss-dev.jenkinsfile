@@ -1,17 +1,24 @@
 pipeline {
     agent any
 
+    tools {
+        dockerTool 'docker!'
+    }
+
     environment {
         REPOSITORY_BACKEND = 'server/BOSS'
         DOCKERFILE_DIRECTORY_BACKEND = 'server/BOSS'
         DOCKER_IMAGE_BACKEND = 'boss-backend:latest'
         ARTIFACT='server/BOSS/build/libs/BOSS-0.0.1.jar'
+        
+        TARGET_BRANCH='feat/infra/docker-and-jenkins'
+        TARGET_REPOSITORY_URL='https://lab.ssafy.com/s11-webmobile3-sub2/S11P12E102'
     }
 
     stages {
         stage('get scm') {
             steps {
-                git branch: 'feat/infra/docker-and-jenkins', credentialsId: 'ssafygit', url: 'https://lab.ssafy.com/s11-webmobile3-sub2/S11P12E102'
+                git branch: TARGET_BRANCH, credentialsId: 'ssafygit', url: TARGET_REPOSITORY_URL
             }
         }
         stage('build & test') {
@@ -20,11 +27,11 @@ pipeline {
                     sh 'chmod +x ./gradlew'
                     sh './gradlew clean build'
                 }
-                post {
-                    success {
-                        archiveArtifacts artifacts: ARTIFACT, followSymlinks: false
-                    }
-                }
+                // post {
+                //     success {
+                //         archiveArtifacts artifacts: ARTIFACT, followSymlinks: false
+                //     }
+                // }
             }
         }
         stage('build docker iamge') {
@@ -36,11 +43,11 @@ pipeline {
                 }
             }
         }
-        stage('run container') {
-            steps {
-                sh 'docker run --name boss-dev-backend ${DOCKER_IMAGE_BACKEND}'
-            }
-        }
+        // stage('run container') {
+        //     steps {
+        //         sh 'docker run --name boss-dev-backend ${DOCKER_IMAGE_BACKEND}'
+        //     }
+        // }
         // stage('rolling update') {
         //     steps {
         //         step {

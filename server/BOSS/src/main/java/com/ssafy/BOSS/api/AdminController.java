@@ -16,13 +16,13 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping("api/admin/login")
-    public ResponseEntity<?> login(@RequestParam String adminId, @RequestParam String adminPw) {
+    public ResponseEntity<?> login(@RequestParam String adminLoginId, @RequestParam String adminLoginPw) {
         try {
-            Admin admin = adminService.login(adminId, adminPw);
+            Admin admin = adminService.login(adminLoginId, adminLoginPw);
             if(admin != null) {
                 AdminReturnDto adminReturnDto = new AdminReturnDto();
-                adminReturnDto.setAdminId(adminId);
-                adminReturnDto.setAdminPw(adminPw);
+                adminReturnDto.setAdminId(adminLoginId);
+                adminReturnDto.setAdminPw(adminLoginPw);
                 return ResponseEntity.ok(adminReturnDto);
             } else {
                 return ResponseEntity.noContent().build();

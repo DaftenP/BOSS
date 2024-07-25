@@ -27,16 +27,12 @@ pipeline {
         stage('build docker iamge') {
             steps {
                 dir(BACKEND_DOCKERFILE_DIRECTORY) {
-                    // script {
-                    //     docker.build(BACKEND_DOCKER_IMAGE)
-                    // }
                     sh 'docker build -t $BACKEND_DOCKER_IMAGE .'
                 }
             }
         }
         stage('run container') {
             steps {
-                // sh 'docker run --name boss-dev-backend -p 8081:8080'
                 sh 'docker compose -f $COMPOSE_DEV down'
                 sh 'docker compose -f $COMPOSE_DEV up -d'
             }

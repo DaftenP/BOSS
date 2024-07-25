@@ -1,6 +1,24 @@
 name: boss-dev
 
 services:
+
+  frontend:
+    build: ./client
+    container_name: boss-dev-frontend
+    ports:
+      - "80:80"
+
+  backend:
+    build: ./server/BOSS
+    container_name: boss-dev-backend
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=Asia/Seoul
+      - SPRING_PROFILES_ACTIVE=dev
+
   db:
     image: mysql
     container_name: boss-dev-db
@@ -9,22 +27,3 @@ services:
       - TZ=Asia/Seoul
     volumes:
       - ~/mysql_data_dev:/var/lib/mysql:rw
-    networks:
-      - wire
-
-  backend:
-    image: boss-backend:latest
-    container_name: boss-dev-backend
-    environment:
-      - SPRING_PROFILES_ACTIVE=dev
-      - TZ=Asia/Seoul
-    depends_on:
-      - db
-    ports:
-      - "8081:8080"
-    networks:
-      - wire
-
-networks:
-  wire:
-    driver: bridge

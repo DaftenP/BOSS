@@ -19,4 +19,10 @@ public class EnteringLogService {
         return enteringLogRepository.getEnteringLogs(dto, pageable);
     }
 
+    @Transactional
+    public void updateEnteringLog(Long logId, int stickerCount, int issue) {
+        EnteringLog enteringLog = enteringLogRepository.findById(logId).orElse(null);
+        enteringLog.setStickerCount(stickerCount);
+        enteringLog.setIssue(issue);
+    }
 }

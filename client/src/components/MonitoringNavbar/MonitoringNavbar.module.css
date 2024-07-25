@@ -1,0 +1,37 @@
+.monitoringNavbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #515151;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .mainIcon {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+  }
+  
+  .logoIcon {
+    width: 150px;
+    padding-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .rightContent {
+    color: white;
+    margin-right: 30px;
+  }
+  

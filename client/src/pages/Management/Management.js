@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import classes from './Management.module.css';
+import detailIcon from '../../assets/List/Detail_icon.png'
 
 function Management() {
   const [selectedOption, setSelectedOption] = useState('direct');
@@ -24,6 +25,19 @@ function Management() {
     issueMax: '',
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedLog, setSelectedLog] = useState(null);
+
+  const handleDetailClick = (log) => {
+    setSelectedLog(log);
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedLog(null);
+  };
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -45,7 +59,7 @@ function Management() {
   const handleSearch = (e) => {
     e.preventDefault();
     setFilterCriteria(filters);
-    setVisibleCount(20); // 검색 시 초기 표시 개수를 20으로 설정
+    setVisibleCount(20);
   };
 
   const filteredLogs = logs.filter((log) => {
@@ -64,11 +78,9 @@ function Management() {
 
   return (
     <div className={classes.mainContainer}>
-      <div className={classes.filteringContainer}>
-        <div className={classes.filteringBoxContainer}>
-          <div className={classes.filteringBox}>
+      <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
+        <div className={classes.filteringBox}>
             F I L T E R I N G
-          </div>
         </div>
         <div className={classes.inputContainer}> 
           <form onSubmit={handleSearch}>
@@ -85,22 +97,18 @@ function Management() {
             <div>
               <label htmlFor="nfc" className={classes.labelText}>NFC</label>
               <input className={classes.inputText} type="text" id="nfc" placeholder="N F C" value={filters.nfc} onChange={handleFilterChange} />
-              <label htmlFor="issueMin" className={classes.labelText}>누적 이슈 (이상)</label>
+              <label htmlFor="issueMin" className={classes.labelText}>누적 이슈(이상)</label>
               <input className={classes.inputText} type="number" id="issueMin" placeholder="이 상" value={filters.issueMin} onChange={handleFilterChange} />
-              <label htmlFor="issueMax" className={classes.labelText}>누적 이슈 (이하)</label>
+              <label htmlFor="issueMax" className={classes.labelText}>누적 이슈(이하)</label>
               <input className={classes.inputText} type="number" id="issueMax" placeholder="이 하" value={filters.issueMax} onChange={handleFilterChange} />
             </div>
-            <div>
-              <button type="submit">검색</button>
-            </div>
+            <button type="submit" className={classes.formButton}>검 색</button>
           </form>
         </div>
       </div>
-      <div className={classes.registrationContainer}>
-        <div className={classes.filteringBoxContainer}>
-          <div className={classes.filteringBox}>
-            N E W
-          </div>
+      <div className={`${classes.registrationContainer} ${classes.relativeBoxContainer}`}>
+        <div className={classes.filteringBox}>
+          N E W
         </div>
         <div className={classes.inputContainer}>
           <div className={classes.optionLabel}>등록 옵션</div>
@@ -148,19 +156,17 @@ function Management() {
                   <input className={classes.inputText} type="text" id="new nfc" placeholder="N F C" />
                   <label htmlFor="new cumulative issue" className={classes.labelText}>누적 이슈</label>
                   <input className={classes.inputText} type="number" id="new cumulative issue" placeholder="누 적 이 슈" />
-                  <label htmlFor="new profile" className={classes.labelText}>프로필 사진</label>
-                  <input className={classes.inputText} type="file" id="new profile" placeholder="프로필 사진" />
+                  <label htmlFor="new profile" className={classes.labelText}>프로필 사진 파일을 선택해 주세요!</label>
+                  <input type="file" id="new profile" placeholder="프로필 사진" />
                 </div>
               </div>
             ) : (
               <div>
-                <label htmlFor="new file" className={classes.labelText}>일괄 등록 파일</label>
-                <input className={classes.inputText} type="file" id="new file" placeholder='일괄 등록 파일' />
+                <label htmlFor="new file" className={classes.labelText}>일괄 등록을 위해 파일을 선택해 주세요!</label>
+                <input type="file" id="new file" placeholder='일괄 등록 파일' />
               </div>
             )}
-            <div>
-              <button>등 록</button>
-            </div>
+            <button className={classes.formButton}>등 록</button>
           </form>
         </div>  
       </div>
@@ -178,8 +184,7 @@ function Management() {
               <th>연락처</th>
               <th>NFC UID</th>
               <th>누적 이슈</th>
-              <th>자세히</th>
-              <th>삭제</th>
+              <th>프로필 사진</th>
             </tr>
           </thead>
           <tbody>
@@ -192,18 +197,48 @@ function Management() {
                 <td>{log.phoneNumber}</td>
                 <td>{log.nfcUid}</td>
                 <td>{log.issueCount}</td>
-                <td><button>자세히</button></td>
-                <td><button>삭제</button></td>
+                <td>
+                  <img src={detailIcon}
+                  alt="detail_icon"
+                  className={classes.listIcon}
+                  onClick={() => handleDetailClick(log)} />
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+        <div className={classes.moreButtonContainer}>
         {visibleCount < filteredLogs.length && (
-          <button onClick={handleLoadMore}>더 보기</button>
+          <button onClick={handleLoadMore} className={classes.moreButton}>▼  더보기</button>
         )}
+        </div>
       </div>
+      {isModalOpen && <Modal log={selectedLog} onClose={handleCloseModal} />}
     </div>
   );
 }
+
+const Modal = ({ log, onClose }) => {
+  if (!log) return null;
+
+  const handleBackgroundClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
+  return (
+    <div className={classes.modal} onClick={handleBackgroundClick}>
+      <div className={classes.modalContent}>
+        <span className={classes.close} onClick={onClose}>&times;</span>
+        <h2>{log.name}</h2>
+        <p>부서: {log.department}</p>
+        <p>직책: {log.position}</p>
+        <p>자세히: {log.detail}</p>
+      </div>
+    </div>
+  );
+};
+
 
 export default Management;

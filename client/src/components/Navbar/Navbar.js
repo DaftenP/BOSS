@@ -4,12 +4,19 @@ import { loginAction } from '../../store/login';
 import classes from './Navbar.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
 
+
 function Navbar() {
   const dispatch = useDispatch();
   const adminName = useSelector((state) => state.login.adminName);
   const loginTime = useSelector((state) => state.login.loginTime);
+  const logs = useSelector((state) => state.admin.data);
 
   const [elapsedTime, setElapsedTime] = useState('');
+  const [showLogs, setShowLogs] = useState(false);
+
+  const handleToggleLogs = () => {
+    setShowLogs((prevShowLogs) => !prevShowLogs);
+  };
 
   useEffect(() => {
     if (loginTime) {
@@ -44,6 +51,21 @@ function Navbar() {
         로그아웃
         <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
       </button>
+      <div className={classes.loginTimeButton} onClick={handleToggleLogs}>
+        접속기록
+      </div>
+      {showLogs && (
+        <div className={classes.logsDropdown}>
+          <h2>접속 기록</h2>
+          <ul>
+            {logs.map((log, index) => (
+              <li key={index}>
+                {log.date} {log.time} {log.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

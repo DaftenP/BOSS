@@ -22,7 +22,12 @@ function Sidebar() {
 
   return (
     <div className={classes.sidebar}>
-      <img src={logoImage} alt="logo_image" className={classes.logoImage} />
+      <NavLink
+        to="/main"
+        className={activePage === 'main' ? classes.activeLink : undefined}
+      >
+        <img src={logoImage} alt="logo_image" className={classes.logoImage} />
+      </NavLink>
       <ul>
         <li>
           <NavLink

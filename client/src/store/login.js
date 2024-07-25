@@ -11,7 +11,6 @@ const loginSlice = createSlice({
   initialState: initialLoginState,
   reducers: {
     login(state, action) {
-      console.log('Login action payload:', action.payload);
       state.isLogin = true;
       state.adminName = action.payload?.name || 'Unknown Admin'; // 기본값 추가
       state.loginTime = new Date().toISOString();

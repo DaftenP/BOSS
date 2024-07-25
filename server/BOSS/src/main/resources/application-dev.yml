@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/boss?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true"
+    url: "jdbc:mysql://boss-dev-db:3306/boss?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true"
     username: root
     password: ssafy
   jpa:

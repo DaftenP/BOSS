@@ -1,0 +1,28 @@
+name: boss-dev
+
+services:
+  db:
+    image: mysql
+    container_name: boss-dev-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=ssafy
+    volumes:
+      - ~/mysql_data_dev:/var/lib/mysql:rw
+    networks:
+      - wire
+
+  backend:
+    image: boss-backend:latest
+    container_name: boss-dev-backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - db
+    ports:
+      - "8081:8080"
+    networks:
+      - wire
+
+networks:
+  wire:
+    driver: bridge

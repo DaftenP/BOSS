@@ -1,30 +1,49 @@
-{
-    agent: any
+pipeline {
+    agent any
+
+    environment {
+        BACKEND_REPOSITORY = 'server/BOSS'
+        BACKEND_DOCKERFILE_DIRECTORY = 'server/BOSS'
+        BACKEND_DOCKER_IMAGE = 'boss-backend:latest'
+        BACKEND_ARTIFACT='server/BOSS/build/libs/BOSS-0.0.1.jar'
+        
+        COMPOSE_RELEASE='docker-compose.release.yml'
+    }
 
     stages {
-        stage('get scm') {
-            steps {
-                step {
-                }
-                post {
-                }
-            }
-        }
         stage('build & test') {
             steps {
-                step {
+                dir(BACKEND_REPOSITORY) {
+                    sh 'chmod +x ./gradlew'
+                    sh './gradlew clean build'
                 }
-                post {
-                }
+                // post {
+                //     success {
+                //         archiveArtifacts artifacts: BACKEND_ARTIFACT, followSymlinks: false
+                //     }
+                // }
             }
         }
-        stage('rolling update') {
+        stage('build docker iamge') {
             steps {
-                step {
-                }
-                post {
+                dir(BACKEND_DOCKERFILE_DIRECTORY) {
+                    sh 'docker build -t $BACKEND_DOCKER_IMAGE .'
                 }
             }
         }
+        stage('run container') {
+            steps {
+                sh 'docker compose -f $COMPOSE_RELEASE down'
+                sh 'docker compose -f $COMPOSE_RELEASE up -d'
+            }
+        }
+        // stage('rolling update') {
+        //     steps {
+        //         step {
+        //         }
+        //         post {
+        //         }
+        //     }
+        // }
     }
 }

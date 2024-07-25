@@ -2,6 +2,7 @@ package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
+import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
 import com.ssafy.BOSS.service.EnteringLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,4 +23,9 @@ public class EnteringLogController {
         return ResponseEntity.ok(logs);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
+        enteringLogService.updateEnteringLog(id, updateEnteringLog.getStickerCount(), updateEnteringLog.getIssue());
+        return ResponseEntity.ok().build();
+    }
 }

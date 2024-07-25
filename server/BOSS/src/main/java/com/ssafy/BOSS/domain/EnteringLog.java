@@ -18,7 +18,7 @@ public class EnteringLog {
     private Long logId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mameber_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     private String time;

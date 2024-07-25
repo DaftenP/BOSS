@@ -11,19 +11,19 @@ pipeline {
     }
 
     stages {
-        stage('build & test') {
-            steps {
-                dir(BACKEND_REPOSITORY) {
-                    sh 'chmod +x ./gradlew'
-                    sh './gradlew clean build'
-                }
-                // post {
-                //     success {
-                //         archiveArtifacts artifacts: BACKEND_ARTIFACT, followSymlinks: false
-                //     }
-                // }
-            }
-        }
+        // stage('build & test') {
+        //     steps {
+        //         dir(BACKEND_REPOSITORY) {
+        //             sh 'chmod +x ./gradlew'
+        //             sh './gradlew clean build'
+        //         }
+        //         // post {
+        //         //     success {
+        //         //         archiveArtifacts artifacts: BACKEND_ARTIFACT, followSymlinks: false
+        //         //     }
+        //         // }
+        //     }
+        // }
         stage('build docker iamge') {
             steps {
                 dir(BACKEND_DOCKERFILE_DIRECTORY) {

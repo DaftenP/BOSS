@@ -1,6 +1,7 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Admin;
+import com.ssafy.BOSS.dto.adminDto.AdminReturnDto;
 import com.ssafy.BOSS.service.AdminService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -33,12 +34,6 @@ public class AdminController {
         catch(Exception e) {
             return exceptionHandling(e);
         }
-    }
-
-    @Data
-    static class AdminReturnDto {
-        private String adminId;
-        private String adminPw;
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

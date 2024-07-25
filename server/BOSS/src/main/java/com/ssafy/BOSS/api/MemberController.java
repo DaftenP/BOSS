@@ -1,11 +1,8 @@
 package com.ssafy.BOSS.api;
 
-import com.ssafy.BOSS.domain.Admin;
-import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.domain.Position;
+import com.ssafy.BOSS.dto.memberDto.MemberReturnDto;
 import com.ssafy.BOSS.service.MemberService;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,16 +37,6 @@ public class MemberController {
             return exceptionHandling(e);
         }
     }
-
-    @Data
-    static class MemberReturnDto {
-        private String memberProfile;
-        private String memberName;
-        private Department department;
-        private Position position;
-        private String nfc;
-    }
-
 
     private ResponseEntity<String> exceptionHandling(Exception e) {
         e.printStackTrace();

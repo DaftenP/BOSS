@@ -6,6 +6,7 @@ services:
     container_name: boss-dev-db
     environment:
       - MYSQL_ROOT_PASSWORD=ssafy
+      - TZ=Asia/Seoul
     volumes:
       - ~/mysql_data_dev:/var/lib/mysql:rw
     networks:
@@ -16,6 +17,7 @@ services:
     container_name: boss-dev-backend
     environment:
       - SPRING_PROFILES_ACTIVE=dev
+      - TZ=Asia/Seoul
     depends_on:
       - db
     ports:

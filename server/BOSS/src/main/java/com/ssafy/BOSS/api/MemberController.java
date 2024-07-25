@@ -1,6 +1,7 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.memberDto.MemberResponseDto;
 import com.ssafy.BOSS.dto.memberDto.MemberReturnDto;
 import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,6 +38,23 @@ public class MemberController {
         }
         catch(Exception e) {
             return exceptionHandling(e);
+        }
+    }
+
+    public ResponseEntity<?> getMemberByNfc(String nfc) {
+        Optional<Member> member = memberService.findbyNfc(nfc);
+        if(member.isPresent()) {
+            MemberResponseDto memberResponseDto = new MemberResponseDto();
+            memberResponseDto.setMemberProfile(member.get().getProfileImage());
+            memberResponseDto.setMemberName(member.get().getName());
+            memberResponseDto.setDepartment(member.get().getDepartment());
+            memberResponseDto.setPosition(member.get().getPosition());
+            memberResponseDto.setIssueCount(member.get().getIssueCount());
+            memberResponseDto.setPhoneNumber(member.get().getPhoneNumber());
+            return ResponseEntity.ok(memberResponseDto);
+        }
+        else {
+            return ResponseEntity.noContent().build();
         }
     }
 

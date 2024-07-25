@@ -24,13 +24,13 @@ pipeline {
                 // }
             }
         }
-        stage('build docker iamge') {
-            steps {
-                dir(BACKEND_DOCKERFILE_DIRECTORY) {
-                    sh 'docker build -t $BACKEND_DOCKER_IMAGE .'
-                }
-            }
-        }
+        // stage('build docker iamge') {
+        //     steps {
+        //         dir(BACKEND_DOCKERFILE_DIRECTORY) {
+        //             sh 'docker build -t $BACKEND_DOCKER_IMAGE .'
+        //         }
+        //     }
+        // }
         stage('run container') {
             steps {
                 sh 'docker compose -f $COMPOSE_DEV down'

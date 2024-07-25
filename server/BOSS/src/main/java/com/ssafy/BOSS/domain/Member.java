@@ -30,7 +30,7 @@ public class Member {
 
     private int issueCount;
 
-    private int phoneNumber;
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "member")
     private List<EnteringLog> logList;

@@ -26,4 +26,8 @@ public class AdminService {
             return null;
         }
     }
+
+    public Optional<Admin> findByName(String adminName) {
+        return adminRepository.findByName(adminName);
+    }
 }

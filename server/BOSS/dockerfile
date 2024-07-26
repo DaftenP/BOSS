@@ -1,8 +1,14 @@
-FROM openjdk:17-jdk
+FROM gradle:jdk17-alpine AS build
 
-ENV ARTIFACT=BOSS-0.0.1-SNAPSHOT.jar
-ENV ARTIFACT_PATH=./build/libs
+WORKDIR /builder/
 
-COPY ${ARTIFACT_PATH}/${ARTIFACT} app.jar
+COPY build.gradle /builder/
+COPY src /builder/src/
+
+RUN gradle clean build
+
+FROM openjdk:17-jdk-slim
+
+COPY --from=build /builder/build/libs/*.jar /app.jar
 
 ENTRYPOINT [ "java", "-jar", "/app.jar" ]

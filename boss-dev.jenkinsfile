@@ -2,28 +2,13 @@ pipeline {
     agent any
 
     environment {
-        BACKEND_REPOSITORY = 'server/BOSS'
         BACKEND_DOCKERFILE_DIRECTORY = 'server/BOSS'
         BACKEND_DOCKER_IMAGE = 'boss-backend:latest'
-        BACKEND_ARTIFACT='server/BOSS/build/libs/BOSS-0.0.1.jar'
         
         COMPOSE_DEV='docker-compose.dev.yml'
     }
 
     stages {
-        // stage('build & test') {
-        //     steps {
-        //         dir(BACKEND_REPOSITORY) {
-        //             sh 'chmod +x ./gradlew'
-        //             sh './gradlew clean build'
-        //         }
-        //         // post {
-        //         //     success {
-        //         //         archiveArtifacts artifacts: BACKEND_ARTIFACT, followSymlinks: false
-        //         //     }
-        //         // }
-        //     }
-        // }
         stage('build docker iamge') {
             steps {
                 dir(BACKEND_DOCKERFILE_DIRECTORY) {
@@ -37,13 +22,5 @@ pipeline {
                 sh 'docker compose -f $COMPOSE_DEV up -d'
             }
         }
-        // stage('rolling update') {
-        //     steps {
-        //         step {
-        //         }
-        //         post {
-        //         }
-        //     }
-        // }
     }
 }

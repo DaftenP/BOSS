@@ -33,6 +33,6 @@ services:
       - frontend
       - backend
     ports:
-      8888:80
+      - 8888:80
     environment:
       - TZ=Asia/Seoul

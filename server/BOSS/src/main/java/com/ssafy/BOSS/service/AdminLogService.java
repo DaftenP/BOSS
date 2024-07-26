@@ -8,9 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
+@Service
 public class AdminLogService {
 
     private final AdminLogRepository adminLogRepository;

@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
 @RequiredArgsConstructor
+@RestController
 @RequestMapping("/api/adminlog")
 public class AdminLogController {
 
-    private final AdminLogService adminLogService
+    private final AdminLogService adminLogService;
 
     @GetMapping
     public ResponseEntity<?> getLoginLog() {

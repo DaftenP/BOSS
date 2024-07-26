@@ -2,42 +2,12 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_ID = credentials('dockerhub-id')
-        DOCKERHUB_PASSWORD = credentials('dockerhub-password')
-        DOCKERHUB_REPO = 'slowcloud/boss-dev'
-        DOCKERHUB_FRONTEND_IMAGE = "${DOCKERHUB_REPO}-frontend"
-        DOCKERHUB_BACKEND_IMAGE = "${DOCKERHUB_REPO}-backend"
-
-        DOCKERFILE_BACKEND_DIRECTORY = 'server/BOSS'
-        
         COMPOSE_DEV='docker-compose.dev.yml'
     }
 
     stages {
-        stage('build backend iamge') {
-            steps {
-                sh 'docker build -t ${DOCKERHUB_BACKEND_IMAGE}:${env.BUILD_ID} ${DOCKERFILE_BACKEND_DIRECTORY}'
-            }
-        }
-        stage('build frontend iamge') {
-            steps {
-                sh 'docker build -t ${DOCKERHUB_BACKEND_IMAGE}:${env.BUILD_ID} ${DOCKERFILE_BACKEND_DIRECTORY}'
-            }
-        }
-        stage('docker login') {
-            steps {
-                sh 'echo ${DOCKERHUB_PASSWORD} | docker login -u ${DOCKERHUB_ID} --password-stdin'
-            }
-        }
-        stage('push images') {
-            steps {
-                sh 'docker push ${DOCKERHUB_BACKEND_IMAGE}'
-                sh 'docker push ${DOCKERHUB_FRONTEND_IMAGE}'
-            }
-        }
         stage('run container') {
             steps {
-                export BUILD_ID=${env.BUILD_ID}
                 sh 'docker compose -f $COMPOSE_DEV down'
                 sh 'docker compose -f $COMPOSE_DEV up -d'
             }

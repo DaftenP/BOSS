@@ -28,6 +28,6 @@ public class AdminService {
     }
 
     public Optional<Admin> findByName(String adminName) {
-        return adminRepository.findByName(adminName);
+        return adminRepository.findByAdminName(adminName);
     }
 }

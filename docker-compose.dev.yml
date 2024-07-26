@@ -5,8 +5,6 @@ services:
   frontend:
     build: ./client
     container_name: boss-dev-frontend
-    ports:
-      - "81:80"
     environment:
       - TZ=Asia/Seoul
 
@@ -15,8 +13,6 @@ services:
     container_name: boss-dev-backend
     depends_on:
       - db
-    ports:
-      - "8081:8080"
     environment:
       - TZ=Asia/Seoul
       - SPRING_PROFILES_ACTIVE=dev
@@ -29,3 +25,14 @@ services:
       - TZ=Asia/Seoul
     volumes:
       - ~/mysql_data_dev:/var/lib/mysql:rw
+  
+  server:
+    build: ./nginx
+    container_name: boss-dev-nginx
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - 8888:80
+    environment:
+      - TZ=Asia/Seoul

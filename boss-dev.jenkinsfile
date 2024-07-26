@@ -9,7 +9,7 @@ pipeline {
         stage('run container') {
             steps {
                 sh 'docker compose -f $COMPOSE_DEV down'
-                sh 'docker compose -f $COMPOSE_DEV up -d'
+                sh 'docker compose -f $COMPOSE_DEV up --build -d'
             }
         }
     }

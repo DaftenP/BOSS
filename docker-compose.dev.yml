@@ -6,7 +6,7 @@ services:
     build: ./client
     container_name: boss-dev-frontend
     ports:
-      - "80:80"
+      - "81:80"
     environment:
       - TZ=Asia/Seoul
 

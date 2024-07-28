@@ -13,9 +13,6 @@ function Main() {
   const todayString = today.toISOString().split('T')[0];
   const firstFilteredLogs = logs.filter(log => log['date'] === todayString)
 
-  console.log(logs)
-  console.log(firstFilteredLogs)
-
   const secondFilteredLogs = firstFilteredLogs.filter(log => log['issue'] === 'F'
   ).map(log => ({
     gate: log['gate'],

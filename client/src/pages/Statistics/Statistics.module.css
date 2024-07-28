@@ -39,6 +39,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 0 38px 15px 18px;
     margin-right: 40px;
+    min-width: 400px;
 }
 
 .axisSelectBox {
@@ -48,4 +49,49 @@
 
 .axisSelectTitle {
     margin-right: 40px;
+}
+
+.dataSelectBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.graphContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+  
+.graphItem {
+    width: 46%;
+    padding: 10px;
+}
+
+.statisticsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+  
+  .statisticsTable th, .statisticsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+  
+  .statisticsTable th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+  
+  .statisticsTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+  
+  .statisticsTable tr:hover {
+    background-color: #ddd;
+}
+  
+  .statisticsTable th, .statisticsTable td {
+    padding-top: 12px;
+    padding-bottom: 12px;
 }

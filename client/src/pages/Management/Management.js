@@ -121,7 +121,6 @@ function Management() {
                 onChange={handleOptionChange}
                 className={classes.radioInput}
               />
-              <span className={classes.radioCustom}></span>
               직접 등록하기
             </label>
             <label className={classes.radioLabel}>
@@ -132,7 +131,6 @@ function Management() {
                 onChange={handleOptionChange}
                 className={classes.radioInput}
               />
-              <span className={classes.radioCustom}></span>
               일괄 등록하기
             </label>
           </div>

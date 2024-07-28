@@ -195,7 +195,12 @@ function Statistics() {
   // 두 번째 그래프 그리는 로직
   useEffect(() => {
     setDefaultTotalDate();
-  }, [selectedTotalXOption]);
+    if (selectedTotalPopOption === 'gate') {
+      setSelectedItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]); // 모든 기기 기본 선택
+    } else if (selectedTotalPopOption === 'department') {
+      setSelectedItems(["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"]); // 모든 부서 기본 선택
+    }
+  }, [selectedTotalXOption, selectedTotalPopOption]);
 
   const generateTotalHourlyLabels = () => {
     const labels = [];

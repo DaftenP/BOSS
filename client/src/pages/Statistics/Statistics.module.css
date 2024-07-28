@@ -59,11 +59,8 @@
 .graphContainer {
     display: flex;
     flex-wrap: wrap;
-}
-  
-.graphItem {
-    width: 46%;
-    padding: 10px;
+    min-width: 200px;
+    min-height: 200px;
 }
 
 .statisticsTable {
@@ -72,26 +69,26 @@
     margin-top: 20px;
 }
   
-  .statisticsTable th, .statisticsTable td {
+.statisticsTable th, .statisticsTable td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
 }
   
-  .statisticsTable th {
+.statisticsTable th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
   
-  .statisticsTable tr:nth-child(even) {
+.statisticsTable tr:nth-child(even) {
     background-color: #f9f9f9;
 }
   
-  .statisticsTable tr:hover {
+.statisticsTable tr:hover {
     background-color: #ddd;
 }
   
-  .statisticsTable th, .statisticsTable td {
+.statisticsTable th, .statisticsTable td {
     padding-top: 12px;
     padding-bottom: 12px;
 }

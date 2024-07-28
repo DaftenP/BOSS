@@ -245,7 +245,7 @@ function Statistics() {
       return false;
     });
 
-  // 그룹화 로직
+    // 그룹화 로직
     const groupedData = {};
 
     filteredLogs.forEach(log => {
@@ -291,7 +291,7 @@ function Statistics() {
       }
     });
 
-  // 그래프 데이터 형식으로 변환
+    // 그래프 데이터 형식으로 변환
     return {
       labels: sortedLabels,
       datasets: [{
@@ -582,7 +582,7 @@ function Statistics() {
             {selectedItems.map(item => {
               const data = filterDataForTotal(loglist, item);
               return (
-                <div key={item} className={classes.graphItem}>
+                <div key={item}>
                   <h3>{item}</h3>
                   <Line data={data} options={{ /* 그래프 옵션 설정 */ }} />
                 </div>

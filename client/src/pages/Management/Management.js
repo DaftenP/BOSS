@@ -174,39 +174,41 @@ function Management() {
         <div className={classes.listTitle}>
           등록 인원 목록
         </div>
-        <table className={classes.logTable}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>이름</th>
-              <th>부서</th>
-              <th>직책</th>
-              <th>연락처</th>
-              <th>NFC UID</th>
-              <th>누적 이슈</th>
-              <th>프로필 사진</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayedLogs.map((log, index) => (
-              <tr key={index}>
-                <td>{log.id}</td>
-                <td>{log.name}</td>
-                <td>{log.department}</td>
-                <td>{log.position}</td>
-                <td>{log.phoneNumber}</td>
-                <td>{log.nfcUid}</td>
-                <td>{log.issueCount}</td>
-                <td>
-                  <img src={detailIcon}
-                  alt="detail_icon"
-                  className={classes.listIcon}
-                  onClick={() => handleDetailClick(log)} />
-                </td>
+        <div className={classes.tableContainer}>
+          <table className={classes.logTable}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>이름</th>
+                <th>부서</th>
+                <th>직책</th>
+                <th>연락처</th>
+                <th>NFC UID</th>
+                <th>누적 이슈</th>
+                <th>프로필 사진</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {displayedLogs.map((log, index) => (
+                <tr key={index}>
+                  <td>{log.id}</td>
+                  <td>{log.name}</td>
+                  <td>{log.department}</td>
+                  <td>{log.position}</td>
+                  <td>{log.phoneNumber}</td>
+                  <td>{log.nfcUid}</td>
+                  <td>{log.issueCount}</td>
+                  <td>
+                    <img src={detailIcon}
+                    alt="detail_icon"
+                    className={classes.listIcon}
+                    onClick={() => handleDetailClick(log)} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
         <div className={classes.moreButtonContainer}>
         {visibleCount < filteredLogs.length && (
           <button onClick={handleLoadMore} className={classes.moreButton}>▼  더보기</button>

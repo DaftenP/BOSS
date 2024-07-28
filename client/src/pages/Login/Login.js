@@ -26,14 +26,14 @@ function Login() {
             아이디
             <img src={idIcon} alt="id_icon" className={classes.labelIcon} />
           </label>
-          <input type='text' id='id' placeholder="아이디" />
+          <input type='text' id='id' placeholder="아이디" className={classes.inputText} />
         </div>
         <div className={classes.formGroup}>
           <label htmlFor='password' className={classes.labelText}>
             비밀번호
             <img src={passwordIcon} alt="password_icon" className={classes.labelIcon} />
           </label>
-          <input type='password' id='password' placeholder="비밀번호" />
+          <input type='password' id='password' placeholder="비밀번호" className={classes.inputText} />
         </div>
         <div className={classes.formSubGroup}>
           <div></div>

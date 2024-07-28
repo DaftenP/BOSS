@@ -2,7 +2,7 @@
     border: 1px solid #CDCDCD;
     border-radius: 20px;
     background-color: white;
-    margin: 10px;
+    margin: 10px 10px 15px 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -10,7 +10,7 @@
     border: 1px solid #CDCDCD;
     border-radius: 20px;
     background-color: white;
-    margin: 10px;
+    margin: 10px 10px 15px 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -139,11 +139,14 @@
     font-weight: bold;
 }
 
+.tableContainer{
+    padding: 0 30px 0 30px;
+}
 
 .logTable {
-    width: 97%;
+    width: 100%;
     border-collapse: collapse;
-    margin: 20px;
+    margin: 25px 0 25px 0;
     font-size: 11px
 }
 

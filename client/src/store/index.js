@@ -3,6 +3,7 @@ import loginReducer from './login';
 import navigationReducer from './navigation';
 import managementReducer from './management';
 import adminReducer from './admin';
+import loglistReducer from './loglist'
 
 
 const store = configureStore({
@@ -11,6 +12,7 @@ const store = configureStore({
     navigation: navigationReducer,
     management: managementReducer,
     admin: adminReducer,
+    loglist: loglistReducer,
   },
 });
 

@@ -9,18 +9,21 @@ import ruleImage from '../../assets/Main/Rule_background_image.png'
 function Main() {
   const logs = useSelector((state) => state.loglist.data)
 
-  const today = new Date('2024-07-20')
+  const today = new Date()
   const todayString = today.toISOString().split('T')[0];
-  const firstFilteredLogs = logs.filter(log => log['날짜'] === todayString)
+  const firstFilteredLogs = logs.filter(log => log['date'] === todayString)
 
-  const secondFilteredLogs = firstFilteredLogs.filter(log => log['보안 이슈'] === 'F'
+  console.log(logs)
+  console.log(firstFilteredLogs)
+
+  const secondFilteredLogs = firstFilteredLogs.filter(log => log['issue'] === 'F'
   ).map(log => ({
-    gate: log['기기'],
-    time: log['시간'],
-    name: log['이름'],
-    department: log['부서'],
-    position: log['직책'],
-    entering: log['출/퇴'],
+    gate: log['gate'],
+    time: log['time'],
+    name: log['name'],
+    department: log['department'],
+    position: log['position'],
+    entering: log['entering'],
   }))
 
   // 시간 단위로 그룹화 (9시부터 21시까지)

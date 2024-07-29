@@ -24,7 +24,6 @@ function Sidebar() {
     <div className={classes.sidebar}>
       <NavLink
         to="/main"
-        className={activePage === 'main' ? classes.activeLink : undefined}
       >
         <img src={logoImage} alt="logo_image" className={classes.logoImage} />
       </NavLink>

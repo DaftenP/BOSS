@@ -4,6 +4,7 @@ const initialLoginState = {
   isLogin: false,
   adminName: '', // 관리자 이름
   loginTime: null, // 로그인 시간
+  success: null,
   data: [
     {'admin_name': 'Admin1', 'admin_login_id': 'admin1', 'admin_pw': 'password1'},
     {'admin_name': 'Admin2', 'admin_login_id': 'admin2', 'admin_pw': 'password2'},
@@ -25,10 +26,12 @@ const loginSlice = createSlice({
       
       if (admin) {
         state.isLogin = true;
+        state.success = true;
         state.adminName = admin.admin_name;
         state.loginTime = new Date().toISOString();
       } else {
         state.isLogin = false;
+        state.success = false;
         state.adminName = '';
         state.loginTime = null;
       }
@@ -37,6 +40,7 @@ const loginSlice = createSlice({
       state.isLogin = false;
       state.adminName = '';
       state.loginTime = null;
+      state.success = null
     },
   },
 });

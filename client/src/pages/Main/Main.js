@@ -108,9 +108,9 @@ function Main() {
           <div className={classes.chartTitle}>
             금일 이슈 인원 비율
           </div>
-            <div className={classes.chartContainer}>
-              <Doughnut data={doughnutData} options={optionsDounut} />
-            </div>
+          <div className={classes.chartContainer}>
+            <Doughnut data={doughnutData} options={optionsDounut} />
+          </div>
           <div>
             <table className={classes.logTable}>
               <thead>
@@ -173,9 +173,9 @@ function Main() {
             <div className={classes.ruleTitle}>스티커 훼손</div>
             <div className={classes.ruleContent}>
               <ul>
-                <li>1. 스티커 훼손 절차 1</li>
-                <li>2. 스티커 훼손 절차 2</li>
-                <li>3. 스티커 훼손 절차 3</li>
+                <p>1. 스티커 훼손 절차 1</p>
+                <p>2. 스티커 훼손 절차 2</p>
+                <p>3. 스티커 훼손 절차 3</p>
               </ul>
             </div>
           </div>
@@ -183,9 +183,9 @@ function Main() {
             <div className={classes.ruleTitle}>스티커 미부착</div>
             <div className={classes.ruleContent}>
               <ul>
-                <li>1. 스티커 없음 절차 1</li>
-                <li>2. 스티커 없음 절차 2</li>
-                <li>3. 스티커 없음 절차 3</li>
+                <p>1. 스티커 없음 절차 1</p>
+                <p>2. 스티커 없음 절차 2</p>
+                <p>3. 스티커 없음 절차 3</p>
               </ul>
             </div>
           </div>
@@ -193,9 +193,9 @@ function Main() {
             <div className={classes.ruleTitle}>휴대폰 변경</div>
             <div className={classes.ruleContent}>
               <ul>
-                <li>1. 휴대폰 변경 절차 1</li>
-                <li>2. 휴대폰 변경 절차 2</li>
-                <li>3. 휴대폰 변경 절차 3</li>
+                <p>1. 휴대폰 변경 절차 1</p>
+                <p>2. 휴대폰 변경 절차 2</p>
+                <p>3. 휴대폰 변경 절차 3</p>
               </ul>
             </div>
           </div>

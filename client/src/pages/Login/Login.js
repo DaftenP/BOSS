@@ -12,17 +12,33 @@ function Login() {
   const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const isLogin = useSelector((state) => state.login.isLogin);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorKey, setErrorKey] = useState(0);
+  const isSuccess = useSelector((state) => state.login.success)
 
   const loginHandler = (event) => {
     event.preventDefault();
     dispatch(loginAction.login({ id, password }))
-    if (isLogin) {
-      event.preventDefault();
-    } else {
-      alert('로그인에 실패했습니다.')
-    }
   }
+
+  useEffect(() => {
+    if (isSuccess !== null) {
+      if (!id && !password) {
+        setErrorMessage('아이디와 비밀번호를 입력해 주세요!')
+        setErrorKey(prev => prev + 1)
+      } else if (!id) {
+        setErrorMessage('아이디를 입력해 주세요!')
+        setErrorKey(prev => prev + 1)
+      } else if (!password) {
+        setErrorMessage('비밀번호를 입력해 주세요!')
+        setErrorKey(prev => prev + 1)
+      } else if (isSuccess === false) {
+        setErrorMessage('아이디 혹은 비밀번호가 틀렸습니다!')
+        setErrorKey(prev => prev + 1)
+      }
+      dispatch(loginAction.logout())
+    }
+  }, [isSuccess])
 
   const handleId = (event) => {
     setId(event.target.value)
@@ -65,7 +81,10 @@ function Login() {
             onChange={handlePassword} 
           />
         </div>
-        <div className={classes.formSubGroup}>
+        <div key={errorKey} className={classes.formSubGroup}>
+          {errorMessage && (
+            <div className={classes.errorBox}>{errorMessage}</div>
+          )}
           <div></div>
           <button type="submit" className={classes.loginButton}>
             로그인

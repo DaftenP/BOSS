@@ -4,12 +4,14 @@ services:
 
   frontend:
     build: ./client
+    image: boss-dev-frontend:latest
     container_name: boss-dev-frontend
     environment:
       - TZ=Asia/Seoul
 
   backend:
     build: ./server/BOSS
+    image: boss-dev-backend:latest
     container_name: boss-dev-backend
     depends_on:
       - db
@@ -28,6 +30,7 @@ services:
   
   server:
     build: ./nginx
+    image: boss-dev-server:latest
     container_name: boss-dev-nginx
     depends_on:
       - frontend

@@ -110,16 +110,16 @@
     align-items: flex-start;
     justify-content: flex-start;
     position: relative;
-    width: 177px;
-    height: 184px;
-    margin: 77px 0 0 100px;
+    /* width: 177px; */
+    /* height: 184px; */
+    margin: 77px 0 0 60px;
     color: #ffffff;
     font-family: Inter, var(--default-font-family);
-    font-size: 30px;
+    font-size: 25px;
     font-weight: 400;
     line-height: 36.307px;
     text-align: left;
-    text-overflow: initial;
+    /* text-overflow: initial; */
     z-index: 24;
     overflow: hidden;
     text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
@@ -378,7 +378,6 @@
     justify-content: flex-start;
     position: relative;
     width: 370px;
-    height: 69px;
     margin: 19px 0 0 46px;
     color: #ffffff;
     font-family: Inter, var(--default-font-family);

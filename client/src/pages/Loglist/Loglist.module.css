@@ -139,6 +139,14 @@
   font-weight: bold;
 }
 
+.logCount {
+  background-color: #6b9ed7;
+  text-align: center;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
 
 .logTable {
   width: 97%;
@@ -174,7 +182,7 @@
   opacity: 70%;
 }
 
-.modal {
+.modalBackdrop  {
   display: flex;
   justify-content: center;
   align-items: center;

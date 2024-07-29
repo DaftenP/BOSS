@@ -6,10 +6,13 @@ pipeline {
     }
 
     stages {
+        stage('build images') {
+            sh 'docker compose -f $COMPOSE_DEV build'
+        }
         stage('run container') {
             steps {
                 sh 'docker compose -f $COMPOSE_DEV down'
-                sh 'docker compose -f $COMPOSE_DEV up --build -d'
+                sh 'docker compose -f $COMPOSE_DEV up -d'
             }
         }
     }

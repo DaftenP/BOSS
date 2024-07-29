@@ -15,19 +15,19 @@ public class SignalingController {
     }
 
     @MessageMapping("/offer")
-    @SendTo("api/topic/offer")
+    @SendTo("/api/topic/offer")
     public SignalMessage offer(SignalMessage message) {
         return message;
     }
 
     @MessageMapping("/answer")
-    @SendTo("api/topic/answer")
+    @SendTo("/api/topic/answer")
     public SignalMessage answer(SignalMessage message) {
         return message;
     }
 
     @MessageMapping("/candidate")
-    @SendTo("api/topic/candidate")
+    @SendTo("/api/topic/candidate")
     public SignalMessage candidate(SignalMessage message) {
         return message;
     }

@@ -1,8 +1,6 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Admin;
-import com.ssafy.BOSS.exception.BussinessException;
-import com.ssafy.BOSS.exception.ErrorCode;
 import com.ssafy.BOSS.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

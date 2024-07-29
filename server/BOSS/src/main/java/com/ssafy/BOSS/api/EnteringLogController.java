@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,8 @@ public class EnteringLogController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
-    EnteringLogService enteringLogService;
+    private final EnteringLogService enteringLogService;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @GetMapping
     public ResponseEntity<?> getEnteringLog(@RequestBody EnteringLogSpecifiedDto dto, @RequestBody Pageable pageable) {
@@ -48,4 +50,14 @@ public class EnteringLogController {
         enteringLogService.updateEnteringLog(id, updateEnteringLog.getStickerCount(), updateEnteringLog.getIssue());
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/save")
+    public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLog enteringLog) {
+        enteringLogService.save(enteringLog);
+        if(enteringLog.isFail()) {
+            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
+        }
+        return ResponseEntity.ok().build();
+    }
+
 }

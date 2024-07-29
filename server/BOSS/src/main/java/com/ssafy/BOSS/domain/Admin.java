@@ -11,7 +11,7 @@ import java.util.List;
 @Getter @Setter
 public class Admin {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "admin_id")
     private Long id;
 

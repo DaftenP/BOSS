@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 public class LoginLog {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "login_log_id")
     private Long loginLogId;
 

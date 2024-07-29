@@ -13,7 +13,7 @@ import lombok.*;
 public class EnteringLog {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "log_id")
     private Long logId;
 

@@ -42,7 +42,7 @@ button {
   height: 97.4%;
   top: 1.37%;
   left: 10px;
-  background: url(../../assets/Monitoring/64f534b1-65e5-4fa5-b238-03309c872fd5.png)
+  background: url(../../assets/Monitoring/Graybox.png)
     no-repeat center;
   background-size: cover;
   z-index: 6;
@@ -52,7 +52,7 @@ button {
   width: 187px;
   height: 216.855px;
   margin: 73.669px 0 0 100px;
-  background: url(../../assets/Monitoring/c4d5f2de495809e7c23c52625367da6886ff4b42.png)
+  background: url(../../assets/Monitoring/Face.png)
     no-repeat center;
   background-size: cover;
   z-index: 24;
@@ -90,7 +90,7 @@ button {
   width: 491px;
   height: 9px;
   margin: 243.87px 0 0 18px;
-  background: url(../../assets/Monitoring/f6c69e1f-7636-437c-bed9-ac2cd81f8748.png)
+  background: url(../../assets/Monitoring/Boundary.png)
     no-repeat center;
   background-size: cover;
   z-index: 10;
@@ -116,7 +116,7 @@ button {
   height: 56.11%;
   top: 9.4%;
   left: 93px;
-  background: url(../../assets/Monitoring/64e648bfc20838bad94b061d81dcfe52d0a37f28.png)
+  background: url(../../assets/Monitoring/Phone.png)
     no-repeat center;
   background-size: cover;
   z-index: 26;
@@ -190,7 +190,7 @@ button {
   height: 45.14%;
   top: 31.35%;
   left: 88px;
-  background: url(../../assets/Monitoring/493d63f33944078e751929d429992d1c16f9a611.png)
+  background: url(../../assets/Monitoring/Belt.png)
     no-repeat center;
   background-size: cover;
   z-index: 25;
@@ -201,7 +201,7 @@ button {
   height: 43.57%;
   top: 33.23%;
   left: 88px;
-  background: url(../../assets/Monitoring/c6113e5a-c26e-4f22-928b-6735c7d8a848.png)
+  background: url(../../assets/Monitoring/Whitebox.png)
     no-repeat center;
   background-size: cover;
   z-index: 22;
@@ -222,7 +222,7 @@ button {
   width: 464px;
   height: 9px;
   margin: 235.334px 0 0 24px;
-  background: url(../../assets/Monitoring/95142348-b413-4dd2-83f3-52aef247b03e.png)
+  background: url(../../assets/Monitoring/Boundary.png)
     no-repeat center;
   background-size: cover;
   z-index: 16;
@@ -232,7 +232,7 @@ button {
   width: 491px;
   height: 9px;
   margin: -8.766px 0 0 18px;
-  background: url(../../assets/Monitoring/48c8f7cd-2a35-4b01-b6f1-8a2d0b7a3057.png)
+  background: url(../../assets/Monitoring/Boundary.png)
     no-repeat center;
   background-size: cover;
   z-index: 11;
@@ -258,7 +258,7 @@ button {
   height: 54.52%;
   top: 11.94%;
   left: 92px;
-  background: url(../../assets/Monitoring/64e648bfc20838bad94b061d81dcfe52d0a37f28.png)
+  background: url(../../assets/Monitoring/Phone.png)
     no-repeat center;
   background-size: cover;
   z-index: 27;
@@ -377,7 +377,7 @@ button {
   height: 12.08%;
   top: 87.92%;
   left: 50%;
-  background: url(../../assets/Monitoring/b3ff42ef-0c04-4253-9117-b40985cc3b29.png)
+  background: url(../../assets/Monitoring/Green.png)
     no-repeat center;
   background-size: cover;
   transform: translate(-50%, 0);
@@ -389,7 +389,7 @@ button {
   height: 7.65%;
   top: 90.47%;
   left: 45.35%;
-  background: url(../../assets/Monitoring/f123c5533341ca86babe293962d53b88b7415136.png)
+  background: url(../../assets/Monitoring/Bosslogo.png)
     no-repeat center;
   background-size: cover;
   z-index: 3;
@@ -411,7 +411,7 @@ button {
   white-space: nowrap;
   z-index: 1;
 }
-.vector {
+/* .vector {
   position: absolute;
   width: 26.561px;
   height: 3.37%;
@@ -421,4 +421,4 @@ button {
     no-repeat center;
   background-size: 100% 100%;
   z-index: 29;
-}
+} */

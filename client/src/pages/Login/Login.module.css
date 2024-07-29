@@ -31,7 +31,8 @@
   .logoImage {
     width: 350px;
     height: auto;
-    padding-left: 100px
+    padding-left: 100px;
+    margin-bottom: 15px;
   }
 
   .formContainer {
@@ -88,3 +89,11 @@
     background-color: #3F95FA;
   }
   
+  .inputText {
+    height: 45px;
+    background-color: whitesmoke;
+  }
+
+  .inputText:focus {
+    background-color: white;
+  }

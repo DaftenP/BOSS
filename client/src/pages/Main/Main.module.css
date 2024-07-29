@@ -1,0 +1,139 @@
+.mainContainer {
+    display: flex;
+}
+
+.todayIssueContainer {
+    background-color: white;
+    border: 1px solid #CDCDCD;
+    border-radius: 20px;
+    width: 50%;
+    margin: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.issueLogContainer{
+    background-color: #EEEEEE;
+    width: 50%;
+    min-height: 600px;
+    margin: 10px;
+}
+
+.relativeBoxContainer {
+    position: relative;
+}
+
+.issueTitleBox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #B0D2FA;
+    border-radius: 18px 18px 0 0;
+    padding: 10px 15px 10px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.totalIssueContainer {
+    border: 1px solid #CDCDCD;
+    border-radius: 20px;
+    background-color: white;
+    min-height: 700px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.moreButtonContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.moreButton {
+    cursor: pointer;
+    padding: 10px 100px 10px 100px;
+    margin-bottom: 16px;
+    background-color: #B0D2FA;
+    border: none;
+    border-radius: 20px;
+    opacity: 70%;
+}
+
+.chartContainer {
+    display: flex;
+    border: 1px solid #CDCDCD;
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 10px;
+    justify-content: center;
+}
+
+.chartTitle {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tableContainer{
+    padding: 25px 25px 5px 25px;
+}
+
+.logTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0 25px 0;
+    font-size: 11px
+}
+
+.logTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 40px 5px 20px 0px;
+    font-size: 11px
+}
+
+.logTable th, .logTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.totalRuleContainer {
+    border: 1px solid #CDCDCD;
+    border-radius: 20px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.firstRuleContainer {
+    position: relative;
+    border: 1px solid #B0D2FA;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 80px 25px 20px 25px;
+}
+
+.ruleContainer {
+    position: relative;
+    border: 1px solid #B0D2FA;
+    border-radius: 20px;
+    padding: 10px;
+    margin: 50px 25px 20px 25px;
+}
+
+.ruleTitle {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    border-radius: 15px;
+    background-color: #7990FD;
+    padding: 7px 40px 7px 40px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+}

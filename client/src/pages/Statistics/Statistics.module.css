@@ -29,7 +29,7 @@
 }
 
 .statisticsContent {
-    margin: 30px 30px 30px 140px;
+    margin: 30px 30px 30px 130px;
     display: flex;
 }
 
@@ -37,7 +37,7 @@
     border: 1px solid #CDCDCD;
     border-radius: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    padding: 0 38px 15px 18px;
+    padding: 0 23px 15px 18px;
     margin-right: 40px;
     min-width: 400px;
 }
@@ -91,4 +91,31 @@
 .statisticsTable th, .statisticsTable td {
     padding-top: 12px;
     padding-bottom: 12px;
+}
+
+.inputText {
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 50px;
+    font-size: 16px;
+    width: 150px;
+    text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+  
+.inputText:hover {
+    cursor: pointer;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.chartContainer {
+    width: 100%;
+}
+  
+.chartCanvas {
+    width: 100% !important;
+    height: 300px !important;
 }

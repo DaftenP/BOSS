@@ -33,4 +33,8 @@ public class EnteringLogService {
     public List<EnteringLog> findLogsByMember(Optional<Member> member) {
         return enteringLogRepository.findEnteringLogsByMember(member);
     }
+
+    public void save(EnteringLog enteringLog) {
+        enteringLogRepository.save(enteringLog);
+    }
 }

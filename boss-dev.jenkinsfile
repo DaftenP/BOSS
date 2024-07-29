@@ -7,7 +7,9 @@ pipeline {
 
     stages {
         stage('build images') {
-            sh 'docker compose -f $COMPOSE_DEV build'
+            steps {
+                sh 'docker compose -f $COMPOSE_DEV build'
+            }
         }
         stage('run container') {
             steps {

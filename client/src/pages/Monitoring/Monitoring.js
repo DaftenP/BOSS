@@ -19,52 +19,52 @@ const Monitoring = () => {
   return (
     <div>
       <div className={classes['main-container']}>
-        <div className={classes['galaxy-s']}>
-          <span className={classes['front-face']}>앞면</span>
-          <span className={classes['back-face']}>뒷면</span>
+      <div className={classes['rectangle']}>
+        <div className={classes['rectangle-1']}>
+          <div className={classes['success-person']} />
+          <span className={classes['person-info']}>
+            이름 : {currentPerson.name}
+            <br />
+            <br />
+            부서 : {currentPerson.department}
+            <br />
+            <br />
+            직책 : {currentPerson.position}
+          </span>
         </div>
-        <div className={classes['rectangle']}>
-          <div className={classes['rectangle-1']}>
-            <div className={classes['success-person']}></div>
-            <span className={classes['name-info']}>
-              이름: {currentPerson.name}<br /><br />
-              부서: {currentPerson.department}<br /><br />
-              직책: {currentPerson.position}<br /><br />
-            </span>
+        <div className={classes['rectangle-2']}>
+          <div className={classes['line' ]}/>
+          <span className={classes['date-time']}>{currentPerson.time_lst[previous_time]}</span>
+          <div className={classes['galaxy-s']}>
+            <span className={classes['front']}>앞면</span>
           </div>
-          <div className={classes['rectangle-2']}>
-            <div className={classes['line']}></div>
-            <div className={classes['line-3']}></div>
-            <span className={classes['timestamp']}>{currentPerson.time_lst[previous_time]}</span>
+          <span className={classes['back']}>뒷면</span>
+        </div>
+        <div className={classes['rectangle-3']}>
+          <span className={classes['real-time-monitoring']}>실시간 모니터링</span>
+          <div className={classes['conveyor-belt' ]}/>
+          <div className={classes['rectangle-4' ]}/>
+        </div>
+        <div className={classes['rectangle-5']}>
+          <div className={classes['line-6' ]}/>
+          <div className={classes['line-7' ]}/>
+          <span className={classes['date-time-8']}>{currentPerson.time_lst[current_time]}</span>
+          <div className={classes['galaxy-s-9']}>
+            <span className={classes['front-a']}>앞면</span>
           </div>
-          <div className={classes['rectangle-4']}>
-            <span className={classes['real-time-monitoring']}>실시간 모니터링</span>
-            <div className={classes['conveyor-belt']}>
-              <div className={classes['rectangle-5']}></div>
-            </div>
+          <span className={classes['back-side']}>뒷면</span>
+        </div>
+        <div className={classes['rectangle-b']}>
+          <div className={classes['flex-row-daf']}>
+            <span className={classes['security-issue']}>Security Issue</span>
+            <span className={classes['total-count']}>총 {currentPerson.issuance_count}건</span>
           </div>
-          <div className={classes['rectangle-6']}>
-            <div className={classes['galaxy-s-7']}>
-              <div className={classes['flex-row-db']}>
-                <div className={classes['line-8']}></div>
-                <span className={classes['back-side']}>뒷면</span>
-                <span className={classes['front-face-9']}>앞면</span>
-              </div>
-              <div className={classes['line-a']}></div>
-            </div>
-            <span className={classes['time-stamp']}>{currentPerson.time_lst[current_time]}</span>
-          </div>
-          <div className={classes['rectangle-b']}>
-            <div className={classes['flex-row']}>
-              <span className={classes['security-issue']}>Security Issue</span>
-              <span className={classes['total-count']}>총 {currentPerson.issuance_count}건</span>
-            </div>
-            <span className={classes['device-usb-detected']}>
-              {currentPerson.security_issue}
-            </span>
-          </div>
+          <span className={classes['usb-detection']}>
+            {currentPerson.security_issue}
+          </span>
         </div>
       </div>
+    </div>
       {/* 로고 누르면 다음 사람으로 넘어가고 몇 번째 사람인지 표시 */}
       <MonitoringNavbar onNextPerson={handleNextPerson} currentIndex={currentIndex}/>
       

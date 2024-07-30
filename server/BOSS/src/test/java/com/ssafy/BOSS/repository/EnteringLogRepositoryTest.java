@@ -1,17 +1,6 @@
 package com.ssafy.BOSS.repository;
 
-import com.ssafy.BOSS.domain.EnteringLog;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 class EnteringLogRepositoryTest {

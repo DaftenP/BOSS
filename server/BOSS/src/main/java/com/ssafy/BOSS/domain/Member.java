@@ -3,11 +3,13 @@ package com.ssafy.BOSS.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
-@Entity
 @Getter @Setter
+@ToString
+@Entity
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

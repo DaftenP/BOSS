@@ -28,7 +28,7 @@ public class EnteringLogController {
     private final SimpMessagingTemplate messagingTemplate;
 
     @GetMapping
-    public ResponseEntity<?> getEnteringLog(@RequestBody EnteringLogSpecifiedDto dto, @RequestBody Pageable pageable) {
+    public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
         Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
         return ResponseEntity.ok(logs);
     }

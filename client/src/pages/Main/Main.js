@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import classes from './Main.module.css';
 import { Line } from 'react-chartjs-2';
@@ -87,13 +87,14 @@ function Main() {
 
   // 도넛 차트 옵션 설정
   const optionsDounut = {
+    responsive: true,
+    maintainAspectRatio: false,
     cutout: '70%',
-    scales: {
-    }
+    scales: {}
   };
   
   // 20개의 데이터만 보여주는 코드
-  const sliceLogs = secondFilteredLogs.slice(0, 20)
+  const sliceLogs = secondFilteredLogs.slice(0, 15)
 
   return (
     <div className={classes.mainContainer}>
@@ -101,14 +102,14 @@ function Main() {
         <div>
           <div className={classes.chartTitle}>
             금일 이슈 현황
-            <div className={classes.chartContainer}>
+            <div className={classes.lineChartContainer}>
               <Line data={chartData} options={options} />
             </div>
           </div>
-          <div className={classes.chartTitle}>
+          <div className={classes.doughnutChartTitle}>
             금일 이슈 인원 비율
           </div>
-          <div className={classes.chartContainer}>
+          <div className={classes.doughnutChartContainer}>
             <Doughnut data={doughnutData} options={optionsDounut} />
           </div>
           <div>
@@ -128,7 +129,7 @@ function Main() {
                 </tr>
               </tbody>
             </table>
-         </div>
+          </div>
         </div>
       </div>
       <div className={classes.issueLogContainer}>
@@ -165,7 +166,7 @@ function Main() {
             </table>
           </div>
         </div>
-        <div className={classes.totalRuleContainer}>
+        <div className={classes.totalRuleContainer} style={{ backgroundImage: `url(${ruleImage})` }}>
           <div className={classes.relativeBoxContainer}>
             <div className={classes.issueTitleBox}>사고 시 조치 사항</div>
           </div>
@@ -173,9 +174,10 @@ function Main() {
             <div className={classes.ruleTitle}>스티커 훼손</div>
             <div className={classes.ruleContent}>
               <ul>
-                <p>1. 스티커 훼손 절차 1</p>
-                <p>2. 스티커 훼손 절차 2</p>
-                <p>3. 스티커 훼손 절차 3</p>
+                <p>1. 적발된 인원을 대기열에서 분리</p>
+                <p>2. 훼손 사유가 정당한지 판단</p>
+                <p>3. 훼손된 스티커를 제거 후 새 스티커를 재부착</p>
+                <p>4. 문제가 있다면 상급자에게 보고</p>
               </ul>
             </div>
           </div>
@@ -183,9 +185,10 @@ function Main() {
             <div className={classes.ruleTitle}>스티커 미부착</div>
             <div className={classes.ruleContent}>
               <ul>
-                <p>1. 스티커 없음 절차 1</p>
-                <p>2. 스티커 없음 절차 2</p>
-                <p>3. 스티커 없음 절차 3</p>
+                <p>1. 적발된 인원을 대기열에서 분리</p>
+                <p>2. 미부착 사유가 정당한지 판단</p>
+                <p>3. 이전 기록을 조회 후 스티커를 재부착</p>
+                <p>4. 문제가 있다면 상급자에게 보고</p>
               </ul>
             </div>
           </div>
@@ -193,9 +196,10 @@ function Main() {
             <div className={classes.ruleTitle}>휴대폰 변경</div>
             <div className={classes.ruleContent}>
               <ul>
-                <p>1. 휴대폰 변경 절차 1</p>
-                <p>2. 휴대폰 변경 절차 2</p>
-                <p>3. 휴대폰 변경 절차 3</p>
+                <p>1. 적발된 인원을 대기열에서 분리</p>
+                <p>2. 휴대폰 변경 사유가 정당한지 판단</p>
+                <p>3. 보안 관리자에게 연락하여 상황을 설명</p>
+                <p>4. 보안 관리자가 도착할 때까지 대기</p>
               </ul>
             </div>
           </div>

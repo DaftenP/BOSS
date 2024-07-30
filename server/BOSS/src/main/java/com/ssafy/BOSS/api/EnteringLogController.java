@@ -28,8 +28,15 @@ public class EnteringLogController {
     private final SimpMessagingTemplate messagingTemplate;
 
     @GetMapping
+    @Deprecated
     public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
         Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
+        return ResponseEntity.ok(logs);
+    }
+
+    @GetMapping("/view")
+    public ResponseEntity<?> getAllEnteringLogs() {
+        List<EnteringLog> logs = enteringLogService.getAllEnteringLogs();
         return ResponseEntity.ok(logs);
     }
 

@@ -6,10 +6,7 @@ import com.ssafy.BOSS.dto.memberDto.MemberReturnDto;
 import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -41,7 +38,8 @@ public class MemberController {
         }
     }
 
-    public ResponseEntity<?> getMemberByNfc(String nfc) {
+    @GetMapping("/{nfc}")
+    public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
         Optional<Member> member = memberService.findbyNfc(nfc);
         if(member.isPresent()) {
             MemberResponseDto memberResponseDto = new MemberResponseDto();

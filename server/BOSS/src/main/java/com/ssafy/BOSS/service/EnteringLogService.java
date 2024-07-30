@@ -37,4 +37,8 @@ public class EnteringLogService {
     public void save(EnteringLog enteringLog) {
         enteringLogRepository.save(enteringLog);
     }
+
+    public List<EnteringLog> getAllEnteringLogs() {
+        return enteringLogRepository.findAll();
+    }
 }

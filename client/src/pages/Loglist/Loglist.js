@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './Loglist.module.css';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchLogs } from '../../store/loglist';
 
 
-const Modal = ({ show, onClose, log }) => {
+const Modal = ({ show, onClose, log, update }) => {
   if (!show) {
     return null;
   }
@@ -11,13 +12,20 @@ const Modal = ({ show, onClose, log }) => {
   return (
     <div className={classes.modalBackdrop}>
       <div className={classes.modalContent}>
-        {/* 예시 이미지 두 개를 출력합니다. 실제 이미지 URL로 교체하세요. */}
-        <p className={classes.modalContent}><strong>{log.date}  {log.time}  {log.name}</strong> </p>
-
-        {/* <img src="https://via.placeholder.com/200" alt="Image 1" />
-        <img src="https://via.placeholder.com/200" alt="Image 2" /> */}
-        <div><button onClick={onClose}>닫기</button></div>
-
+        {update ? (
+          <div>
+            <p>{log.date} {log.time} {log.name}</p>
+            <div>업데이트된 예시 사진</div>
+            <div><button>확인</button></div>
+            <div><button onClick={onClose}>닫기</button></div>
+          </div>
+        ) : (
+          <div>
+            <p>{log.entering} {log.issue} {log.sticker_number}</p>
+            <div>예시 사진</div>
+            <div><button onClick={onClose}>닫기</button></div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -25,8 +33,21 @@ const Modal = ({ show, onClose, log }) => {
 
 function LogTable() {
   const logsData = useSelector(state => state.loglist.data); // 리덕스 store에 있는 데이터 접근
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLogs())
+      .then((result) => {
+        console.log('Fetch logs result:', result); // 데이터 로드 후 결과를 확인
+      })
+      .catch((error) => {
+        console.error('Fetch logs error:', error); // 에러 발생 시 에러 로그를 확인
+      });
+  }, [dispatch]);
+
   const [visibleCount, setVisibleCount] = useState(20);
   const [filteredLogs, setFilteredLogs] = useState(logsData);
+  const [update, setUpdate] = useState(false);
 
   const [filters, setFilters] = useState({
     name: '',
@@ -43,10 +64,6 @@ function LogTable() {
   const [showModal, setShowModal] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
 
-  // useEffect(() => {
-  //   setFilteredLogs(logsData); // 데이터가 변경될 때마다 filteredLogs를 업데이트
-  // }, [logsData]);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFilters(prevFilters => ({
@@ -58,7 +75,6 @@ function LogTable() {
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 10);
   };
-
 
   const handleFilter = (event) => {
     event.preventDefault();
@@ -113,9 +129,16 @@ function LogTable() {
   };
 
   const handleShowModal = (log) => {
+    setUpdate(false);
     setSelectedLog(log);
     setShowModal(true);
   };
+
+  const handleUpdateModal = (log) => {
+    setUpdate(true);
+    setSelectedLog(log);
+    setShowModal(true);
+  }
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -126,13 +149,12 @@ function LogTable() {
   const totalLogsCount = logsData.length;
   const filteredLogsCount = filteredLogs.length;
 
-
   return (
     <div className={classes.mainContainer}>
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
         {showModal && <div className={classes.modalBackdrop}></div>}
         <div className={classes.filteringBox}>
-            F I L T E R I N G
+          F I L T E R I N G
         </div>
         <div className={classes.inputContainer}>
           <form onSubmit={handleFilter}>
@@ -165,55 +187,57 @@ function LogTable() {
         </div>
       </div>
       <div className={classes.listContainer}>
-      <div className={classes.listTitle}>
+        <div className={classes.listTitle}>
           전체 이슈 로그
-      </div>
-      <div className={classes.logCount}>
+        </div>
+        <div className={classes.logCount}>
           {filteredLogsCount} / {totalLogsCount}
-      </div>
+        </div>
 
-      <table className={classes.logTable}>
-        <thead>
-          <tr>
-            <th>기기</th>
-            <th>ID</th>
-            <th>이름</th>
-            <th>부서</th>
-            <th>직책</th>
-            <th>날짜</th>
-            <th>시간</th>
-            <th>출/퇴</th>
-            <th>보안 이슈</th>
-            <th>발급 개수</th>
-            <th>자세히</th>
-          </tr>
-        </thead>
-        <tbody>
-          {displayedLogs.map((log, index) => (
-            <tr key={index}>
-              <td>{log.gate}</td>
-              <td>{log.id}</td>
-              <td>{log.name}</td>
-              <td>{log.department}</td>
-              <td>{log.position}</td>
-              <td>{log.date}</td>
-              <td>{log.time}</td>
-              <td>{log.entering}</td>
-              <td>{log.issue}</td>
-              <td>{log.sticker_number}</td>
-              <td><button onClick={() => handleShowModal(log)}>자세히</button></td>
+        <table className={classes.logTable}>
+          <thead>
+            <tr>
+              <th>기기</th>
+              <th>ID</th>
+              <th>이름</th>
+              <th>부서</th>
+              <th>직책</th>
+              <th>날짜</th>
+              <th>시간</th>
+              <th>출/퇴</th>
+              <th>보안 이슈</th>
+              <th>발급 개수</th>
+              <th>자세히</th>
+              <th>수정</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <Modal show={showModal} onClose={handleCloseModal} log={selectedLog} />
-      <div className={classes.moreButtonContainer}>
-        {visibleCount < filteredLogs.length && (
-          <button onClick={handleLoadMore} className={classes.moreButton}>▼  더보기</button>
-        )}
-      </div>
+          </thead>
+          <tbody>
+            {displayedLogs.map((log, index) => (
+              <tr key={index}>
+                <td>{log.gate}</td>
+                <td>{log.id}</td>
+                <td>{log.name}</td>
+                <td>{log.department}</td>
+                <td>{log.position}</td>
+                <td>{log.date}</td>
+                <td>{log.time}</td>
+                <td>{log.entering}</td>
+                <td>{log.issue}</td>
+                <td>{log.sticker_number}</td>
+                <td><button onClick={() => handleShowModal(log)}>자세히</button></td>
+                <td><button onClick={() => handleUpdateModal(log)}>수정</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <Modal show={showModal} onClose={handleCloseModal} log={selectedLog} update={update} />
+        <div className={classes.moreButtonContainer}>
+          {visibleCount < filteredLogs.length && (
+            <button onClick={handleLoadMore} className={classes.moreButton}>▼ 더보기</button>
+          )}
+        </div>
 
-    </div>
+      </div>
     </div>
   );
 }

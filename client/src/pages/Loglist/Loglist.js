@@ -11,9 +11,13 @@ const Modal = ({ show, onClose, log }) => {
   return (
     <div className={classes.modalBackdrop}>
       <div className={classes.modalContent}>
-        <span className={classes.close} onClick={onClose}>&times;</span>
-        <p><strong>{log.date} {log.time} {log.name}</strong></p>
+        {/* 예시 이미지 두 개를 출력합니다. 실제 이미지 URL로 교체하세요. */}
+        <p className={classes.modalContent}><strong>{log.date}  {log.time}  {log.name}</strong> </p>
+
+        {/* <img src="https://via.placeholder.com/200" alt="Image 1" />
+        <img src="https://via.placeholder.com/200" alt="Image 2" /> */}
         <div><button onClick={onClose}>닫기</button></div>
+
       </div>
     </div>
   );
@@ -23,7 +27,7 @@ function LogTable() {
   const logsData = useSelector(state => state.loglist.data); // 리덕스 store에 있는 데이터 접근
   const [visibleCount, setVisibleCount] = useState(20);
   const [filteredLogs, setFilteredLogs] = useState(logsData);
-  // console.log(logsData) // 데이터 체크
+  console.log(logsData)
   const [filters, setFilters] = useState({
     name: '',
     id: '',
@@ -119,8 +123,6 @@ function LogTable() {
   };
 
   const displayedLogs = filteredLogs.slice(0, visibleCount);
-  const totalLogsCount = logsData.length;
-  const filteredLogsCount = filteredLogs.length;
 
   return (
     <div className={classes.mainContainer}>
@@ -160,12 +162,9 @@ function LogTable() {
         </div>
       </div>
       <div className={classes.listContainer}>
-        <div className={classes.listTitle}>
-            전체 이슈 로그
-        </div>
-        <div className={classes.logCount}>
-            {filteredLogsCount} / {totalLogsCount}
-        </div>
+      <div className={classes.listTitle}>
+          전체 이슈 로그
+      </div>
       <table className={classes.logTable}>
         <thead>
           <tr>

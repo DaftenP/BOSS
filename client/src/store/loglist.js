@@ -1,115 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { loglistDummy } from "../utils/loglistDummy";
 
 const initialLoglistState = {
-  data: [
-    {'device': 7, 'id': '홍길동8833', 'name': '홍길동', 'department': 'OO제품 디자인팀', 'position': '사원', 'date': '2024-07-03', 'time': '15:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 1, 'id': '신사임당3830', 'name': '신사임당', 'department': 'OO제품 디자인팀', 'position': '대리', 'date': '2024-07-02', 'time': '19:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 7, 'id': '이몽룡6318', 'name': '이몽룡', 'department': 'OO제품 디자인팀', 'position': '사원', 'date': '2024-07-02', 'time': '14:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 2, 'id': '신사임당2395', 'name': '신사임당', 'department': 'OO제품 디자인팀', 'position': '사원', 'date': '2024-07-03', 'time': '11:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 3, 'id': '강감찬5972', 'name': '강감찬', 'department': 'OO기술 연구소', 'position': '사원', 'date': '2024-07-02', 'time': '10:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 7, 'id': '이성계9500', 'name': '이성계', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-02', 'time': '19:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 9, 'id': '변학도7805', 'name': '변학도', 'department': 'OO엔진 개발 및 설계', 'position': '부장', 'date': '2024-07-03', 'time': '10:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 1, 'id': '임꺽정2471', 'name': '임꺽정', 'department': 'OO제품 디자인팀', 'position': '차장', 'date': '2024-07-03', 'time': '13:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 4, 'id': '김유신6946', 'name': '김유신', 'department': 'OO마케팅', 'position': '차장', 'date': '2024-07-01', 'time': '20:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 4, 'id': '정약용2833', 'name': '정약용', 'department': 'OO제품 디자인팀', 'position': '사원', 'date': '2024-07-03', 'time': '18:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 8, 'id': '변학도9654', 'name': '변학도', 'department': 'OO마케팅', 'position': '대리', 'date': '2024-07-02', 'time': '15:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 10, 'id': '박문수1609', 'name': '박문수', 'department': 'OO마케팅', 'position': '부장', 'date': '2024-07-01', 'time': '18:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 6, 'id': '세종대왕6767', 'name': '세종대왕', 'department': 'OO엔진 개발 및 설계', 'position': '부장', 'date': '2024-07-01', 'time': '19:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 2, 'id': '홍길동3377', 'name': '홍길동', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-02', 'time': '17:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 5, 'id': '이몽룡6952', 'name': '이몽룡', 'department': 'OO인사팀', 'position': '차장', 'date': '2024-07-03', 'time': '19:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 7, 'id': '강감찬8623', 'name': '강감찬', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-01', 'time': '17:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 6, 'id': '장보고6403', 'name': '장보고', 'department': 'OO기술 연구소', 'position': '차장', 'date': '2024-07-02', 'time': '12:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 2, 'id': '장보고1711', 'name': '장보고', 'department': 'OO마케팅', 'position': '사원', 'date': '2024-07-03', 'time': '15:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 6, 'id': '이순신8536', 'name': '이순신', 'department': 'OO마케팅', 'position': '부장', 'date': '2024-07-02', 'time': '17:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 8, 'id': '김유신4764', 'name': '김유신', 'department': 'OO제품 디자인팀', 'position': '사원', 'date': '2024-07-03', 'time': '14:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 4, 'id': '이순신1069', 'name': '이순신', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-03', 'time': '15:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 10, 'id': '안중근3255', 'name': '안중근', 'department': 'OO엔진 개발 및 설계', 'position': '사원', 'date': '2024-07-03', 'time': '13:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 10, 'id': '유관순8905', 'name': '유관순', 'department': 'OO엔진 개발 및 설계', 'position': '사원', 'date': '2024-07-02', 'time': '18:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 6, 'id': '을지문덕8959', 'name': '을지문덕', 'department': 'OO제품 디자인팀', 'position': '부장', 'date': '2024-07-03', 'time': '20:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 3, 'id': '유관순8431', 'name': '유관순', 'department': 'OO기술 연구소', 'position': '과장', 'date': '2024-07-02', 'time': '14:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 8, 'id': '정약용3022', 'name': '정약용', 'department': 'OO마케팅', 'position': '부장', 'date': '2024-07-03', 'time': '19:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 4, 'id': '세종대왕8478', 'name': '세종대왕', 'department': 'OO엔진 개발 및 설계', 'position': '사원', 'date': '2024-07-02', 'time': '15:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 7, 'id': '강감찬7491', 'name': '강감찬', 'department': 'OO엔진 개발 및 설계', 'position': '부장', 'date': '2024-07-03', 'time': '10:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 2, 'id': '신사임당2432', 'name': '신사임당', 'department': 'OO기술 연구소', 'position': '차장', 'date': '2024-07-03', 'time': '15:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 3, 'id': '김유신2477', 'name': '김유신', 'department': 'OO제품 디자인팀', 'position': '차장', 'date': '2024-07-02', 'time': '15:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 9, 'id': '이순신9030', 'name': '이순신', 'department': 'OO마케팅', 'position': '사원', 'date': '2024-07-03', 'time': '20:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 8, 'id': '변학도6121', 'name': '변학도', 'department': 'OO인사팀', 'position': '과장', 'date': '2024-07-01', 'time': '15:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 5, 'id': '장보고3913', 'name': '장보고', 'department': 'OO기술 연구소', 'position': '부장', 'date': '2024-07-03', 'time': '15:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 2, 'id': '안중근8826', 'name': '안중근', 'department': 'OO인사팀', 'position': '부장', 'date': '2024-07-03', 'time': '13:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 2, 'id': '변학도2738', 'name': '변학도', 'department': 'OO마케팅', 'position': '부장', 'date': '2024-07-01', 'time': '17:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 2, 'id': '정약용9585', 'name': '정약용', 'department': 'OO마케팅', 'position': '대리', 'date': '2024-07-02', 'time': '17:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 7, 'id': '홍길동6214', 'name': '홍길동', 'department': 'OO기술 연구소', 'position': '부장', 'date': '2024-07-03', 'time': '15:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 8, 'id': '홍길동4973', 'name': '홍길동', 'department': 'OO인사팀', 'position': '대리', 'date': '2024-07-03', 'time': '09:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 4, 'id': '임꺽정2374', 'name': '임꺽정', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-01', 'time': '11:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 8, 'id': '을지문덕1381', 'name': '을지문덕', 'department': 'OO엔진 개발 및 설계', 'position': '사원', 'date': '2024-07-01', 'time': '21:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 10, 'id': '임꺽정7233', 'name': '임꺽정', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-01', 'time': '15:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 9, 'id': '장보고4601', 'name': '장보고', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-01', 'time': '19:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 9, 'id': '김유신8693', 'name': '김유신', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-01', 'time': '10:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 7, 'id': '윤봉길8459', 'name': '윤봉길', 'department': 'OO인사팀', 'position': '차장', 'date': '2024-07-03', 'time': '21:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 10, 'id': '신사임당5582', 'name': '신사임당', 'department': 'OO인사팀', 'position': '대리', 'date': '2024-07-01', 'time': '17:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 3, 'id': '임꺽정4958', 'name': '임꺽정', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-01', 'time': '14:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 3, 'id': '변학도2617', 'name': '변학도', 'department': 'OO기술 연구소', 'position': '과장', 'date': '2024-07-01', 'time': '09:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 9, 'id': '최영1424', 'name': '최영', 'department': 'OO기술 연구소', 'position': '부장', 'date': '2024-07-02', 'time': '12:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 1, 'id': '변학도3830', 'name': '변학도', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-03', 'time': '13:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 1, 'id': '정약용4887', 'name': '정약용', 'department': 'OO인사팀', 'position': '부장', 'date': '2024-07-02', 'time': '18:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 10, 'id': '홍길동8330', 'name': '홍길동', 'department': 'OO인사팀', 'position': '부장', 'date': '2024-07-01', 'time': '17:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 3, 'id': '이성계3513', 'name': '이성계', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-01', 'time': '11:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 8, 'id': '이성계8967', 'name': '이성계', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-03', 'time': '17:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 6, 'id': '성춘향6566', 'name': '성춘향', 'department': 'OO기술 연구소', 'position': '차장', 'date': '2024-07-03', 'time': '19:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 9, 'id': '강감찬6025', 'name': '강감찬', 'department': 'OO기술 연구소', 'position': '차장', 'date': '2024-07-01', 'time': '17:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 10, 'id': '이순신2304', 'name': '이순신', 'department': 'OO마케팅', 'position': '사원', 'date': '2024-07-03', 'time': '19:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 8, 'id': '안중근5815', 'name': '안중근', 'department': 'OO제품 디자인팀', 'position': '차장', 'date': '2024-07-03', 'time': '18:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 6, 'id': '을지문덕1879', 'name': '을지문덕', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-02', 'time': '19:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 1, 'id': '김삿갓5505', 'name': '김삿갓', 'department': 'OO마케팅', 'position': '차장', 'date': '2024-07-03', 'time': '10:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 10, 'id': '이성계5007', 'name': '이성계', 'department': 'OO제품 디자인팀', 'position': '차장', 'date': '2024-07-03', 'time': '18:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 8, 'id': '임꺽정1154', 'name': '임꺽정', 'department': 'OO기술 연구소', 'position': '사원', 'date': '2024-07-03', 'time': '18:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 10, 'id': '이순신2026', 'name': '이순신', 'department': 'OO마케팅', 'position': '부장', 'date': '2024-07-03', 'time': '13:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 5, 'id': '이순신9529', 'name': '이순신', 'department': 'OO인사팀', 'position': '부장', 'date': '2024-07-02', 'time': '11:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 10, 'id': '성춘향9377', 'name': '성춘향', 'department': 'OO기술 연구소', 'position': '부장', 'date': '2024-07-02', 'time': '15:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 9, 'id': '윤봉길1374', 'name': '윤봉길', 'department': 'OO제품 디자인팀', 'position': '부장', 'date': '2024-07-03', 'time': '19:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 10, 'id': '최영7636', 'name': '최영', 'department': 'OO기술 연구소', 'position': '부장', 'date': '2024-07-03', 'time': '19:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 9, 'id': '세종대왕5296', 'name': '세종대왕', 'department': 'OO엔진 개발 및 설계', 'position': '차장', 'date': '2024-07-01', 'time': '19:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 1, 'id': '세종대왕2536', 'name': '세종대왕', 'department': 'OO엔진 개발 및 설계', 'position': '사원', 'date': '2024-07-03', 'time': '11:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 5, 'id': '이몽룡8715', 'name': '이몽룡', 'department': 'OO기술 연구소', 'position': '과장', 'date': '2024-07-02', 'time': '14:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 3, 'id': '성춘향9739', 'name': '성춘향', 'department': 'OO인사팀', 'position': '차장', 'date': '2024-07-02', 'time': '14:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 7, 'id': '이순신3897', 'name': '이순신', 'department': 'OO마케팅', 'position': '사원', 'date': '2024-07-02', 'time': '19:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 6, 'id': '김유신1615', 'name': '김유신', 'department': 'OO인사팀', 'position': '부장', 'date': '2024-07-02', 'time': '17:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 10, 'id': '이성계7251', 'name': '이성계', 'department': 'OO기술 연구소', 'position': '과장', 'date': '2024-07-01', 'time': '15:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 5, 'id': '성춘향3737', 'name': '성춘향', 'department': 'OO제품 디자인팀', 'position': '부장', 'date': '2024-07-03', 'time': '13:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 9, 'id': '이몽룡3267', 'name': '이몽룡', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-02', 'time': '18:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 2, 'id': '임꺽정1822', 'name': '임꺽정', 'department': 'OO엔진 개발 및 설계', 'position': '사원', 'date': '2024-07-02', 'time': '10:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 8, 'id': '임꺽정1706', 'name': '임꺽정', 'department': 'OO기술 연구소', 'position': '과장', 'date': '2024-07-01', 'time': '14:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 1, 'id': '유관순8408', 'name': '유관순', 'department': 'OO마케팅', 'position': '차장', 'date': '2024-07-02', 'time': '10:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 5, 'id': '이성계2593', 'name': '이성계', 'department': 'OO마케팅', 'position': '과장', 'date': '2024-07-03', 'time': '21:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 5, 'id': '김삿갓8314', 'name': '김삿갓', 'department': 'OO인사팀', 'position': '사원', 'date': '2024-07-03', 'time': '21:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 8, 'id': '신사임당6559', 'name': '신사임당', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-01', 'time': '16:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 10, 'id': '임꺽정5500', 'name': '임꺽정', 'department': 'OO인사팀', 'position': '대리', 'date': '2024-07-02', 'time': '09:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 8, 'id': '임꺽정5841', 'name': '임꺽정', 'department': 'OO제품 디자인팀', 'position': '부장', 'date': '2024-07-03', 'time': '12:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 1, 'id': '이순신1901', 'name': '이순신', 'department': 'OO엔진 개발 및 설계', 'position': '사원', 'date': '2024-07-01', 'time': '12:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 3, 'id': '임꺽정6972', 'name': '임꺽정', 'department': 'OO제품 디자인팀', 'position': '차장', 'date': '2024-07-01', 'time': '15:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 3, 'id': '세종대왕7613', 'name': '세종대왕', 'department': 'OO제품 디자인팀', 'position': '대리', 'date': '2024-07-03', 'time': '16:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 3, 'id': '강감찬5552', 'name': '강감찬', 'department': 'OO마케팅', 'position': '대리', 'date': '2024-07-03', 'time': '19:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 8, 'id': '변학도8381', 'name': '변학도', 'department': 'OO제품 디자인팀', 'position': '사원', 'date': '2024-07-03', 'time': '11:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 1},
-{'device': 10, 'id': '이성계6528', 'name': '이성계', 'department': 'OO마케팅', 'position': '사원', 'date': '2024-07-03', 'time': '20:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 8, 'id': '윤봉길7777', 'name': '윤봉길', 'department': 'OO제품 디자인팀', 'position': '과장', 'date': '2024-07-03', 'time': '19:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 10, 'id': '유관순7333', 'name': '유관순', 'department': 'OO인사팀', 'position': '사원', 'date': '2024-07-03', 'time': '17:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 4, 'id': '세종대왕4336', 'name': '세종대왕', 'department': 'OO엔진 개발 및 설계', 'position': '부장', 'date': '2024-07-01', 'time': '09:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 3, 'id': '안중근2678', 'name': '안중근', 'department': 'OO엔진 개발 및 설계', 'position': '과장', 'date': '2024-07-01', 'time': '16:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 2},
-{'device': 8, 'id': '이순신9937', 'name': '이순신', 'department': 'OO엔진 개발 및 설계', 'position': '부장', 'date': '2024-07-02', 'time': '14:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 9, 'id': '유관순7592', 'name': '유관순', 'department': 'OO마케팅', 'position': '대리', 'date': '2024-07-01', 'time': '11:00:00', 'status': '출', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 4, 'id': '윤봉길2444', 'name': '윤봉길', 'department': 'OO마케팅', 'position': '대리', 'date': '2024-07-02', 'time': '11:00:00', 'status': '퇴', 'securityIssue': 'F', 'issueCount': 3},
-{'device': 8, 'id': '김유신8006', 'name': '김유신', 'department': 'OO마케팅', 'position': '차장', 'date': '2024-07-01', 'time': '19:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 6, 'id': '성춘향7645', 'name': '성춘향', 'department': 'OO기술 연구소', 'position': '대리', 'date': '2024-07-02', 'time': '21:00:00', 'status': '출', 'securityIssue': 'F', 'issueCount': 4},
-{'device': 5, 'id': '홍길동3310', 'name': '홍길동', 'department': 'OO인사팀', 'position': '대리', 'date': '2024-07-02', 'time': '21:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-{'device': 2, 'id': '강감찬3977', 'name': '강감찬', 'department': 'OO엔진 개발 및 설계', 'position': '차장', 'date': '2024-07-03', 'time': '15:00:00', 'status': '퇴', 'securityIssue': 'P', 'issueCount': 0},
-  ]
-}
+  data: loglistDummy(8000)
+};
 
 const loglistSlice = createSlice({
   name: 'loglist',
   initialState: initialLoglistState,
-  reducers: {}
-})
+  reducers: {
+    addLogs(state, action) {
+      state.data.push(...action.payload);
+    }
+  }
+});
 
-export const loglistAction = loglistSlice.reducer
-export default loglistSlice.reducer
+export const loglistActions = loglistSlice.actions;
+export default loglistSlice.reducer;

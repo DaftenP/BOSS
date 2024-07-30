@@ -1,5 +1,6 @@
 package com.ssafy.BOSS.config;
 
+import com.ssafy.BOSS.handler.SignalingHandler;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
@@ -19,7 +20,7 @@ public class WebRTCConfig implements WebSocketConfigurer {
      */
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-//        registry.addHandler(new SignalingHandler(), "/signal")
-//                .setAllowedOrigins("*"); // CORS 설정, 실제 배포 시 보안을 위해 특정 도메인으로 제한해야 함
+        registry.addHandler(new SignalingHandler(), "/signal")
+                .setAllowedOrigins("*"); // CORS 설정, 실제 배포 시 보안을 위해 특정 도메인으로 제한해야 함
     }
 }

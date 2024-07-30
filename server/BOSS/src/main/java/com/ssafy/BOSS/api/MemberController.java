@@ -43,6 +43,7 @@ public class MemberController {
         Optional<Member> member = memberService.findbyNfc(nfc);
         if(member.isPresent()) {
             MemberResponseDto memberResponseDto = new MemberResponseDto();
+            memberResponseDto.setId(member.get().getMemberId());
             memberResponseDto.setMemberProfile(member.get().getProfileImage());
             memberResponseDto.setMemberName(member.get().getName());
             memberResponseDto.setDepartment(member.get().getDepartment());

@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberResponseDto {
+    private Long id;
     private String memberProfile;
     private String memberName;
     private Department department;

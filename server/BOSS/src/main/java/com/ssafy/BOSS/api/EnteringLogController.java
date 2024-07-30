@@ -33,7 +33,7 @@ public class EnteringLogController {
         return ResponseEntity.ok(logs);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
         Optional<Member> member = memberRepository.findById(id);
         if(member.isPresent()) {
@@ -45,7 +45,7 @@ public class EnteringLogController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<?> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
         enteringLogService.updateEnteringLog(id, updateEnteringLog.getStickerCount(), updateEnteringLog.getIssue());
         return ResponseEntity.ok().build();

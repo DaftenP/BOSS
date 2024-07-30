@@ -3,7 +3,8 @@ import loginReducer from './login';
 import navigationReducer from './navigation';
 import managementReducer from './management';
 import adminReducer from './admin';
-import loglistReducer from './loglist'
+import loglistReducer from './loglist';
+import monitoringReducer from './monitoring';
 
 
 const store = configureStore({
@@ -13,6 +14,7 @@ const store = configureStore({
     management: managementReducer,
     admin: adminReducer,
     loglist: loglistReducer,
+    monitoring: monitoringReducer,
   },
 });
 

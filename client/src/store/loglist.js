@@ -1,11 +1,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import { loglistDummy } from "../utils/loglistDummy";
+import { loglistDummy } from "../utils/loglistDummy";
 
 export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log`);
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log/view`);
   return response.data;
 });
+
+export const updateLog = createAsyncThunk('loglist/updateLog', async () => {
+  const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/log/update`)
+  return response.data;
+
+})
 
 const initialLoglistState = {
   // data: loglistDummy(8000),
@@ -30,13 +36,22 @@ const loglistSlice = createSlice({
       .addCase(fetchLogs.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.data = action.payload;
-        console.log('Fetched logs:', action.payload); // 로그 추가
       })
       .addCase(fetchLogs.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-        console.error('Fetch logs failed:', action.error.message); // 로그 추가
-      });
+      })
+      .addCase(updateLog.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(updateLog.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload;
+      })
+      .addCase(updateLog.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
   },
 });
 

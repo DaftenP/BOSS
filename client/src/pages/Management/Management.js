@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import classes from './Management.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
+import { fetchMembers } from '../../store/management';
 
 function Management() {
   const [selectedOption, setSelectedOption] = useState('direct');
@@ -43,6 +44,19 @@ function Management() {
   };
 
   const logs = useSelector((state) => state.management.data);
+  console.log(logs)
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchMembers())
+      .then((result) => {
+        console.log('Fetch logs result:', result); // 데이터 로드 후 결과를 확인
+      })
+      .catch((error) => {
+        console.error('Fetch logs error:', error); // 에러 발생 시 에러 로그를 확인
+      });
+  }, [dispatch]);
 
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 10);

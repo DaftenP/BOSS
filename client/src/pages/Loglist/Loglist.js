@@ -1,39 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import classes from './Loglist.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLogs } from '../../store/loglist';
-
+import { fetchLogs, updateLog } from '../../store/loglist';
+ 
 
 const Modal = ({ show, onClose, log, update }) => {
+  const [formData, setFormData] = useState({
+    entering: log ? log.entering : '',
+    issue: log ? log.issue : '',
+    stickerCount: log ? log.stickerCount : 0,
+  });
+
+const dispatch = useDispatch();
+
   if (!show) {
     return null;
   }
+  const handleModalInputChange = (event) => {
+    const { name, value } = event.target
+    setFormData((preData) => ({
+      ...preData,
+      [name]: value,
+    }))
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(updateLog(formData));
+    onClose(); // 모달 닫기
+  };
 
   return (
     <div className={classes.modalBackdrop}>
       <div className={classes.modalContent}>
         {update ? (
           <div>
-            <p>{log.date} {log.time} {log.name}</p>
-            <div>업데이트된 예시 사진</div>
-            <div><button>확인</button></div>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
+                <input className={classes.inputText} type="text" name="issue" placeholder="보안 이슈" value={formData.issue} onChange={handleModalInputChange} />
+              </div>
+              <div>
+                <label htmlFor="stick_counter" className={classes.labelText}>발급 개수</label>
+                <input className={classes.inputText} type="number" name="stick_counter" placeholder="발급 개수"  value={formData.stickerCount} onChange={handleModalInputChange} /> 
+              </div>
+              <button>확인</button>
+            </form>
             <div><button onClick={onClose}>닫기</button></div>
           </div>
         ) : (
           <div>
-            <p>{log.entering} {log.issue} {log.sticker_number}</p>
+            <p>{log.time.split('T')[0]} {log.time.split('T')[1]} {log.name}</p>
             <div>예시 사진</div>
             <div><button onClick={onClose}>닫기</button></div>
           </div>
         )}
       </div>
     </div>
-  );
+    );
 };
 
 function LogTable() {
   const logsData = useSelector(state => state.loglist.data); // 리덕스 store에 있는 데이터 접근
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (displayedLogs.length > 0) {
+      setFilteredLogs(logsData)
+    }
+  }, [logsData])
 
   useEffect(() => {
     dispatch(fetchLogs())
@@ -51,7 +86,7 @@ function LogTable() {
 
   const [filters, setFilters] = useState({
     name: '',
-    id: '',
+    logId: '',
     department: '',
     position: '',
     entering: '',
@@ -84,8 +119,8 @@ function LogTable() {
     if (filters.name) {
       tempLogs = tempLogs.filter(log => log.name.includes(filters.name));
     }
-    if (filters.id) {
-      tempLogs = tempLogs.filter(log => log.id.includes(filters.id));
+    if (filters.logId) {
+      tempLogs = tempLogs.filter(log => log.logId.includes(filters.logId));
     }
     if (filters.department) {
       tempLogs = tempLogs.filter(log => log.department.includes(filters.department));
@@ -97,16 +132,16 @@ function LogTable() {
       tempLogs = tempLogs.filter(log => log.entering.includes(filters.entering));
     }
     if (filters.startDate) {
-      tempLogs = tempLogs.filter(log => new Date(log.date) >= new Date(filters.startDate));
+      tempLogs = tempLogs.filter(log => new Date(log.time.split('T')[0]) >= new Date(filters.startDate));
     }
     if (filters.endDate) {
-      tempLogs = tempLogs.filter(log => new Date(log.date) <= new Date(filters.endDate));
+      tempLogs = tempLogs.filter(log => new Date(log.time.split('T')[0]) <= new Date(filters.endDate));
     }
     if (filters.startTime) {
-      tempLogs = tempLogs.filter(log => log.time >= filters.startTime);
+      tempLogs = tempLogs.filter(log => log.time.split('T')[1] >= filters.startTime);
     }
     if (filters.endTime) {
-      tempLogs = tempLogs.filter(log => log.time <= filters.endTime);
+      tempLogs = tempLogs.filter(log => log.time.split('T')[1] <= filters.endTime);
     }
     if (filters.issue) {
       tempLogs = tempLogs.filter(log => log.issue.includes(filters.issue));
@@ -116,7 +151,7 @@ function LogTable() {
 
     setFilters({
       name: '',
-      id: '',
+      logId: '',
       department: '',
       position: '',
       entering: '',
@@ -161,25 +196,25 @@ function LogTable() {
             <div>
               <label htmlFor="name" className={classes.labelText}>이름</label>
               <input className={classes.inputText} type="text" name="name" placeholder="이름" value={filters.name} onChange={handleInputChange} />
-              <label htmlFor="id" className={classes.labelText}>ID</label>
-              <input className={classes.inputText} type="text" name="id" placeholder="ID" value={filters.id} onChange={handleInputChange} />
-              <label htmlFor="id" className={classes.labelText}>부서</label>
+              <label htmlFor="log_id" className={classes.labelText}>logId</label>
+              <input className={classes.inputText} type="text" name="log_id" placeholder="l o g  I D" value={filters.logId} onChange={handleInputChange} />
+              <label htmlFor="logId" className={classes.labelText}>부서</label>
               <input className={classes.inputText} type="text" name="department" placeholder="부서" value={filters.department} onChange={handleInputChange} />
               <label htmlFor="position" className={classes.labelText}>직책</label>
               <input className={classes.inputText} type="text" name="position" placeholder="직책" value={filters.position} onChange={handleInputChange} />
             </div>
             <div>
-              <label htmlFor="name" className={classes.labelText}>출/퇴</label>
+              <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
               <input className={classes.inputText} type="text" name="entering" placeholder="출/퇴" value={filters.entering} onChange={handleInputChange} />
-              <label htmlFor="name" className={classes.labelText}>startDate</label>
+              <label htmlFor="startDate" className={classes.labelText}>startDate</label>
               <input className={classes.inputText} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
-              <label htmlFor="name" className={classes.labelText}>endDate</label>
+              <label htmlFor="endDate" className={classes.labelText}>endDate</label>
               <input className={classes.inputText} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
-              <label htmlFor="name" className={classes.labelText}>startTime</label>
+              <label htmlFor="startTime" className={classes.labelText}>startTime</label>
               <input className={classes.inputText} type="time" name="startTime" value={filters.startTime} onChange={handleInputChange} />
-              <label htmlFor="name" className={classes.labelText}>endTime</label>
+              <label htmlFor="endTime" className={classes.labelText}>endTime</label>
               <input className={classes.inputText} type="time" name="endTime" value={filters.endTime} onChange={handleInputChange} />
-              <label htmlFor="name" className={classes.labelText}>securityIssue</label>
+              <label htmlFor="issue" className={classes.labelText}>securityIssue</label>
               <input className={classes.inputText} type="text" name="issue" placeholder="보안 이슈" value={filters.issue} onChange={handleInputChange} />
             </div>
             <button type="submit" className={classes.formButton}>검색</button>
@@ -198,7 +233,7 @@ function LogTable() {
           <thead>
             <tr>
               <th>기기</th>
-              <th>ID</th>
+              <th>logID</th>
               <th>이름</th>
               <th>부서</th>
               <th>직책</th>
@@ -214,16 +249,16 @@ function LogTable() {
           <tbody>
             {displayedLogs.map((log, index) => (
               <tr key={index}>
-                <td>{log.gate}</td>
-                <td>{log.id}</td>
+                <td>{log.gateNumber}</td>
+                <td>{log.logId}</td>
                 <td>{log.name}</td>
                 <td>{log.department}</td>
                 <td>{log.position}</td>
-                <td>{log.date}</td>
-                <td>{log.time}</td>
+                <td>{log.time.split('T')[0]}</td>
+                <td>{log.time.split('T')[1]}</td>
                 <td>{log.entering}</td>
                 <td>{log.issue}</td>
-                <td>{log.sticker_number}</td>
+                <td>{log.stickerCount}</td>
                 <td><button onClick={() => handleShowModal(log)}>자세히</button></td>
                 <td><button onClick={() => handleUpdateModal(log)}>수정</button></td>
               </tr>

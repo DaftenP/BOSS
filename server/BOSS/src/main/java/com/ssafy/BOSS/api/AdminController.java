@@ -5,10 +5,7 @@ import com.ssafy.BOSS.dto.adminDto.AdminReturnDto;
 import com.ssafy.BOSS.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -18,13 +15,13 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestParam String adminLoginId, @RequestParam String adminLoginPw) {
+    public ResponseEntity<?> login(@RequestBody Admin admin) {
         try {
-            Admin admin = adminService.login(adminLoginId, adminLoginPw);
-            if(admin != null) {
+            Admin login = adminService.login(admin.getAdminLoginId(), admin.getAdminLoginPw());
+            if(login != null) {
                 AdminReturnDto adminReturnDto = new AdminReturnDto();
-                adminReturnDto.setAdminId(adminLoginId);
-                adminReturnDto.setAdminPw(adminLoginPw);
+                adminReturnDto.setAdminId(admin.getAdminLoginId());
+                adminReturnDto.setAdminPw(admin.getAdminLoginPw());
                 return ResponseEntity.ok(adminReturnDto);
             } else {
                 return ResponseEntity.noContent().build();

@@ -3,6 +3,8 @@ package com.ssafy.BOSS.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +23,8 @@ public class EnteringLog {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String time;
+    @Column(name = "time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime time;
 
     private String deviceFrontImage;
 

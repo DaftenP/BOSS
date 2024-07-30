@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/adminlog")
+@RequestMapping("/api/admin/log")
 public class AdminLogController {
 
     private final AdminLogService adminLogService;

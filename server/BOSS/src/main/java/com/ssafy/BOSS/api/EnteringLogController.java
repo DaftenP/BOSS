@@ -19,7 +19,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/loglist")
+@RequestMapping("/api/log")
 public class EnteringLogController {
 
     private final MemberService memberService;
@@ -51,7 +51,7 @@ public class EnteringLogController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/save")
+    @PostMapping("/regist")
     public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLog enteringLog) {
         enteringLogService.save(enteringLog);
         if(enteringLog.isFail()) {

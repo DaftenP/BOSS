@@ -3,9 +3,11 @@ package com.ssafy.BOSS.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Entity
 @Getter @Setter
+@ToString
+@Entity
 public class Position {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

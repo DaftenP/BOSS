@@ -2,12 +2,10 @@ package com.ssafy.BOSS.dto.memberDto;
 
 import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.Position;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberResponseDto {

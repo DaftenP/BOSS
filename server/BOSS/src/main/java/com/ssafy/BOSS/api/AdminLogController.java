@@ -5,6 +5,7 @@ import com.ssafy.BOSS.domain.LoginLog;
 import com.ssafy.BOSS.service.AdminLogService;
 import com.ssafy.BOSS.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Slf4j
 @RestController
 @RequestMapping("/api/admin/log")
 public class AdminLogController {
@@ -24,12 +26,15 @@ public class AdminLogController {
 
     @GetMapping
     public ResponseEntity<?> getLoginLog() {
+        log.info("AdminLogController::getLoginLog");
         List<LoginLog> loginLogs = adminLogService.findAll();
         return ResponseEntity.ok(loginLogs);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getAdminLogById(@PathVariable String name) {
+        log.info("AdminLogController::getAdminLogById");
+        log.info("name: {}", name);
         Optional<Admin> admin = adminService.findByName(name);
         if (admin.isPresent()) {
             List<LoginLog> loginLogs = adminLogService.findByAdmin(admin);

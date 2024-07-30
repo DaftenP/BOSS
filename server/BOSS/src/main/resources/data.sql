@@ -1,1 +1,0 @@
-insert into administrator(admin_login_id, admin_login_pw, admin_name) values ('ssafy', 'ssafy1234!', '김싸피');

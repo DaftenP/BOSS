@@ -27,18 +27,18 @@ function LogTable() {
   const logsData = useSelector(state => state.loglist.data); // 리덕스 store에 있는 데이터 접근
   const [visibleCount, setVisibleCount] = useState(20);
   const [filteredLogs, setFilteredLogs] = useState(logsData);
-  console.log(logsData)
+
   const [filters, setFilters] = useState({
     name: '',
     id: '',
     department: '',
     position: '',
-    status: '',
+    entering: '',
     startDate: '',
     endDate: '',
     startTime: '',
     endTime: '',
-    securityIssue: ''
+    issue: ''
   });
   const [showModal, setShowModal] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
@@ -77,8 +77,8 @@ function LogTable() {
     if (filters.position) {
       tempLogs = tempLogs.filter(log => log.position.includes(filters.position));
     }
-    if (filters.status) {
-      tempLogs = tempLogs.filter(log => log.status.includes(filters.status));
+    if (filters.entering) {
+      tempLogs = tempLogs.filter(log => log.entering.includes(filters.entering));
     }
     if (filters.startDate) {
       tempLogs = tempLogs.filter(log => new Date(log.date) >= new Date(filters.startDate));
@@ -92,8 +92,8 @@ function LogTable() {
     if (filters.endTime) {
       tempLogs = tempLogs.filter(log => log.time <= filters.endTime);
     }
-    if (filters.securityIssue) {
-      tempLogs = tempLogs.filter(log => log.securityIssue.includes(filters.securityIssue));
+    if (filters.issue) {
+      tempLogs = tempLogs.filter(log => log.issue.includes(filters.issue));
     }
 
     setFilteredLogs(tempLogs);
@@ -103,12 +103,12 @@ function LogTable() {
       id: '',
       department: '',
       position: '',
-      status: '',
+      entering: '',
       startDate: '',
       endDate: '',
       startTime: '',
       endTime: '',
-      securityIssue: ''
+      issue: ''
     });
   };
 
@@ -123,6 +123,9 @@ function LogTable() {
   };
 
   const displayedLogs = filteredLogs.slice(0, visibleCount);
+  const totalLogsCount = logsData.length;
+  const filteredLogsCount = filteredLogs.length;
+
 
   return (
     <div className={classes.mainContainer}>
@@ -145,7 +148,7 @@ function LogTable() {
             </div>
             <div>
               <label htmlFor="name" className={classes.labelText}>출/퇴</label>
-              <input className={classes.inputText} type="text" name="status" placeholder="출/퇴" value={filters.status} onChange={handleInputChange} />
+              <input className={classes.inputText} type="text" name="entering" placeholder="출/퇴" value={filters.entering} onChange={handleInputChange} />
               <label htmlFor="name" className={classes.labelText}>startDate</label>
               <input className={classes.inputText} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
               <label htmlFor="name" className={classes.labelText}>endDate</label>
@@ -155,7 +158,7 @@ function LogTable() {
               <label htmlFor="name" className={classes.labelText}>endTime</label>
               <input className={classes.inputText} type="time" name="endTime" value={filters.endTime} onChange={handleInputChange} />
               <label htmlFor="name" className={classes.labelText}>securityIssue</label>
-              <input className={classes.inputText} type="text" name="securityIssue" placeholder="보안 이슈" value={filters.securityIssue} onChange={handleInputChange} />
+              <input className={classes.inputText} type="text" name="issue" placeholder="보안 이슈" value={filters.issue} onChange={handleInputChange} />
             </div>
             <button type="submit" className={classes.formButton}>검색</button>
           </form>
@@ -165,6 +168,10 @@ function LogTable() {
       <div className={classes.listTitle}>
           전체 이슈 로그
       </div>
+      <div className={classes.logCount}>
+          {filteredLogsCount} / {totalLogsCount}
+      </div>
+
       <table className={classes.logTable}>
         <thead>
           <tr>
@@ -184,16 +191,16 @@ function LogTable() {
         <tbody>
           {displayedLogs.map((log, index) => (
             <tr key={index}>
-              <td>{log.device}</td>
+              <td>{log.gate}</td>
               <td>{log.id}</td>
               <td>{log.name}</td>
               <td>{log.department}</td>
               <td>{log.position}</td>
               <td>{log.date}</td>
               <td>{log.time}</td>
-              <td>{log.status}</td>
-              <td>{log.securityIssue}</td>
-              <td>{log.issueCount}</td>
+              <td>{log.entering}</td>
+              <td>{log.issue}</td>
+              <td>{log.sticker_number}</td>
               <td><button onClick={() => handleShowModal(log)}>자세히</button></td>
             </tr>
           ))}

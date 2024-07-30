@@ -9,8 +9,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  * WebSocket 설정을 위한 구성 클래스입니다.
  * WebRTC 시그널링을 위한 WebSocket 핸들러를 등록합니다.
  */
-@Configuration
 @EnableWebSocket
+@Configuration
 public class WebRTCConfig implements WebSocketConfigurer {
 
     /**

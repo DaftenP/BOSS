@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@Slf4j
 @RestController
 @RequestMapping("/api/member")
 public class MemberController {
@@ -21,8 +20,6 @@ public class MemberController {
 
     @PostMapping("/regist")
     public ResponseEntity<?> memberRegiste(@RequestBody Member member) {
-        log.info("MemberController::memberRegiste");
-        log.info("Member: {}", member);
         try {
             member = memberService.join(member);
             if(member != null) {
@@ -44,8 +41,6 @@ public class MemberController {
 
     @GetMapping("/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
-        log.info("MemberController::getMemberByNfc");
-        log.info("Nfc: {}", nfc);
         Optional<Member> member = memberService.findbyNfc(nfc);
         if(member.isPresent()) {
             MemberResponseDto memberResponseDto = new MemberResponseDto();

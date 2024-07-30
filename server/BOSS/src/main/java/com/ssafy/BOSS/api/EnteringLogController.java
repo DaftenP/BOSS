@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-@Slf4j
 @RestController
 @RequestMapping("/api/log")
 public class EnteringLogController {
@@ -31,17 +30,12 @@ public class EnteringLogController {
 
     @GetMapping
     public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
-        log.info("EnteringLogController::getEnteringLog");
-        log.info("dto: {}", dto);
-        log.info("pageable: {}", pageable);
         Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
         return ResponseEntity.ok(logs);
     }
 
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
-        log.info("EnteringLogController::getEnteringLogByMemberId");
-        log.info("id: {}", id);
         Optional<Member> member = memberRepository.findById(id);
         if(member.isPresent()) {
             List<EnteringLog> logs = enteringLogService.findLogsByMember(member);
@@ -54,20 +48,14 @@ public class EnteringLogController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
-        log.info("EnteringLogController::updateEnteringLog");
-        log.info("id: {}", id);
-        log.info("updateEnteringLog: {}", updateEnteringLog);
         enteringLogService.updateEnteringLog(id, updateEnteringLog.getStickerCount(), updateEnteringLog.getIssue());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/regist")
     public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLog enteringLog) {
-        log.info("EnteringLogController::saveEnteringLog");
-        log.info("enteringLog: {}", enteringLog);
         enteringLogService.save(enteringLog);
         if(enteringLog.isFail()) {
-            log.info("entering log is fail! sending STOMP");
             messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
         }
         return ResponseEntity.ok().build();

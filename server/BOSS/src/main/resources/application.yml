@@ -16,3 +16,9 @@ spring:
       ddl-auto: create # 설정해야 테이블 자동생성
     open-in-view: false
     show_sql: true
+    defer-datasource-initialization: true
+    generate-ddl: true
+  sql:
+    init:
+      mode: always
+

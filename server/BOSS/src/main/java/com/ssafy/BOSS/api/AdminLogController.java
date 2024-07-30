@@ -5,7 +5,6 @@ import com.ssafy.BOSS.domain.LoginLog;
 import com.ssafy.BOSS.service.AdminLogService;
 import com.ssafy.BOSS.service.AdminService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

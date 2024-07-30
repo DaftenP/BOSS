@@ -1,0 +1,30 @@
+name: boss-release
+
+services:
+  db:
+    image: mysql
+    container_name: boss-release-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - TZ=Asia/Seoul
+    volumes:
+      - ~/mysql_data_release:/var/lib/mysql:rw
+    networks:
+      - wire
+
+  backend:
+    image: boss-backend:latest
+    container_name: boss-release-backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=release
+      - TZ=Asia/Seoul
+    depends_on:
+      - db
+    ports:
+      - "8081:8080"
+    networks:
+      - wire
+
+networks:
+  wire:
+    driver: bridge

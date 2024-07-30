@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    environment {
+        COMPOSE_DEV='docker-compose.dev.yml'
+    }
+
+    stages {
+        stage('build images') {
+            steps {
+                sh 'docker compose -f $COMPOSE_DEV build'
+            }
+        }
+        stage('run container') {
+            steps {
+                sh 'docker compose -f $COMPOSE_DEV down'
+                sh 'docker compose -f $COMPOSE_DEV up -d'
+            }
+        }
+    }
+}

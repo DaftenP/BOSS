@@ -4,6 +4,7 @@ import com.ssafy.BOSS.domain.Admin;
 import com.ssafy.BOSS.dto.adminDto.AdminReturnDto;
 import com.ssafy.BOSS.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
+@Slf4j
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
@@ -19,6 +21,9 @@ public class AdminController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam String adminLoginId, @RequestParam String adminLoginPw) {
+        log.info("AdminController::login");
+        log.info("adminLoginId: {}", adminLoginId);
+        log.info("adminLoginPw: {}", adminLoginPw);
         try {
             Admin admin = adminService.login(adminLoginId, adminLoginPw);
             if(admin != null) {

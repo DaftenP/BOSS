@@ -3,7 +3,7 @@ import axios from 'axios'
 import { generateManagementData } from "../utils/managementDummy";
 
 export const fetchMembers = createAsyncThunk('management/fetchMembers', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/member/1234`);
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/member/check/1234`);
   const data = Array.isArray(response.data) ? response.data : [response.data];
   return data;
 });

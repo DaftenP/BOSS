@@ -9,6 +9,7 @@ import Statistics from './pages/Statistics/Statistics';
 import Management from './pages/Management/Management';
 import Monitoring from './pages/Monitoring/Monitoring';
 import EduSsafy from './pages/EduSsafy/EduSsafy';
+import EduSsafyLogin from './pages/EduSsafyLogin/EduSsafyLogin';
 import Layout from './components/Layout/Layout';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/management" element={isLogin? <Layout><Management /></Layout> : <Navigate to="/" />} />
         <Route path="/monitoring" element={isLogin? <Monitoring />: <Navigate to="/" />} />
         <Route path="/edussafy" element={isLogin? <EduSsafy />: <Navigate to="/" />} />
+        <Route path="/edussafylogin" element={isLogin? <EduSsafyLogin />: <Navigate to="/" />} />
         {/* 정의되지 않은 경로로 갈 때 처리 */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

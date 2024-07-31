@@ -1,0 +1,258 @@
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.main-container,
+.main-container * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 1440px;
+  height: 773px;
+  margin: 0 auto;
+}
+.rectangle {
+  position: relative;
+  width: 448px;
+  height: 38px;
+  margin: 684px 0 0 120px;
+  background: #f4f4f4;
+  z-index: 16;
+}
+.rectangle-1 {
+  position: relative;
+  width: 1440px;
+  height: 51px;
+  margin: 0 0 0 0;
+  background: #24282b;
+  z-index: 12;
+}
+.privacy-policy {
+  position: absolute;
+  width: 118px;
+  height: 19px;
+  top: 15px;
+  left: 120px;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  z-index: 13;
+}
+.copyright-samsung {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 16px;
+  top: 17px;
+  left: 1063px;
+  color: #bcc4cb;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 16px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 17;
+}
+.intro-visual-bg {
+  position: absolute;
+  width: 1440px;
+  height: 773px;
+  top: 0;
+  left: 0;
+  background: url(../../assets/EduSsafyLogin/Login_background.png)
+    no-repeat center;
+  background-size: cover;
+}
+.rectangle-2 {
+  position: absolute;
+  width: 580px;
+  height: 668px;
+  top: 16px;
+  left: 120px;
+  background: #ffffff;
+  z-index: 1;
+}
+.logo {
+  position: relative;
+  width: 139px;
+  height: 100px;
+  margin: 44px 0 0 50px;
+  background: url(../../assets/EduSsafyLogin/Logo.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 2;
+}
+.id {
+  display: block;
+  position: relative;
+  height: 19px;
+  margin: 39px 0 0 50px;
+  color: #24282b;
+  font-family: Inter, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 3;
+}
+.rectangle-3 {
+  position: relative;
+  width: 480px;
+  height: 46px;
+  margin: 4px 0 0 50px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  z-index: 4;
+}
+.password {
+  display: block;
+  position: relative;
+  height: 19px;
+  margin: 34px 0 0 50px;
+  color: #24282b;
+  font-family: Inter, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 5;
+}
+.rectangle-4 {
+  position: relative;
+  width: 480px;
+  height: 46px;
+  margin: 9px 0 0 50px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  z-index: 6;
+}
+.rectangle-5 {
+  position: relative;
+  width: 480px;
+  height: 46px;
+  margin: 88px 0 0 50px;
+  cursor: pointer;
+  background: #3c90e2;
+  border: none;
+  z-index: 7;
+}
+.login {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 17px;
+  top: 14px;
+  left: 220px;
+  color: #ffffff;
+  font-family: Inter, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.943px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 8;
+}
+.password-recovery {
+  display: block;
+  position: relative;
+  height: 17px;
+  margin: 36px 0 0 249px;
+  color: #777f88;
+  font-family: Inter, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.943px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 9;
+}
+.rectangle-6 {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 379px;
+  left: 50px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  z-index: 10;
+}
+.id-save {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 380px;
+  left: 80px;
+  color: #4f5a66;
+  font-family: Inter, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 11;
+}
+.samsung-sw-academy {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  width: 452px;
+  height: 94px;
+  top: 500px;
+  left: 753px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 46.875px;
+  text-align: left;
+  text-overflow: initial;
+  z-index: 14;
+  overflow: hidden;
+}
+.ssafy-welcome {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 23px;
+  top: 595px;
+  left: 753px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 23px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 15;
+}

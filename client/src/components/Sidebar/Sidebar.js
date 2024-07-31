@@ -75,11 +75,11 @@ function Sidebar() {
         </li>
         <li>
           <NavLink
-            to="/edussafy"
-            className={activePage === 'edussafy' ? classes.activeLink : undefined}
+            to="/edussafylogin"
+            className={activePage === 'edussafylogin' ? classes.activeLink : undefined}
           >
             {/* <img src={monitoringIcon} alt="monitoring_icon" className={classes.labelIcon} /> */}
-            <span className={activePage === 'edussafy' ? classes.activeText : undefined}>에듀싸피</span>
+            <span className={activePage === 'edussafylogin' ? classes.activeText : undefined}>에듀싸피</span>
           </NavLink>
         </li>
       </ul>

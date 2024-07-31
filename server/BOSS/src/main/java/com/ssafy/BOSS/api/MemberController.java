@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -55,6 +56,12 @@ public class MemberController {
         else {
             return ResponseEntity.noContent().build();
         }
+    }
+
+    @GetMapping("/check")
+    public ResponseEntity<?> getMembers() {
+        List<Member> members = memberService.getAllMembers();
+        return ResponseEntity.ok(members);
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

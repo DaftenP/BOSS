@@ -6,13 +6,13 @@ const initialLoginState = {
   loginTime: null, // 로그인 시간
   success: null,
   data: [
-    {'admin_name': 'Admin1', 'admin_login_id': 'admin1', 'admin_pw': 'password1'},
-    {'admin_name': 'Admin2', 'admin_login_id': 'admin2', 'admin_pw': 'password2'},
-    {'admin_name': 'Admin3', 'admin_login_id': 'admin3', 'admin_pw': 'password3'},
-    {'admin_name': 'Admin4', 'admin_login_id': 'admin4', 'admin_pw': 'password4'},
-    {'admin_name': 'Admin5', 'admin_login_id': 'admin5', 'admin_pw': 'password5'},
-    {'admin_name': 'Admin6', 'admin_login_id': 'admin6', 'admin_pw': 'password6'},
-    {'admin_name': 'Admin7', 'admin_login_id': 'admin7', 'admin_pw': 'password7'},
+    {'admin_name': 'Admin1', 'admin_login_id': 'admin1', 'admin_pw': '1'},
+    {'admin_name': 'Admin2', 'admin_login_id': 'admin2', 'admin_pw': '2'},
+    {'admin_name': 'Admin3', 'admin_login_id': 'admin3', 'admin_pw': '3'},
+    {'admin_name': 'Admin4', 'admin_login_id': 'admin4', 'admin_pw': '4'},
+    {'admin_name': 'Admin5', 'admin_login_id': 'admin5', 'admin_pw': '5'},
+    {'admin_name': 'Admin6', 'admin_login_id': 'admin6', 'admin_pw': '6'},
+    {'admin_name': 'Admin7', 'admin_login_id': 'admin7', 'admin_pw': '7'},
   ]
 };
 

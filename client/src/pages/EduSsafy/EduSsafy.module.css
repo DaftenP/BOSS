@@ -28,6 +28,7 @@ button {
   margin: 0 auto;
   background: #ffffff;
 }
+
 .flex-row {
   position: relative;
   width: 1298px;
@@ -301,17 +302,53 @@ button {
   background-size: 100% 100%;
   z-index: 44;
 }
+
+.navigate-container {
+  position: relative;
+}
 .navigate-next {
   position: absolute;
   width: 24px;
   height: 24px;
   top: 39px;
   left: 983px;
-  background: url(../../assets/EduSsafy/9e77cd9e-e49f-4210-8530-ccc685d715de.png)
+  background: url(../../assets/EduSsafy/more.png) 
     no-repeat center;
   background-size: cover;
   z-index: 48;
+  cursor: pointer;
 }
+.dropdown-menu {
+  position: absolute;
+  top: calc(39px + 30px); /* navigate-next의 top 위치 + height */
+  left: 900px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 49; /* navigate-next보다 앞에 표시되도록 z-index 설정 */
+  width: max-content;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown-menu button,
+.dropdown-menu div {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover,
+.dropdown-menu div:hover {
+  background-color: #f0f0f0;
+}
+
 .kim-ji-hwan {
   display: flex;
   align-items: flex-start;

@@ -126,7 +126,6 @@ function LogTable() {
   const totalLogsCount = logsData.length;
   const filteredLogsCount = filteredLogs.length;
 
-
   return (
     <div className={classes.mainContainer}>
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>

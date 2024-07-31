@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import classes from './EduSsafy.module.css';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import './EduSsafy.module.css';
 
@@ -7,7 +8,9 @@ export default function Main() {
   // 입실/퇴실 상태 관리
   const [isCheckedIn, setIsCheckedIn] = useState(true);
   const [isCheckedOut, setIsCheckedOut] = useState(false);
-  const [isDiv, setIsDiv] = useState(true); // true이면 div, false이면 span
+  // 내 정보 항목 표시 상태 변수
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   // 입실/퇴실 상태 변경 함수
   const toggleCheckIn = () => {
@@ -16,6 +19,15 @@ export default function Main() {
 
   const toggleCheckOut = () => {
     setIsCheckedOut(!isCheckedOut);
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(prevState => !prevState);
+  };
+
+  // 로그아웃 핸들러
+  const handleLogout = () => {
+    navigate('/EduSsafyLogin');
   };
 
   useEffect(() => {
@@ -63,7 +75,7 @@ export default function Main() {
           <Link to="/main" className={classes['rectangle-5']}></Link>
         </div>
         <div className={classes['ellipse']} />
-        <span className={classes['number']}>1158916</span>
+        
         <span className={classes['my-campus']}>마이캠퍼스</span>
         <span className={classes['classroom']}>강의실</span>
         <span className={classes['community']}>커뮤니티</span>
@@ -72,9 +84,23 @@ export default function Main() {
         <div className={classes['bell']}>
           <div className={classes['icon']} />
         </div>
-        <div className={classes['navigate-next']} />
-        <span className={classes['kim-ji-hwan']}>김지환</span>
-        <span className={classes['name']}>님</span>
+
+        <div className={classes['navigate-container']}>
+          <span className={classes['number']}>1158916</span>
+          <span className={classes['kim-ji-hwan']}>김지환</span>
+          <span className={classes['name']}>님</span>
+          {/* 드롭다운을 여는 버튼 */}
+          <div className={classes['navigate-next']} onClick={toggleDropdown} />
+          {/* 드롭다운 메뉴 */}
+          <div className={`${classes['dropdown-menu']} ${isDropdownOpen ? classes['is-show'] : classes['hidden']}`}>
+            <div onClick={handleLogout}>로그아웃</div>
+            <div>추가 항목 1</div>
+            <div>추가 항목 2</div>
+          </div>
+          </div>
+        
+
+        
       </div>
       <div className={classes['flex-row-e']}>
         <div className={classes['rectangle-6']}>

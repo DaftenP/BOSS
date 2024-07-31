@@ -7,7 +7,7 @@ import SummaryStatistics from './SummaryStatistics';
 
 function Statistics() {
   const loglist = useSelector(state => state.loglist.data);
-
+  
   return (
     <div className={classes.statisticsContainer}>
       <DateStatistics loglist={loglist} />

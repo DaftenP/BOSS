@@ -7,10 +7,11 @@ export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
   return response.data;
 });
 
-export const updateLog = createAsyncThunk('loglist/updateLog', async () => {
-  const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/log/update`)
+export const updateLog = createAsyncThunk('loglist/updateLog', async (formData) => {
+  const { logId, ...updateData } = formData
+  console.log(updateData)
+  const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/log/update/${logId}`, updateData)
   return response.data;
-
 })
 
 const initialLoglistState = {

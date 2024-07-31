@@ -80,7 +80,7 @@ function SummaryStatistics({ loglist }) {
           <div className={classes.axisSelectBox}>
             <div className={classes.axisSelectTitle}>선택 옵션</div>
             <div className={classes.dataSelectBox}>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="day"
@@ -89,7 +89,7 @@ function SummaryStatistics({ loglist }) {
                 />
                 일
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="week"
@@ -98,7 +98,7 @@ function SummaryStatistics({ loglist }) {
                 />
                 주
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="month"
@@ -107,7 +107,7 @@ function SummaryStatistics({ loglist }) {
                 />
                 월
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="year"
@@ -117,31 +117,42 @@ function SummaryStatistics({ loglist }) {
                 년
               </label>
             </div>
-            {(selectedSummaryOption === 'day' || selectedSummaryOption === 'week') && (
-              <input
-                className={classes.inputText}
-                type="date"
-                value={selectedSummaryDate}
-                onChange={handleSummaryDateChange}
-              />
-            )}
-            {selectedSummaryOption === 'month' && (
-              <input
-                className={classes.inputText}
-                type="month"
-                value={selectedSummaryDate}
-                onChange={handleSummaryDateChange}
-              />
-            )}
-            {selectedSummaryOption === 'year' && (
-              <input
-                className={classes.inputText}
-                type="number"
-                value={selectedSummaryDate}
-                onChange={handleSummaryDateChange}
-                placeholder="년도 입력"
-              />
-            )}
+            <div className={classes.buttonContainer}>
+              {selectedSummaryOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedSummaryOption === 'year' || selectedSummaryOption === 'month' || selectedSummaryOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedSummaryOption === 'year' || selectedSummaryOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedSummaryOption === 'day' || selectedSummaryOption === 'week') && (
+                <input
+                  className={classes.inputText}
+                  type="date"
+                  value={selectedSummaryDate}
+                  onChange={handleSummaryDateChange}
+                />
+              )}
+              {selectedSummaryOption === 'month' && (
+                <input
+                  className={classes.inputText}
+                  type="month"
+                  value={selectedSummaryDate}
+                  onChange={handleSummaryDateChange}
+                />
+              )}
+              {selectedSummaryOption === 'year' && (
+                <input
+                  className={classes.inputText}
+                  type="number"
+                  value={selectedSummaryDate}
+                  onChange={handleSummaryDateChange}
+                  placeholder="년도 입력"
+                />
+              )}
+            </div>
           </div>
         </div>
         <div>

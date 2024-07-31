@@ -155,7 +155,7 @@ function DateStatistics({ loglist }) {
           <div className={classes.axisSelectBox}>
             <div className={classes.axisSelectTitle}>선택 옵션 - X축</div>
             <div className={classes.dataSelectBox}>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="day"
@@ -164,7 +164,7 @@ function DateStatistics({ loglist }) {
                 />
                 일
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="week"
@@ -173,7 +173,7 @@ function DateStatistics({ loglist }) {
                 />
                 주
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="month"
@@ -182,7 +182,7 @@ function DateStatistics({ loglist }) {
                 />
                 월
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="year"
@@ -192,36 +192,47 @@ function DateStatistics({ loglist }) {
                 년
               </label>
             </div>
-            {(selectedDateXOption === 'day' || selectedDateXOption === 'week') && (
-              <input
-                className={classes.inputText}
-                type="date"
-                value={selectedDate}
-                onChange={handleDateChange}
-              />
-            )}
-            {selectedDateXOption === 'month' && (
-              <input
-                className={classes.inputText}
-                type="month"
-                value={selectedDate}
-                onChange={handleDateChange}
-              />
-            )}
-            {selectedDateXOption === 'year' && (
-              <input
-                className={classes.inputText}
-                type="number"
-                value={selectedDate.split('-')[0]}
-                onChange={(e) => handleDateChange({ target: { value: `${e.target.value}-01` } })}
-                placeholder="년도 입력"
-              />
-            )}
+            <div className={classes.buttonContainer}>
+              {selectedDateXOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedDateXOption === 'year' || selectedDateXOption === 'month' || selectedDateXOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedDateXOption === 'year' || selectedDateXOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedDateXOption === 'day' || selectedDateXOption === 'week') && (
+                <input
+                  className={classes.inputText}
+                  type="date"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                />
+              )}
+              {selectedDateXOption === 'month' && (
+                <input
+                  className={classes.inputText}
+                  type="month"
+                  value={selectedDate}
+                  onChange={handleDateChange}
+                />
+              )}
+              {selectedDateXOption === 'year' && (
+                <input
+                  className={classes.inputText}
+                  type="number"
+                  value={selectedDate.split('-')[0]}
+                  onChange={(e) => handleDateChange({ target: { value: `${e.target.value}-01` } })}
+                  placeholder="년도 입력"
+                />
+              )}
+            </div>
           </div>
           <div className={classes.axisSelectBox}>
             <div className={classes.axisSelectTitle}>선택 옵션 - Y축</div>
             <div className={classes.dataSelectBox}>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="fail"
@@ -230,7 +241,7 @@ function DateStatistics({ loglist }) {
                 />
                 적발 횟수
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="pass"

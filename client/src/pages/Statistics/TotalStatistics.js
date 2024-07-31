@@ -195,7 +195,7 @@ function TotalStatistics({ loglist }) {
           <div className={classes.axisSelectBox}>
             <div className={classes.axisSelectTitle}>선택 옵션 - X축</div>
             <div className={classes.dataSelectBox}>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="day"
@@ -204,7 +204,7 @@ function TotalStatistics({ loglist }) {
                 />
                 일
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="week"
@@ -213,7 +213,7 @@ function TotalStatistics({ loglist }) {
                 />
                 주
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="month"
@@ -222,7 +222,7 @@ function TotalStatistics({ loglist }) {
                 />
                 월
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="year"
@@ -232,36 +232,47 @@ function TotalStatistics({ loglist }) {
                 년
               </label>
             </div>
-            {(selectedTotalXOption === 'day' || selectedTotalXOption === 'week') && (
-              <input
-                className={classes.inputText}
-                type="date"
-                value={selectedTotalDate}
-                onChange={handleTotalDateChange}
-              />
-            )}
-            {selectedTotalXOption === 'month' && (
-              <input
-                className={classes.inputText}
-                type="month"
-                value={selectedTotalDate}
-                onChange={handleTotalDateChange}
-              />
-            )}
-            {selectedTotalXOption === 'year' && (
-              <input
-                className={classes.inputText}
-                type="number"
-                value={selectedTotalDate.split('-')[0]}
-                onChange={(e) => handleTotalDateChange({ target: { value: `${e.target.value}-01` } })}
-                placeholder="년도 입력"
-              />
-            )}
+            <div className={classes.buttonContainer}>
+              {selectedTotalXOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month' || selectedTotalXOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedTotalXOption === 'day' || selectedTotalXOption === 'week') && (
+                <input
+                  className={classes.inputText}
+                  type="date"
+                  value={selectedTotalDate}
+                  onChange={handleTotalDateChange}
+                />
+              )}
+              {selectedTotalXOption === 'month' && (
+                <input
+                  className={classes.inputText}
+                  type="month"
+                  value={selectedTotalDate}
+                  onChange={handleTotalDateChange}
+                />
+              )}
+              {selectedTotalXOption === 'year' && (
+                <input
+                  className={classes.inputText}
+                  type="number"
+                  value={selectedTotalDate.split('-')[0]}
+                  onChange={(e) => handleTotalDateChange({ target: { value: `${e.target.value}-01` } })}
+                  placeholder="년도 입력"
+                />
+              )}
+            </div>
           </div>
           <div className={classes.axisSelectBox}>
             <div className={classes.axisSelectTitle}>선택 옵션 - Y축</div>
             <div className={classes.dataSelectBox}>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="fail"
@@ -270,7 +281,7 @@ function TotalStatistics({ loglist }) {
                 />
                 적발 횟수
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="pass"
@@ -284,7 +295,7 @@ function TotalStatistics({ loglist }) {
           <div className={classes.axisSelectBox}>
             <div className={classes.axisSelectTitle}>모집단 선택 옵션</div>
             <div className={classes.dataSelectBox}>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="gate"
@@ -293,7 +304,7 @@ function TotalStatistics({ loglist }) {
                 />
                 기기별 보기
               </label>
-              <label>
+              <label className={classes.labelBox}>
                 <input
                   type="radio"
                   value="department"
@@ -302,33 +313,38 @@ function TotalStatistics({ loglist }) {
                 />
                 부서별 보기
               </label>
-              <button onClick={openModal}>
+            </div>
+            <div className={classes.buttonContainer}>
+              {selectedTotalPopOption === 'department' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              <button className={classes.buttonBox} onClick={openModal}>
                 {selectedTotalPopOption === 'gate' ? '기기 선택하기' : '부서 선택하기'}
               </button>
-              <Modal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                contentLabel="Select Items Modal"
-              >
-                <h2>{selectedTotalPopOption === 'gate' ? '기기 선택하기' : '부서 선택하기'}</h2>
-                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                  {items.map(item => (
-                    <button
-                      key={item}
-                      onClick={() => handleItemClick(item)}
-                      style={{
-                        margin: '5px',
-                        backgroundColor: selectedItems.includes(item) ? 'lightblue' : 'white'
-                      }}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-                <button onClick={handleConfirm}>확인</button>
-                <button onClick={closeModal}>취소하기</button>
-              </Modal>
             </div>
+            <Modal
+              isOpen={isModalOpen}
+              onRequestClose={closeModal}
+              contentLabel="Select Items Modal"
+            >
+              <h2>{selectedTotalPopOption === 'gate' ? '기기 선택하기' : '부서 선택하기'}</h2>
+              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                {items.map(item => (
+                  <button
+                    key={item}
+                    onClick={() => handleItemClick(item)}
+                    style={{
+                      margin: '5px',
+                      backgroundColor: selectedItems.includes(item) ? 'lightblue' : 'white'
+                    }}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+              <button onClick={handleConfirm}>확인</button>
+              <button onClick={closeModal}>취소하기</button>
+            </Modal>
           </div>
         </div>
         <div className={classes.graphContainer}>
@@ -337,7 +353,7 @@ function TotalStatistics({ loglist }) {
             return (
               <div key={item}>
                 <h3>{item}</h3>
-                <Line data={data} options={{ /* 그래프 옵션 설정 */ }} />
+                <Line data={data} options={{}} />
               </div>
             );
           })}

@@ -28,8 +28,8 @@ function Management() {
 
   const [submitMemberData, setSubmitMemberData] = useState({
     memberName: '',
-    department: '',
-    position: '',
+    // department: '',
+    // position: '',
     phoneNumber: '',
     nfc: '',
     issueCount: '',

@@ -38,7 +38,7 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/{nfc}")
+    @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
         Optional<Member> member = memberService.findbyNfc(nfc);
         if(member.isPresent()) {

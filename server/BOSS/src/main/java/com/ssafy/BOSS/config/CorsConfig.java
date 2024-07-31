@@ -15,7 +15,11 @@ public class CorsConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+<<<<<<< Updated upstream
         http.cors(AbstractHttpConfigurer::disable);
+=======
+        http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable);
+>>>>>>> Stashed changes
         return http.build();
     }
 

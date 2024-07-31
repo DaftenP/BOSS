@@ -8,6 +8,11 @@ export const fetchMembers = createAsyncThunk('management/fetchMembers', async ()
   return data;
 });
 
+export const memberRegistration = createAsyncThunk('management/memberRegistration', async () => {
+  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/member/regist`);
+  return response.data
+})
+
 const initialManagementState = {
   // data: generateManagementData(60)
   data: [],
@@ -33,6 +38,17 @@ const managementSlice = createSlice({
         state.data = action.payload;
       })
       .addCase(fetchMembers.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(memberRegistration.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(memberRegistration.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data.push(action.payload);
+      })
+      .addCase(memberRegistration.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

@@ -65,19 +65,7 @@ function LogTable() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (displayedLogs.length > 0) {
-      setFilteredLogs(logsData)
-    }
-  }, [logsData])
-
-  useEffect(() => {
     dispatch(fetchLogs())
-      .then((result) => {
-        console.log('Fetch logs result:', result); // 데이터 로드 후 결과를 확인
-      })
-      .catch((error) => {
-        console.error('Fetch logs error:', error); // 에러 발생 시 에러 로그를 확인
-      });
   }, [dispatch]);
 
   const [visibleCount, setVisibleCount] = useState(20);
@@ -98,6 +86,10 @@ function LogTable() {
   });
   const [showModal, setShowModal] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
+
+  useEffect(() => {
+    setFilteredLogs(logsData);
+  }, [logsData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classes from './Management.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
-import { fetchMembers } from '../../store/management';
+import { fetchMembers, memberRegistration } from '../../store/management';
 
 function Management() {
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
   const [filters, setFilters] = useState({
-    name: '',
+    memberName: '',
     id: '',
     department: '',
     position: '',
@@ -17,13 +17,23 @@ function Management() {
     issueMax: '',
   });
   const [filterCriteria, setFilterCriteria] = useState({
-    name: '',
+    memberName: '',
     id: '',
     department: '',
     position: '',
     nfc: '',
     issueMin: '',
     issueMax: '',
+  });
+
+  const [submitMemberData, setSubmitMemberData] = useState({
+    memberName: '',
+    department: '',
+    position: '',
+    phoneNumber: '',
+    nfc: '',
+    issueCount: '',
+    profileImage: ''
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,41 +54,50 @@ function Management() {
   };
 
   const logs = useSelector((state) => state.management.data);
-  console.log(logs)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchMembers())
-      .then((result) => {
-        console.log('Fetch logs result:', result); // 데이터 로드 후 결과를 확인
-      })
-      .catch((error) => {
-        console.error('Fetch logs error:', error); // 에러 발생 시 에러 로그를 확인
-      });
   }, [dispatch]);
 
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 10);
   };
 
-  const handleFilterChange = (e) => {
-    const { id, value } = e.target;
+  const handleFilterChange = (event) => {
+    const { id, value } = event.target;
     setFilters((prevFilters) => ({
       ...prevFilters,
       [id]: value,
     }));
   };
 
-  const handleSearch = (e) => {
-    e.preventDefault();
+  const handleSearch = (event) => {
+    event.preventDefault();
     setFilterCriteria(filters);
     setVisibleCount(20);
   };
 
+  const handleSubmitChange = (event) => {
+    const { name, value } = event.target
+    setSubmitMemberData({
+      ...submitMemberData, [name]: value,
+    });
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const dataToSubmit = {
+      ...submitMemberData, profileImage: submitMemberData.profileImage || 'aaa.jpg'
+    }
+    console.log(dataToSubmit)
+    dispatch(memberRegistration(dataToSubmit))
+  }
+
   const filteredLogs = logs.filter((log) => {
     return (
-      (filterCriteria.name === '' || log.name.includes(filterCriteria.name)) &&
+      (filterCriteria.memberName === '' || log.memberName.includes(filterCriteria.memberName)) &&
       (filterCriteria.id === '' || log.id.includes(filterCriteria.id)) &&
       (filterCriteria.department === '' || log.department.includes(filterCriteria.department)) &&
       (filterCriteria.position === '' || log.position.includes(filterCriteria.position)) &&
@@ -99,10 +118,8 @@ function Management() {
         <div className={classes.inputContainer}> 
           <form onSubmit={handleSearch}>
             <div>
-              <label htmlFor="name" className={classes.labelText}>이름</label>
-              <input className={classes.inputText} type="text" id="name" placeholder="이 름" value={filters.name} onChange={handleFilterChange} />
-              <label htmlFor="id" className={classes.labelText}>ID</label>
-              <input className={classes.inputText} type="text" id="id" placeholder="I  D" value={filters.id} onChange={handleFilterChange} />
+              <label htmlFor="memberName" className={classes.labelText}>이름</label>
+              <input className={classes.inputText} type="text" id="memberName" placeholder="이 름" value={filters.id} onChange={handleFilterChange} />
               <label htmlFor="department" className={classes.labelText}>부서</label>
               <input className={classes.inputText} type="text" id="department" placeholder="부 서" value={filters.department} onChange={handleFilterChange} />
               <label htmlFor="position" className={classes.labelText}>직책</label>
@@ -148,28 +165,26 @@ function Management() {
               일괄 등록하기
             </label>
           </div>
-          <form action="">
+          <form onSubmit={handleSubmit}>
             {selectedOption === 'direct' ?  (
               <div>
                 <div>
-                  <label htmlFor="new name" className={classes.labelText}>이름</label>
-                  <input className={classes.inputText} type="text" id="new name" placeholder="이 름" />
-                  <label htmlFor="new id" className={classes.labelText}>ID</label>
-                  <input className={classes.inputText} type="text" id="new id" placeholder="I  D" />
+                  <label htmlFor="new memberName" className={classes.labelText}>이름</label>
+                  <input className={classes.inputText} name="memberName" type="text" id="new memberName" placeholder="이 름" onChange={handleSubmitChange} />
                   <label htmlFor="new department" className={classes.labelText}>부서</label>
-                  <input className={classes.inputText} type="text" id="new department" placeholder="부 서" />
+                  <input className={classes.inputText} name="department" type="number" id="new department" placeholder="부 서" onChange={handleSubmitChange} />
                   <label htmlFor="new position" className={classes.labelText}>직책</label>
-                  <input className={classes.inputText} type="text" id="new position" placeholder="직 책" />
-                  <label htmlFor="new phone number" className={classes.labelText}>연락처</label>
-                  <input className={classes.inputText} type="number" id="new phone number" placeholder="연 락 처" />
+                  <input className={classes.inputText} name="position" type="number" id="new position" placeholder="직 책" onChange={handleSubmitChange} />
+                  <label htmlFor="new phoneNumber" className={classes.labelText}>연락처</label>
+                  <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" placeholder="연 락 처" onChange={handleSubmitChange} />
                 </div>
                 <div>
                   <label htmlFor="new nfc" className={classes.labelText}>NFC</label>
-                  <input className={classes.inputText} type="text" id="new nfc" placeholder="N F C" />
+                  <input className={classes.inputText} name="nfc" type="text" id="new nfc" placeholder="N F C" onChange={handleSubmitChange} />
                   <label htmlFor="new cumulative issue" className={classes.labelText}>누적 이슈</label>
-                  <input className={classes.inputText} type="number" id="new cumulative issue" placeholder="누 적 이 슈" />
+                  <input className={classes.inputText} name="issueCount" type="number" id="new cumulative issue" placeholder="누 적 이 슈" onChange={handleSubmitChange} />
                   <label htmlFor="new profile" className={classes.labelText}>프로필 사진 파일을 선택해 주세요!</label>
-                  <input type="file" id="new profile" placeholder="프로필 사진" />
+                  <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} />
                 </div>
               </div>
             ) : (
@@ -178,7 +193,7 @@ function Management() {
                 <input type="file" id="new file" placeholder='일괄 등록 파일' />
               </div>
             )}
-            <button className={classes.formButton}>등 록</button>
+            <button type="submit" className={classes.formButton}>등 록</button>
           </form>
         </div>  
       </div>
@@ -204,7 +219,7 @@ function Management() {
               {displayedLogs.map((log, index) => (
                 <tr key={index}>
                   <td>{log.id}</td>
-                  <td>{log.name}</td>
+                  <td>{log.memberName}</td>
                   <td>{log.department}</td>
                   <td>{log.position}</td>
                   <td>{log.phoneNumber}</td>
@@ -245,10 +260,10 @@ const Modal = ({ log, onClose }) => {
     <div className={classes.modal} onClick={handleBackgroundClick}>
       <div className={classes.modalContent}>
         <span className={classes.close} onClick={onClose}>&times;</span>
-        <h2>{log.name}</h2>
+        <h2>{log.memberName}</h2>
         <p>부서: {log.department}</p>
         <p>직책: {log.position}</p>
-        <p>자세히: {log.detail}</p>
+        <p>자세히: {log.memberProfile}</p>
       </div>
     </div>
   );

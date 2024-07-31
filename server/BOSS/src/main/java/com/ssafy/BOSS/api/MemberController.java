@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,7 +62,18 @@ public class MemberController {
     @GetMapping("/check")
     public ResponseEntity<?> getMembers() {
         List<Member> members = memberService.getAllMembers();
-        return ResponseEntity.ok(members);
+        List<MemberResponseDto> dtos = members.stream().map(member -> {
+            MemberResponseDto dto = new MemberResponseDto();
+            dto.setId(member.getMemberId());
+            dto.setMemberProfile(member.getProfileImage());
+            dto.setMemberName(member.getName());
+            dto.setDepartment(member.getDepartment());
+            dto.setPosition(member.getPosition());
+            dto.setIssueCount(member.getIssueCount());
+            dto.setPhoneNumber(member.getPhoneNumber());
+            return dto;
+        }).toList();
+        return ResponseEntity.ok(dtos);
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

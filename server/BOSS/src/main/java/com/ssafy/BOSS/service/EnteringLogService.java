@@ -2,7 +2,9 @@ package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
+import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.repository.EnteringLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,5 +42,9 @@ public class EnteringLogService {
 
     public List<EnteringLog> getAllEnteringLogs() {
         return enteringLogRepository.findAll();
+    }
+
+    public List<EnteringLogDto> getAllSearchEnteringLogs(RequestEnteringLogDto logDto) {
+        return enteringLogRepository.searchEnteringLogs(logDto);
     }
 }

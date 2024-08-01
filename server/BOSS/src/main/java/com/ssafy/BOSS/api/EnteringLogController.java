@@ -3,6 +3,7 @@ package com.ssafy.BOSS.api;
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
+import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.service.EnteringLogService;
@@ -64,6 +65,12 @@ public class EnteringLogController {
         if(enteringLog.isFail()) {
             messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
         }
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchEnteringLog(@RequestBody RequestEnteringLogDto dto) {
+        enteringLogService.getAllSearchEnteringLogs(dto);
         return ResponseEntity.ok().build();
     }
 

@@ -12,15 +12,17 @@ export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
 // 특정 로그 수정 요청
 export const updateLog = createAsyncThunk('loglist/updateLog', async (formData) => {
   const { logId, ...updateData } = formData
-  console.log(updateData)
   const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/log/update/${logId}`, updateData)
   return response.data;
 })
 
 // 로그 필터링 요청
-// export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', async () => {
-//   const response = await axios.get()
-// })
+export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', async (filters) => {
+  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log/view`, {
+    params: filters,
+  });
+  return response.data;
+});
 
 const initialLoglistState = {
   // data: loglistDummy(8000),
@@ -35,7 +37,7 @@ const loglistSlice = createSlice({
   reducers: {
     addLogs(state, action) {
       state.data.push(...action.payload);
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -61,6 +63,17 @@ const loglistSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
+      .addCase(fetchFilteredLogs.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchFilteredLogs.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.data = action.payload;
+      })
+      .addCase(fetchFilteredLogs.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
   },
 });
 

@@ -361,7 +361,7 @@ function TotalStatistics({ loglist }) {
                   }, []).map((row, rowIndex) => (
                     <tr key={rowIndex}>
                       {row.map((item, colIndex) => (
-                        <>
+                        <React.Fragment key={colIndex}>
                           <td key={`checkbox-${colIndex}`} className={classes.checkCell}>
                             <input
                               type="checkbox"
@@ -377,13 +377,13 @@ function TotalStatistics({ loglist }) {
                           >
                             {item}
                           </td>
-                        </>
+                        </React.Fragment>
                       ))}
                       {Array.from({ length: (selectedTotalPopOption === 'gate' ? 4 : 2) - row.length }).map((_, i) => (
-                        <>
+                        <React.Fragment key={`empty-${i}`}>
                           <td key={`empty-checkbox-${i}`}></td>
                           <td key={`empty-name-${i}`}></td>
-                        </>
+                        </React.Fragment>
                       ))}
                     </tr>
                   ))}

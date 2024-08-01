@@ -18,7 +18,7 @@
   border: 1px solid #CDCDCD;
   border-radius: 20px;
   background-color: white;
-  margin: 10px;
+  margin: 15px 10px 10px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -70,6 +70,12 @@
   border-radius: 10px;
   height: 19px;
   border: 1px solid #CDCDCD;
+}
+
+.specificInputText {
+  width: 150px;
+  color: gray;
+  text-align: center;
 }
 
 .inputContainer {
@@ -210,11 +216,25 @@
 
 .modalContent {
   background: white;
-  padding: 20px;
   border-radius: 10px;
   max-width: 500px;
   width: 100%;
   z-index: 1001;
+}
+
+.imageContainer {
+  background-color: black;
+  color: white
+}
+
+.deviceImageBox {
+  display: flex;
+}
+
+.deviceImage {
+  background-color: gray;
+  width: 270px;
+  height: 480px;
 }
 
 .close {

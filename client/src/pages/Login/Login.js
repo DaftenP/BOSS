@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import classes from './Login.module.css';
-import { loginAction } from "../../store/login";
+import { login, logout } from "../../store/login"; // 비동기 액션을 import
 import sampleImage from '../../assets/Login/Login_background_image.png';
 import logoImage from '../../assets/Login/Logo_icon.png';
 import idIcon from '../../assets/Login/Id_icon.png'
@@ -14,37 +14,45 @@ function Login() {
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [errorKey, setErrorKey] = useState(0);
-  const isSuccess = useSelector((state) => state.login.success)
+  const isSuccess = useSelector((state) => state.login.success);
+  const error = useSelector((state) => state.login.error);
 
   const loginHandler = (event) => {
     event.preventDefault();
-    dispatch(loginAction.login({ id, password }))
+    dispatch(login({ id, password }));
   }
 
   useEffect(() => {
     if (isSuccess !== null) {
       if (!id && !password) {
-        setErrorMessage('아이디와 비밀번호를 입력해 주세요!')
-        setErrorKey(prev => prev + 1)
+        setErrorMessage('아이디와 비밀번호를 입력해 주세요!');
+        setErrorKey(prev => prev + 1);
       } else if (!id) {
-        setErrorMessage('아이디를 입력해 주세요!')
-        setErrorKey(prev => prev + 1)
+        setErrorMessage('아이디를 입력해 주세요!');
+        setErrorKey(prev => prev + 1);
       } else if (!password) {
-        setErrorMessage('비밀번호를 입력해 주세요!')
-        setErrorKey(prev => prev + 1)
+        setErrorMessage('비밀번호를 입력해 주세요!');
+        setErrorKey(prev => prev + 1);
       } else if (isSuccess === false) {
-        setErrorMessage('아이디 혹은 비밀번호가 틀렸습니다!')
-        setErrorKey(prev => prev + 1)
+        setErrorMessage('아이디 혹은 비밀번호가 틀렸습니다!');
+        setErrorKey(prev => prev + 1);
       }
-      dispatch(loginAction.logout())
+      dispatch(logout());
     }
-  }, [isSuccess])
+  }, [isSuccess, id, password, dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      setErrorMessage(error);
+      setErrorKey(prev => prev + 1);
+    }
+  }, [error]);
 
   const handleId = (event) => {
-    setId(event.target.value)
+    setId(event.target.value);
   }
   const handlePassword = (event) => {
-    setPassword(event.target.value)
+    setPassword(event.target.value);
   }
 
   return (

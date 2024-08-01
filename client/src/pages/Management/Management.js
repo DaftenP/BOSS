@@ -119,7 +119,7 @@ function Management() {
           <form onSubmit={handleSearch}>
             <div>
               <label htmlFor="memberName" className={classes.labelText}>이름</label>
-              <input className={classes.inputText} type="text" id="memberName" placeholder="이 름" value={filters.id} onChange={handleFilterChange} />
+              <input className={classes.inputText} type="text" id="memberName" placeholder="이 름" value={filters.memberName} onChange={handleFilterChange} />
               <label htmlFor="department" className={classes.labelText}>부서</label>
               <input className={classes.inputText} type="text" id="department" placeholder="부 서" value={filters.department} onChange={handleFilterChange} />
               <label htmlFor="position" className={classes.labelText}>직책</label>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginAction } from '../../store/login';
+import { logout } from "../../store/login";
 import classes from './Navbar.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
 
@@ -36,7 +36,7 @@ function Navbar() {
   }, [loginTime]);
 
   const logoutHandler = () => {
-    dispatch(loginAction.logout());
+    dispatch(logout());
   };
 
   return (

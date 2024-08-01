@@ -1,50 +1,61 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+export const login = createAsyncThunk('login/login', async ({ adminId, adminPw }) => {
+  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/login`, { adminId, adminPw });
+  return response.data;
+});
+
+export const logout = createAsyncThunk('login/logout', async () => {
+  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/logout`);
+  return response.data;
+});
 
 const initialLoginState = {
   isLogin: false,
   adminName: '', // 관리자 이름
   loginTime: null, // 로그인 시간
   success: null,
-  data: [
-    {'admin_name': 'Admin1', 'admin_login_id': 'admin1', 'admin_pw': '1'},
-    {'admin_name': 'Admin2', 'admin_login_id': 'admin2', 'admin_pw': '2'},
-    {'admin_name': 'Admin3', 'admin_login_id': 'admin3', 'admin_pw': '3'},
-    {'admin_name': 'Admin4', 'admin_login_id': 'admin4', 'admin_pw': '4'},
-    {'admin_name': 'Admin5', 'admin_login_id': 'admin5', 'admin_pw': '5'},
-    {'admin_name': 'Admin6', 'admin_login_id': 'admin6', 'admin_pw': '6'},
-    {'admin_name': 'Admin7', 'admin_login_id': 'admin7', 'admin_pw': '7'},
-  ]
+  error: null,
 };
 
 const loginSlice = createSlice({
   name: 'login',
   initialState: initialLoginState,
-  reducers: {
-    login(state, action) {
-      const { id, password } = action.payload;
-      const admin = state.data.find(admin => admin.admin_login_id === id && admin.admin_pw === password);
-      
-      if (admin) {
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
         state.isLogin = true;
         state.success = true;
-        state.adminName = admin.admin_name;
+        state.adminName = action.payload.adminName;
         state.loginTime = new Date().toISOString();
-      } else {
+        state.error = null;
+      })
+      .addCase(login.rejected, (state, action) => {
         state.isLogin = false;
         state.success = false;
         state.adminName = '';
         state.loginTime = null;
-      }
-    },
-    logout(state) {
-      state.isLogin = false;
-      state.adminName = '';
-      state.loginTime = null;
-      state.success = null
-    },
+        state.error = action.error.message;
+      })
+      .addCase(logout.pending, (state) => {
+        state.error = null;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.isLogin = false;
+        state.success = null;
+        state.adminName = '';
+        state.loginTime = null;
+        state.error = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.error = action.error.message;
+      });
   },
 });
-
-export const loginAction = loginSlice.actions;
 
 export default loginSlice.reducer;

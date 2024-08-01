@@ -11,7 +11,7 @@ export default function Main() {
   };
 
   return (
-    <div className={classes['main-container']}>
+    <div className={`${classes['main-container']} ${classes['intro-visual-bg']}`}>
       <div className={classes['rectangle']} />
       <div className={classes['rectangle-1']}>
         <span className={classes['privacy-policy']}>
@@ -21,7 +21,7 @@ export default function Main() {
           Copyright@ SAMSUNG All Rights Reserved.
         </span>
       </div>
-      <div className={classes['intro-visual-bg']} />
+      {/* <div className={classes['intro-visual-bg']} /> */}
       <div className={classes['rectangle-2']}>
         <div className={classes['logo']} />
         <span className={classes['id']}>아이디</span>

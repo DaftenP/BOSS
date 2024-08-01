@@ -21,12 +21,14 @@ button {
   outline: 0;
 }
 
-.main-container {
-  position: relative;
-  width: 1440px;
-  height: 773px;
-  margin: 0 auto;
+.intro-visual-bg {
+  background-image: url(../../assets/EduSsafyLogin/Login_background.png);
+  background-size: 100%; /* 원본 크기를 유지 */
+  background-position: center center; /* 이미지가 중앙에 위치하도록 설정 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+  background-attachment: fixed; /* 화면 스크롤에 배경 이미지 고정 */
 }
+
 .rectangle {
   position: relative;
   width: 448px;
@@ -35,14 +37,17 @@ button {
   background: #f4f4f4;
   z-index: 16;
 }
+
 .rectangle-1 {
-  position: relative;
-  width: 1440px;
+  position: fixed;
+  width: 100%;
   height: 51px;
+  bottom: 0;
   margin: 0 0 0 0;
   background: #24282b;
-  z-index: 12;
+  z-index: 20;
 }
+
 .privacy-policy {
   position: absolute;
   width: 118px;
@@ -60,6 +65,7 @@ button {
   border: none;
   z-index: 13;
 }
+
 .copyright-samsung {
   display: flex;
   align-items: flex-start;
@@ -77,16 +83,7 @@ button {
   white-space: nowrap;
   z-index: 17;
 }
-.intro-visual-bg {
-  position: absolute;
-  width: 1440px;
-  height: 773px;
-  top: 0;
-  left: 0;
-  background: url(../../assets/EduSsafyLogin/Login_background.png)
-    no-repeat center;
-  background-size: cover;
-}
+
 .rectangle-2 {
   position: absolute;
   width: 580px;
@@ -96,16 +93,17 @@ button {
   background: #ffffff;
   z-index: 1;
 }
+
 .logo {
   position: relative;
   width: 139px;
   height: 100px;
   margin: 44px 0 0 50px;
-  background: url(../../assets/EduSsafyLogin/Logo.png)
-    no-repeat center;
+  background: url(../../assets/EduSsafyLogin/Logo.png) no-repeat center;
   background-size: cover;
   z-index: 2;
 }
+
 .id {
   display: block;
   position: relative;
@@ -120,6 +118,7 @@ button {
   white-space: nowrap;
   z-index: 3;
 }
+
 .rectangle-3 {
   position: relative;
   width: 480px;
@@ -129,6 +128,7 @@ button {
   border: 1px solid #dddddd;
   z-index: 4;
 }
+
 .password {
   display: block;
   position: relative;
@@ -143,6 +143,7 @@ button {
   white-space: nowrap;
   z-index: 5;
 }
+
 .rectangle-4 {
   position: relative;
   width: 480px;
@@ -152,6 +153,7 @@ button {
   border: 1px solid #dddddd;
   z-index: 6;
 }
+
 .rectangle-5 {
   position: relative;
   width: 480px;
@@ -162,6 +164,7 @@ button {
   border: none;
   z-index: 7;
 }
+
 .login {
   display: flex;
   align-items: flex-start;
@@ -179,6 +182,7 @@ button {
   white-space: nowrap;
   z-index: 8;
 }
+
 .password-recovery {
   display: block;
   position: relative;
@@ -193,6 +197,7 @@ button {
   white-space: nowrap;
   z-index: 9;
 }
+
 .rectangle-6 {
   position: absolute;
   width: 20px;
@@ -203,6 +208,7 @@ button {
   border: 1px solid #dddddd;
   z-index: 10;
 }
+
 .id-save {
   display: flex;
   align-items: flex-start;
@@ -220,6 +226,7 @@ button {
   white-space: nowrap;
   z-index: 11;
 }
+
 .samsung-sw-academy {
   display: flex;
   align-items: flex-start;
@@ -239,6 +246,7 @@ button {
   z-index: 14;
   overflow: hidden;
 }
+
 .ssafy-welcome {
   display: flex;
   align-items: flex-start;

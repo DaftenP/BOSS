@@ -2,14 +2,14 @@ package com.ssafy.BOSS.dto.enteringLog;
 
 import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.Position;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class EnteringLogDto {
 
     private String name;

@@ -32,7 +32,7 @@ public class EnteringLog {
 
     private int entering;
 
-    private int gateNumber; // 되나..?
+    private int gateNumber;
 
     private int stickerCount;
 

@@ -17,7 +17,7 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @PostMapping("/regist")
-    public ResponseEntity<?> regist(@RequestBody Department department) {
+    public ResponseEntity<?> registDepartment(@RequestBody Department department) {
         departmentService.save(department);
         return ResponseEntity.ok().build();
     }

@@ -220,7 +220,7 @@ function DateStatistics({ loglist }) {
               )}
               {selectedDateXOption === 'year' && (
                 <input
-                  className={classes.inputText}
+                  className={`${classes.inputText} ${classes.yearInputText}`}
                   type="number"
                   value={selectedDate.split('-')[0]}
                   onChange={(e) => handleDateChange({ target: { value: `${e.target.value}-01` } })}
@@ -257,7 +257,7 @@ function DateStatistics({ loglist }) {
           {graphData && (
             <Line
               data={graphData}
-              options={{ /* 그래프 옵션 설정 */ }}
+              options={{}}
               className={classes.chartCanvas}
             />
           )}

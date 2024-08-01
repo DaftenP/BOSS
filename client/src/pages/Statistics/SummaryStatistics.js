@@ -46,9 +46,9 @@ function SummaryStatistics({ loglist }) {
         const diffDays = (logDateObj - selectedDateObj) / (1000 * 60 * 60 * 24);
         return diffDays >= 0 && diffDays < 7;
       } else if (selectedSummaryOption === 'month') {
-        return log.date.startsWith(selectedSummaryDate);
+        return log.date && selectedSummaryDate && log.date.startsWith(selectedSummaryDate);
       } else if (selectedSummaryOption === 'year') {
-        return log.date.startsWith(selectedSummaryDate);
+        return log.date && selectedSummaryDate && log.date.startsWith(selectedSummaryDate);
       }
       return false;
     });
@@ -145,7 +145,7 @@ function SummaryStatistics({ loglist }) {
               )}
               {selectedSummaryOption === 'year' && (
                 <input
-                  className={classes.inputText}
+                  className={`${classes.inputText} ${classes.yearInputText}`}
                   type="number"
                   value={selectedSummaryDate}
                   onChange={handleSummaryDateChange}
@@ -156,24 +156,24 @@ function SummaryStatistics({ loglist }) {
           </div>
         </div>
         <div>
-          <table className={classes.statisticsTable}>
-            <thead>
-              <tr>
-                <th>이용자 수</th>
-                <th>적발 횟수</th>
-                <th>로그 수</th>
-                <th>평균 적발률</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{statistics.users}</td>
-                <td>{statistics.issues}</td>
-                <td>{statistics.logs}</td>
-                <td>{statistics.averageIssues.toFixed(2)}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className={classes.summaryStatisticsContainer}>
+            <div className={classes.statisticsCard}>
+              <h3>이용자 수</h3>
+              <p className={classes.value}>{statistics.users} 명</p>
+            </div>
+            <div className={classes.statisticsCard}>
+              <h3>적발 횟수</h3>
+              <p className={classes.value}>{statistics.issues} 회</p>
+            </div>
+            <div className={classes.statisticsCard}>
+              <h3>로그 수</h3>
+              <p className={classes.value}>{statistics.logs} 개</p>
+            </div>
+            <div className={classes.statisticsCard}>
+              <h3>평균 적발률</h3>
+              <p className={classes.value}>{statistics.averageIssues.toFixed(2)}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

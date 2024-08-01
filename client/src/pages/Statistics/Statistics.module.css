@@ -1,173 +1,361 @@
 .statisticsContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .dateStatisticsContainer {
-    background-color: white;
-    border: 1px solid #CDCDCD;
-    border-radius: 20px;
-    margin: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  border: 1px solid #CDCDCD;
+  border-radius: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .relativeBoxContainer {
-    position: relative;
+  position: relative;
 }
 
 .statisticsTitleBox {
-    background-color: #B0D2FA;
-    border-radius: 18px 0 18px 0;
-    display: inline-block;
-    padding: 7px 17px 7px 17px;
-    font-size: 17px;
-    font-weight: bold;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 0;
+  background-color: #B0D2FA;
+  border-radius: 18px 0 18px 0;
+  display: inline-block;
+  padding: 7px 17px 7px 17px;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .statisticsContent {
-    margin: 30px 30px 30px 130px;
-    display: flex;
+  margin: 30px 30px 30px 130px;
+  display: flex;
+}
+
+.totalStatisticsContent {
+  margin: 30px 30px 30px 130px;
+  display: flex;
+  flex-direction: column;
 }
 
 .dataSelectContainer {
-    border: 1px solid #CDCDCD;
-    border-radius: 20px;
-    padding: 0 23px 15px 18px;
-    margin-right: 40px;
-    min-width: 400px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background-color: rgba(128, 128, 128, 0.041);
-    border-radius: 10px; /* 둥근 테두리 */
-    box-shadow: 0 6px 20px -15px #000; /* 그림자 효과 */
-    border-width: 1px 1px 0 0; /* 입체감 흰색 테두리 */
-    border-color: #fff;
-    border-style: solid;
-    max-height: 380px;
+  border: 1px solid #CDCDCD;
+  border-radius: 20px;
+  padding: 0 23px 15px 18px;
+  margin-right: 40px;
+  min-width: 400px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(128, 128, 128, 0.041);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px -15px #000;
+  border-width: 1px 1px 0 0;
+  border-color: #fff;
+  border-style: solid;
+  max-height: 380px;
+}
+
+.totalDataSelectContainer {
+  display: flex;
+  border: 1px solid #CDCDCD;
+  border-radius: 20px;
+  padding: 0 23px 15px 18px;
+  margin-right: 40px;
+  min-width: 400px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(128, 128, 128, 0.041);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px -15px #000;
+  border-width: 1px 1px 0 0;
+  border-color: #fff;
+  border-style: solid;
+  max-height: 380px;
 }
 
 .axisSelectBox {
-    display: flex;
-    margin-top: 20px;
+  display: flex;
+  margin-top: 20px;
+}
+
+.totalAxisSelectBox {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 50px;
 }
 
 .axisSelectTitle {
-    margin-right: 40px;
-    font-size: 15px;
-    font-weight: bold;
-    color: gray;
+  margin-right: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  color: gray;
+}
+
+.totalAxisSelectTitle {
+  margin-right: 13px;
+  font-size: 15px;
+  font-weight: bold;
+  color: gray;
 }
 
 .dataSelectBox {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .graphContainer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .graphContainer > div {
-    min-width: 200px;
-    min-height: 200px;
+  min-width: 50px;
+  min-height: 200px;
+  border: 1px solid #CDCDCD;
+  border-radius: 10px;
 }
 
-.statisticsTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.graphBox {
+  margin-top: 30px;
 }
-  
-.statisticsTable th, .statisticsTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
+
+.graphTitle {
+  text-align: center;
+  font-size: 19px;
+  font-weight: bold;
+  margin: 10px 0px
 }
-  
-.statisticsTable th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+
+.summaryStatisticsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
 }
-  
-.statisticsTable tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+.statisticsCard {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 20px 23px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
-  
-.statisticsTable th, .statisticsTable td {
-    padding-top: 12px;
-    padding-bottom: 12px;
+
+.statisticsCard h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.statisticsCard p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.statisticsCard .value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #007bff;
 }
 
 .inputText {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    border: 1px solid #B0D2FA;
-    border-radius: 10px;
-    background-color: #B0D2FA;
-    margin-left: 50px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    width: 150px;
-    text-align: center;
-    transition: border-color 0.3s, box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border: 2px solid white;
+  border-radius: 10px;
+  background-color: #7ab8fe;
+  margin-left: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: white;
+  width: 135px;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.specificInputText {
+  margin-left: 15px;
 }
 
 .inputText::-webkit-calendar-picker-indicator {
-    opacity: 0;
+  opacity: 0;
 }
 
-.inputText::after {
-    content: '📅';
-    font-size: 16px;
+.inputText[type="date"]::after {
+  content: '📅';
+  font-size: 16px;
+  position: absolute;
+  right: 7px;
+  top: 8px;
+  pointer-events: none;
 }
-  
+
+.inputText[type="month"]::after {
+  content: '📅';
+  font-size: 16px;
+  position: absolute;
+  right: 1px;
+  top: 8px;
+  pointer-events: none;
+}
+
+.yearInputText {
+  width: 132px;
+  height: 35px;
+}
+
 .inputText:hover {
-    cursor: pointer;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
+  cursor: pointer;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
 }
 
 .chartContainer {
-    width: 100%;
+  width: 100%;
+  border: 1px solid #CDCDCD;
+  border-radius: 10px;
+  padding: 12px;
 }
-  
+
 .chartCanvas {
-    width: 100% !important;
-    height: 300px !important;
+  width: 100% !important;
+  height: 300px !important;
 }
 
 .labelBox {
-    margin-bottom: 10px;
-    font-size: 17px
+  margin-bottom: 10px;
+  font-size: 17px
 }
 
 .emptySpace {
-    visibility: hidden;
-    margin: 5px;
+  visibility: hidden;
+  margin: 5px;
 }
 
 .buttonContainer {
-    display: inline-block;
-    align-items: center;
+  display: inline-block;
+  align-items: center;
 }
 
 .buttonBox {
-    cursor: pointer;
-    background-color: #B0D2FA;
-    border: 1px solid #B0D2FA;
-    border-radius: 10px;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    margin-left: 15px;
-    padding: 5px 7px 5px 7px;
+  cursor: pointer;
+  background-color: #B0D2FA;
+  border: 1px solid #B0D2FA;
+  border-radius: 10px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 15px;
+  padding: 5px 7px 5px 7px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.title {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.itemsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.itemsTable td {
+  border: 1px solid #ddd;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.checkCell {
+  padding: 10px 10px;
+}
+
+.nameCell {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.selectedRow {
+  background-color: #f0f0f0;
+}
+
+.clickableCell {
+  cursor: pointer;
+}
+
+.modalButtonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.confirmButton, .cancelButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.confirmButton {
+  background-color: #007bff;
+  color: white;
+}
+
+.cancelButton {
+  background-color: #ccc;
+}
+
+.selectButtonsContainer {
+  display: flex;
+  justify-content: right;
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
+  padding-bottom: 18px;
+}
+
+.selectAllButton, .deselectAllButton {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.selectAllButton {
+  background-color: #28a745;
+  color: white;
+  margin-right: 10px;
+}
+
+.deselectAllButton {
+  background-color: #dc3545;
+  color: white;
+  margin-right: 10px;
 }

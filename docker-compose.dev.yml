@@ -22,7 +22,7 @@ services:
   db:
     image: mysql
     container_name: boss-dev-db
-    command: --character-set-server=utf8mb4 --collation-server=utf8_general_ci
+    command: --character-set-server=utf8 --collation-server=utf8_general_ci
     environment:
       - MYSQL_ROOT_PASSWORD=ssafy
       - TZ=Asia/Seoul

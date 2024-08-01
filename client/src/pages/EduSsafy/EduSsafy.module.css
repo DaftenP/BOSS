@@ -1,0 +1,1654 @@
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+}
+
+.main-container {
+  overflow: hidden;
+}
+
+.main-container,
+.main-container * {
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  position: relative;
+  width: 1440px;
+  height: 773px;
+  margin: 0 auto;
+  background: #ffffff;
+}
+
+.flex-row {
+  position: relative;
+  width: 1298px;
+  height: 99px;
+  margin: 0 0 0 101px;
+  z-index: 51;
+}
+.rectangle {
+  position: absolute;
+  width: 89px;
+  height: 99px;
+  top: 0;
+  left: 1031px;
+  font-size: 0px;
+  background: #e9eef1;
+  z-index: 49;
+}
+.job-ssafy {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  position: relative;
+  width: 47px;
+  height: 34px;
+  margin: 32px 0 0 26px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.943px;
+  text-align: right;
+  text-overflow: initial;
+  text-transform: capitalize;
+  z-index: 52;
+  overflow: hidden;
+}
+.line {
+  position: relative;
+  width: 53px;
+  height: 2px;
+  margin: 12px 0 0 20px;
+  background: url(../../assets/EduSsafy/054bbfde-f06e-4cff-98ac-85f0b229e3bf.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 55;
+}
+.rectangle-1 {
+  position: absolute;
+  width: 89px;
+  height: 99px;
+  top: 0;
+  left: 1120px;
+  font-size: 0px;
+  background: #3297ce;
+  z-index: 50;
+}
+.ssafy-git {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  width: 47px;
+  height: 34px;
+  margin: 32px 0 0 17px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.943px;
+  text-align: left;
+  text-overflow: initial;
+  text-transform: capitalize;
+  z-index: 53;
+  overflow: hidden;
+}
+.line-2 {
+  position: relative;
+  width: 53px;
+  height: 2px;
+  margin: 12px 0 0 17px;
+  background: url(../../assets/EduSsafy/9380121c-dd2b-4ce1-9fda-caa5f0c85642.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 56;
+}
+.rectangle-3 {
+  position: absolute;
+  width: 89px;
+  height: 99px;
+  top: 0;
+  left: 1209px;
+  font-size: 0px;
+  background: #3fce32;
+  z-index: 51;
+}
+.meeting-ssafy {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: relative;
+  width: 61px;
+  height: 34px;
+  margin: 32px 0 0 11px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16.943px;
+  text-align: left;
+  text-overflow: initial;
+  text-transform: capitalize;
+  z-index: 54;
+  overflow: hidden;
+}
+.line-4 {
+  position: relative;
+  width: 68px;
+  height: 2px;
+  margin: 12px 0 0 11px;
+  background: url(../../assets/EduSsafy/42cac9be-7dc4-4ed7-a626-07991611a5cf.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 57;
+}
+.rectangle-5 {
+  position: absolute;
+  width: 95px;
+  height: 70.174px;
+  top: 16px;
+  left: 0;
+  background: url(../../assets/EduSsafy/f839699249316d1342762bcf044c9241a34a93a2.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 5;
+}
+.ellipse {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 31px;
+  left: 858px;
+  background: url(../../assets/EduSsafy/a6593be3-0022-4110-9190-3f4311c16844.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 45;
+  border-radius: 50%;
+}
+.number {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 15px;
+  top: 36px;
+  left: 917px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.523px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+.my-campus {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 39px;
+  left: 149px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 3;
+}
+.classroom {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 39px;
+  left: 299px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 39;
+}
+.community {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 39px;
+  left: 420px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 40;
+}
+.help-desk {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 39px;
+  left: 524px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 41;
+}
+.mentoring-board {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 39px;
+  left: 660px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 42;
+}
+.bell {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 39px;
+  left: 802px;
+  z-index: 43;
+  overflow: hidden;
+}
+.icon {
+  position: relative;
+  width: 20.5px;
+  height: 22.496px;
+  margin: 0.75px 0 0 1.75px;
+  background: url(../../assets/EduSsafy/8204991c-5f18-4509-87db-79ddcf23b099.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 44;
+}
+
+.navigate-container {
+  position: relative;
+}
+.navigate-next {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  top: 39px;
+  left: 983px;
+  background: url(../../assets/EduSsafy/more.png) 
+    no-repeat center;
+  background-size: cover;
+  z-index: 48;
+  cursor: pointer;
+}
+.dropdown-menu {
+  position: absolute;
+  top: calc(39px + 30px); /* navigate-next의 top 위치 + height */
+  left: 900px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 49; /* navigate-next보다 앞에 표시되도록 z-index 설정 */
+  width: max-content;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.is-show {
+  opacity: 1;
+  visibility: visible;
+}
+.dropdown-menu button,
+.dropdown-menu div {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.dropdown-menu button:hover,
+.dropdown-menu div:hover {
+  background-color: #f0f0f0;
+}
+
+.kim-ji-hwan {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 15px;
+  top: 52px;
+  left: 917px;
+  color: #5d9ff4;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.523px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 1;
+}
+.name {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 15px;
+  top: 52px;
+  left: 953px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.523px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 2;
+}
+.flex-row-e {
+  position: relative;
+  width: 1210px;
+  height: 250px;
+  margin: 48px 0 0 101px;
+  z-index: 13;
+}
+.rectangle-6 {
+  position: absolute;
+  width: 380px;
+  height: 250px;
+  top: 0;
+  left: 0;
+  background: #ffe651;
+  z-index: 6;
+}
+.flex-row-def {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 284.75px;
+  height: 29px;
+  margin: 37px 0 0 40px;
+  z-index: 47;
+}
+.check-status {
+  flex-shrink: 0;
+  position: relative;
+  height: 29px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 10;
+}
+.icon-7 {
+  flex-shrink: 0;
+  position: relative;
+  width: 17.5px;
+  height: 17.5px;
+  background: url(../../assets/EduSsafy/d5805da6-02dd-4657-823d-8d98365c14ff.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 47;
+}
+.flex-row-da {
+  position: relative;
+  width: 291px;
+  height: 78px;
+  margin: 20px 0 0 40px;
+  z-index: 11;
+}
+.regroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 168px;
+  height: 78px;
+  top: 0;
+  left: 123px;
+  z-index: 9;
+}
+.rectangle-on {
+  flex-shrink: 0;
+  position: relative;
+  width: 78px;
+  height: 78px;
+  cursor: poRoboto;
+  font-size: 0px;
+  background: #8c99a8;
+  border: none;
+  z-index: 8;
+  
+}
+.rectangle-off {
+  flex-shrink: 0;
+  position: relative;
+  width: 78px;
+  height: 78px;
+  background: #ffffff;
+  z-index: 9;
+}
+
+.time {
+  display: block;
+  position: relative;
+  height: 23px;
+  margin: 15px 0 0 0;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 22.994px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 97;
+}
+
+.check-off {
+  display: block;
+  position: relative;
+  height: 17px;
+  margin: 10px 0 0 13px;
+  color: #3396f4;
+  font-family: Malgun Gothic, var(--default-font-family);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16.943px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 99;
+}
+.check-on {
+  display: block;
+  position: relative;
+  height: 17px;
+  margin: 10px 0 0 13px;
+  color: #ffffff;
+  font-family: Malgun Gothic, var(--default-font-family);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16.943px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 98;
+}
+.icon-out {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  margin: 18px 0 0 30px;
+  background: url(../../assets/EduSsafy/5d973a44-7f07-4793-b438-828668c94ff5.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 101;
+}
+.icon-in {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  margin: 14px 0 0 28px;
+  background: url(../../assets/EduSsafy/person.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 101;
+}
+
+.log-out {
+  position: relative;
+  /* width: 24px; */
+  /* height: 24px; */
+  margin: 14px 0 0 27px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+
+.date {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 36px;
+  top: 10px;
+  left: 0;
+  color: #3396f4;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 36px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 11;
+}
+.saturday {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 24px;
+  top: 54px;
+  left: 0;
+  color: #3396f4;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 7;
+}
+.rectangle-b {
+  position: absolute;
+  width: 400px;
+  height: 250px;
+  top: 0;
+  left: 410px;
+  background: #3396f4;
+  z-index: 12;
+}
+.flex-row-b {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 306px;
+  height: 24px;
+  margin: 37px 0 0 45px;
+  z-index: 16;
+}
+.mileage {
+  flex-shrink: 0;
+  position: relative;
+  height: 24px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 15;
+}
+.m-amount {
+  flex-shrink: 0;
+  position: relative;
+  height: 24px;
+  color: #ffd923;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 16;
+}
+.line-c {
+  position: relative;
+  width: 297px;
+  height: 1px;
+  margin: 24px 0 0 46px;
+  background: url(../../assets/EduSsafy/be9a3d42-f090-4718-aa02-48f7eecb7d2e.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 19;
+}
+.flex-row-d {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 306px;
+  height: 24px;
+  margin: 12px 0 0 45px;
+  z-index: 18;
+}
+.level-exp {
+  flex-shrink: 0;
+  position: relative;
+  height: 24px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 17;
+}
+.exp {
+  flex-shrink: 0;
+  position: relative;
+  width: 90px;
+  height: 24px;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+  text-overflow: initial;
+  white-space: nowrap;
+  z-index: 18;
+}
+.exp-amount {
+  position: relative;
+  color: #ffd923;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.205px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.exp-e {
+  position: relative;
+  color: #ffd923;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24.205px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.exp-amount-f {
+  position: relative;
+  color: #ffd923;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.205px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.screenshot {
+  position: relative;
+  width: 324px;
+  height: 96px;
+  margin: 10px 0 0 38px;
+  background: url(../../assets/EduSsafy/6eebedb6cb1a373ac7405cdc587efdbdafd6e383.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 58;
+}
+.rectangle-10 {
+  position: absolute;
+  width: 400px;
+  height: 250px;
+  top: 0;
+  left: 810px;
+  background: #3396f4;
+  z-index: 13;
+}
+.flex-row-d-11 {
+  position: absolute;
+  width: 365px;
+  height: 174px;
+  top: 37px;
+  left: 0;
+  z-index: 36;
+}
+.line-12 {
+  position: absolute;
+  width: 1px;
+  height: 174px;
+  top: 0;
+  left: 0;
+  background: url(../../assets/EduSsafy/e86c497b-1586-429c-b260-ec1840f47a8e.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 14;
+}
+.regroup-i {
+  position: absolute;
+  width: 68px;
+  height: 174px;
+  top: 0;
+  left: 297px;
+  z-index: 36;
+}
+.span-dot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 18px;
+  top: 61px;
+  left: 29px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 36;
+}
+.icon-13 {
+  position: absolute;
+  width: 20px;
+  height: 16px;
+  top: 62px;
+  left: 0;
+  background: url(../../assets/EduSsafy/cad78796-1996-4060-9d06-1f605b19206c.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 31;
+}
+.text-19 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 18px;
+  top: 61px;
+  left: 34px;
+  color: #ffd923;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 22;
+}
+.text-1a {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 18px;
+  top: 61px;
+  left: 97px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 27;
+}
+.line-14 {
+  position: absolute;
+  width: 297px;
+  height: 1px;
+  top: 94px;
+  left: 34px;
+  background: url(../../assets/EduSsafy/d3ee815a-54c4-4fdc-91bb-195a2049f7d1.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 25;
+}
+.line-15 {
+  position: absolute;
+  width: 297px;
+  height: 1px;
+  top: 140px;
+  left: 34px;
+  background: url(../../assets/EduSsafy/44722b1e-8b9e-4f10-aba8-c49bfd83aac7.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 26;
+}
+.flex-row-16 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 86px;
+  height: 24px;
+  top: 37px;
+  left: 34px;
+  z-index: 21;
+}
+.text-1b {
+  flex-shrink: 0;
+  position: relative;
+  height: 24px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 20;
+}
+.span {
+  flex-shrink: 0;
+  position: relative;
+  height: 24px;
+  color: #ffd923;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 21;
+}
+.flex-row-17 {
+  position: absolute;
+  width: 332px;
+  height: 18px;
+  top: 145px;
+  left: 34px;
+  z-index: 37;
+}
+.text-1d {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 18px;
+  top: 0;
+  left: 0;
+  color: #ffd923;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 23;
+}
+.text-1e {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 18px;
+  top: 0;
+  left: 63px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 28;
+}
+.regroup-i-18 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 68px;
+  height: 18px;
+  top: 0;
+  left: 263px;
+  z-index: 37;
+}
+.icon-19 {
+  flex-shrink: 0;
+  position: relative;
+  width: 20px;
+  height: 16px;
+  background: url(../../assets/EduSsafy/d411e651-50cd-4f61-896c-f4791b0df55c.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 33;
+}
+.span-dot-1a {
+  flex-shrink: 0;
+  position: relative;
+  height: 18px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 37;
+}
+.flex-row-ae {
+  position: absolute;
+  width: 331px;
+  height: 18px;
+  top: 192px;
+  left: 34px;
+  z-index: 38;
+}
+.text-20 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 18px;
+  top: 0;
+  left: 0;
+  color: #ffd923;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 24;
+}
+.text-21 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 18px;
+  top: 0;
+  left: 63px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 29;
+}
+.regroup-i-1b {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  width: 68px;
+  height: 18px;
+  top: 0;
+  left: 263px;
+  z-index: 38;
+}
+.icon-1c {
+  flex-shrink: 0;
+  position: relative;
+  width: 20px;
+  height: 16px;
+  background: url(../../assets/EduSsafy/20e7c18f-e5e0-45e5-88cb-eb19cc9cb07a.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 35;
+}
+.span-dot-1d {
+  flex-shrink: 0;
+  position: relative;
+  height: 18px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 38;
+}
+.flex-row-1e {
+  position: relative;
+  width: 1210px;
+  height: 327px;
+  margin: 49px 0 0 101px;
+  z-index: 63;
+  box-shadow: 8px 1px 10px 1px rgba(145, 145, 145, 0.2),
+              -1px -1px 10px 1px rgba(145, 145, 145, 0.2);
+}
+.rectangle-1f {
+  position: absolute;
+  width: 1210px;
+  height: 297px;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ced0d2;
+  z-index: 59;
+}
+.rectangle-20 {
+  position: absolute;
+  width: 814px;
+  height: 327px;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #ced0d2;
+  z-index: 63;
+}
+.flex-row-c {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 729.75px;
+  height: 29px;
+  margin: 33px 0 0 40px;
+  z-index: 69;
+}
+.span-21 {
+  flex-shrink: 0;
+  position: relative;
+  height: 29px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 67;
+}
+.icon-22 {
+  flex-shrink: 0;
+  position: relative;
+  width: 17.5px;
+  height: 17.5px;
+  background: url(../../assets/EduSsafy/37033aa4-82bd-4d6b-acbe-8f9943017690.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 69;
+}
+.flex-row-fa {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 171px;
+  height: 32px;
+  margin: 33px 0 0 47px;
+  z-index: 78;
+}
+.monday {
+  flex-shrink: 0;
+  position: relative;
+  height: 22px;
+  color: #3396f4;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21.784px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 65;
+}
+.clock {
+  flex-shrink: 0;
+  position: relative;
+  width: 32px;
+  height: 32px;
+  z-index: 78;
+  overflow: hidden;
+}
+.icon-23 {
+  position: relative;
+  width: 29.667px;
+  height: 29.667px;
+  margin: 1.167px 0 0 1.167px;
+  background: url(../../assets/EduSsafy/c533769d-11ee-4a3b-9e24-3dac5a5e768d.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 79;
+}
+.flex-row-f {
+  position: absolute;
+  width: 679px;
+  height: 203px;
+  top: 123px;
+  left: 67px;
+  z-index: 80;
+}
+.line-24 {
+  position: absolute;
+  width: 6px;
+  height: 203px;
+  top: 0;
+  left: 131px;
+  background: url(../../assets/EduSsafy/11b918d8-9f25-45c0-a232-57f79f252d29.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 77;
+}
+.rectangle-25 {
+  position: absolute;
+  width: 482px;
+  height: 123px;
+  top: 10px;
+  left: 197px;
+  background: #f4f9fc;
+  border: 1px solid #ced0d2;
+  z-index: 72;
+  border-radius: 5px;
+}
+.flex-column-ad {
+  position: absolute;
+  width: 142px;
+  height: 69px;
+  top: 23px;
+  left: 142px;
+  z-index: 76;
+}
+.common-project {
+  position: relative;
+  width: 113px;
+  height: 18px;
+  margin: 0 0 0 0;
+  font-family: Nico Moji, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  text-overflow: initial;
+  white-space: nowrap;
+  z-index: 74;
+}
+.common {
+  position: relative;
+  color: #6a6c70;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.project {
+  position: relative;
+  color: #6a6c70;
+  font-family: Nico Moji, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.morning-meeting {
+  display: block;
+  position: relative;
+  height: 22px;
+  margin: 4px 0 0 7px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.784px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 75;
+}
+.instructor-bulgyeong {
+  display: block;
+  position: relative;
+  height: 17px;
+  margin: 8px 0 0 7px;
+  color: #909196;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.943px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 76;
+}
+.project-26 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 16px;
+  top: 24px;
+  left: 47px;
+  color: #f23fa0;
+  font-family: Nico Moji, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 73;
+}
+.ellipse-27 {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 28px;
+  left: 20px;
+  background: url(../../assets/EduSsafy/689fe61f-0e20-4489-87e1-de3f55ff9743.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 81;
+  border-radius: 50%;
+}
+.ellipse-28 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 34px;
+  left: 0;
+  color: #b1bac1;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 64;
+}
+.flex-row-a {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 34px;
+  left: 126px;
+  background: url(../../assets/EduSsafy/dba0407c-0029-47ee-ac92-9e9e273a40dd.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 80;
+  border-radius: 50%;
+}
+.rectangle-29 {
+  position: absolute;
+  width: 678px;
+  height: 45px;
+  top: 281px;
+  left: 67px;
+  z-index: 90;
+}
+.common-project-2a {
+  position: absolute;
+  width: 482px;
+  height: 45px;
+  top: 0;
+  left: 196px;
+  background: #f4f9fc;
+  border: 1px solid #ced0d2;
+  z-index: 90;
+  border-radius: 5px 5px 0 0;
+}
+.common-project-2b {
+  position: absolute;
+  width: 113px;
+  height: 18px;
+  top: 24px;
+  left: 143px;
+  font-family: Nico Moji, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  text-overflow: initial;
+  white-space: nowrap;
+  z-index: 92;
+}
+.common-2c {
+  position: relative;
+  color: #6a6c70;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.project-2d {
+  position: relative;
+  color: #6a6c70;
+  font-family: Nico Moji, var(--default-font-family);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 15px;
+  text-align: left;
+  text-transform: capitalize;
+}
+.project-2e {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 16px;
+  top: 25px;
+  left: 48px;
+  color: #f23fa0;
+  font-family: Nico Moji, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 91;
+}
+.ellipse-2f {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 29px;
+  left: 21px;
+  background: url(../../assets/EduSsafy/8fe14387-156c-473d-95de-876e236ce58b.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 93;
+  border-radius: 50%;
+}
+.ellipse-30 {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 21px;
+  left: 126px;
+  background: url(../../assets/EduSsafy/b88d68cd-f75b-4a4e-8ccb-4f2cc8651c95.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 89;
+}
+.time-slot {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 22px;
+  left: 0;
+  color: #b1bac1;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 88;
+}
+.rectangle-31 {
+  position: absolute;
+  width: 396px;
+  height: 327px;
+  top: 0;
+  left: 814px;
+  background: #f9f9f9;
+  border: 1px solid #ced0d2;
+  z-index: 60;
+}
+.flex-column {
+  position: absolute;
+  width: 337px;
+  height: 293px;
+  top: 32px;
+  left: 31px;
+  font-size: 0px;
+  z-index: 96;
+}
+.quest {
+  display: block;
+  position: relative;
+  height: 19px;
+  margin: 70px 0 0 84px;
+  color: #3396f4;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 61;
+}
+.evaluation {
+  display: block;
+  position: relative;
+  height: 19px;
+  margin: 73px 0 0 84px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 84;
+}
+.quest-evaluation {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 29px;
+  top: 0;
+  left: 0;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 29px;
+  text-align: left;
+  white-space: nowrap;
+  z-index: 66;
+}
+.icon-32 {
+  position: absolute;
+  width: 17.5px;
+  height: 17.5px;
+  top: 6.25px;
+  left: 308.25px;
+  background: url(../../assets/EduSsafy/667cd1f2-ed32-449f-9221-9aa1f6b9e62d.png)
+    no-repeat center;
+  background-size: 100% 100%;
+  z-index: 71;
+}
+.complete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 89px;
+  left: 18px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 83;
+}
+.python-track {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 91px;
+  left: 84px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 62;
+}
+.complete-33 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 181px;
+  left: 18px;
+  color: #ffffff;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 87;
+}
+.python-track-34 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 183px;
+  left: 84px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 85;
+}
+.slice {
+  position: absolute;
+  width: 66px;
+  height: 45px;
+  top: 248px;
+  left: 0;
+  background: url(../../assets/EduSsafy/5d4133f3bc7ca8a911ee47d2859927f70f1d9719.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 96;
+}
+.quest-35 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 253px;
+  left: 84px;
+  color: #3396f4;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 94;
+}
+.python-track-36 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: absolute;
+  height: 19px;
+  top: 274px;
+  left: 84px;
+  color: #000000;
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 19px;
+  text-align: left;
+  text-transform: capitalize;
+  white-space: nowrap;
+  z-index: 95;
+}
+.flex-column-37 {
+  position: absolute;
+  width: 66px;
+  height: 158px;
+  top: 98px;
+  left: 31px;
+  z-index: 86;
+}
+.ellipse-38 {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  margin: 0 0 0 0;
+  background: url(../../assets/EduSsafy/3dcb4812-a8e7-4870-91bb-f111d5a24f7c.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 82;
+  border-radius: 50%;
+}
+.ellipse-39 {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  margin: 26px 0 0 0;
+  background: url(../../assets/EduSsafy/dc3010f2-4379-43f4-b263-157315c327a4.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 86;
+  border-radius: 50%;
+}
+.line-3a {
+  position: absolute;
+  width: 1440px;
+  height: 1px;
+  top: 98px;
+  left: 0;
+  background: url(../../assets/EduSsafy/89b0ef42-a586-4eac-86f5-de1adb29f23c.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 4;
+}

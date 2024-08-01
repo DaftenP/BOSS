@@ -13,8 +13,10 @@ const Monitoring = () => {
   const current_time = currentPerson.time_lst.length - 1;
 
   const handleNextPerson = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % monitoringData.length); // 다음 사람으로 이동, 마지막 사람 이후엔 처음으로 돌아감
+    setCurrentIndex((prevIndex) => (prevIndex - 1) % monitoringData.length); // 다음 사람으로 이동, 마지막 사람 이후엔 처음으로 돌아감
   };
+
+
 
   return (
     <div>

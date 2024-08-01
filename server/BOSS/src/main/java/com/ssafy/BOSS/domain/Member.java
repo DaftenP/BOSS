@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class Member {
 
     private String profileImage;
 
+    @ColumnDefault("0")
     private int issueCount;
 
     private String phoneNumber;

@@ -10,6 +10,9 @@ export default function Main() {
   const [isCheckedOut, setIsCheckedOut] = useState(false);
   // 내 정보 항목 표시 상태 변수
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [incheckTime, setIncheckTime] = useState('00:00');
+  const [outcheckTime, setOutcheckTime] = useState('00:00');
+
   const navigate = useNavigate();
 
   // 날짜, 시간 변수
@@ -33,15 +36,6 @@ export default function Main() {
     navigate('/EduSsafyLogin');
   };
 
-  // 체크아웃 처리 함수
-  const handleCheckOut = () => {
-    // 현재 시간을 기록합니다.
-    if (!currentDateTime) {
-      setCurrentDateTime(new Date());
-    }
-    // 체크아웃 동작을 호출합니다.
-    toggleCheckOut();
-  };
   
 
   useEffect(() => {
@@ -72,16 +66,25 @@ export default function Main() {
   const day = String(currentDateTime.getDate()).padStart(2, '0'); // 일
 
   
-  
-  // 현재 시간을 형식화하는 함수
-  const getFormattedTime = (date) => {
-    return date.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
 
-  const formattedTime = currentDateTime ? getFormattedTime(currentDateTime) : 'Click to Check Out';
+  const checkInTime = currentDateTime.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const checkOutTime = currentDateTime.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  useEffect(() => {
+    setIncheckTime(String(checkInTime))
+  }, [isCheckedIn])
+
+  useEffect(() => {
+    setOutcheckTime(String(checkOutTime))
+  }, [isCheckedOut])
+
   return (
     
     <div className={classes['main-container']}>
@@ -154,9 +157,9 @@ export default function Main() {
                 onClick={toggleCheckIn}
               >
                 {isCheckedIn ? (
-                  <span className={classes['time']} onClick={handleCheckOut}>{formattedTime}</span>
+                  <span className={classes['time']} onClick={toggleCheckIn}>{incheckTime}</span>
                 ) : (
-                  <div className={classes['icon-in']} onClick={handleCheckOut}></div>
+                  <div className={classes['icon-in']} onClick={toggleCheckIn}></div>
                 )}
                 
                 <span className={isCheckedIn ? classes['check-on'] : classes['check-off']}
@@ -170,9 +173,9 @@ export default function Main() {
                 onClick={toggleCheckOut}
               >
                 {isCheckedOut ? (
-                  <span className={classes['time']} onClick={isCheckedOut}>{formattedTime}</span>
+                  <span className={classes['time']} onClick={toggleCheckOut}>{outcheckTime}</span>
                 ) : (
-                  <div className={classes['icon-out']} onClick={isCheckedOut}></div>
+                  <div className={classes['icon-out']} onClick={toggleCheckOut}></div>
                 )}
 
                 <span className={isCheckedOut ? classes['check-on'] : classes['check-off']}

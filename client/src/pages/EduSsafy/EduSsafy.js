@@ -46,6 +46,7 @@ export default function Main() {
   return (
     
     <div className={classes['main-container']}>
+      <div className={classes['container']}>
       <div className={classes['flex-row']}>
         <div className={classes['rectangle']}>
           <span className={classes['job-ssafy']}>
@@ -271,6 +272,7 @@ export default function Main() {
         </div>
       </div>
       <div className={classes['line-3a']} />
+    </div>
     </div>
   );
 }

@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 
 export default function Main() {
   // 입실/퇴실 상태 관리
-  const [isCheckedIn, setIsCheckedIn] = useState(true);
+  const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [isCheckedOut, setIsCheckedOut] = useState(false);
   // 내 정보 항목 표시 상태 변수
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // 입실, 퇴실 시간 변수
   const [incheckTime, setIncheckTime] = useState('00:00');
   const [outcheckTime, setOutcheckTime] = useState('00:00');
 
@@ -19,8 +20,8 @@ export default function Main() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   // 입실/퇴실 상태 변경 함수
-  const toggleCheckIn = () => {
-    setIsCheckedIn(!isCheckedIn);
+  const CheckIn = () => {
+    setIsCheckedIn(true);
   };
 
   const toggleCheckOut = () => {
@@ -154,16 +155,16 @@ export default function Main() {
               {/* 입실/퇴실 버튼 */}
               <div
                 className={isCheckedIn ? classes['rectangle-on'] : classes['rectangle-off']}
-                onClick={toggleCheckIn}
+                onClick={CheckIn}
               >
                 {isCheckedIn ? (
-                  <span className={classes['time']} onClick={toggleCheckIn}>{incheckTime}</span>
+                  <span className={classes['time']} onClick={CheckIn}>{incheckTime}</span>
                 ) : (
-                  <div className={classes['icon-in']} onClick={toggleCheckIn}></div>
+                  <div className={classes['icon-in']} onClick={CheckIn}></div>
                 )}
                 
                 <span className={isCheckedIn ? classes['check-on'] : classes['check-off']}
-                  onClick={toggleCheckIn}>
+                  onClick={CheckIn}>
                   {isCheckedIn ? '정상출석' : '입실하기'}
                 </span>
               </div>

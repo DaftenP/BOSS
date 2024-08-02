@@ -48,10 +48,10 @@ public class EnteringLogService {
             if (log.getMember() != null) {
                 dto.setName(log.getMember().getName());
                 if (log.getMember().getPosition() != null) {
-                    dto.setPositionName(log.getMember().getPosition().getPositionName());
+                    dto.setPosition(log.getMember().getPosition().getPositionName());
                 }
                 if (log.getMember().getDepartment() != null) {
-                    dto.setDepartmentName(log.getMember().getDepartment().getDepartmentName());
+                    dto.setDepartment(log.getMember().getDepartment().getDepartmentName());
                 }
             }
             dto.setId(log.getLogId());

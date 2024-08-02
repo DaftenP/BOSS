@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: application-aws.yml
   servlet:
     multipart:
       max-file-size: 50MB
@@ -20,18 +22,3 @@ spring:
       ddl-auto: create # 설정해야 테이블 자동생성
     open-in-view: false
     show_sql: true
-
-
-
-cloud:
-  aws:
-    s3:
-      bucket: mybossbucket
-    credentials:
-      access-key: AKIAQFC27B6E5STSI5PO
-      secret-key: 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
-    region:
-      static: ap-northeast-2
-      auto: false
-    stack:
-      auto: false

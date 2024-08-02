@@ -56,7 +56,7 @@ public class EnteringLogController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
-        enteringLogService.updateEnteringLog(id, updateEnteringLog.getStickerCount(), updateEnteringLog.getIssue());
+        enteringLogService.updateEnteringLog(id, updateEnteringLog.getCountOfSticker(), updateEnteringLog.getIssue());
         return ResponseEntity.ok().build();
     }
 

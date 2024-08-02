@@ -38,18 +38,21 @@ public class MemberService {
     @Transactional(readOnly = true)
     public List<MemberResponseDto> getAllMembers() {
         List<Member> members = memberRepository.findAll();
-        List<MemberResponseDto> dtos = members.stream().map(member -> {
+        return members.stream().map(member -> {
             MemberResponseDto dto = new MemberResponseDto();
             dto.setId(member.getMemberId());
             dto.setMemberProfile(member.getProfileImage());
             dto.setMemberName(member.getName());
-            dto.setDepartment(member.getDepartment());
-            dto.setPosition(member.getPosition());
+            if(member.getDepartment() != null) {
+                dto.setDepartment(member.getDepartment());
+            }
+            if(member.getPosition() != null) {
+                dto.setPosition(member.getPosition());
+            }
             dto.setIssueCount(member.getIssueCount());
             dto.setPhoneNumber(member.getPhoneNumber());
             return dto;
         }).toList();
-        return dtos;
     }
 
     public List<MemberLogDto> searchMemberLogs(RequestMemberDto requestMemberDto) {

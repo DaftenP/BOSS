@@ -117,23 +117,43 @@ function Management() {
         </div>
         <div className={classes.inputContainer}> 
           <form onSubmit={handleSearch}>
-            <div>
-              <label htmlFor="memberName" className={classes.labelText}>이름</label>
-              <input className={classes.inputText} type="text" id="memberName" placeholder="이 름" value={filters.memberName} onChange={handleFilterChange} />
-              <label htmlFor="department" className={classes.labelText}>부서</label>
-              <input className={classes.inputText} type="text" id="department" placeholder="부 서" value={filters.department} onChange={handleFilterChange} />
-              <label htmlFor="position" className={classes.labelText}>직책</label>
-              <input className={classes.inputText} type="text" id="position" placeholder="직 책" value={filters.position} onChange={handleFilterChange} />
-            </div>
-            <div>
-              <label htmlFor="nfc" className={classes.labelText}>NFC</label>
-              <input className={classes.inputText} type="text" id="nfc" placeholder="N F C" value={filters.nfc} onChange={handleFilterChange} />
-              <label htmlFor="issueMin" className={classes.labelText}>누적 이슈(이상)</label>
-              <input className={classes.inputText} type="number" id="issueMin" placeholder="이 상" value={filters.issueMin} onChange={handleFilterChange} />
-              <label htmlFor="issueMax" className={classes.labelText}>누적 이슈(이하)</label>
-              <input className={classes.inputText} type="number" id="issueMax" placeholder="이 하" value={filters.issueMax} onChange={handleFilterChange} />
-            </div>
-            <button type="submit" className={classes.formButton}>검 색</button>
+            <table className={classes.filterTable}>
+              <tbody>
+                <tr>
+                  <td>
+                    <label htmlFor="memberName" className={classes.labelText}>이름</label>
+                    <input className={classes.inputText} type="text" id="memberName" placeholder="이 름" value={filters.memberName} onChange={handleFilterChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="department" className={classes.labelText}>부서</label>
+                    <input className={classes.inputText} type="text" id="department" placeholder="부 서" value={filters.department} onChange={handleFilterChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="position" className={classes.labelText}>직책</label>
+                    <input className={classes.inputText} type="text" id="position" placeholder="직 책" value={filters.position} onChange={handleFilterChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="nfc" className={classes.labelText}>NFC</label>
+                    <input className={classes.inputText} type="text" id="nfc" placeholder="N F C" value={filters.nfc} onChange={handleFilterChange} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label htmlFor="issueMin" className={classes.labelText}>누적 이슈(이상)</label>
+                    <input className={classes.inputText} type="number" id="issueMin" placeholder="이 상" value={filters.issueMin} onChange={handleFilterChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="issueMax" className={classes.labelText}>누적 이슈(이하)</label>
+                    <input className={classes.inputText} type="number" id="issueMax" placeholder="이 하" value={filters.issueMax} onChange={handleFilterChange} />
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="3" className={classes.submitButtonCell}>
+                    <button type="submit" className={classes.formButton}>검 색</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </form>
         </div>
       </div>
@@ -167,26 +187,44 @@ function Management() {
           </div>
           <form onSubmit={handleSubmit}>
             {selectedOption === 'direct' ?  (
-              <div>
-                <div>
-                  <label htmlFor="new memberName" className={classes.labelText}>이름</label>
-                  <input className={classes.inputText} name="memberName" type="text" id="new memberName" placeholder="이 름" onChange={handleSubmitChange} />
-                  <label htmlFor="new department" className={classes.labelText}>부서</label>
-                  <input className={classes.inputText} name="department" type="number" id="new department" placeholder="부 서" onChange={handleSubmitChange} />
-                  <label htmlFor="new position" className={classes.labelText}>직책</label>
-                  <input className={classes.inputText} name="position" type="number" id="new position" placeholder="직 책" onChange={handleSubmitChange} />
-                  <label htmlFor="new phoneNumber" className={classes.labelText}>연락처</label>
-                  <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" placeholder="연 락 처" onChange={handleSubmitChange} />
-                </div>
-                <div>
-                  <label htmlFor="new nfc" className={classes.labelText}>NFC</label>
-                  <input className={classes.inputText} name="nfc" type="text" id="new nfc" placeholder="N F C" onChange={handleSubmitChange} />
-                  <label htmlFor="new cumulative issue" className={classes.labelText}>누적 이슈</label>
-                  <input className={classes.inputText} name="issueCount" type="number" id="new cumulative issue" placeholder="누 적 이 슈" onChange={handleSubmitChange} />
-                  <label htmlFor="new profile" className={classes.labelText}>프로필 사진 파일을 선택해 주세요!</label>
-                  <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} />
-                </div>
-              </div>
+              <table className={classes.filterTable}>
+                <tbody>
+                  <tr>
+                    <td>
+                      <label htmlFor="new memberName" className={classes.labelText}>이름</label>
+                      <input className={classes.inputText} name="memberName" type="text" id="new memberName" placeholder="이 름" onChange={handleSubmitChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="new department" className={classes.labelText}>부서</label>
+                      <input className={classes.inputText} name="department" type="number" id="new department" placeholder="부 서" onChange={handleSubmitChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="new position" className={classes.labelText}>직책</label>
+                      <input className={classes.inputText} name="position" type="number" id="new position" placeholder="직 책" onChange={handleSubmitChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="new phoneNumber" className={classes.labelText}>연락처</label>
+                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" placeholder="연 락 처" onChange={handleSubmitChange} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="new nfc" className={classes.labelText}>NFC</label>
+                      <input className={classes.inputText} name="nfc" type="text" id="new nfc" placeholder="N F C" onChange={handleSubmitChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="new cumulative issue" className={classes.labelText}>누적 이슈</label>
+                      <input className={classes.inputText} name="issueCount" type="number" id="new cumulative issue" placeholder="누 적 이 슈" onChange={handleSubmitChange} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="4">
+                      <label htmlFor="new profile" className={classes.labelText}>프로필 사진 파일을 선택해 주세요!</label>
+                      <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             ) : (
               <div>
                 <label htmlFor="new file" className={classes.labelText}>일괄 등록을 위해 파일을 선택해 주세요!</label>

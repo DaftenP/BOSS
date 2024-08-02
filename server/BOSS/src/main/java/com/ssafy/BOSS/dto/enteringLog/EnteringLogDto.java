@@ -13,8 +13,8 @@ import java.time.LocalDateTime;
 public class EnteringLogDto {
 
     private String name;
-    private String positionName;
-    private String departmentName;
+    private String position;
+    private String department;
     private Long id;
     private int entering;
     private int issue;

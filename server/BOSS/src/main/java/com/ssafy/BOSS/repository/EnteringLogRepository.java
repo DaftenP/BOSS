@@ -23,9 +23,9 @@ public interface EnteringLogRepository extends JpaRepository<EnteringLog, Long> 
 
     @Query("SELECT new com.ssafy.BOSS.dto.enteringLog.EnteringLogDto(m.name, p.positionName, d.departmentName, e.logId, e.entering, e.issue, e.time)" +
             " FROM EnteringLog e " +
-            "JOIN e.member m " +
-            "JOIN m.position p " +
-            "JOIN m.department d " +
+            "LEFT JOIN e.member m " +
+            "LEFT JOIN m.position p " +
+            "LEFT JOIN m.department d " +
             "WHERE " +
             "(:#{#logDto.name} IS NULL OR m.name LIKE %:#{#logDto.name}%) " +
             "AND (:#{#logDto.positionName} IS NULL OR p.positionId = :#{#logDto.positionName}) " +

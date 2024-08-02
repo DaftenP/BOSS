@@ -7,6 +7,7 @@ import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ class MemberRepositoryTest {
     @Autowired
     PositionRepository positionRepository;
 
-    @BeforeEach
+    @AfterEach
     void setup() {
         memberRepository.deleteAll();
         departmentRepository.deleteAll();

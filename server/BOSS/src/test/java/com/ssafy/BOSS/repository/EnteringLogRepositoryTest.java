@@ -6,9 +6,7 @@ import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
-import net.bytebuddy.asm.Advice;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @DataJpaTest
 class EnteringLogRepositoryTest {

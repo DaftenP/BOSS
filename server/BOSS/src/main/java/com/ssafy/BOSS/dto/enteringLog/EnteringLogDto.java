@@ -1,7 +1,5 @@
 package com.ssafy.BOSS.dto.enteringLog;
 
-import com.ssafy.BOSS.domain.Department;
-import com.ssafy.BOSS.domain.Position;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,8 +11,8 @@ import java.time.LocalDateTime;
 public class EnteringLogDto {
 
     private String name;
-    private String positionName;
-    private String departmentName;
+    private String position;
+    private String department;
     private Long id;
     private int entering;
     private int issue;

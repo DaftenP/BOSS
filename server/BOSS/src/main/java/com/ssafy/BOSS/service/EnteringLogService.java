@@ -40,6 +40,7 @@ public class EnteringLogService {
         enteringLogRepository.save(enteringLog);
     }
 
+    @Transactional
     public List<EnteringLogDto> getAllEnteringLogs() {
         List<EnteringLog> logs = enteringLogRepository.findAll();
         return logs.stream().map(log -> {

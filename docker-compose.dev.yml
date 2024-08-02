@@ -20,7 +20,8 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
 
   db:
-    image: mysql
+    build: ./mysql
+    image: boss-dev-mysql:latest
     container_name: boss-dev-db
     environment:
       - MYSQL_ROOT_PASSWORD=ssafy

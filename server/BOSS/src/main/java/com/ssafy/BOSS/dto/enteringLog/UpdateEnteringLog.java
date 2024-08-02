@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class UpdateEnteringLog {
-    private int stickerCount;
+    private int countOfSticker;
     private int issue;
 }

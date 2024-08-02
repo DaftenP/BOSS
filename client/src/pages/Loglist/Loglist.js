@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import classes from './Loglist.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLogs, updateLog } from '../../store/loglist';
+import { fetchLogs, updateLog, fetchFilteredLogs } from '../../store/loglist';
+import pictureIcon from '../../assets/List/Picture_icon.png'
+import editIcon from '../../assets/List/Edit_icon.png'
+import checkIcon from '../../assets/List/Check_icon.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
  
 
 const Modal = ({ show, onClose, log, update }) => {
   const [formData, setFormData] = useState({
     logId: 0,
     issue: 0,
-    stickerNumber: 0,
+    countOfSticker: 0,
   });
 
   useEffect(() => {
@@ -16,7 +21,7 @@ const Modal = ({ show, onClose, log, update }) => {
       setFormData({
         logId: log.logId,
         issue: log.issue,
-        stickerNumber: log.stickerCount
+        countOfSticker: log.stickerCount
       })
     }
   }, [log])
@@ -27,49 +32,82 @@ const Modal = ({ show, onClose, log, update }) => {
     return null;
   }
   const handleModalInputChange = (event) => {
-    const { name, value } = event.target
-    setFormData((preData) => ({
-      ...preData,
-      [name]: value,
+    const { name, value, type } = event.target
+    const processdValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
+    setFormData((processdFilters) => ({
+      ...processdFilters,
+      [name]: processdValue,
     }))
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData)
-    dispatch(updateLog(formData));
-    onClose(); // 모달 닫기
+    dispatch(updateLog(formData)).then(() => {
+      dispatch(fetchLogs());
+      onClose();
+    });
+  };
+
+
+  const handleBackdropClick = (event) => {
+    if (event.target === event.currentTarget) {
+      onClose();
+    }
   };
 
   return (
-    <div className={classes.modalBackdrop}>
-      <div className={classes.modalContent}>
+    <div className={classes.modalBackdrop} onClick={handleBackdropClick}>
+      <div className={`${classes.modalContent} ${update ? '' : classes.imageContainer}`}>
         {update ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <div>
+          <div className={classes.updateModalContainer}>
+            <span className={classes.closeButton} onClick={onClose}>
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+            <form className={classes.formContainer} onSubmit={handleSubmit}>
+              <div className={classes.formGroup}>
                 <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
-                <input className={classes.inputText} type="number" name="issue" placeholder="보안 이슈" value={formData.issue} onChange={handleModalInputChange} />
+                <input
+                  className={classes.updateInputText}
+                  type="number"
+                  name="issue"
+                  placeholder="보안 이슈"
+                  value={formData.issue}
+                  onChange={handleModalInputChange}
+                />
               </div>
-              <div>
-                <label htmlFor="stickerNumber" className={classes.labelText}>발급 개수</label>
-                <input className={classes.inputText} type="number" name="stickerNumber" placeholder="발급 개수"  value={formData.stickerNumber} onChange={handleModalInputChange} /> 
+              <div className={classes.formGroup}>
+                <label htmlFor="countOfSticker" className={classes.labelText}>발급 개수</label>
+                <input
+                  className={classes.updateInputText}
+                  type="number"
+                  name="countOfSticker"
+                  placeholder="발급 개수"
+                  value={formData.countOfSticker}
+                  onChange={handleModalInputChange}
+                />
               </div>
-              <button type="submit">확인</button>
+              <div className={classes.updateButtonContainer}>
+                <button type="submit" className={classes.submitButton}>
+                  <img src={checkIcon} alt="check_icon" />
+                </button>
+              </div>
             </form>
-            <div><button onClick={onClose}>닫기</button></div>
           </div>
         ) : (
           <div>
-            <p>{log.time.split('T')[0]} {log.time.split('T')[1]} {log.name}</p>
-            <div>{log.deviceBackImage}</div>
-            <div>{log.deviceFrontImage}</div>
-            <div><button onClick={onClose}>닫기</button></div>
+            <span className={classes.closeButton} onClick={onClose}>
+              <FontAwesomeIcon icon={faTimes} />
+            </span>
+            <div className={classes.deviceInfoBox}>{log.time.split('T')[0]} {log.time.split('T')[1]} {log.name}</div>
+            <div className={classes.deviceImageBox}>
+              <div className={classes.deviceImage}>{log.deviceBackImage}</div>
+              <div className={classes.deviceImage}>{log.deviceFrontImage}</div>
+            </div>
           </div>
         )}
       </div>
     </div>
-    );
+  );
 };
 
 function LogTable() {
@@ -81,33 +119,28 @@ function LogTable() {
   }, [dispatch]);
 
   const [visibleCount, setVisibleCount] = useState(20);
-  const [filteredLogs, setFilteredLogs] = useState(logsData);
   const [update, setUpdate] = useState(false);
-
   const [filters, setFilters] = useState({
     name: '',
-    logId: '',
     department: '',
     position: '',
     entering: '',
-    startDate: '',
-    endDate: '',
-    startTime: '',
-    endTime: '',
-    issue: ''
+    // startDate: '',
+    // endDate: '',
+    // startTime: '',
+    // endTime: '',
+    time: '',
+    issue: '',
   });
   const [showModal, setShowModal] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
 
-  useEffect(() => {
-    setFilteredLogs(logsData);
-  }, [logsData]);
-
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, type } = event.target;
+    const processedValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
     setFilters(prevFilters => ({
       ...prevFilters,
-      [name]: value
+      [name]: processedValue
     }));
   };
 
@@ -117,53 +150,23 @@ function LogTable() {
 
   const handleFilter = (event) => {
     event.preventDefault();
-    let tempLogs = logsData;
+    console.log(filters)
+    const filteredFilters = Object.fromEntries(
+      Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
+    );
     setVisibleCount(20);
-
-    if (filters.name) {
-      tempLogs = tempLogs.filter(log => log.name.includes(filters.name));
-    }
-    if (filters.logId) {
-      tempLogs = tempLogs.filter(log => log.logId.includes(filters.logId));
-    }
-    if (filters.department) {
-      tempLogs = tempLogs.filter(log => log.department.includes(filters.department));
-    }
-    if (filters.position) {
-      tempLogs = tempLogs.filter(log => log.position.includes(filters.position));
-    }
-    if (filters.entering) {
-      tempLogs = tempLogs.filter(log => log.entering.includes(filters.entering));
-    }
-    if (filters.startDate) {
-      tempLogs = tempLogs.filter(log => new Date(log.time.split('T')[0]) >= new Date(filters.startDate));
-    }
-    if (filters.endDate) {
-      tempLogs = tempLogs.filter(log => new Date(log.time.split('T')[0]) <= new Date(filters.endDate));
-    }
-    if (filters.startTime) {
-      tempLogs = tempLogs.filter(log => log.time.split('T')[1] >= filters.startTime);
-    }
-    if (filters.endTime) {
-      tempLogs = tempLogs.filter(log => log.time.split('T')[1] <= filters.endTime);
-    }
-    if (filters.issue) {
-      tempLogs = tempLogs.filter(log => log.issue.includes(filters.issue));
-    }
-
-    setFilteredLogs(tempLogs);
-
+    dispatch(fetchFilteredLogs(filteredFilters));
     setFilters({
       name: '',
-      logId: '',
       department: '',
       position: '',
       entering: '',
-      startDate: '',
-      endDate: '',
-      startTime: '',
-      endTime: '',
-      issue: ''
+      // startDate: '',
+      // endDate: '',
+      // startTime: '',
+      // endTime: '',
+      time: '',
+      issue: '',
     });
   };
 
@@ -184,9 +187,13 @@ function LogTable() {
     setSelectedLog(null);
   };
 
-  const displayedLogs = filteredLogs.slice(0, visibleCount);
+  const displayedLogs = logsData.slice(0, visibleCount);
+
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [logsData]);
+
   const totalLogsCount = logsData.length;
-  const filteredLogsCount = filteredLogs.length;
 
   return (
     <div className={classes.mainContainer}>
@@ -197,31 +204,57 @@ function LogTable() {
         </div>
         <div className={classes.inputContainer}>
           <form onSubmit={handleFilter}>
-            <div>
-              <label htmlFor="name" className={classes.labelText}>이름</label>
-              <input className={classes.inputText} type="text" name="name" placeholder="이름" value={filters.name} onChange={handleInputChange} />
-              <label htmlFor="log_id" className={classes.labelText}>로그 ID</label>
-              <input className={classes.inputText} type="text" name="log_id" placeholder="l o g  I D" value={filters.logId} onChange={handleInputChange} />
-              <label htmlFor="logId" className={classes.labelText}>부서</label>
-              <input className={classes.inputText} type="number" name="department" placeholder="부서" value={filters.department} onChange={handleInputChange} />
-              <label htmlFor="position" className={classes.labelText}>직책</label>
-              <input className={classes.inputText} type="number" name="position" placeholder="직책" value={filters.position} onChange={handleInputChange} />
-            </div>
-            <div>
-              <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
-              <input className={classes.inputText} type="number" name="entering" placeholder="출/퇴" value={filters.entering} onChange={handleInputChange} />
-              <label htmlFor="startDate" className={classes.labelText}>startDate</label>
-              <input className={classes.inputText} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
-              <label htmlFor="endDate" className={classes.labelText}>endDate</label>
-              <input className={classes.inputText} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
-              <label htmlFor="startTime" className={classes.labelText}>startTime</label>
-              <input className={classes.inputText} type="time" name="startTime" value={filters.startTime} onChange={handleInputChange} />
-              <label htmlFor="endTime" className={classes.labelText}>endTime</label>
-              <input className={classes.inputText} type="time" name="endTime" value={filters.endTime} onChange={handleInputChange} />
-              <label htmlFor="issue" className={classes.labelText}>securityIssue</label>
-              <input className={classes.inputText} type="number" name="issue" placeholder="보안 이슈" value={filters.issue} onChange={handleInputChange} />
-            </div>
-            <button type="submit" className={classes.formButton}>검색</button>
+            <table className={classes.filterTable}>
+              <tbody>
+                <tr>
+                  <td>
+                    <label htmlFor="name" className={classes.labelText}>이름</label>
+                    <input className={classes.inputText} type="text" name="name" placeholder="이름" value={filters.name} onChange={handleInputChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="department" className={classes.labelText}>부서</label>
+                    <input className={classes.inputText} type="number" name="department" placeholder="부서" value={filters.department} onChange={handleInputChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="position" className={classes.labelText}>직책</label>
+                    <input className={classes.inputText} type="number" name="position" placeholder="직책" value={filters.position} onChange={handleInputChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
+                    <input className={classes.inputText} type="number" name="entering" placeholder="출/퇴" value={filters.entering} onChange={handleInputChange} />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <label htmlFor="startDate" className={classes.labelText}>시작 날짜</label>
+                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="endDate" className={classes.labelText}>종료 날짜</label>
+                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="startTime" className={classes.labelText}>시작 시간</label>
+                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="startTime" value={filters.startTime} onChange={handleInputChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="endTime" className={classes.labelText}>종료 시간</label>
+                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="endTime" value={filters.endTime} onChange={handleInputChange} />
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="1">
+                    <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
+                    <input className={classes.inputText} type="number" name="issue" placeholder="보안 이슈" value={filters.issue} onChange={handleInputChange} />
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="4" className={classes.submitButtonCell}>
+                    <button type="submit" className={classes.formButton}>검색</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </form>
         </div>
       </div>
@@ -230,7 +263,7 @@ function LogTable() {
           전체 이슈 로그
         </div>
         <div className={classes.logCount}>
-          {filteredLogsCount} / {totalLogsCount}
+          {totalLogsCount}
         </div>
 
         <table className={classes.logTable}>
@@ -263,15 +296,23 @@ function LogTable() {
                 <td>{log.entering}</td>
                 <td>{log.issue}</td>
                 <td>{log.stickerCount}</td>
-                <td><button onClick={() => handleShowModal(log)}>자세히</button></td>
-                <td><button onClick={() => handleUpdateModal(log)}>수정</button></td>
+                <td>
+                  <div onClick={() => handleShowModal(log)}>
+                    <img className={classes.logIcon} src={pictureIcon} alt="picture_icon" />
+                  </div>
+                </td>
+                <td>
+                  <div onClick={() => handleUpdateModal(log)}>
+                    <img className={classes.logIcon} src={editIcon} alt="edit_icon" />
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
         <Modal show={showModal} onClose={handleCloseModal} log={selectedLog} update={update} />
         <div className={classes.moreButtonContainer}>
-          {visibleCount < filteredLogs.length && (
+          {visibleCount < logsData.length && (
             <button onClick={handleLoadMore} className={classes.moreButton}>▼ 더보기</button>
           )}
         </div>

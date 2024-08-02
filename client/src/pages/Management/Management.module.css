@@ -65,15 +65,40 @@
 }
 
 .inputText {
-    margin-right: 30px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    height: 19px;
-    border: 1px solid #CDCDCD;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid #CDCDCD;
+}
+
+.filterTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+.filterTable td {
+  padding: 2px 5px;
+  border: none;
+  vertical-align: top;
+}
+
+.filterTable label {
+  display: block;
+  margin-bottom: 3px;
+}
+
+
+.submitButtonCell {
+  text-align: center;
+  padding-top: 10px;
 }
 
 .inputContainer {
     margin: 20px;
+    width: 80%;
 }
 
 .inputText::placeholder {

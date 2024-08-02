@@ -73,6 +73,14 @@ function TotalStatistics({ loglist }) {
     closeModal();
   };
 
+  const handleSelectAll = () => {
+    setSelectedItems(items);
+  };
+  
+  const handleDeselectAll = () => {
+    setSelectedItems([]);
+  };
+
   const items = selectedTotalPopOption === 'gate'
     ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     : ["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"];
@@ -190,10 +198,10 @@ function TotalStatistics({ loglist }) {
       <div className={classes.relativeBoxContainer}>
         <div className={classes.statisticsTitleBox}>통합 통계</div>
       </div>
-      <div className={classes.statisticsContent}>
-        <div className={classes.dataSelectContainer}>
-          <div className={classes.axisSelectBox}>
-            <div className={classes.axisSelectTitle}>선택 옵션 - X축</div>
+      <div className={classes.totalStatisticsContent}>
+        <div className={classes.totalDataSelectContainer}>
+          <div className={classes.totalAxisSelectBox}>
+            <div className={classes.totalAxisSelectTitle}>선택 옵션 - X축</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -244,7 +252,7 @@ function TotalStatistics({ loglist }) {
               }
               {(selectedTotalXOption === 'day' || selectedTotalXOption === 'week') && (
                 <input
-                  className={classes.inputText}
+                  className={`${classes.inputText} ${classes.specificInputText}`}
                   type="date"
                   value={selectedTotalDate}
                   onChange={handleTotalDateChange}
@@ -252,7 +260,7 @@ function TotalStatistics({ loglist }) {
               )}
               {selectedTotalXOption === 'month' && (
                 <input
-                  className={classes.inputText}
+                  className={`${classes.inputText} ${classes.specificInputText}`}
                   type="month"
                   value={selectedTotalDate}
                   onChange={handleTotalDateChange}
@@ -260,7 +268,7 @@ function TotalStatistics({ loglist }) {
               )}
               {selectedTotalXOption === 'year' && (
                 <input
-                  className={classes.inputText}
+                  className={`${classes.inputText} ${classes.specificInputText} ${classes.yearInputText}`}
                   type="number"
                   value={selectedTotalDate.split('-')[0]}
                   onChange={(e) => handleTotalDateChange({ target: { value: `${e.target.value}-01` } })}
@@ -269,8 +277,8 @@ function TotalStatistics({ loglist }) {
               )}
             </div>
           </div>
-          <div className={classes.axisSelectBox}>
-            <div className={classes.axisSelectTitle}>선택 옵션 - Y축</div>
+          <div className={classes.totalAxisSelectBox}>
+            <div className={classes.totalAxisSelectTitle}>선택 옵션 - Y축</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -292,8 +300,8 @@ function TotalStatistics({ loglist }) {
               </label>
             </div>
           </div>
-          <div className={classes.axisSelectBox}>
-            <div className={classes.axisSelectTitle}>모집단 선택 옵션</div>
+          <div className={classes.totalAxisSelectBox}>
+            <div className={classes.totalAxisSelectTitle}>모집단 선택 옵션</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -326,33 +334,75 @@ function TotalStatistics({ loglist }) {
               isOpen={isModalOpen}
               onRequestClose={closeModal}
               contentLabel="Select Items Modal"
+              className={classes.modal}
+              overlayClassName={classes.overlay}
             >
-              <h2>{selectedTotalPopOption === 'gate' ? '기기 선택하기' : '부서 선택하기'}</h2>
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {items.map(item => (
-                  <button
-                    key={item}
-                    onClick={() => handleItemClick(item)}
-                    style={{
-                      margin: '5px',
-                      backgroundColor: selectedItems.includes(item) ? 'lightblue' : 'white'
-                    }}
-                  >
-                    {item}
-                  </button>
-                ))}
+              <div className={classes.selectButtonsContainer}>
+                {selectedItems.length === items.length ? (
+                  <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
+                ) : selectedItems.length === 0 ? (
+                  <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+                ) : (
+                  <>
+                    <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+                    <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
+                  </>
+                )}
               </div>
-              <button onClick={handleConfirm}>확인</button>
-              <button onClick={closeModal}>취소하기</button>
+              <table className={classes.itemsTable}>
+                <tbody>
+                  {items.reduce((rows, item, index) => {
+                    const itemsPerRow = selectedTotalPopOption === 'gate' ? 4 : 2;
+                    if (index % itemsPerRow === 0) {
+                      rows.push([]);
+                    }
+                    rows[rows.length - 1].push(item);
+                    return rows;
+                  }, []).map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                      {row.map((item, colIndex) => (
+                        <React.Fragment key={colIndex}>
+                          <td key={`checkbox-${colIndex}`} className={classes.checkCell}>
+                            <input
+                              type="checkbox"
+                              checked={selectedItems.includes(item)}
+                              onChange={() => handleItemClick(item)}
+                              onClick={(e) => e.stopPropagation()} // 클릭 이벤트 전파 중지
+                            />
+                          </td>
+                          <td
+                            key={`name-${colIndex}`}
+                            className={`${selectedItems.includes(item) ? classes.selectedRow : ''} ${classes.clickableCell} ${classes.nameCell}`}
+                            onClick={() => handleItemClick(item)}
+                          >
+                            {item}
+                          </td>
+                        </React.Fragment>
+                      ))}
+                      {Array.from({ length: (selectedTotalPopOption === 'gate' ? 4 : 2) - row.length }).map((_, i) => (
+                        <React.Fragment key={`empty-${i}`}>
+                          <td key={`empty-checkbox-${i}`}></td>
+                          <td key={`empty-name-${i}`}></td>
+                        </React.Fragment>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className={classes.modalButtonContainer}>
+                <button onClick={handleConfirm} className={classes.confirmButton}>확인</button>
+                <button onClick={closeModal} className={classes.cancelButton}>취소</button>
+              </div>
             </Modal>
+
           </div>
         </div>
         <div className={classes.graphContainer}>
           {selectedItems.map(item => {
             const data = filterDataForTotal(loglist, item);
             return (
-              <div key={item}>
-                <h3>{item}</h3>
+              <div key={item} className={classes.graphBox}>
+                <div className={classes.graphTitle}>{item}</div>
                 <Line data={data} options={{}} />
               </div>
             );

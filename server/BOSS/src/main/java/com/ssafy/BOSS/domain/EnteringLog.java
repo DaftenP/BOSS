@@ -19,7 +19,7 @@ public class EnteringLog {
     @Column(name = "log_id")
     private Long logId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id")
     private Member member;
 
@@ -32,7 +32,7 @@ public class EnteringLog {
 
     private int entering;
 
-    private int gateNumber; // 되나..?
+    private int gateNumber;
 
     private int stickerCount;
 

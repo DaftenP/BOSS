@@ -69,7 +69,7 @@ public class EnteringLogController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchEnteringLog(@RequestBody RequestEnteringLogDto dto) {
+    public ResponseEntity<?> searchEnteringLog(@ModelAttribute RequestEnteringLogDto dto) {
         enteringLogService.getAllSearchEnteringLogs(dto);
         return ResponseEntity.ok().build();
     }

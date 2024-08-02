@@ -38,18 +38,17 @@ public class EnteringLogController {
 
     @GetMapping("/view")
     public ResponseEntity<?> getAllEnteringLogs() {
-        List<EnteringLog> logs = enteringLogService.getAllEnteringLogs();
+        List<EnteringLogDto> logs = enteringLogService.getAllEnteringLogs();
         return ResponseEntity.ok(logs);
     }
 
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
         Optional<Member> member = memberRepository.findById(id);
-        if(member.isPresent()) {
+        if (member.isPresent()) {
             List<EnteringLog> logs = enteringLogService.findLogsByMember(member);
             return ResponseEntity.ok(logs);
-        }
-        else {
+        } else {
             return ResponseEntity.notFound().build();
         }
     }
@@ -63,7 +62,7 @@ public class EnteringLogController {
     @PostMapping("/regist")
     public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLog enteringLog) {
         enteringLogService.save(enteringLog);
-        if(enteringLog.isFail()) {
+        if (enteringLog.isFail()) {
             messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
         }
         return ResponseEntity.ok().build();

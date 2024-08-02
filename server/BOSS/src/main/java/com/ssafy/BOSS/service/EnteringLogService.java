@@ -40,8 +40,24 @@ public class EnteringLogService {
         enteringLogRepository.save(enteringLog);
     }
 
-    public List<EnteringLog> getAllEnteringLogs() {
-        return enteringLogRepository.findAll();
+    public List<EnteringLogDto> getAllEnteringLogs() {
+        List<EnteringLog> logs = enteringLogRepository.findAll();
+        return logs.stream().map(log -> {
+            EnteringLogDto dto = new EnteringLogDto();
+            if (log.getMember() != null) {
+                dto.setName(log.getMember().getName());
+                if (log.getMember().getPosition() != null) {
+                    dto.setPositionName(log.getMember().getPosition().getPositionName());
+                }
+                if (log.getMember().getDepartment() != null) {
+                    dto.setDepartmentName(log.getMember().getDepartment().getDepartmentName());
+                }
+            }
+            dto.setId(log.getLogId());
+            dto.setIssue(log.getIssue());
+            dto.setTime(log.getTime());
+            return dto;
+        }).toList();
     }
 
     public List<EnteringLogDto> getAllSearchEnteringLogs(RequestEnteringLogDto logDto) {

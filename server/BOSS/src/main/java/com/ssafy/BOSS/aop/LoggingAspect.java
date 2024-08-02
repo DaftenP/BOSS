@@ -29,7 +29,7 @@ public class LoggingAspect {
     public void mvcPointcut() {}
 
     @Around("mvcPointcut()")
-    public void logMethodCall(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object logMethodCall(ProceedingJoinPoint joinPoint) throws Throwable {
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
@@ -44,9 +44,11 @@ public class LoggingAspect {
         logger.info("ENTER {}::{}", className, methodName);
         logger.info(params.toString());
 
-        joinPoint.proceed();
+        Object result = joinPoint.proceed();
 
         logger.info("EXIT {}::{}", className, methodName);
+
+        return result;
     }
 
 }

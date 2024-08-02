@@ -1,6 +1,8 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
+import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,5 +36,9 @@ public class MemberService {
 
     public List<Member> getAllMembers() {
         return memberRepository.findAll();
+    }
+
+    public List<MemberLogDto> searchMemberLogs(RequestMemberDto requestMemberDto) {
+        return memberRepository.searchMemberLogs(requestMemberDto);
     }
 }

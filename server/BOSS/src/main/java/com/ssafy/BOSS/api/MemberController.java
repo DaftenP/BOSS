@@ -1,8 +1,10 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.MemberResponseDto;
 import com.ssafy.BOSS.dto.memberDto.MemberReturnDto;
+import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -74,6 +76,15 @@ public class MemberController {
             return dto;
         }).toList();
         return ResponseEntity.ok(dtos);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchMembers(@ModelAttribute RequestMemberDto dto) {
+        List<MemberLogDto> memberLogs = memberService.searchMemberLogs(dto);
+        if(!memberLogs.isEmpty()) {
+            return ResponseEntity.ok(memberLogs);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

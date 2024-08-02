@@ -18,7 +18,7 @@
   border: 1px solid #CDCDCD;
   border-radius: 20px;
   background-color: white;
-  margin: 10px;
+  margin: 15px 10px 10px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -68,12 +68,21 @@
   margin-right: 30px;
   margin-bottom: 10px;
   border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   height: 19px;
   border: 1px solid #CDCDCD;
 }
 
+.specificInputText {
+  width: 150px;
+  color: gray;
+  text-align: center;
+}
+
 .inputContainer {
   margin: 20px;
+  width: 80%;
 }
 
 .inputText::placeholder {
@@ -182,6 +191,39 @@
   opacity: 70%;
 }
 
+.logIcon {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.filterTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.filterTable td {
+  padding: 2px 5px;
+  border: none;
+  vertical-align: top;
+}
+
+.filterTable label {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.inputText, .specificInputText {
+  width: calc(100% - 10px);
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.submitButtonCell {
+  text-align: center;
+  padding-top: 10px;
+}
+/* 모달 css */
 .modal {
   display: flex;
   justify-content: center;
@@ -209,12 +251,36 @@
 }
 
 .modalContent {
+  position: relative;
   background: white;
-  padding: 20px;
   border-radius: 10px;
-  max-width: 500px;
-  width: 100%;
+  max-width: 600px;
+  width: auto;
   z-index: 1001;
+}
+
+.deviceInfoBox {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.imageContainer {
+  background-color: rgb(28, 28, 28);
+  color: white
+}
+
+.deviceImageBox {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+/* 디바이스 이미지 16:9를 3.2배율로 설정 */
+.deviceImage {
+  background-color: gray;
+  width: 288px;
+  height: 512px;
 }
 
 .close {
@@ -223,4 +289,77 @@
   top: 10px;
   cursor: pointer;
   font-size: 24px;
+}
+
+.closeButton {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: #c0c0c0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.updateModalContainer {
+  padding: 20px;
+}
+
+.formContainer {
+  display: inline-block;
+}
+
+.formGroup {
+  margin-top: 20px;
+}
+
+.updateInputText {
+  margin-right: 30px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 15px;
+  height: 25px;
+  border: 2px solid #5f7690;
+}
+
+.updateInputText::placeholder {
+  text-align: center;
+  font-size: 13px;
+}
+
+
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #1d8afe;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.submitButton img {
+  width: 24px;
+  height: 24px;
+}
+
+.submitButton:hover {
+  background-color: #B0D2FA;
+  border-color: #1d8afe;
+}
+
+.updateButtonContainer {
+  display: flex;
+  justify-content: flex-end;
 }

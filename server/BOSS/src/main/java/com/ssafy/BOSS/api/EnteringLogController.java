@@ -2,6 +2,7 @@ package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
@@ -70,8 +71,8 @@ public class EnteringLogController {
 
     @GetMapping("/search")
     public ResponseEntity<?> searchEnteringLog(@ModelAttribute RequestEnteringLogDto dto) {
-        enteringLogService.getAllSearchEnteringLogs(dto);
-        return ResponseEntity.ok().build();
+        List<EnteringLogDto> logs = enteringLogService.getAllSearchEnteringLogs(dto);
+        return ResponseEntity.ok(logs);
     }
 
 }

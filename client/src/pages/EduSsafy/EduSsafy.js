@@ -140,7 +140,7 @@ export default function Main() {
 
                 <span className={isCheckedOut ? classes['check-on'] : classes['check-off']}
                   onClick={toggleCheckOut}>
-                  {isCheckedOut ? '정상퇴실' : '퇴실하기'}
+                  {isCheckedOut ? '퇴실하기' : '퇴실하기'}
                 </span>
               </div>
             </div>

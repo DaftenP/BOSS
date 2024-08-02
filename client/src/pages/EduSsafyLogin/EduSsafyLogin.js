@@ -12,7 +12,7 @@ export default function Main() {
 
   return (
     <div className={`${classes['main-container']} ${classes['intro-visual-bg']}`}>
-      <div className={classes['rectangle']} />
+      {/* <div className={classes['rectangle']} /> */}
       <div className={classes['rectangle-1']}>
         <span className={classes['privacy-policy']}>
           개인정보처리방침

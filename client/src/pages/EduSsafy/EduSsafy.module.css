@@ -579,7 +579,7 @@ button {
   white-space: nowrap;
   z-index: 11;
 }
-.saturday {
+.day {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -1124,7 +1124,7 @@ button {
   margin: 33px 0 0 47px;
   z-index: 78;
 }
-.monday {
+.fulldate {
   flex-shrink: 0;
   position: relative;
   height: 22px;

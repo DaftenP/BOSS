@@ -12,6 +12,9 @@ export default function Main() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
 
+  // 날짜, 시간 변수
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
   // 입실/퇴실 상태 변경 함수
   const toggleCheckIn = () => {
     setIsCheckedIn(!isCheckedIn);
@@ -30,6 +33,17 @@ export default function Main() {
     navigate('/EduSsafyLogin');
   };
 
+  // 체크아웃 처리 함수
+  const handleCheckOut = () => {
+    // 현재 시간을 기록합니다.
+    if (!currentDateTime) {
+      setCurrentDateTime(new Date());
+    }
+    // 체크아웃 동작을 호출합니다.
+    toggleCheckOut();
+  };
+  
+
   useEffect(() => {
     // Google Fonts link 요소 생성
     const link = document.createElement('link');
@@ -37,12 +51,37 @@ export default function Main() {
     link.rel = 'stylesheet';
     document.head.appendChild(link);
 
+    const timerId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
     // 컴포넌트 언마운트 시 link 요소 제거 (옵션)
     return () => {
       document.head.removeChild(link);
+
+      clearInterval(timerId);
     };
   }, []);
 
+  const dayOfWeek = [
+    '일', '월', '화', '수', '목', '금', '토'
+  ][currentDateTime.getDay()]; // 0: 일요일, 1: 월요일, ..., 6: 토요일
+
+  const year = currentDateTime.getFullYear();
+  const month = String(currentDateTime.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+  const day = String(currentDateTime.getDate()).padStart(2, '0'); // 일
+
+  
+  
+  // 현재 시간을 형식화하는 함수
+  const getFormattedTime = (date) => {
+    return date.toLocaleTimeString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
+
+  const formattedTime = currentDateTime ? getFormattedTime(currentDateTime) : 'Click to Check Out';
   return (
     
     <div className={classes['main-container']}>
@@ -95,13 +134,10 @@ export default function Main() {
           {/* 드롭다운 메뉴 */}
           <div className={`${classes['dropdown-menu']} ${isDropdownOpen ? classes['is-show'] : classes['hidden']}`}>
             <div onClick={handleLogout}>로그아웃</div>
-            <div>추가 항목 1</div>
-            <div>추가 항목 2</div>
           </div>
           </div>
         
 
-        
       </div>
       <div className={classes['flex-row-e']}>
         <div className={classes['rectangle-6']}>
@@ -118,9 +154,9 @@ export default function Main() {
                 onClick={toggleCheckIn}
               >
                 {isCheckedIn ? (
-                  <span className={classes['time']} onClick={toggleCheckIn}>08:38</span>
+                  <span className={classes['time']} onClick={handleCheckOut}>{formattedTime}</span>
                 ) : (
-                  <div className={classes['icon-in']} onClick={toggleCheckIn}></div>
+                  <div className={classes['icon-in']} onClick={handleCheckOut}></div>
                 )}
                 
                 <span className={isCheckedIn ? classes['check-on'] : classes['check-off']}
@@ -134,7 +170,7 @@ export default function Main() {
                 onClick={toggleCheckOut}
               >
                 {isCheckedOut ? (
-                  <span className={classes['time']} onClick={isCheckedOut}>18:00</span>
+                  <span className={classes['time']} onClick={isCheckedOut}>{formattedTime}</span>
                 ) : (
                   <div className={classes['icon-out']} onClick={isCheckedOut}></div>
                 )}
@@ -146,8 +182,8 @@ export default function Main() {
               </div>
             </div>
 
-            <span className={classes['date']}>07. 27</span>
-            <span className={classes['saturday']}>토요일</span>
+            <span className={classes['date']}>{month}.{day}</span>
+            <span className={classes['day']}>{dayOfWeek}요일</span>
           </div>
         </div>
         <div className={classes['rectangle-b']}>
@@ -208,7 +244,7 @@ export default function Main() {
             <div className={classes['icon-22']} />
           </div>
           <div className={classes['flex-row-fa']}>
-            <span className={classes['monday']}>2024.07.29(월)</span>
+            <span className={classes['fulldate']}>{year}.{month}.{day}({dayOfWeek})</span>
             <div className={classes['clock']}>
               <div className={classes['icon-23']} />
             </div>

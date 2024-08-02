@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/boss?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true"
@@ -18,3 +22,16 @@ spring:
     show_sql: true
 
 
+
+cloud:
+  aws:
+    s3:
+      bucket: mybossbucket
+    credentials:
+      access-key: AKIAQFC27B6E5STSI5PO
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false

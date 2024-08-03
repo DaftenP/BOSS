@@ -19,8 +19,7 @@ public class EnteringLog {
     @Column(name = "log_id")
     private Long logId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Member member;
 
     @Column(name = "time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

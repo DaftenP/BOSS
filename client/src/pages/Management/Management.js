@@ -266,7 +266,7 @@ function Management() {
                   <td>{log.id}</td>
                   <td>{log.memberName}</td>
                   <td>{log.departmentName}</td>
-                  <td>{log.positonName}</td>
+                  <td>{log.positionName}</td>
                   <td>{log.phoneNumber}</td>
                   <td>{log.nfc}</td>
                   <td>{log.issueCount}</td>

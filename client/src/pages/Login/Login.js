@@ -22,18 +22,18 @@ function Login() {
 
   const loginHandler = (event) => {
     event.preventDefault();
-    dispatch(login({ adminId, adminPw }));
+    dispatch(login(adminInfo));
   }
 
   useEffect(() => {
     if (isSuccess !== null) {
-      if (!adminId && !adminPw) {
+      if (!adminInfo.adminId && !adminInfo.adminPw) {
         setErrorMessage('아이디와 비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!adminId) {
+      } else if (!adminInfo.adminId) {
         setErrorMessage('아이디를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!adminPw) {
+      } else if (!adminInfo.adminPw) {
         setErrorMessage('비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
       } else if (isSuccess === false) {
@@ -42,7 +42,7 @@ function Login() {
       }
       dispatch(logout());
     }
-  }, [isSuccess, adminId, adminPw, dispatch]);
+  }, [isSuccess, dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -51,11 +51,12 @@ function Login() {
     }
   }, [error]);
 
-  const handleId = (event) => {
-    setAdminId(event.target.value);
-  }
-  const handlePassword = (event) => {
-    setAdminPw(event.target.value);
+  const handleAdminInfo = (event) => {
+    const { id, value } = event.target;
+    setAdminInfo((prevInfo) => ({
+      ...prevInfo,
+      [id]: value
+    }))
   }
 
   return (
@@ -74,8 +75,8 @@ function Login() {
             id='adminId' 
             placeholder="아 이 디" 
             className={classes.inputText} 
-            value={adminId} 
-            onChange={handleId} 
+            value={adminInfo.adminId} 
+            onChange={handleAdminInfo} 
           />
         </div>
         <div className={classes.formGroup}>
@@ -88,8 +89,8 @@ function Login() {
             id='adminPw' 
             placeholder="비 밀 번 호" 
             className={classes.inputText} 
-            value={adminPw} 
-            onChange={handlePassword} 
+            value={adminInfo.adminPw} 
+            onChange={handleAdminInfo} 
           />
         </div>
         <div key={errorKey} className={classes.formSubGroup}>

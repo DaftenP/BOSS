@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classes from './Management.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
@@ -7,6 +7,7 @@ import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../sto
 function Management() {
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
+  const fileInputRef = useRef(null)
   const [filters, setFilters] = useState({
     memberName: '',
     department: '',
@@ -16,12 +17,12 @@ function Management() {
   });
 
   const [submitMemberData, setSubmitMemberData] = useState({
-    name: '',
+    memberName: '',
     department: '',
     position: '',
     phoneNumber: '',
     nfc: '',
-    profileImage: ''
+    profileImage: null,
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,11 +81,20 @@ function Management() {
   };
 
   const handleSubmitChange = (event) => {
-    const { name, value } = event.target
-    setSubmitMemberData({
-      ...submitMemberData, [name]: value,
-    });
-  }
+    const { name, value, type, files } = event.target;
+    if (type === 'file') {
+      const file = files[0];
+      setSubmitMemberData((prevState) => ({
+        ...prevState,
+        [name]: file,
+      }));
+    } else {
+      setSubmitMemberData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -92,6 +102,17 @@ function Management() {
       ...submitMemberData, profileImage: submitMemberData.profileImage || 'aaa.jpg'
     }
     dispatch(memberRegistration(dataToSubmit))
+    setSubmitMemberData({
+      memberName: '',
+      department: '',
+      position: '',
+      phoneNumber: '',
+      nfc: '',
+      profileImage: null,
+    });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   }
 
   const displayedLogs = logsData.slice(0, visibleCount);
@@ -100,11 +121,13 @@ function Management() {
     setVisibleCount(20);
   }, [logsData]);
 
+  const totalLogsCount = logsData.length
+
   return (
     <div className={classes.mainContainer}>
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
         <div className={classes.filteringBox}>
-            F I L T E R I N G
+            FILTERING
         </div>
         <div className={classes.inputContainer}> 
           <form onSubmit={handleSearch} className={classes.relativeBoxContainer}>
@@ -146,7 +169,7 @@ function Management() {
       </div>
       <div className={`${classes.registrationContainer} ${classes.relativeBoxContainer}`}>
         <div className={classes.filteringBox}>
-          N E W
+          NEW
         </div>
         <div className={classes.inputContainer}>
           <div className={classes.optionLabel}>등록 옵션</div>
@@ -179,31 +202,29 @@ function Management() {
                   <tr>
                     <td>
                       <label htmlFor="new memberName" className={classes.labelText}>이름</label>
-                      <input className={classes.inputText} name="name" type="text" id="new memberName" placeholder="이 름" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="memberName" type="text" id="new memberName" value={submitMemberData.memberName} placeholder="이 름" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new department" className={classes.labelText}>부서</label>
-                      <input className={classes.inputText} name="department" type="text" id="new department" placeholder="부 서" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="department" type="text" id="new department" value={submitMemberData.department} placeholder="부 서" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new position" className={classes.labelText}>직책</label>
-                      <input className={classes.inputText} name="position" type="text" id="new position" placeholder="직 책" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="position" type="text" id="new position" value={submitMemberData.position} placeholder="직 책" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new phoneNumber" className={classes.labelText}>연락처</label>
-                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" placeholder="연 락 처" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" value={submitMemberData.phoneNumber} placeholder="연 락 처" onChange={handleSubmitChange} />
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <label htmlFor="new nfc" className={classes.labelText}>NFC</label>
-                      <input className={classes.inputText} name="nfc" type="text" id="new nfc" placeholder="N F C" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="nfc" type="text" id="new nfc" value={submitMemberData.nfc} placeholder="N F C" onChange={handleSubmitChange} />
                     </td>
-                  </tr>
-                  <tr>
                     <td colSpan="4">
                       <label htmlFor="new profile" className={classes.labelText}>프로필 사진 파일을 선택해 주세요!</label>
-                      <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} />
+                      <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} ref={fileInputRef} />
                     </td>
                   </tr>
                 </tbody>
@@ -221,6 +242,9 @@ function Management() {
       <div className={classes.listContainer}>
         <div className={classes.listTitle}>
           등록 인원 목록
+        </div>
+        <div className={classes.logCount}>
+          현재 조회 인원 : {totalLogsCount}명
         </div>
         <div className={classes.tableContainer}>
           <table className={classes.logTable}>
@@ -244,7 +268,7 @@ function Management() {
                   <td>{log.departmentName}</td>
                   <td>{log.positionName}</td>
                   <td>{log.phoneNumber}</td>
-                  <td>{log.nfcUid}</td>
+                  <td>{log.nfc}</td>
                   <td>{log.issueCount}</td>
                   <td>
                     <img src={detailIcon}

@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import classes from './Main.module.css';
 import { Line } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 import ruleImage from '../../assets/Main/Rule_background_image.png'
-import normalImage from '../../assets/Main/Normal_state.png'
 import damageImage from '../../assets/Main/Damage_state.png'
 import noAttachedImage from '../../assets/Main/No_attached_state.png'
 import changeImage from '../../assets/Main/Change_state.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function Main() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImage, setModalImage] = useState('');
+
+  const handleImageClick = (src) => {
+    console.log('안녕')
+    setModalImage(src);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   const logs = useSelector((state) => state.loglist.data)
 
   const today = new Date()
@@ -173,20 +187,21 @@ function Main() {
         </div>
         <div className={classes.totalRuleContainer} style={{ backgroundImage: `url(${ruleImage})` }}>
           <div className={classes.relativeBoxContainer}>
-            <div className={classes.issueTitleBox}>사고 시 조치 사항</div>
+            <div className={classes.ruleTitleBox}>이슈 조치 사항</div>
           </div>
-          <div className={classes.ruleContainer}>
+          <div className={classes.firstRuleContainer}>
             <div className={classes.ruleTitle}>스티커 훼손</div>
             <div className={classes.ruleContent}>
               <div className={classes.imageContainer}>
-                <img src={damageImage} alt="damage_image" className={classes.guideImage} />
-                <div>정상 - 비정상</div>
+                <img src={damageImage} alt="damage_image" className={classes.guideImage} onClick={() => handleImageClick(damageImage)} />
+                <div>예시 사진</div>
               </div>
               <ul>
-                <p>1. 적발된 인원을 대기열에서 분리</p>
-                <p>2. 훼손 사유가 정당한지 판단</p>
-                <p>3. 훼손된 스티커를 제거 후 새 스티커를 재부착</p>
-                <p>4. 문제가 있다면 상급자에게 보고</p>
+                <p>1. <span className={classes.warningFont}>적발된 인원</span>을 <span className={classes.highlight}>대기열에서 분리</span></p>
+                <p>2. <span className={classes.highlight}>훼손 사유</span>가 정당한지 판단</p>
+                <p>3. <span className={classes.highlight}>훼손된 스티커</span> 제거</p>
+                <p>4. <span className={classes.highlight}>새로운 스티커</span> 재부착</p>
+                <p>5. <span className={classes.warningFont}>문제가 있다면 상급자에게 보고</span></p>
               </ul>
             </div>
           </div>
@@ -194,13 +209,14 @@ function Main() {
             <div className={classes.ruleTitle}>스티커 미부착</div>
             <div className={classes.ruleContent}>
               <div className={classes.imageContainer}>
-                <img src={noAttachedImage} alt="no_attached_image" className={classes.guideImage} />
+                <img src={noAttachedImage} alt="no_attached_image" className={classes.guideImage} onClick={() => handleImageClick(noAttachedImage)} />
+                <div>예시 사진</div>
               </div>
               <ul>
-                <p>1. 적발된 인원을 대기열에서 분리</p>
-                <p>2. 미부착 사유가 정당한지 판단</p>
-                <p>3. 이전 기록을 조회 후 스티커를 재부착</p>
-                <p>4. 문제가 있다면 상급자에게 보고</p>
+                <p>1. <span className={classes.warningFont}>적발된 인원</span>을 <span className={classes.highlight}>대기열에서 분리</span></p>
+                <p>2. <span className={classes.highlight}>미부착 사유</span>가 정당한지 판단</p>
+                <p>3. <span className={classes.highlight}>이전 기록</span>을 조회 후 <span className={classes.warningFont}>스티커를 재부착</span></p>
+                <p>4. <span className={classes.warningFont}>문제가 있다면</span> <span className={classes.warningFont}>상급자에게 보고</span></p>
               </ul>
             </div>
           </div>
@@ -208,17 +224,28 @@ function Main() {
             <div className={classes.ruleTitle}>휴대폰 변경</div>
             <div className={classes.ruleContent}>
               <div className={classes.imageContainer}>
-                <img src={changeImage} alt="change_image" className={classes.guideImage} />
+                <img src={changeImage} alt="change_image" className={classes.guideImage} onClick={() => handleImageClick(changeImage)} />
+                <div>예시 사진</div>
               </div>
               <ul>
-                <p>1. 적발된 인원을 대기열에서 분리</p>
-                <p>2. 휴대폰 변경 사유가 정당한지 판단</p>
-                <p>3. 보안 관리자에게 연락하여 상황을 설명</p>
-                <p>4. 보안 관리자가 도착할 때까지 대기</p>
+                <p>1. <span className={classes.warningFont}>적발된 인원</span>을 <span className={classes.highlight}>대기열에서 분리</span></p>
+                <p>2. <span className={classes.highlight}>휴대폰 변경 사유</span>가 정당한지 판단</p>
+                <p>3. <span className={classes.warningFont}>보안 관리자에게 연락</span>하여 상황을 설명</p>
+                <p>4. <span className={classes.highlight}>보안 관리자가 도착할 때까지 대기</span></p>
               </ul>
             </div>
           </div>
         </div>
+        {isModalOpen && (
+          <div className={`${classes.imageModal} ${isModalOpen ? classes.imageModalOpen : ''}`} onClick={handleCloseModal}>
+            <div className={classes.imageModalContentContainer}>
+              <span className={classes.imageModalClose} onClick={handleCloseModal}>
+                <FontAwesomeIcon icon={faTimes} />
+              </span>
+              <img className={classes.imageModalContent} src={modalImage} alt="modal_image" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

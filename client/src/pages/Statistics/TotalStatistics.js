@@ -3,6 +3,8 @@ import { Line } from 'react-chartjs-2';
 import Modal from 'react-modal';
 import classes from './Statistics.module.css';
 import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function TotalStatistics({ loglist }) {
   const [selectedTotalXOption, setSelectedTotalXOption] = useState('day');
@@ -337,17 +339,26 @@ function TotalStatistics({ loglist }) {
               className={classes.modal}
               overlayClassName={classes.overlay}
             >
-              <div className={classes.selectButtonsContainer}>
-                {selectedItems.length === items.length ? (
-                  <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
-                ) : selectedItems.length === 0 ? (
-                  <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
-                ) : (
-                  <>
-                    <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+              <div className={classes.modalTopContainer}>
+                <div className={classes.title}>
+                  {selectedTotalPopOption === 'gate' ? (
+                    <div>기기 선택</div>
+                  ) : (
+                    <div>부서 선택</div>
+                  )}
+                </div>
+                <div className={classes.selectButtonsContainer}>
+                  {selectedItems.length === items.length ? (
                     <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
-                  </>
-                )}
+                  ) : selectedItems.length === 0 ? (
+                    <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+                  ) : (
+                    <>
+                      <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+                      <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
+                    </>
+                  )}
+                </div>
               </div>
               <table className={classes.itemsTable}>
                 <tbody>
@@ -389,9 +400,11 @@ function TotalStatistics({ loglist }) {
                   ))}
                 </tbody>
               </table>
+              <span className={classes.closeButton} onClick={closeModal}>
+                <FontAwesomeIcon icon={faTimes} />
+              </span>
               <div className={classes.modalButtonContainer}>
                 <button onClick={handleConfirm} className={classes.confirmButton}>확인</button>
-                <button onClick={closeModal} className={classes.cancelButton}>취소</button>
               </div>
             </Modal>
 

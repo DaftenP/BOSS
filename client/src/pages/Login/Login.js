@@ -10,10 +10,8 @@ import loginIcon from '../../assets/Login/Login_icon.png'
 
 function Login() {
   const dispatch = useDispatch();
-  const [adminInfo, setAdminInfo] = useState({
-    adminId: '',
-    adminPw: '',
-  });
+  const [adminId, setAdminId] = useState('');
+  const [adminPw, setAdminPw] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [errorKey, setErrorKey] = useState(0);
   const isSuccess = useSelector((state) => state.login.success);
@@ -21,18 +19,18 @@ function Login() {
 
   const loginHandler = (event) => {
     event.preventDefault();
-    dispatch(login(adminInfo));
+    dispatch(login({ adminId, adminPw }));
   }
 
   useEffect(() => {
     if (isSuccess !== null) {
-      if (!adminInfo.adminId && !adminInfo.adminPw) {
+      if (!adminId && !adminPw) {
         setErrorMessage('아이디와 비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!adminInfo.adminId) {
+      } else if (!adminId) {
         setErrorMessage('아이디를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!adminInfo.adminPw) {
+      } else if (!adminPw) {
         setErrorMessage('비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
       } else if (isSuccess === false) {
@@ -41,7 +39,7 @@ function Login() {
       }
       dispatch(logout());
     }
-  }, [isSuccess, dispatch]);
+  }, [isSuccess, adminId, adminPw, dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -50,12 +48,11 @@ function Login() {
     }
   }, [error]);
 
-  const handleAdminInfo = (event) => {
-    const { id, value } = event.target;
-    setAdminInfo((prevInfo) => ({
-      ...prevInfo,
-      [id]: value
-    }))
+  const handleId = (event) => {
+    setAdminId(event.target.value);
+  }
+  const handlePassword = (event) => {
+    setAdminPw(event.target.value);
   }
 
   return (
@@ -74,8 +71,8 @@ function Login() {
             id='adminId' 
             placeholder="아 이 디" 
             className={classes.inputText} 
-            value={adminInfo.adminId} 
-            onChange={handleAdminInfo} 
+            value={adminId} 
+            onChange={handleId} 
           />
         </div>
         <div className={classes.formGroup}>
@@ -88,8 +85,8 @@ function Login() {
             id='adminPw' 
             placeholder="비 밀 번 호" 
             className={classes.inputText} 
-            value={adminInfo.adminPw} 
-            onChange={handleAdminInfo} 
+            value={adminPw} 
+            onChange={handlePassword} 
           />
         </div>
         <div key={errorKey} className={classes.formSubGroup}>

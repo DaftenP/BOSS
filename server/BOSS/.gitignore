@@ -38,3 +38,6 @@ out/
 
 ###S3###
 **/application-aws.yml
+
+###jwt###
+**/application-jwt.yml

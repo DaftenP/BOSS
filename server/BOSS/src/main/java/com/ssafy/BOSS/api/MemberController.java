@@ -1,14 +1,15 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.MemberResponseDto;
 import com.ssafy.BOSS.dto.memberDto.MemberReturnDto;
+import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,19 +62,16 @@ public class MemberController {
 
     @GetMapping("/check")
     public ResponseEntity<?> getMembers() {
-        List<Member> members = memberService.getAllMembers();
-        List<MemberResponseDto> dtos = members.stream().map(member -> {
-            MemberResponseDto dto = new MemberResponseDto();
-            dto.setId(member.getMemberId());
-            dto.setMemberProfile(member.getProfileImage());
-            dto.setMemberName(member.getName());
-            dto.setDepartment(member.getDepartment());
-            dto.setPosition(member.getPosition());
-            dto.setIssueCount(member.getIssueCount());
-            dto.setPhoneNumber(member.getPhoneNumber());
-            return dto;
-        }).toList();
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(memberService.getAllMembers());
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> searchMembers(@ModelAttribute RequestMemberDto dto) {
+        List<MemberLogDto> memberLogs = memberService.searchMemberLogs(dto);
+        if(!memberLogs.isEmpty()) {
+            return ResponseEntity.ok(memberLogs);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     private ResponseEntity<String> exceptionHandling(Exception e) {

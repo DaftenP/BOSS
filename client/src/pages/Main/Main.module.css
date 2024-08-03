@@ -1,173 +1,171 @@
 .mainContainer {
-  display: flex;
+    display: flex;
 }
 
 .todayIssueContainer {
-  background-color: white;
-  border: 1px solid #CDCDCD;
-  border-radius: 20px;
-  width: 50%;
-  margin: 10px;
-  padding: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    border: 1px solid #CDCDCD;
+    border-radius: 20px;
+    width: 50%;
+    margin: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .issueLogContainer{
-  background-color: #EEEEEE;
-  width: 50%;
-  margin: 10px;
+    background-color: #EEEEEE;
+    width: 50%;
+    margin: 10px;
 }
 
 .relativeBoxContainer {
-  position: relative;
-  margin-bottom: 100px;
+    position: relative;
 }
 
 .issueTitleBox {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #B0D2FA;
-  border-radius: 18px 18px 0 0;
-  padding: 10px 15px 10px 15px;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #B0D2FA;
+    border-radius: 18px 18px 0 0;
+    padding: 10px 15px 10px 15px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .totalIssueContainer {
-  border: 1px solid #CDCDCD;
-  border-radius: 20px;
-  background-color: white;
-  min-height: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid #CDCDCD;
+    border-radius: 20px;
+    background-color: white;
+    min-height: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .moreButtonContainer {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .moreButton {
-  cursor: pointer;
-  padding: 10px 100px 10px 100px;
-  margin-bottom: 16px;
-  background-color: #B0D2FA;
-  border: none;
-  border-radius: 20px;
-  opacity: 70%;
+    cursor: pointer;
+    padding: 10px 100px 10px 100px;
+    margin-bottom: 16px;
+    background-color: #B0D2FA;
+    border: none;
+    border-radius: 20px;
+    opacity: 70%;
 }
 
 .lineChartContainer {
-  display: flex;
-  border: 1px solid #CDCDCD;
-  border-radius: 15px;
-  margin-top: 20px;
-  padding: 0 20px 10px 20px;
-  justify-content: center;
-  flex-direction: column;
-  height: 400px;
+    display: flex;
+    border: 1px solid #CDCDCD;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 0 20px 10px 20px;
+    justify-content: center;
+    flex-direction: column;
+    height: 400px;
 }
 
 .doughnutChartContainer {
-  display: flex;
-  border: 1px solid #CDCDCD;
-  border-radius: 15px;
-  margin-top: 20px;
-  padding: 0 20px 10px 20px;
-  justify-content: center;
-  flex-direction: column;
-  height: 610px;
+    display: flex;
+    border: 1px solid #CDCDCD;
+    border-radius: 15px;
+    margin-top: 20px;
+    padding: 0 20px 10px 20px;
+    justify-content: center;
+    flex-direction: column;
+    height: 610px;
 }
 
 .chartTitle {
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .doughnutChartTitle {
-  margin-top: 70px;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
+    margin-top: 70px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .tableContainer{
-  padding: 25px 25px 5px 25px;
+    padding: 25px 25px 5px 25px;
 }
 
 .logTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 25px 0 25px 0;
-  font-size: 11px
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0 25px 0;
+    font-size: 11px
 }
 
 .logTable {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 40px 5px 20px 0px;
-  font-size: 11px
+    width: 100%;
+    border-collapse: collapse;
+    margin: 40px 5px 20px 0px;
+    font-size: 11px
 }
 
 .logTable th, .logTable td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
 }
 
 .totalRuleContainer {
-  border: 1px solid #CDCDCD;
-  border-radius: 20px;
-  margin-top: 20px;
-  padding-bottom: 15px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: rgba(255, 255, 255, 0.7);
-  background-blend-mode: overlay;
+    border: 1px solid #CDCDCD;
+    border-radius: 20px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    background-blend-mode: overlay;
+}
+
+.firstRuleContainer {
+    position: relative;
+    border: 1px solid #B0D2FA;
+    border-radius: 20px;
+    background-color: #b0d2fa78;
+    padding: 10px;
+    margin: 80px 25px 20px 25px;
+    font-size: 15px;
 }
 
 .ruleContainer {
-  position: relative;
-  border: 1px solid #ff7f502a;
-  border-radius: 20px;
-  background-color: #ff7f502a;
-  padding: 10px;
-  margin: 50px 25px 20px 25px;
-  font-size: 15px;
+    position: relative;
+    border: 1px solid #B0D2FA;
+    border-radius: 20px;
+    background-color: #b0d2fa78;
+    padding: 10px;
+    margin: 50px 25px 20px 25px;
+    font-size: 15px;
 }
 
 .ruleTitle {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 0;
-  border-radius: 15px;
-  background-color: #7990FD;
-  padding: 7px 40px 7px 40px;
-  font-weight: bold;
-  font-size: 16px;
-  color: white;
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+    border-radius: 15px;
+    background-color: #7990FD;
+    padding: 7px 40px 7px 40px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
 }
 
 .guideImage {
-  width: auto;
-  height: 200px;;
-}
-
-.ruleContent{
-  display: flex;
-  margin : 20px 0px;
-}
-
-.imageContainer {
-  border: 1px solid black;
-  border-radius: 10px;
+    width: auto;
+    height: 200px;;
 }

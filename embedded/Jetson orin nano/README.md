@@ -1,3 +1,16 @@
+# 7_23일
+
+
+## 목표
+- 젯슨 오린 나노에서 python파일로 yolo 실행 파일을 만든다.
+- 카메라 프레임 조정이 가능하게 한다.
+- CUDA 확인이 가능한 코드를 작성한다.
+
+
+## 활동
+
+### yolo 실행 코드
+```python
 import cv2
 import torch
 
@@ -53,8 +66,6 @@ while True:
             cv2.rectangle(resized_frame, (int(x1), int(y1)) , (int(x2), int(y2)), (0, 255, 0), 2)
             cv2.putText(resized_frame, label, (int(x1), int(y1) - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 225, 0), 2)
             
-
-
     # 결과 프레임 표시
     cv2.imshow('YOLOv8 Detection', resized_frame)
     
@@ -65,3 +76,38 @@ while True:
 # 리소스 해제
 cap.release()
 cv2.destroyAllWindows()
+```
+
+
+### CUDA 확인 코드
+```python
+import torch
+
+# PyTorch 버전 확인
+print("PyTorch version:", torch.__version__)
+
+# CUDA 사용 가능 여부 확인
+cuda_available = torch.cuda.is_available()
+print("CUDA available:", cuda_available)
+
+# CUDA 디바이스 수 확인
+if cuda_available:
+    num_devices = torch.cuda.device_count()
+    print("Number of CUDA devices:", num_devices)
+
+    # 각 디바이스의 이름 출력
+    for i in range(num_devices):
+        print(f"CUDA Device {i}: {torch.cuda.get_device_name(i)}")
+
+    # 현재 사용 중인 디바이스 인덱스 확인
+    current_device = torch.cuda.current_device()
+    print("Current CUDA device index:", current_device)
+    print("Current CUDA device name:", torch.cuda.get_device_name(current_device))
+else:
+    print("CUDA is not available. Please check your CUDA installation.")
+```
+
+## 느낀점
+- `yolo predict model=[pt파일이름].pt source=0 show=True` 기존 실행코드보다 발달된 기능을 가지게 되었다.6T
+- 카메라 프레임 조정이 가능해지니 할 수 있는 것이 많아졌다.
+- CUDA 실행이 되고 있는지 알 수 있어 궁금증이 해결되었다.

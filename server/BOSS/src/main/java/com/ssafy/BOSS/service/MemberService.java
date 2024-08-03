@@ -1,6 +1,9 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
+import com.ssafy.BOSS.dto.memberDto.MemberResponseDto;
+import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,27 @@ public class MemberService {
         return memberRepository.findByNfc(nfc);
     }
 
-    public List<Member> getAllMembers() {
-        return memberRepository.findAll();
+    @Transactional(readOnly = true)
+    public List<MemberResponseDto> getAllMembers() {
+        List<Member> members = memberRepository.findAll();
+        return members.stream().map(member -> {
+            MemberResponseDto dto = new MemberResponseDto();
+            dto.setId(member.getMemberId());
+            dto.setMemberProfile(member.getProfileImage());
+            dto.setMemberName(member.getName());
+            if(member.getDepartment() != null) {
+                dto.setDepartment(member.getDepartment());
+            }
+            if(member.getPosition() != null) {
+                dto.setPosition(member.getPosition());
+            }
+            dto.setIssueCount(member.getIssueCount());
+            dto.setPhoneNumber(member.getPhoneNumber());
+            return dto;
+        }).toList();
+    }
+
+    public List<MemberLogDto> searchMemberLogs(RequestMemberDto requestMemberDto) {
+        return memberRepository.searchMemberLogs(requestMemberDto);
     }
 }

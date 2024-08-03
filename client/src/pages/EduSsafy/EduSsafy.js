@@ -6,15 +6,22 @@ import { Link } from 'react-router-dom';
 
 export default function Main() {
   // 입실/퇴실 상태 관리
-  const [isCheckedIn, setIsCheckedIn] = useState(true);
+  const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [isCheckedOut, setIsCheckedOut] = useState(false);
   // 내 정보 항목 표시 상태 변수
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // 입실, 퇴실 시간 변수
+  const [incheckTime, setIncheckTime] = useState('00:00');
+  const [outcheckTime, setOutcheckTime] = useState('00:00');
+
   const navigate = useNavigate();
 
+  // 날짜, 시간 변수
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+
   // 입실/퇴실 상태 변경 함수
-  const toggleCheckIn = () => {
-    setIsCheckedIn(!isCheckedIn);
+  const CheckIn = () => {
+    setIsCheckedIn(true);
   };
 
   const toggleCheckOut = () => {
@@ -30,6 +37,8 @@ export default function Main() {
     navigate('/EduSsafyLogin');
   };
 
+  
+
   useEffect(() => {
     // Google Fonts link 요소 생성
     const link = document.createElement('link');
@@ -37,15 +46,50 @@ export default function Main() {
     link.rel = 'stylesheet';
     document.head.appendChild(link);
 
+    const timerId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
     // 컴포넌트 언마운트 시 link 요소 제거 (옵션)
     return () => {
       document.head.removeChild(link);
+
+      clearInterval(timerId);
     };
   }, []);
+
+  const dayOfWeek = [
+    '일', '월', '화', '수', '목', '금', '토'
+  ][currentDateTime.getDay()]; // 0: 일요일, 1: 월요일, ..., 6: 토요일
+
+  const year = currentDateTime.getFullYear();
+  const month = String(currentDateTime.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+  const day = String(currentDateTime.getDate()).padStart(2, '0'); // 일
+
+  
+
+  const checkInTime = currentDateTime.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const checkOutTime = currentDateTime.toLocaleTimeString('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  useEffect(() => {
+    setIncheckTime(String(checkInTime))
+  }, [isCheckedIn])
+
+  useEffect(() => {
+    setOutcheckTime(String(checkOutTime))
+  }, [isCheckedOut])
 
   return (
     
     <div className={classes['main-container']}>
+      <div className={classes['container']}>
       <div className={classes['flex-row']}>
         <div className={classes['rectangle']}>
           <span className={classes['job-ssafy']}>
@@ -94,13 +138,10 @@ export default function Main() {
           {/* 드롭다운 메뉴 */}
           <div className={`${classes['dropdown-menu']} ${isDropdownOpen ? classes['is-show'] : classes['hidden']}`}>
             <div onClick={handleLogout}>로그아웃</div>
-            <div>추가 항목 1</div>
-            <div>추가 항목 2</div>
           </div>
           </div>
         
 
-        
       </div>
       <div className={classes['flex-row-e']}>
         <div className={classes['rectangle-6']}>
@@ -114,16 +155,16 @@ export default function Main() {
               {/* 입실/퇴실 버튼 */}
               <div
                 className={isCheckedIn ? classes['rectangle-on'] : classes['rectangle-off']}
-                onClick={toggleCheckIn}
+                onClick={CheckIn}
               >
                 {isCheckedIn ? (
-                  <span className={classes['time']} onClick={toggleCheckIn}>08:38</span>
+                  <span className={classes['time']} onClick={CheckIn}>{incheckTime}</span>
                 ) : (
-                  <div className={classes['icon-in']} onClick={toggleCheckIn}></div>
+                  <div className={classes['icon-in']} onClick={CheckIn}></div>
                 )}
                 
                 <span className={isCheckedIn ? classes['check-on'] : classes['check-off']}
-                  onClick={toggleCheckIn}>
+                  onClick={CheckIn}>
                   {isCheckedIn ? '정상출석' : '입실하기'}
                 </span>
               </div>
@@ -133,20 +174,20 @@ export default function Main() {
                 onClick={toggleCheckOut}
               >
                 {isCheckedOut ? (
-                  <span className={classes['time']} onClick={isCheckedOut}>18:00</span>
+                  <span className={classes['time']} onClick={toggleCheckOut}>{outcheckTime}</span>
                 ) : (
-                  <div className={classes['icon-out']} onClick={isCheckedOut}></div>
+                  <div className={classes['icon-out']} onClick={toggleCheckOut}></div>
                 )}
 
                 <span className={isCheckedOut ? classes['check-on'] : classes['check-off']}
                   onClick={toggleCheckOut}>
-                  {isCheckedOut ? '정상퇴실' : '퇴실하기'}
+                  {isCheckedOut ? '퇴실하기' : '퇴실하기'}
                 </span>
               </div>
             </div>
 
-            <span className={classes['date']}>07. 27</span>
-            <span className={classes['saturday']}>토요일</span>
+            <span className={classes['date']}>{month}.{day}</span>
+            <span className={classes['day']}>{dayOfWeek}요일</span>
           </div>
         </div>
         <div className={classes['rectangle-b']}>
@@ -207,7 +248,7 @@ export default function Main() {
             <div className={classes['icon-22']} />
           </div>
           <div className={classes['flex-row-fa']}>
-            <span className={classes['monday']}>2024.07.29(월)</span>
+            <span className={classes['fulldate']}>{year}.{month}.{day}({dayOfWeek})</span>
             <div className={classes['clock']}>
               <div className={classes['icon-23']} />
             </div>
@@ -271,6 +312,7 @@ export default function Main() {
         </div>
       </div>
       <div className={classes['line-3a']} />
+    </div>
     </div>
   );
 }

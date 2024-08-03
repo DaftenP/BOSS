@@ -1,6 +1,8 @@
 spring:
   config:
-    import: application-aws.yml
+    import:
+      - application-aws.yml
+      - application-jwt.yml
   servlet:
     multipart:
       max-file-size: 50MB

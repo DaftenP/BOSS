@@ -5,6 +5,7 @@ import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
+import com.ssafy.BOSS.fixture.MemberFixtureService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,29 +19,20 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class MemberRepositoryTest {
 
     @Autowired
+    MemberFixtureService memberFixtureService;
+
+    @Autowired
     MemberRepository memberRepository;
-
-    @Autowired
-    DepartmentRepository departmentRepository;
-
-    @Autowired
-    PositionRepository positionRepository;
 
     @AfterEach
     void setup() {
-        memberRepository.deleteAll();
-        departmentRepository.deleteAll();
-        positionRepository.deleteAll();
+        memberFixtureService.deleteAll();
     }
 
     @Test
     public void memberInsert() throws Exception {
         //given
-        Member member = new Member();
-        member.setName("ssafy");
-        member.setNfc("123");
-        member.setIssueCount(1);
-        memberRepository.save(member);
+        Member member = memberFixtureService.getMember();
 
         //when
         List<Member> members = memberRepository.findAll();
@@ -52,21 +44,7 @@ class MemberRepositoryTest {
     @Test
     public void testMember() throws Exception {
         //given
-        Department department = new Department();
-        department.setDepartmentName("test_department");
-        departmentRepository.save(department);
-
-        Position position = new Position();
-        position.setPositionName("test_position");
-        positionRepository.save(position);
-
-        Member member = new Member();
-        member.setName("ssafy");
-        member.setDepartment(department);
-        member.setPosition(position);
-        member.setNfc("123");
-        member.setIssueCount(1);
-        memberRepository.save(member);
+        Member member = memberFixtureService.getMember();
 
         //when
         RequestMemberDto dto = new RequestMemberDto();

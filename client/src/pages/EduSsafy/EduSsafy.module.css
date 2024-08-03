@@ -20,18 +20,31 @@ textarea,
 button {
   outline: 0;
 }
-
+.container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  transform-origin: center;
+}
 .main-container {
   position: relative;
-  width: 1440px;
-  height: 773px;
-  margin: 0 auto;
+  background-size: 100%;
+  width: 100%;
+  height: 100vh;
+  /* width: 1440px;
+  height: 773px; */
+  /* margin: 0 auto; */
+  
   background: #ffffff;
+  
+  background-position: center center; /* 이미지가 중앙에 위치하도록 설정 */
+  background-repeat: no-repeat; /* 배경 이미지 반복 방지 */
+  background-attachment: fixed; /* 화면 스크롤에 배경 이미지 고정 */
 }
 
 .flex-row {
   position: relative;
-  width: 1298px;
+  width: 1338px;
   height: 99px;
   margin: 0 0 0 101px;
   z-index: 51;
@@ -566,7 +579,7 @@ button {
   white-space: nowrap;
   z-index: 11;
 }
-.saturday {
+.day {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -1111,7 +1124,7 @@ button {
   margin: 33px 0 0 47px;
   z-index: 78;
 }
-.monday {
+.fulldate {
   flex-shrink: 0;
   position: relative;
   height: 22px;

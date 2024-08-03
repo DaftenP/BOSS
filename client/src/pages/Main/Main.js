@@ -208,6 +208,7 @@ function Main() {
           <div className={classes.ruleContainer}>
             <div className={classes.ruleTitle}>스티커 미부착</div>
             <div className={classes.ruleContent}>
+
               <div className={classes.imageContainer}>
                 <img src={noAttachedImage} alt="no_attached_image" className={classes.guideImage} onClick={() => handleImageClick(noAttachedImage)} />
                 <div>예시 사진</div>

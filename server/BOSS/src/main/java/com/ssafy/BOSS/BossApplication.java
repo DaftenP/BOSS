@@ -8,7 +8,8 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 public class BossApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BossApplication.class, args);
+
+        SpringApplication.run(BossApplication.class, args);
 	}
 
 }

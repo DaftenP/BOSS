@@ -5,6 +5,10 @@ import { Line } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 import ruleImage from '../../assets/Main/Rule_background_image.png'
+import normalImage from '../../assets/Main/Normal_state.png'
+import damageImage from '../../assets/Main/Damage_state.png'
+import noAttachedImage from '../../assets/Main/No_attached_state.png'
+import changeImage from '../../assets/Main/Change_state.png'
 
 function Main() {
   const logs = useSelector((state) => state.loglist.data)
@@ -16,7 +20,8 @@ function Main() {
   const secondFilteredLogs = firstFilteredLogs.filter(log => log['issue'] === 'F'
   ).map(log => ({
     gate: log['gate'],
-    time: log['time'],
+    date: log['time'].split('T')[0],
+    time: log['time'].split('T')[1],
     name: log['name'],
     department: log['department'],
     position: log['position'],
@@ -173,6 +178,7 @@ function Main() {
           <div className={classes.firstRuleContainer}>
             <div className={classes.ruleTitle}>스티커 훼손</div>
             <div className={classes.ruleContent}>
+              <img src={damageImage} alt="damage_image" className={classes.guideImage} />
               <ul>
                 <p>1. 적발된 인원을 대기열에서 분리</p>
                 <p>2. 훼손 사유가 정당한지 판단</p>
@@ -184,6 +190,7 @@ function Main() {
           <div className={classes.ruleContainer}>
             <div className={classes.ruleTitle}>스티커 미부착</div>
             <div className={classes.ruleContent}>
+              <img src={noAttachedImage} alt="no_attached_image" className={classes.guideImage} />
               <ul>
                 <p>1. 적발된 인원을 대기열에서 분리</p>
                 <p>2. 미부착 사유가 정당한지 판단</p>
@@ -195,6 +202,7 @@ function Main() {
           <div className={classes.ruleContainer}  >
             <div className={classes.ruleTitle}>휴대폰 변경</div>
             <div className={classes.ruleContent}>
+              <img src={changeImage} alt="change_image" className={classes.guideImage} />
               <ul>
                 <p>1. 적발된 인원을 대기열에서 분리</p>
                 <p>2. 휴대폰 변경 사유가 정당한지 판단</p>

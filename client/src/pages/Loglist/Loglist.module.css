@@ -28,8 +28,8 @@
 
 .formButton {
   position: absolute;
-  bottom: 20px;
-  right: 110px;
+  bottom: 0px;
+  right: 0px;
   cursor: pointer;
   background-color: #B0D2FA;
   color: black;
@@ -38,7 +38,6 @@
   font-size: 14px;
   font-weight: bold;
   border-radius: 4px;
-  cursor: pointer;
   transition: background-color 0.2s ease;
 }
 

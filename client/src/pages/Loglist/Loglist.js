@@ -48,7 +48,6 @@ const Modal = ({ show, onClose, log, update }) => {
     });
   };
 
-
   const handleBackdropClick = (event) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -150,7 +149,6 @@ function LogTable() {
 
   const handleFilter = (event) => {
     event.preventDefault();
-    console.log(filters)
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
@@ -203,7 +201,7 @@ function LogTable() {
           F I L T E R I N G
         </div>
         <div className={classes.inputContainer}>
-          <form onSubmit={handleFilter}>
+          <form onSubmit={handleFilter} className={classes.relativeBoxContainer}>
             <table className={classes.filterTable}>
               <tbody>
                 <tr>
@@ -213,11 +211,11 @@ function LogTable() {
                   </td>
                   <td>
                     <label htmlFor="department" className={classes.labelText}>부서</label>
-                    <input className={classes.inputText} type="number" name="department" placeholder="부서" value={filters.department} onChange={handleInputChange} />
+                    <input className={classes.inputText} type="text" name="department" placeholder="부서" value={filters.department} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="position" className={classes.labelText}>직책</label>
-                    <input className={classes.inputText} type="number" name="position" placeholder="직책" value={filters.position} onChange={handleInputChange} />
+                    <input className={classes.inputText} type="text" name="position" placeholder="직책" value={filters.position} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
@@ -248,13 +246,9 @@ function LogTable() {
                     <input className={classes.inputText} type="number" name="issue" placeholder="보안 이슈" value={filters.issue} onChange={handleInputChange} />
                   </td>
                 </tr>
-                <tr>
-                  <td colSpan="4" className={classes.submitButtonCell}>
-                    <button type="submit" className={classes.formButton}>검색</button>
-                  </td>
-                </tr>
               </tbody>
             </table>
+            <button type="submit" className={classes.formButton}>검색</button>
           </form>
         </div>
       </div>

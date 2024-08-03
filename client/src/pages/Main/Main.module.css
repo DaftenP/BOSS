@@ -138,6 +138,7 @@
     background-color: #b0d2fa78;
     padding: 10px;
     margin: 80px 25px 20px 25px;
+    font-size: 15px;
 }
 
 .ruleContainer {
@@ -147,6 +148,7 @@
     background-color: #b0d2fa78;
     padding: 10px;
     margin: 50px 25px 20px 25px;
+    font-size: 15px;
 }
 
 .ruleTitle {
@@ -161,4 +163,9 @@
     font-weight: bold;
     font-size: 16px;
     color: white;
+}
+
+.guideImage {
+    width: auto;
+    height: 200px;;
 }

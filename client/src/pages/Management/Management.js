@@ -2,37 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classes from './Management.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
-import { fetchMembers, memberRegistration } from '../../store/management';
+import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
 
 function Management() {
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
   const [filters, setFilters] = useState({
     memberName: '',
-    id: '',
     department: '',
     position: '',
     nfc: '',
-    issueMin: '',
-    issueMax: '',
-  });
-  const [filterCriteria, setFilterCriteria] = useState({
-    memberName: '',
-    id: '',
-    department: '',
-    position: '',
-    nfc: '',
-    issueMin: '',
-    issueMax: '',
+    issueCount: '',
   });
 
   const [submitMemberData, setSubmitMemberData] = useState({
-    memberName: '',
-    // department: '',
-    // position: '',
+    name: '',
+    department: '',
+    position: '',
     phoneNumber: '',
     nfc: '',
-    issueCount: '',
     profileImage: ''
   });
 
@@ -53,7 +41,7 @@ function Management() {
     setSelectedOption(event.target.value);
   };
 
-  const logs = useSelector((state) => state.management.data);
+  const logsData = useSelector((state) => state.management.data);
 
   const dispatch = useDispatch();
 
@@ -66,17 +54,29 @@ function Management() {
   };
 
   const handleFilterChange = (event) => {
-    const { id, value } = event.target;
+    const { id, value, type } = event.target;
+    const processedValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [id]: value,
+      [id]: processedValue,
     }));
   };
 
   const handleSearch = (event) => {
     event.preventDefault();
-    setFilterCriteria(filters);
+    const filteredFilters = Object.fromEntries(
+      Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
+    );
     setVisibleCount(20);
+    dispatch(fetchFilteredMember(filteredFilters))
+    setFilters({
+      memberName: '',
+      id: '',
+      department: '',
+      position: '',
+      nfc: '',
+      issueCount: '',
+    })
   };
 
   const handleSubmitChange = (event) => {
@@ -91,23 +91,14 @@ function Management() {
     const dataToSubmit = {
       ...submitMemberData, profileImage: submitMemberData.profileImage || 'aaa.jpg'
     }
-    console.log(dataToSubmit)
     dispatch(memberRegistration(dataToSubmit))
   }
 
-  const filteredLogs = logs.filter((log) => {
-    return (
-      (filterCriteria.memberName === '' || log.memberName.includes(filterCriteria.memberName)) &&
-      (filterCriteria.id === '' || log.id.includes(filterCriteria.id)) &&
-      (filterCriteria.department === '' || log.department.includes(filterCriteria.department)) &&
-      (filterCriteria.position === '' || log.position.includes(filterCriteria.position)) &&
-      (filterCriteria.nfc === '' || log.nfcUid.includes(filterCriteria.nfc)) &&
-      (filterCriteria.issueMin === '' || log.issueCount >= parseInt(filterCriteria.issueMin)) &&
-      (filterCriteria.issueMax === '' || log.issueCount <= parseInt(filterCriteria.issueMax))
-    );
-  });
+  const displayedLogs = logsData.slice(0, visibleCount);
 
-  const displayedLogs = filteredLogs.slice(0, visibleCount);
+  useEffect(() => {
+    setVisibleCount(20);
+  }, [logsData]);
 
   return (
     <div className={classes.mainContainer}>
@@ -116,7 +107,7 @@ function Management() {
             F I L T E R I N G
         </div>
         <div className={classes.inputContainer}> 
-          <form onSubmit={handleSearch}>
+          <form onSubmit={handleSearch} className={classes.relativeBoxContainer}>
             <table className={classes.filterTable}>
               <tbody>
                 <tr>
@@ -139,12 +130,8 @@ function Management() {
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="issueMin" className={classes.labelText}>누적 이슈(이상)</label>
-                    <input className={classes.inputText} type="number" id="issueMin" placeholder="이 상" value={filters.issueMin} onChange={handleFilterChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="issueMax" className={classes.labelText}>누적 이슈(이하)</label>
-                    <input className={classes.inputText} type="number" id="issueMax" placeholder="이 하" value={filters.issueMax} onChange={handleFilterChange} />
+                    <label htmlFor="issueCount" className={classes.labelText}>누적 이슈</label>
+                    <input className={classes.inputText} type="number" id="issueCount" placeholder="누 적 이 슈" value={filters.issueCount} onChange={handleFilterChange} />
                   </td>
                 </tr>
                 <tr>
@@ -185,22 +172,22 @@ function Management() {
               일괄 등록하기
             </label>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={classes.relativeBoxContainer}>
             {selectedOption === 'direct' ?  (
               <table className={classes.filterTable}>
                 <tbody>
                   <tr>
                     <td>
                       <label htmlFor="new memberName" className={classes.labelText}>이름</label>
-                      <input className={classes.inputText} name="memberName" type="text" id="new memberName" placeholder="이 름" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="name" type="text" id="new memberName" placeholder="이 름" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new department" className={classes.labelText}>부서</label>
-                      <input className={classes.inputText} name="department" type="number" id="new department" placeholder="부 서" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="department" type="text" id="new department" placeholder="부 서" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new position" className={classes.labelText}>직책</label>
-                      <input className={classes.inputText} name="position" type="number" id="new position" placeholder="직 책" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="position" type="text" id="new position" placeholder="직 책" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new phoneNumber" className={classes.labelText}>연락처</label>
@@ -211,10 +198,6 @@ function Management() {
                     <td>
                       <label htmlFor="new nfc" className={classes.labelText}>NFC</label>
                       <input className={classes.inputText} name="nfc" type="text" id="new nfc" placeholder="N F C" onChange={handleSubmitChange} />
-                    </td>
-                    <td>
-                      <label htmlFor="new cumulative issue" className={classes.labelText}>누적 이슈</label>
-                      <input className={classes.inputText} name="issueCount" type="number" id="new cumulative issue" placeholder="누 적 이 슈" onChange={handleSubmitChange} />
                     </td>
                   </tr>
                   <tr>
@@ -258,8 +241,8 @@ function Management() {
                 <tr key={index}>
                   <td>{log.id}</td>
                   <td>{log.memberName}</td>
-                  <td>{log.department}</td>
-                  <td>{log.position}</td>
+                  <td>{log.departmentName}</td>
+                  <td>{log.positonName}</td>
                   <td>{log.phoneNumber}</td>
                   <td>{log.nfcUid}</td>
                   <td>{log.issueCount}</td>
@@ -275,7 +258,7 @@ function Management() {
           </table>
         </div>
         <div className={classes.moreButtonContainer}>
-        {visibleCount < filteredLogs.length && (
+        {visibleCount < logsData.length && (
           <button onClick={handleLoadMore} className={classes.moreButton}>▼  더보기</button>
         )}
         </div>
@@ -299,8 +282,8 @@ const Modal = ({ log, onClose }) => {
       <div className={classes.modalContent}>
         <span className={classes.close} onClick={onClose}>&times;</span>
         <h2>{log.memberName}</h2>
-        <p>부서: {log.department}</p>
-        <p>직책: {log.position}</p>
+        <p>부서: {log.departmentName}</p>
+        <p>직책: {log.positionName}</p>
         <p>자세히: {log.memberProfile}</p>
       </div>
     </div>

@@ -10,8 +10,8 @@ import loginIcon from '../../assets/Login/Login_icon.png'
 
 function Login() {
   const dispatch = useDispatch();
-  const [id, setId] = useState('');
-  const [password, setPassword] = useState('');
+  const [adminId, setAdminId] = useState('');
+  const [adminPw, setAdminPw] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [errorKey, setErrorKey] = useState(0);
   const isSuccess = useSelector((state) => state.login.success);
@@ -19,18 +19,18 @@ function Login() {
 
   const loginHandler = (event) => {
     event.preventDefault();
-    dispatch(login({ id, password }));
+    dispatch(login({ adminId, adminPw }));
   }
 
   useEffect(() => {
     if (isSuccess !== null) {
-      if (!id && !password) {
+      if (!adminId && !adminPw) {
         setErrorMessage('아이디와 비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!id) {
+      } else if (!adminId) {
         setErrorMessage('아이디를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!password) {
+      } else if (!adminPw) {
         setErrorMessage('비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
       } else if (isSuccess === false) {
@@ -39,7 +39,7 @@ function Login() {
       }
       dispatch(logout());
     }
-  }, [isSuccess, id, password, dispatch]);
+  }, [isSuccess, adminId, adminPw, dispatch]);
 
   useEffect(() => {
     if (error) {
@@ -49,10 +49,10 @@ function Login() {
   }, [error]);
 
   const handleId = (event) => {
-    setId(event.target.value);
+    setAdminId(event.target.value);
   }
   const handlePassword = (event) => {
-    setPassword(event.target.value);
+    setAdminPw(event.target.value);
   }
 
   return (
@@ -62,30 +62,30 @@ function Login() {
       </div>
       <form onSubmit={loginHandler} className={classes.formContainer}>
         <div className={classes.formGroup}>
-          <label htmlFor='id' className={classes.labelText}>
+          <label htmlFor='adminId' className={classes.labelText}>
             아이디
             <img src={idIcon} alt="id_icon" className={classes.labelIcon} />
           </label>
           <input 
             type='text' 
-            id='id' 
+            id='adminId' 
             placeholder="아 이 디" 
             className={classes.inputText} 
-            value={id} 
+            value={adminId} 
             onChange={handleId} 
           />
         </div>
         <div className={classes.formGroup}>
-          <label htmlFor='password' className={classes.labelText}>
+          <label htmlFor='adminPw' className={classes.labelText}>
             비밀번호
             <img src={passwordIcon} alt="password_icon" className={classes.labelIcon} />
           </label>
           <input 
             type='password' 
-            id='password' 
+            id='adminPw' 
             placeholder="비 밀 번 호" 
             className={classes.inputText} 
-            value={password} 
+            value={adminPw} 
             onChange={handlePassword} 
           />
         </div>

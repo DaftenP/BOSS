@@ -5,6 +5,7 @@ import { loglistDummy } from "../utils/loglistDummy";
 // 전체 로그 조회 요청
 export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
   const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log/view`);
+  console.log('전체', response.data)
   return response.data.length ? response.data : [];
 });
 
@@ -12,17 +13,19 @@ export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
 // 특정 로그 수정 요청
 export const updateLog = createAsyncThunk('loglist/updateLog', async (formData) => {
   const { logId, ...updateData } = formData
+  console.log('수정 보낸 것', updateData)
   const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/log/update/${logId}`, updateData)
+  console.log('수정 받은 것', response)
   return response.data.length ? response.data : [];
 })
 
 // // 로그 필터링 요청
 export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', async (filters) => {
-  console.log('보낸 것', filters)
+  console.log('필터링 보낸 것', filters)
   const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log/search`, {
     params: filters,
   });
-  console.log('받은 것', response.data)
+  console.log('필터링 받은 것', response.data)
   return response.data.length ? response.data : [];
 });
 // // 로그 필터링 요청(빈 문자열은 모두 제외하고 보내는 요청)

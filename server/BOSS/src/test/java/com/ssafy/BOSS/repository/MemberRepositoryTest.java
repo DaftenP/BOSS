@@ -1,13 +1,10 @@
 package com.ssafy.BOSS.repository;
 
-import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.fixture.MemberFixtureService;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +22,7 @@ class MemberRepositoryTest {
     @Autowired
     MemberRepository memberRepository;
 
-    @BeforeEach
+    @AfterEach
     void setup() {
         memberFixtureService.deleteAll();
     }

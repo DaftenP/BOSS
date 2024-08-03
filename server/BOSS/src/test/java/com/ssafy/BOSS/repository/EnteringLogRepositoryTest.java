@@ -1,15 +1,14 @@
 package com.ssafy.BOSS.repository;
 
-import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.fixture.MemberFixtureService;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
@@ -26,7 +25,7 @@ class EnteringLogRepositoryTest {
     @Autowired
     MemberFixtureService memberFixtureService;
 
-    @BeforeEach
+    @AfterEach
     void setup() {
         enteringLogRepository.deleteAll();
         memberFixtureService.deleteAll();

@@ -10,6 +10,7 @@ import loginIcon from '../../assets/Login/Login_icon.png'
 
 function Login() {
   const dispatch = useDispatch();
+  // admin Id, password 통합 state
   const [adminInfo, setAdminInfo] = useState({
     adminId: '',
     adminPw: '',

@@ -10,6 +10,7 @@ import com.ssafy.BOSS.repository.EnteringLogRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.repository.PositionRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ class EnteringLogControllerTest {
     @Autowired
     MemberFixtureService memberFixtureService;
 
-    @AfterEach
+    @BeforeEach
     void setup() {
         enteringLogRepository.deleteAll();
         memberFixtureService.deleteAll();

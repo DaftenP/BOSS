@@ -10,8 +10,11 @@ import loginIcon from '../../assets/Login/Login_icon.png'
 
 function Login() {
   const dispatch = useDispatch();
-  const [adminId, setAdminId] = useState('');
-  const [adminPw, setAdminPw] = useState('');
+  // admin Id, password 통합 state
+  const [adminInfo, setAdminInfo] = useState({
+    adminId: '',
+    adminPw: '',
+  });
   const [errorMessage, setErrorMessage] = useState('');
   const [errorKey, setErrorKey] = useState(0);
   const isSuccess = useSelector((state) => state.login.success);

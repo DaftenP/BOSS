@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const login = createAsyncThunk('login/login', async ({ adminId, adminPw }) => {
-  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/login`, { adminId, adminPw });
+export const login = createAsyncThunk('login/login', async (adminInfo) => {
+  console.log(adminInfo)
+  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/login`, adminInfo);
+  console.log(response)
   return response.data;
 });
 

@@ -175,10 +175,13 @@ function Main() {
           <div className={classes.relativeBoxContainer}>
             <div className={classes.issueTitleBox}>사고 시 조치 사항</div>
           </div>
-          <div className={classes.firstRuleContainer}>
+          <div className={classes.ruleContainer}>
             <div className={classes.ruleTitle}>스티커 훼손</div>
             <div className={classes.ruleContent}>
-              <img src={damageImage} alt="damage_image" className={classes.guideImage} />
+              <div className={classes.imageContainer}>
+                <img src={damageImage} alt="damage_image" className={classes.guideImage} />
+                <div>정상 - 비정상</div>
+              </div>
               <ul>
                 <p>1. 적발된 인원을 대기열에서 분리</p>
                 <p>2. 훼손 사유가 정당한지 판단</p>
@@ -190,7 +193,9 @@ function Main() {
           <div className={classes.ruleContainer}>
             <div className={classes.ruleTitle}>스티커 미부착</div>
             <div className={classes.ruleContent}>
-              <img src={noAttachedImage} alt="no_attached_image" className={classes.guideImage} />
+              <div className={classes.imageContainer}>
+                <img src={noAttachedImage} alt="no_attached_image" className={classes.guideImage} />
+              </div>
               <ul>
                 <p>1. 적발된 인원을 대기열에서 분리</p>
                 <p>2. 미부착 사유가 정당한지 판단</p>
@@ -202,7 +207,9 @@ function Main() {
           <div className={classes.ruleContainer}  >
             <div className={classes.ruleTitle}>휴대폰 변경</div>
             <div className={classes.ruleContent}>
-              <img src={changeImage} alt="change_image" className={classes.guideImage} />
+              <div className={classes.imageContainer}>
+                <img src={changeImage} alt="change_image" className={classes.guideImage} />
+              </div>
               <ul>
                 <p>1. 적발된 인원을 대기열에서 분리</p>
                 <p>2. 휴대폰 변경 사유가 정당한지 판단</p>

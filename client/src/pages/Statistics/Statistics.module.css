@@ -271,14 +271,22 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 20px;
+  padding: 5px 35px 25px 35px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+.modalTopContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .title {
-  font-size: 20px;
-  margin-bottom: 20px;
+  font-size: 17px;
+  font-weight: 500;
+  color: gray;
+  margin-right: 20px;
 }
 
 .itemsTable {
@@ -312,50 +320,77 @@
 
 .modalButtonContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   margin-top: 20px;
 }
 
-.confirmButton, .cancelButton {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: Arial, Helvetica, sans-serif
-}
-
 .confirmButton {
-  background-color: #007bff;
-  color: white;
-}
-
-.cancelButton {
-  background-color: #ccc;
+  cursor: pointer;
+  background-color: #B0D2FA;
+  color: #0A47A3;
+  border: none;
+  padding: 8px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
 }
 
 .selectButtonsContainer {
   display: flex;
-  justify-content: right;
-  margin-bottom: 10px;
-  border-bottom: 1px solid gray;
-  padding-bottom: 18px;
-}
-
-.selectAllButton, .deselectAllButton {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .selectAllButton {
-  background-color: #28a745;
-  color: white;
+  cursor: pointer;
+  background-color: #64acffab;
+  color: #00254d;
+  border: none;
+  padding: 8px 30px;
   margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
 }
 
 .deselectAllButton {
-  background-color: #dc3545;
-  color: white;
-  margin-right: 10px;
+  cursor: pointer;
+  background-color: #ff797983;
+  color: #4d1e1e;
+  border: none;
+  padding: 8px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.confirmButton:hover {
+  background-color: #0057b36c;
+}
+
+.selectAllButton:hover {
+  background-color: #64acff;
+}
+
+.deselectAllButton:hover {
+  background-color: #ff7979;
+}
+
+.closeButton {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: #c0c0c0;
+  text-decoration: none;
+  cursor: pointer;
 }

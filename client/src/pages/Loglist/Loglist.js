@@ -64,7 +64,7 @@ const Modal = ({ show, onClose, log, update }) => {
             </span>
             <form className={classes.formContainer} onSubmit={handleSubmit}>
               <div className={classes.formGroup}>
-                <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
+                <label htmlFor="issue" className={classes.updateLabelText}>보안 이슈</label>
                 <input
                   className={classes.updateInputText}
                   type="number"
@@ -75,7 +75,7 @@ const Modal = ({ show, onClose, log, update }) => {
                 />
               </div>
               <div className={classes.formGroup}>
-                <label htmlFor="countOfSticker" className={classes.labelText}>발급 개수</label>
+                <label htmlFor="countOfSticker" className={classes.updateLabelText}>발급 개수</label>
                 <input
                   className={classes.updateInputText}
                   type="number"
@@ -198,7 +198,7 @@ function LogTable() {
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
         {showModal && <div className={classes.modalBackdrop}></div>}
         <div className={classes.filteringBox}>
-          F I L T E R I N G
+          FILTERING
         </div>
         <div className={classes.inputContainer}>
           <form onSubmit={handleFilter} className={classes.relativeBoxContainer}>
@@ -248,7 +248,7 @@ function LogTable() {
                 </tr>
               </tbody>
             </table>
-            <button type="submit" className={classes.formButton}>검색</button>
+            <button type="submit" className={classes.formButton}>검 색</button>
           </form>
         </div>
       </div>
@@ -257,9 +257,8 @@ function LogTable() {
           전체 이슈 로그
         </div>
         <div className={classes.logCount}>
-          {totalLogsCount}
+          현재 조회 이슈 : {totalLogsCount}개
         </div>
-
         <table className={classes.logTable}>
           <thead>
             <tr>

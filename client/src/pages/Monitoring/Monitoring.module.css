@@ -64,7 +64,9 @@ button {
   position: relative;
   width: 90%;
   /* height: 147.337px; */
-  margin: 60% 0 0 20%;
+  /* margin: 60% 0 0 20%; */
+  top: 33%;
+  left: 20%;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
   font-size: 17px;
@@ -353,7 +355,9 @@ button {
   /* top: 5%; */
   width: 80%;
   height: 6%;
-  margin: 15% 0 0 15%;
+  /* margin: 15% 0 0 15%; */
+  top: 38%;
+  left: 15%;
   z-index: 21;
   display: flex;
   align-items: center;
@@ -393,7 +397,9 @@ button {
   justify-content: flex-start; */
   position: relative;
   width: 90%;
-  margin: 10% 0 0 15%;
+  /* margin: 10% 0 0 15%; */
+  top: 43%;
+  left: 15%;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
   font-size: 16px;

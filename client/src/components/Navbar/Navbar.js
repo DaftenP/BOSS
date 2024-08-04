@@ -53,6 +53,9 @@ function Navbar() {
           <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
         </button>
       </div>
+      <span className={classes.loginTimeButton}>
+        다크모드
+      </span>
       <span className={classes.loginTimeButton} onClick={handleToggleLogs}>
         접속기록
       </span>

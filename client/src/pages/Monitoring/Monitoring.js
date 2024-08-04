@@ -58,8 +58,8 @@ const Monitoring = () => {
           {/* <div className={classes['rectangle-4' ]}/> */}
         </div>
         <div className={classes['rectangle-prev-record']}>
-          <div className={classes['phone-prev-front']} />
-          <div className={classes['phone-prev-back']} />
+          {(previous_time >= 0) && <div className={classes['phone-prev-front']} />}
+          {(previous_time >= 0) && <div className={classes['phone-prev-back']} />}
           {/* <span className={classes['front-prev']}>앞면</span> */}
           {/* <span className={classes['back-prev']}>뒷면</span> */}
           <div className={classes['line-prev' ]}/>

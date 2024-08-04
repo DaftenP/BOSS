@@ -1,10 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import classes from './Management.module.css';
+import lightClasses from './Management.module.css';
+import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
 
 function Management() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
+
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
   const fileInputRef = useRef(null)
@@ -294,6 +298,8 @@ function Management() {
 }
 
 const Modal = ({ log, onClose }) => {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
   if (!log) return null;
 
   const handleBackgroundClick = (e) => {

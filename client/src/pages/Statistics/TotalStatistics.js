@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import Modal from 'react-modal';
-import classes from './Statistics.module.css';
+import { useSelector } from 'react-redux';
+import lightClasses from './Statistics.module.css';
+import darkClasses from './StatisticsDark.module.css';
 import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function TotalStatistics({ loglist }) {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
+
   const [selectedTotalXOption, setSelectedTotalXOption] = useState('day');
   const [selectedTotalYOption, setSelectedTotalYOption] = useState('fail');
   const [selectedTotalPopOption, setSelectedTotalPopOption] = useState('gate');
@@ -195,6 +200,52 @@ function TotalStatistics({ loglist }) {
     };
   };
 
+  const options = {
+    responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: '#444'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          },
+          callback: function(value) {
+            return value + ' 명';
+          }
+        },
+        grid: {
+          color: '#444'
+        },
+        max: 10
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        }
+      },
+    }
+  };  
+  
   return (
     <div className={classes.dateStatisticsContainer}>
       <div className={classes.relativeBoxContainer}>
@@ -404,10 +455,9 @@ function TotalStatistics({ loglist }) {
                 <FontAwesomeIcon icon={faTimes} />
               </span>
               <div className={classes.modalButtonContainer}>
-                <button onClick={handleConfirm} className={classes.confirmButton}>확인</button>
+                <button onClick={handleConfirm} className={classes.confirmButton}>확 인</button>
               </div>
             </Modal>
-
           </div>
         </div>
         <div className={classes.graphContainer}>
@@ -416,7 +466,7 @@ function TotalStatistics({ loglist }) {
             return (
               <div key={item} className={classes.graphBox}>
                 <div className={classes.graphTitle}>{item}</div>
-                <Line data={data} options={{}} />
+                <Line data={data} options={options} />
               </div>
             );
           })}

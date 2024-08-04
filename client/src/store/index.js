@@ -5,6 +5,7 @@ import managementReducer from './management';
 import adminReducer from './admin';
 import loglistReducer from './loglist';
 import monitoringReducer from './monitoring';
+import themeReducer from './theme';
 
 
 const store = configureStore({
@@ -15,6 +16,7 @@ const store = configureStore({
     admin: adminReducer,
     loglist: loglistReducer,
     monitoring: monitoringReducer,
+    theme: themeReducer,
   },
 });
 

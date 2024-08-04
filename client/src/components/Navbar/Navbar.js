@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../store/login";
-import classes from './Navbar.module.css';
+import { toggleDarkMode } from "../../store/theme";
+import lightClasses from './Navbar.module.css';
+import darkClasses from './NavbarDark.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
 
 
 function Navbar() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const classes = isDarkMode ? darkClasses : lightClasses;
+  
   const dispatch = useDispatch();
   const adminName = useSelector((state) => state.login.adminName);
   const loginTime = useSelector((state) => state.login.loginTime);
@@ -39,6 +44,10 @@ function Navbar() {
     dispatch(logout());
   };
 
+  const handleDarkModeToggle = () => {
+    dispatch(toggleDarkMode());
+  }
+
   return (
     <div className={classes.navbar}>
       <div className={classes.navbarContainer}>
@@ -53,8 +62,8 @@ function Navbar() {
           <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
         </button>
       </div>
-      <span className={classes.loginTimeButton}>
-        다크모드
+      <span className={classes.loginTimeButton} onClick={handleDarkModeToggle}>
+        {isDarkMode ? '라이트 모드' :'다크 모드'}
       </span>
       <span className={classes.loginTimeButton} onClick={handleToggleLogs}>
         접속기록

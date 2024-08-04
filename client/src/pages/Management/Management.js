@@ -17,9 +17,9 @@ function Management() {
   });
 
   const [submitMemberData, setSubmitMemberData] = useState({
-    memberName: '',
-    department: '',
-    position: '',
+    name: '',
+    departmentId: '',
+    positionId: '',
     phoneNumber: '',
     nfc: '',
     profileImage: null,
@@ -89,9 +89,10 @@ function Management() {
         [name]: file,
       }));
     } else {
+      const processedValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
       setSubmitMemberData((prevState) => ({
         ...prevState,
-        [name]: value,
+        [name]: processedValue,
       }));
     }
   };
@@ -103,9 +104,9 @@ function Management() {
     }
     dispatch(memberRegistration(dataToSubmit))
     setSubmitMemberData({
-      memberName: '',
-      department: '',
-      position: '',
+      name: '',
+      departmentId: '',
+      positionId: '',
       phoneNumber: '',
       nfc: '',
       profileImage: null,
@@ -202,15 +203,15 @@ function Management() {
                   <tr>
                     <td>
                       <label htmlFor="new memberName" className={classes.labelText}>이름</label>
-                      <input className={classes.inputText} name="memberName" type="text" id="new memberName" value={submitMemberData.memberName} placeholder="이 름" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="name" type="text" id="new memberName" value={submitMemberData.name} placeholder="이 름" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new department" className={classes.labelText}>부서</label>
-                      <input className={classes.inputText} name="department" type="text" id="new department" value={submitMemberData.department} placeholder="부 서" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="departmentId" type="number" id="new department" value={submitMemberData.departmentId} placeholder="부 서" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new position" className={classes.labelText}>직책</label>
-                      <input className={classes.inputText} name="position" type="text" id="new position" value={submitMemberData.position} placeholder="직 책" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="positionId" type="number" id="new position" value={submitMemberData.positionId} placeholder="직 책" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new phoneNumber" className={classes.labelText}>연락처</label>

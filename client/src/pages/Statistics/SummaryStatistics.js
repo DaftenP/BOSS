@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import classes from './Statistics.module.css';
+import { useSelector } from 'react-redux';
+import lightClasses from './Statistics.module.css';
+import darkClasses from './StatisticsDark.module.css';
 import { format, startOfWeek, startOfMonth, startOfYear, getDaysInMonth, isLeapYear } from 'date-fns';
 
 function SummaryStatistics({ loglist }) {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
+
   const [selectedSummaryOption, setSelectedSummaryOption] = useState('day');
   const [selectedSummaryDate, setSelectedSummaryDate] = useState('');
   const [statistics, setStatistics] = useState({ users: 0, issues: 0, logs: 0, averageIssues: 0 });

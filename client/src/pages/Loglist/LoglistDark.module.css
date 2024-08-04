@@ -1,0 +1,331 @@
+.filteringContainer {
+  border: 1px solid #242424;
+  border-radius: 20px;
+  background-color: #222222;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.registrationContainer {
+  border: 1px solid #242424;
+  border-radius: 20px;
+  background-color: #222222;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.listContainer {
+  border: 1px solid #242424;
+  border-radius: 20px;
+  background-color: #222222;
+  margin: 15px 10px 10px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.relativeBoxContainer{
+  position: relative;
+}
+
+.formButton {
+  position: absolute;
+  bottom: 8px;
+  right: 2px;
+  cursor: pointer;
+  /* background-color: #bb86fc; */
+  color: #242424;
+  padding: 8px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.formButton:hover {
+  background-color: #bbb;
+}
+
+.filteringBox {
+  /* background-color: #bb86fc; */
+  color: #bbb;
+  border-radius: 0 18px 0 20px;
+  display: inline-block;
+  padding: 5px 15px 5px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: 'Orbitron';
+  letter-spacing: 2px;
+}
+
+.labelText {
+  color: #bbb;
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+.updateLabelText {
+  color: #bbb;
+  margin-right: 11px;
+  font-size: 13px;
+}
+
+.inputText {
+  background-color: #555555;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 19px;
+  border: 1px solid #242424;
+}
+
+.specificInputText {
+  width: 150px;
+  color: #bbb;
+  text-align: center;
+}
+
+.inputContainer {
+  margin: 20px;
+  width: 80%;
+}
+
+.inputText::placeholder {
+  color: #bbb;
+  text-align: center;
+  font-size: 10px;
+}
+
+.listTitle {
+  /* background-color: #B0D2FA; */
+  color: #bbb;
+  border-radius: 18px 18px 0 0;
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logCount {
+  background-color: #333333;
+  color: #bbb;
+  text-align: center;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.logTable {
+  color: #bbb;
+  width: 97%;
+  border-collapse: collapse;
+  margin: 20px;
+  font-size: 11px
+}
+
+.logTable th, .logTable td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.listIcon {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.moreButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.moreButton {
+  cursor: pointer;
+  padding: 10px 100px 10px 100px;
+  margin-bottom: 16px;
+  background-color: #f0f0f0;
+  color: #242424;
+  border: none;
+  border-radius: 20px;
+  opacity: 70%;
+}
+
+.logIcon {
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.filterTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.filterTable td {
+  padding: 2px 5px;
+  border: none;
+  vertical-align: top;
+}
+
+.filterTable label {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.inputText, .specificInputText {
+  width: calc(100% - 10px);
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+.submitButtonCell {
+  text-align: center;
+  padding-top: 10px;
+}
+/* 모달 css */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  background: #222222;
+  border-radius: 10px;
+  max-width: 600px;
+  width: auto;
+  z-index: 1001;
+}
+
+.deviceInfoBox {
+  color: #bbb;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.imageContainer {
+  background-color: rgb(28, 28, 28);
+  color: white
+}
+
+.deviceImageBox {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+/* 디바이스 이미지 16:9를 3.2배율로 설정 */
+.deviceImage {
+  background-color: gray;
+  width: 288px;
+  height: 512px;
+}
+
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.closeButton {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 17px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: #c0c0c0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.updateModalContainer {
+  padding: 20px;
+}
+
+.formContainer {
+  display: inline-block;
+  margin: 20px 20px 10px 20px;
+}
+
+.formGroup {
+  margin-top: 20px;
+}
+
+.updateInputText {
+  background-color: #555555;
+  margin-right: 30px;
+  margin-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 15px;
+  height: 25px;
+  border: 2px solid #666666;
+}
+
+.updateInputText::placeholder {
+  text-align: center;
+  font-size: 13px;
+}
+
+
+.submitButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.submitButton img {
+  width: 24px;
+  height: 24px;
+}
+
+.submitButton:hover {
+  background-color: #b0b0b0;
+}
+
+.updateButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+}

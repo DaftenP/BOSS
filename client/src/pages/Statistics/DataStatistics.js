@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import classes from './Statistics.module.css';
+import { useSelector } from 'react-redux';
+import lightClasses from './Statistics.module.css';
+import darkClasses from './StatisticsDark.module.css';
 import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO } from 'date-fns';
 
 function DateStatistics({ loglist }) {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
+  
   const [selectedDateXOption, setSelectedDateXOption] = useState('day');
   const [selectedDateYOption, setSelectedDateYOption] = useState('fail');
   const [selectedDate, setSelectedDate] = useState('');
@@ -145,6 +150,53 @@ function DateStatistics({ loglist }) {
 
   const graphData = filterData();
 
+  const options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        ticks: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: '#444'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          stepSize: 1,
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          },
+          callback: function(value) {
+            return value + ' 명';
+          }
+        },
+        grid: {
+          color: '#444'
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        }
+      },
+    }
+  };
+
   return (
     <div className={classes.dateStatisticsContainer}>
       <div className={classes.relativeBoxContainer}>
@@ -257,7 +309,7 @@ function DateStatistics({ loglist }) {
           {graphData && (
             <Line
               data={graphData}
-              options={{}}
+              options={options}
               className={classes.chartCanvas}
             />
           )}

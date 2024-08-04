@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import classes from './Main.module.css';
+import lightClasses from './Main.module.css';
+import darkClasses from './MainDark.module.css';
 import { Line } from 'react-chartjs-2';
 import { Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
@@ -12,11 +13,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function Main() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState('');
 
   const handleImageClick = (src) => {
-    console.log('안녕')
     setModalImage(src);
     setIsModalOpen(true);
   };
@@ -81,9 +84,40 @@ function Main() {
           stepSize: 1,
           callback: function(value) {
             return value + ' 명';
+          },
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
           }
+        },
+        grid: {
+          color: '#555555'
+        }
+      },
+      x: {
+        ticks: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: '#555555'
         }
       }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        }
+      },
     }
   };
 
@@ -109,7 +143,18 @@ function Main() {
     responsive: true,
     maintainAspectRatio: false,
     cutout: '70%',
-    scales: {}
+    scales: {},
+    plugins: {
+      legend: {
+        labels: {
+          color: '#bbb', // 범례 글자색
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        }
+      },
+    }
   };
   
   // 20개의 데이터만 보여주는 코드

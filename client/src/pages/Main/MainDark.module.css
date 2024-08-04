@@ -3,8 +3,9 @@
 }
 
 .todayIssueContainer {
-  background-color: white;
-  border: 1px solid #CDCDCD;
+  background-color: #222222;
+  border: 1px solid #242424;
+  color: #bbb;
   border-radius: 20px;
   width: 50%;
   margin: 10px;
@@ -13,7 +14,6 @@
 }
 
 .issueLogContainer{
-  background-color: #EEEEEE;
   width: 50%;
   margin: 10px;
 }
@@ -27,19 +27,21 @@ position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #B0D2FA;
+  /* background-color: #bb86fc;
+  outline: 1px solid #bb86fc; */
   border-radius: 18px 18px 0 0;
   padding: 10px 15px 10px 15px;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
   box-sizing: border-box;
+  color: #bbb;
 }
 
 .totalIssueContainer {
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 20px;
-  background-color: white;
+  background-color: #222222;
   min-height: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -53,7 +55,8 @@ position: relative;
   cursor: pointer;
   padding: 10px 100px 10px 100px;
   margin-bottom: 16px;
-  background-color: #B0D2FA;
+  background-color: #f0f0f0;
+  color: #242424;
   border: none;
   border-radius: 20px;
   opacity: 70%;
@@ -61,7 +64,7 @@ position: relative;
 
 .lineChartContainer {
   display: flex;
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 15px;
   margin-top: 20px;
   padding: 0 20px 10px 20px;
@@ -72,7 +75,7 @@ position: relative;
 
 .doughnutChartContainer {
   display: flex;
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 15px;
   margin-top: 20px;
   padding: 0 20px 10px 20px;
@@ -99,6 +102,7 @@ position: relative;
 }
 
 .logTable {
+  color: #bbb;
   width: 100%;
   border-collapse: collapse;
   margin: 25px 0 25px 0;
@@ -119,23 +123,23 @@ position: relative;
 }
 
 .totalRuleContainer {
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 20px;
   margin-top: 20px;
-  background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.9);
   background-blend-mode: overlay;
 }
 
 .ruleContainer {
+  color: #bbb;
   position: relative;
-  border: 1px solid rgba(255, 127, 80, 0.2);
+  border: 1px solid rgba(207, 102, 121, 0.2);
   border-radius: 20px;
-  background: rgba(255, 127, 80, 0.2);
+  background: rgba(207, 102, 121, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 10px;
@@ -145,10 +149,11 @@ position: relative;
 }
 
 .firstRuleContainer {
+  color: #bbb;
   position: relative;
-  border: 1px solid rgba(255, 127, 80, 0.2);
+  border: 1px solid rgba(207, 102, 121, 0.2);
   border-radius: 20px;
-  background: rgba(255, 127, 80, 0.2);
+  background: rgba(207, 102, 121, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 10px;
@@ -159,17 +164,17 @@ position: relative;
 }
 
 .ruleTitle {
+  color: #bbb;
   position: absolute;
   top: -20px;
   left: 50%;
   transform: translateX(-50%);
   border: 0;
   border-radius: 15px;
-  background-color: #ff7f50;
+  background-color: #CF6679;
   padding: 7px 40px 7px 40px;
   font-weight: bold;
   font-size: 17px;
-  color: white;
 }
 
 .ruleTitleBox {
@@ -177,12 +182,13 @@ position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #ff7f50;
+  /* background-color: #CF6679;
+  outline: 1px solid #CF6679; */
   border-radius: 18px 18px 0 0;
   padding: 10px 15px 10px 15px;
   font-size: 20px;
   font-weight: bold;
-  color: white;
+  color: #bbb;
   text-align: center;
   box-sizing: border-box;
 }
@@ -221,12 +227,12 @@ position: relative;
 }
 
 .warningFont {
-  color: red;
+  color: #CF6679;
   font-weight: bold;
 }
 
 .highlight {
-  color: blue;
+  color: #BB86FC;
   font-weight: bold;
 }
 

@@ -43,14 +43,13 @@ class MemberControllerTest {
         memberRegistDto.setPositionId(member.getPosition().getPositionId());
         memberRegistDto.setNfc("testNFC");
         memberRegistDto.setName("test!");
-        // MemberReturnDto를 직접 생성하는 대신 실제 데이터베이스에 삽입된 값을 테스트
 
         // When & Then
         mockMvc.perform(MockMvcRequestBuilders.post("/api/member/regist")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(memberRegistDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.memberName").value("test!")); // 필드 검증
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("test!")); // 필드 검증
     }
 
 //    @Test

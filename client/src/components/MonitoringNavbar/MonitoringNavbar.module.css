@@ -2,8 +2,9 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    height: 10%;
     background-color: #515151;
-    padding: 10px;
+    /* padding: 10px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,18 +21,23 @@
   .mainIcon {
     width: 30px;
     height: 30px;
-    margin-left: 10px;
+    margin-left: 20px;
   }
-  
+  .nextPersonButton {
+    width: 12%;
+    height: 80%;
+    background-color: #515151;
+  }
   .logoIcon {
-    width: 150px;
-    padding-top: 10px;
+    width: 90%;
+    height: 90%;
+    /* padding-top: 10px; */
     margin-left: auto;
     margin-right: auto;
   }
   
   .rightContent {
     color: white;
-    margin-right: 30px;
+    margin-right: 15px;
   }
   

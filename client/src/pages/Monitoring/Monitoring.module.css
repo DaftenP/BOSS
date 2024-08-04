@@ -23,35 +23,35 @@ button {
 
 .main-container {
   position: relative;
-  width: 1440px;
-  height: 773px;
+  width: 100%;
+  height: 100%;
   margin: 0 auto;
   background: #ffffff;
   overflow: hidden;
 }
 .rectangle {
   position: relative;
-  width: 1440px;
-  height: 682px;
+  width: 100%;
+  height: 90vh;
   margin: 0 0 0 0;
   background: #000000;
 }
-.rectangle-1 {
+.rectangle-info {
   position: absolute;
-  width: 388px;
-  height: 97.4%;
-  top: 1.37%;
-  left: 10px;
+  width: 25%;
+  height: 99%;
+  top: 0.5%;
+  left: 0.25%;
   background: url(../../assets/Monitoring/Graybox.png)
     no-repeat center;
   background-size: cover;
   z-index: 6;
 }
 .success-person {
-  position: relative;
-  width: 187px;
-  height: 216.855px;
-  margin: 73.669px 0 0 100px;
+  position: absolute;
+  width: 40%;
+  height: 25%;
+  margin: 10% 0 0 20%;
   background: url(../../assets/Monitoring/Face.png)
     no-repeat center;
   background-size: cover;
@@ -62,66 +62,148 @@ button {
   align-items: flex-start;
   justify-content: flex-start;
   position: relative;
-  width: 260px;
+  width: 90%;
   /* height: 147.337px; */
-  margin: 91.307px 0 0 80px;
+  /* margin: 60% 0 0 20%; */
+  top: 33%;
+  left: 20%;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 400;
   line-height: 36.307px;
   text-align: left;
   z-index: 23;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.rectangle-2 {
+
+
+.rectangle-live-video-front {
   position: absolute;
-  width: 511px;
-  height: 48.7%;
-  top: 1.37%;
-  left: 919px;
+  width: 30%;
+  height: 49.5%;
+  top: 0.5%;
+  left: 25.5%;
+  font-size: 0px;
   background: rgba(61, 61, 69, 0.86);
-  z-index: 4;
-  border-radius: 3px;
+  z-index: 5;
+  /* border-radius: 1px; */
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
-.line {
-  position: relative;
-  width: 491px;
-  height: 9px;
-  margin: 243.87px 0 0 18px;
-  background: url(../../assets/Monitoring/Boundary.png)
-    no-repeat center;
-  background-size: cover;
-  z-index: 10;
-}
-.date-time {
+.real-time-monitoring {
   display: block;
   position: relative;
-  height: 39.428px;
-  margin: 5.488px 0 0 98px;
+  height: 40.466px;
+  margin: 5% 0 0 0;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
   font-size: 30px;
   font-weight: 400;
   line-height: 36.307px;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
-  z-index: 12;
+  z-index: 20;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.galaxy-s {
+.conveyor-belt {
   position: absolute;
-  width: 315px;
-  height: 56.11%;
-  top: 9.4%;
-  left: 93px;
-  background: url(../../assets/Monitoring/Phone.png)
+  width: 70%;
+  height: 50%;
+  top: 30%;
+  left: 15%;
+  background: url(../../assets/Monitoring/Belt.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 25;
+}
+
+
+.rectangle-live-video-back {
+  position: absolute;
+  width: 30%;
+  height: 49%;
+  top: 50.5%;
+  left: 25.5%;
+  font-size: 0px;
+  background: rgba(61, 61, 69, 0.86);
+  z-index: 5;
+  /* border-radius: 1px; */
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.rectangle-4 {
+  position: absolute;
+  width: 325px;
+  height: 43.57%;
+  top: 33.23%;
+  left: 88px;
+  background: url(../../assets/Monitoring/Whitebox.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 22;
+}
+
+
+.rectangle-prev-record {
+  position: absolute;
+  width: 44%;
+  height: 49.5%;
+  top: 0.5%;
+  left: 55.75%;
+  background: rgba(61, 61, 69, 0.86);
+  z-index: 4;
+  /* border-radius: 3px; */
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+.line-prev {
+  position: relative;
+  width: 90%;
+  height: 4%;
+  left: 5%;
+  top: 75%;
+  background: url(../../assets/Monitoring/Boundary.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 20;
+}
+.date-time-prev {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  top: 80%;
+  color: #ffffff;
+  font-family: Inter, var(--default-font-family);
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 36.307px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 17;
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.phone-prev-front {
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  top: 15%;
+  left: 5%;
+  background: url(../../assets/Monitoring/Phone-front.png)
     no-repeat center;
   background-size: cover;
   z-index: 26;
 }
-.front {
+.phone-prev-back {
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  top: 15%;
+  left: 50%;
+  background: url(../../assets/Monitoring/Phone-back.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 26;
+}
+.front-prev {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -139,7 +221,7 @@ button {
   z-index: 13;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.back {
+.back-prev {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -157,113 +239,69 @@ button {
   z-index: 14;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.rectangle-3 {
+
+
+.rectangle-current-record {
   position: absolute;
-  width: 504px;
-  height: 48.7%;
-  top: 1.37%;
-  left: 405px;
-  font-size: 0px;
-  background: rgba(61, 61, 69, 0.86);
-  z-index: 5;
-  border-radius: 3px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-}
-.real-time-monitoring {
-  display: block;
-  position: relative;
-  height: 40.466px;
-  margin: 21.79px 0 0 147px;
-  color: #ffffff;
-  font-family: Inter, var(--default-font-family);
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 36.307px;
-  text-align: left;
-  white-space: nowrap;
-  z-index: 20;
-  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-.conveyor-belt {
-  position: absolute;
-  width: 326px;
-  height: 45.14%;
-  top: 31.35%;
-  left: 88px;
-  background: url(../../assets/Monitoring/Belt.png)
-    no-repeat center;
-  background-size: cover;
-  z-index: 25;
-}
-.rectangle-4 {
-  position: absolute;
-  width: 325px;
-  height: 43.57%;
-  top: 33.23%;
-  left: 88px;
-  background: url(../../assets/Monitoring/Whitebox.png)
-    no-repeat center;
-  background-size: cover;
-  z-index: 22;
-}
-.rectangle-5 {
-  position: absolute;
-  width: 511px;
-  height: 47.33%;
-  top: 51.45%;
-  left: 919px;
+  width: 44%;
+  height: 49%;
+  top: 50.5%;
+  left: 55.75%;
   background: rgba(61, 61, 69, 0.86);
   z-index: 15;
-  border-radius: 3px;
+  /* border-radius: 3px; */
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
-.line-6 {
+.line-current {
   position: relative;
-  width: 464px;
-  height: 9px;
-  margin: 235.334px 0 0 24px;
+  width: 90%;
+  height: 4%;
+  left: 5%;
+  top: 75%;
   background: url(../../assets/Monitoring/Boundary.png)
     no-repeat center;
   background-size: cover;
   z-index: 16;
 }
-.line-7 {
-  position: relative;
-  width: 491px;
-  height: 9px;
-  margin: -8.766px 0 0 18px;
-  background: url(../../assets/Monitoring/Boundary.png)
-    no-repeat center;
-  background-size: cover;
-  z-index: 11;
-}
-.date-time-8 {
+.date-time-current {
   display: block;
-  position: relative;
-  height: 40.466px;
-  margin: 14.827px 0 0 98px;
+  position: absolute;
+  width: 100%;
+  height: 20%;
+  top: 80%;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
   font-size: 30px;
   font-weight: 400;
   line-height: 36.307px;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   z-index: 17;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.galaxy-s-9 {
+.phone-current-front {
   position: absolute;
-  width: 315px;
-  height: 54.52%;
-  top: 11.94%;
-  left: 92px;
-  background: url(../../assets/Monitoring/Phone.png)
+  width: 45%;
+  height: 45%;
+  top: 15%;
+  left: 5%;
+  background: url(../../assets/Monitoring/Phone-front.png)
     no-repeat center;
   background-size: cover;
   z-index: 27;
 }
-.front-a {
+.phone-current-back {
+  position: absolute;
+  width: 45%;
+  height: 45%;
+  top: 15%;
+  left: 50%;
+  background: url(../../assets/Monitoring/Phone-back.png)
+    no-repeat center;
+  background-size: cover;
+  z-index: 27;
+}
+.front-current {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -281,7 +319,7 @@ button {
   z-index: 18;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.back-side {
+.back-current {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -299,7 +337,9 @@ button {
   z-index: 19;
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
-.rectangle-b {
+
+
+.rectangle-issue {
   position: absolute;
   width: 504px;
   height: 47.33%;
@@ -312,23 +352,25 @@ button {
 }
 .flex-row-daf {
   position: relative;
-  width: 334px;
-  height: 40.466px;
-  margin: 24.901px 0 0 147px;
+  /* top: 5%; */
+  width: 80%;
+  height: 6%;
+  /* margin: 15% 0 0 15%; */
+  top: 38%;
+  left: 15%;
   z-index: 21;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .security-issue {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
   height: 100%;
   top: 0;
   left: 0;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
   font-size: 30px;
-  font-weight: 400;
+  font-weight: 90%;
   line-height: 36.307px;
   text-align: left;
   white-space: nowrap;
@@ -336,16 +378,12 @@ button {
   text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 .total-count {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
   height: 69.23%;
   top: 0;
-  left: 256px;
+  left: 85%;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 28.015px;
   text-align: left;
@@ -354,15 +392,17 @@ button {
 }
 .usb-detection {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  flex-direction: column;
+  /* align-items: flex-start;
+  justify-content: flex-start; */
   position: relative;
-  width: 370px;
-  /* height: 54.992px; */
-  margin: 15.565px 0 0 46px;
+  width: 90%;
+  /* margin: 10% 0 0 15%; */
+  top: 43%;
+  left: 15%;
   color: #ffffff;
   font-family: Inter, var(--default-font-family);
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24.205px;
   text-align: left;

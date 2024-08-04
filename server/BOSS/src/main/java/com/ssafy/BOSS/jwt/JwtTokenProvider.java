@@ -80,7 +80,7 @@ public class JwtTokenProvider {
         // UserDetails: interface, User: UserDetails를 구현한 class
         Long id = Long.parseLong(claims.get("id").toString());
         List<LoginLog> logList = new ArrayList<>();
-        UserDetails principal = new Admin(id, claims.getSubject(),logList,"","",authorities);
+        UserDetails principal = new CustomAdmin(claims.getSubject(),"",authorities);
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 

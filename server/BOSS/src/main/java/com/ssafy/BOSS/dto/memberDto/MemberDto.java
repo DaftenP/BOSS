@@ -13,19 +13,25 @@ import org.hibernate.Hibernate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDto {
-    private String memberProfile;
-    private String memberName;
-    private DepartmentDto departmentDto;
-    private PositionDto positionDto;
+    private Long memberId;
+    private DepartmentDto department;
+    private PositionDto position;
+    private String name;
     private String nfc;
+    private String profileImage;
+    private int issueCount;
+    private String phoneNumber;
 
     public static MemberDto of(Member member) {
         MemberDto dto = new MemberDto();
-        dto.setMemberProfile(member.getProfileImage());
-        dto.setMemberName(member.getName());
-        dto.setDepartmentDto(DepartmentDto.of(member.getDepartment()));
-        dto.setPositionDto(PositionDto.of(member.getPosition()));
+        dto.setMemberId(member.getMemberId());
+        dto.setDepartment(DepartmentDto.of(member.getDepartment()));
+        dto.setPosition(PositionDto.of(member.getPosition()));
+        dto.setName(member.getName());
         dto.setNfc(member.getNfc());
+        dto.setProfileImage(member.getProfileImage());
+        dto.setIssueCount(member.getIssueCount());
+        dto.setPhoneNumber(member.getPhoneNumber());
         return dto;
     }
 }

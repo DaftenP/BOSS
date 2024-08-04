@@ -1,10 +1,10 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
-import com.ssafy.BOSS.dto.memberDto.MemberResponseDto;
-import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
+import com.ssafy.BOSS.dto.memberDto.*;
+import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
+import com.ssafy.BOSS.repository.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +18,29 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PositionRepository positionRepository;
+    private final DepartmentRepository departmentRepository;
 
-    public Member join(Member member) {
+    public MemberDto join(MemberRegistDto memberRegistDto) {
+        Member member = convertRegistDtoToMember(memberRegistDto);
         validateDuplicateMember(member); // 중복 검사
-        return memberRepository.save(member);
+        return MemberDto.of(memberRepository.save(member));
+    }
+
+    private Member convertRegistDtoToMember(MemberRegistDto memberRegistDto) {
+        Member member = new Member();
+        member.setName(memberRegistDto.getName());
+        member.setNfc(memberRegistDto.getNfc());
+        member.setProfileImage(memberRegistDto.getProfileImage());
+        member.setPhoneNumber(memberRegistDto.getPhoneNumber());
+        member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
+        member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
+        return member;
     }
 
     private void validateDuplicateMember(Member member) {
         Optional<Member> joinMember = memberRepository.findByNfc(member.getNfc());
-        if(!joinMember.isEmpty()) {
+        if(joinMember.isPresent()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }

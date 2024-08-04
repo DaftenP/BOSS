@@ -1,10 +1,7 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
-import com.ssafy.BOSS.dto.memberDto.MemberResponseDto;
-import com.ssafy.BOSS.dto.memberDto.MemberReturnDto;
-import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
+import com.ssafy.BOSS.dto.memberDto.*;
 import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +18,11 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/regist")
-    public ResponseEntity<?> memberRegiste(@RequestBody Member member) {
+    public ResponseEntity<?> memberRegiste(@RequestBody MemberRegistDto memberRegistDto) {
         try {
-            member = memberService.join(member);
+            MemberDto member = memberService.join(memberRegistDto);
             if(member != null) {
-                MemberReturnDto memberReturnDto = new MemberReturnDto();
-                memberReturnDto.setMemberProfile(member.getProfileImage());
-                memberReturnDto.setMemberName(member.getName());
-                memberReturnDto.setDepartment(member.getDepartment());
-                memberReturnDto.setPosition(member.getPosition());
-                memberReturnDto.setNfc(member.getNfc());
-                return ResponseEntity.ok(memberReturnDto);
+                return ResponseEntity.ok(member);
             } else {
                 return ResponseEntity.noContent().build();
             }

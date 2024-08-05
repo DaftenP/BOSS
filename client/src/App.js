@@ -1,5 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkAuth } from './store/login';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Login from './pages/Login/Login';
@@ -13,6 +14,12 @@ import EduSsafyLogin from './pages/EduSsafyLogin/EduSsafyLogin';
 import Layout from './components/Layout/Layout';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
   const isLogin = useSelector((state) => state.login.isLogin)
   return (
     <Router>

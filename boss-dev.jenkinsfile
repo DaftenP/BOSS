@@ -3,9 +3,19 @@ pipeline {
 
     environment {
         COMPOSE_DEV='docker-compose.dev.yml'
+        AWS_CONFIG=credentials('application-aws')
     }
 
     stages {
+        stage('setup AWS config') {
+            steps {
+                withCredentials([file(credentialsId: 'application-aws', variable: 'awsConfig')]) {
+                    script {
+                        sh 'cp $awsConfig server/BOSS/src/main/resources/application-aws.yml'
+                    }
+                }
+            }
+        }
         stage('build images') {
             steps {
                 sh 'docker compose -f $COMPOSE_DEV build'

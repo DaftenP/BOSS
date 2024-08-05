@@ -41,7 +41,7 @@ public class JwtTokenProvider {
         long now = (new Date()).getTime();
 
         // Access Token 생성
-        Date accessTokenExpiresIn = new Date(now + 86400000);
+        Date accessTokenExpiresIn = new Date(now + 1800000);
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim("auth", authorities)
@@ -78,8 +78,6 @@ public class JwtTokenProvider {
 
         // UserDetails 객체를 만들어서 Authentication return
         // UserDetails: interface, User: UserDetails를 구현한 class
-        Long id = Long.parseLong(claims.get("id").toString());
-        List<LoginLog> logList = new ArrayList<>();
         UserDetails principal = new CustomAdmin(claims.getSubject(),"",authorities);
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }

@@ -48,8 +48,9 @@
 }
 
 .filteringBox {
-  /* background-color: #B0D2FA; */
-  color: #bbb;
+  background-color: #cacadd;
+  outline: 1px solid #cacadd;
+  color: #ffffff;
   border-radius: 0 18px 0 20px;
   display: inline-block;
   padding: 5px 15px 5px 20px;

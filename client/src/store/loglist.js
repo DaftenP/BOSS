@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../utils/api';
 import { loglistDummy } from "../utils/loglistDummy";
 
 // 전체 로그 조회 요청
 export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log/view`);
+  const response = await api.get('/api/log/view');
   console.log('전체', response.data)
   return response.data.length ? response.data : [];
 });
@@ -14,7 +14,7 @@ export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
 export const updateLog = createAsyncThunk('loglist/updateLog', async (formData) => {
   const { logId, ...updateData } = formData
   console.log('수정 보낸 것', updateData)
-  const response = await axios.put(`${process.env.REACT_APP_API_URL}/api/log/update/${logId}`, updateData)
+  const response = await api.put(`/api/log/update/${logId}`, updateData)
   console.log('수정 받은 것', response)
   return response.data.length ? response.data : [];
 })
@@ -22,7 +22,7 @@ export const updateLog = createAsyncThunk('loglist/updateLog', async (formData) 
 // // 로그 필터링 요청
 export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', async (filters) => {
   console.log('필터링 보낸 것', filters)
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log/search`, {
+  const response = await api.get('/api/log/search', {
     params: filters,
   });
   console.log('필터링 받은 것', response.data)

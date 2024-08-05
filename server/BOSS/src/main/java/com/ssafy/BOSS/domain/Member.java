@@ -28,6 +28,10 @@ public class Member {
 
     private String name;
 
+    private String memberLoginId;
+
+    private String memberLoginPw;
+
     private String nfc;
 
     private String profileImage;

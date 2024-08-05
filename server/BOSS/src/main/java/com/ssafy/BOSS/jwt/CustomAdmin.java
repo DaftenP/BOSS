@@ -17,12 +17,6 @@ public class CustomAdmin implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public CustomAdmin(Admin admin) {
-        this.username = admin.getAdminLoginId();
-        this.password = admin.getAdminLoginPw();
-        this.authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
-    }
-
     public CustomAdmin(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;

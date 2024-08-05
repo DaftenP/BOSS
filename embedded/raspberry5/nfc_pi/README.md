@@ -80,3 +80,18 @@ SCL	SCL0
 - nfc-poll
 
 ![alt text](image.png)
+
+
+
+# UART 통신하기
+
+## 라즈베리파이5 설정
+- `pip install pyserial` 다운
+- `dmesg | grep tty` 를 이용해서 연결 가능한 port 확인
+- 위의 코드 실행해도 아무것도 안나온다면 파이 권한이 없어서 그렇다. -> 인터넷 참고하면 나온다.
+- 자세하게 설명하자면 파이 환경 설정-> 인터페이스 -> 시리얼 포트, 시리얼 콘솔on 이후에 raspi-config를 이용해서 추가적으로 설정해준다.
+- no -> yes 선택하면 된다.
+
+## 젯슨 오린 나노 설정
+- `pip install pyserial` 다운
+- `dmesg | grep tty` 를 이용해서 연결 가능한 port 확인

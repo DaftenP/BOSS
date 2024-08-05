@@ -20,12 +20,19 @@ export default function Main() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   // 입실/퇴실 상태 변경 함수
-  const CheckIn = () => {
+  const checkIn = () => {
+    console.log(incheckTime);
     setIsCheckedIn(true);
   };
 
-  const toggleCheckOut = () => {
-    setIsCheckedOut(!isCheckedOut);
+  const checkOut = () => {
+    const now = new Date();
+    setIsCheckedOut(true);
+    setOutcheckTime(now.toLocaleTimeString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
+    }));
+    console.log(outcheckTime);
   };
 
   const toggleDropdown = () => {
@@ -73,18 +80,18 @@ export default function Main() {
     minute: '2-digit',
   });
 
-  const checkOutTime = currentDateTime.toLocaleTimeString('en-GB', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  // const checkOutTime = currentDateTime.toLocaleTimeString('en-GB', {
+  //   hour: '2-digit',
+  //   minute: '2-digit',
+  // });
 
   useEffect(() => {
     setIncheckTime(String(checkInTime))
   }, [isCheckedIn])
 
-  useEffect(() => {
-    setOutcheckTime(String(checkOutTime))
-  }, [isCheckedOut])
+  // useEffect(() => {
+  //   setOutcheckTime(String(checkOutTime))
+  // }, [isCheckedOut])
 
   return (
     
@@ -155,32 +162,32 @@ export default function Main() {
               {/* 입실/퇴실 버튼 */}
               <div
                 className={isCheckedIn ? classes['rectangle-on'] : classes['rectangle-off']}
-                onClick={CheckIn}
+                onClick={checkIn}
               >
                 {isCheckedIn ? (
-                  <span className={classes['time']} onClick={CheckIn}>{incheckTime}</span>
+                  <span className={classes['time']} onClick={checkIn}>{incheckTime}</span>
                 ) : (
-                  <div className={classes['icon-in']} onClick={CheckIn}></div>
+                  <div className={classes['icon-in']} onClick={checkIn}></div>
                 )}
                 
                 <span className={isCheckedIn ? classes['check-on'] : classes['check-off']}
-                  onClick={CheckIn}>
+                  onClick={checkIn}>
                   {isCheckedIn ? '정상출석' : '입실하기'}
                 </span>
               </div>
               
               <div
                 className={isCheckedOut ? classes['rectangle-on'] : classes['rectangle-off']}
-                onClick={toggleCheckOut}
+                onClick={checkOut}
               >
                 {isCheckedOut ? (
-                  <span className={classes['time']} onClick={toggleCheckOut}>{outcheckTime}</span>
+                  <span className={classes['time']} onClick={checkOut}>{outcheckTime}</span>
                 ) : (
-                  <div className={classes['icon-out']} onClick={toggleCheckOut}></div>
+                  <div className={classes['icon-out']} onClick={checkOut}></div>
                 )}
 
                 <span className={isCheckedOut ? classes['check-on'] : classes['check-off']}
-                  onClick={toggleCheckOut}>
+                  onClick={checkOut}>
                   {isCheckedOut ? '퇴실하기' : '퇴실하기'}
                 </span>
               </div>

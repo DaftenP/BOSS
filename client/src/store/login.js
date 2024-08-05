@@ -57,7 +57,8 @@ const loginSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLogin = true;
         state.success = true;
-        state.adminName = action.payload.adminName;
+        // state.adminName = action.payload.adminName;
+        state.adminName = action.payload.adminId;
         state.loginTime = new Date().toISOString();
         state.error = null;
       })

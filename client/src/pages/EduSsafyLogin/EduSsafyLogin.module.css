@@ -104,6 +104,7 @@ button {
 
 .rectangle-2 {
   position: absolute;
+  left: 3%;
   width: 580px;
   height: 668px;
   /* top: 16px;
@@ -139,14 +140,19 @@ button {
   z-index: 3;
 }
 
-.rectangle-3 {
+.inputText {
   position: relative;
   width: 480px;
   height: 46px;
   margin: 4px 0 0 50px;
+  padding: 5px 10px 5px 10px;
   background: #ffffff;
   border: 1px solid #dddddd;
   z-index: 4;
+}
+
+.inputText::placeholder {
+  color: #adb7c3; /* 원하는 색상으로 변경 */
 }
 
 .password {
@@ -162,16 +168,6 @@ button {
   text-align: left;
   white-space: nowrap;
   z-index: 5;
-}
-
-.rectangle-4 {
-  position: relative;
-  width: 480px;
-  height: 46px;
-  margin: 9px 0 0 50px;
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  z-index: 6;
 }
 
 .rectangle-5 {
@@ -254,8 +250,8 @@ button {
   position: absolute;
   width: 452px;
   height: 94px;
-  top: 500px;
-  left: 753px;
+  top: 450px;
+  left: 53%;
   color: #ffffff;
   font-family: Roboto, var(--default-font-family);
   font-size: 40px;
@@ -273,8 +269,8 @@ button {
   justify-content: flex-start;
   position: absolute;
   height: 23px;
-  top: 595px;
-  left: 753px;
+  top: 550px;
+  left: 53%;
   color: #ffffff;
   font-family: Roboto, var(--default-font-family);
   font-size: 20px;

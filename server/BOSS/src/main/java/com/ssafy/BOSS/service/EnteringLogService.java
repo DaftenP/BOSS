@@ -39,6 +39,7 @@ public class EnteringLogService {
         return enteringLogRepository.findEnteringLogsByMember(member);
     }
 
+    @Transactional
     public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto) {
         EnteringLog enteringLog = new EnteringLog();
         Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());

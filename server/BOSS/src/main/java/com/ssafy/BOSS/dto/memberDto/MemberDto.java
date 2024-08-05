@@ -1,12 +1,9 @@
 package com.ssafy.BOSS.dto.memberDto;
 
-import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.dto.department.DepartmentDto;
 import com.ssafy.BOSS.dto.position.PositionDto;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 @Getter @Setter
 @ToString

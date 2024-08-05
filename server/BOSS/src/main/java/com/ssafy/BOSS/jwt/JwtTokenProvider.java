@@ -1,7 +1,5 @@
 package com.ssafy.BOSS.jwt;
 
-import com.ssafy.BOSS.domain.Admin;
-import com.ssafy.BOSS.domain.LoginLog;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -16,7 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 @Slf4j

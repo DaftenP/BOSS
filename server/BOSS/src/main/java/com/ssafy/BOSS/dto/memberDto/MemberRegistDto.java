@@ -1,6 +1,5 @@
 package com.ssafy.BOSS.dto.memberDto;
 
-import com.ssafy.BOSS.domain.Member;
 import lombok.Data;
 
 @Data

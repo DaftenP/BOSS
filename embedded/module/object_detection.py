@@ -4,10 +4,10 @@ from collections import deque, Counter
 COLOR_PALETTE = [(220, 220, 0), (255, 0, 0), (255, 255, 255), (0, 0, 220), (0, 220, 0)]
 
 
-def run(model: 'Model', w: int, h: int, rate: int, threshold: float = 0.45) -> None:
+def run(model: 'Model', window: 'MainWindow', w: int, h: int, rate: int, threshold: float = 0.45) -> None:
     # 카메라 객체 할당
     cap1 = cv2.VideoCapture(0)
-    cap2 = cv2.VideoCapture(2)
+    cap2 = cv2.VideoCapture(1)
 
     # 카메라 인식 실패 시
     if not (cap1.isOpened() and cap2.isOpened()):
@@ -77,11 +77,12 @@ def run(model: 'Model', w: int, h: int, rate: int, threshold: float = 0.45) -> N
                         COLOR_PALETTE[class_id % 5],
                         1)
 
-        cv2.imshow(f'YOLOv8 Detection {1}', frame[0])
-        cv2.imshow(f'YOLOv8 Detection {2}', frame[1])
+        # cv2.imshow(f'YOLOv8 Detection {1}', frame[0])
+        # cv2.imshow(f'YOLOv8 Detection {2}', frame[1])
+        window.update_cam(frame)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        # if cv2.waitKey(1) & 0xFF == ord('q'):
+        #     break
 
     # 리소스 해제
     cap1.release()

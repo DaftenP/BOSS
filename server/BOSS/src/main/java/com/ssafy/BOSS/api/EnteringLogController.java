@@ -2,10 +2,7 @@ package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
-import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
-import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
+import com.ssafy.BOSS.dto.enteringLog.*;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.service.EnteringLogService;
 import com.ssafy.BOSS.service.MemberService;
@@ -60,8 +57,8 @@ public class EnteringLogController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLog enteringLog) {
-        enteringLogService.save(enteringLog);
+    public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLogRegistDto enteringLogRegistDto) {
+        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto);
         if (enteringLog.isFail()) {
             messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
         }

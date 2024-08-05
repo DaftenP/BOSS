@@ -2,6 +2,8 @@ package com.ssafy.BOSS.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(indexes = {@Index(name = "time_index", columnList = "time")})
 public class EnteringLog {
@@ -23,6 +25,7 @@ public class EnteringLog {
     private Member member;
 
     @Column(name = "time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @CreationTimestamp
     private LocalDateTime time;
 
     private String deviceFrontImage;

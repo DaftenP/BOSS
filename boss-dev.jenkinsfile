@@ -9,9 +9,9 @@ pipeline {
     stages {
         stage('setup AWS config') {
             steps {
-                withCredentials([file(credentialsId: 'application-aws', variable: 'aws-config')]) {
+                withCredentials([file(credentialsId: 'application-aws', variable: 'awsConfig')]) {
                     script {
-                        sh 'cp $aws-config server/BOSS/src/main/resources/application-aws.yml'
+                        sh 'cp $awsConfig server/BOSS/src/main/resources/application-aws.yml'
                     }
                 }
             }

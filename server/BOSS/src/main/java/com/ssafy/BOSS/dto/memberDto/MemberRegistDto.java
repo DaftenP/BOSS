@@ -9,7 +9,7 @@ public class MemberRegistDto {
     private String nfc;
     private String memberLoginId;
     private String memberLoginPw;
-    private String profileImage;
+    //private String profileImage;
     private String phoneNumber;
     private int departmentId;
     private int positionId;

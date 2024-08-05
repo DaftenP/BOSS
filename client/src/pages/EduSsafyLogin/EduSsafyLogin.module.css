@@ -139,14 +139,19 @@ button {
   z-index: 3;
 }
 
-.rectangle-3 {
+.inputText {
   position: relative;
   width: 480px;
   height: 46px;
   margin: 4px 0 0 50px;
+  padding: 5px 10px 5px 10px;
   background: #ffffff;
   border: 1px solid #dddddd;
   z-index: 4;
+}
+
+.inputText::placeholder {
+  color: #adb7c3; /* 원하는 색상으로 변경 */
 }
 
 .password {
@@ -162,16 +167,6 @@ button {
   text-align: left;
   white-space: nowrap;
   z-index: 5;
-}
-
-.rectangle-4 {
-  position: relative;
-  width: 480px;
-  height: 46px;
-  margin: 9px 0 0 50px;
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  z-index: 6;
 }
 
 .rectangle-5 {

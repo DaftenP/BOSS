@@ -26,9 +26,9 @@ export default function Main() {
         <div className={classes['rectangle-2']}>
           <div className={classes['logo']} />
           <span className={classes['id']}>아이디</span>
-          <div className={classes['rectangle-3']} />
+          <input type='text' placeholder="ID" className={classes['inputText']} />
           <span className={classes['password']}>비밀번호</span>
-          <div className={classes['rectangle-4']} />
+          <input type='password' placeholder="PASSWORD" className={classes['inputText']} />
 
           <button className={classes['rectangle-5']} onClick={handleLoginClick}>
             <span className={classes['login']}>로그인</span>

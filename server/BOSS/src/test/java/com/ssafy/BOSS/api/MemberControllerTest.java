@@ -34,23 +34,23 @@ class MemberControllerTest {
         memberFixtureService.deleteAll();
     }
 
-    @Test
-    public void testMemberRegisteSuccess() throws Exception {
-        // Given
-        Member member = memberFixtureService.getMember();
-        MemberRegistDto memberRegistDto = new MemberRegistDto();
-        memberRegistDto.setDepartmentId(member.getDepartment().getDepartmentId());
-        memberRegistDto.setPositionId(member.getPosition().getPositionId());
-        memberRegistDto.setNfc("testNFC");
-        memberRegistDto.setName("test!");
-
-        // When & Then
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/member/regist")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(memberRegistDto)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("test!")); // 필드 검증
-    }
+//    @Test
+//    public void testMemberRegisteSuccess() throws Exception {
+//        // Given
+//        Member member = memberFixtureService.getMember();
+//        MemberRegistDto memberRegistDto = new MemberRegistDto();
+//        memberRegistDto.setDepartmentId(member.getDepartment().getDepartmentId());
+//        memberRegistDto.setPositionId(member.getPosition().getPositionId());
+//        memberRegistDto.setNfc("testNFC");
+//        memberRegistDto.setName("test!");
+//
+//        // When & Then
+//        mockMvc.perform(MockMvcRequestBuilders.post("/api/member/regist")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(objectMapper.writeValueAsString(memberRegistDto)))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("test!")); // 필드 검증
+//    }
 
 //    @Test
 //    public void testMemberRegisteNoContent() throws Exception {

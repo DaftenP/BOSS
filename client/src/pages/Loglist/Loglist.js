@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import classes from './Loglist.module.css';
+import lightClasses from './Loglist.module.css';
+import darkClasses from './LoglistDark.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLogs, updateLog, fetchFilteredLogs } from '../../store/loglist';
 import pictureIcon from '../../assets/List/Picture_icon.png'
@@ -10,6 +11,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
  
 
 const Modal = ({ show, onClose, log, update }) => {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
   const [formData, setFormData] = useState({
     logId: 0,
     issue: 0,
@@ -64,7 +67,7 @@ const Modal = ({ show, onClose, log, update }) => {
             </span>
             <form className={classes.formContainer} onSubmit={handleSubmit}>
               <div className={classes.formGroup}>
-                <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
+                <label htmlFor="issue" className={classes.updateLabelText}>보안 이슈</label>
                 <input
                   className={classes.updateInputText}
                   type="number"
@@ -75,7 +78,7 @@ const Modal = ({ show, onClose, log, update }) => {
                 />
               </div>
               <div className={classes.formGroup}>
-                <label htmlFor="countOfSticker" className={classes.labelText}>발급 개수</label>
+                <label htmlFor="countOfSticker" className={classes.updateLabelText}>발급 개수</label>
                 <input
                   className={classes.updateInputText}
                   type="number"
@@ -110,6 +113,8 @@ const Modal = ({ show, onClose, log, update }) => {
 };
 
 function LogTable() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
   const logsData = useSelector(state => state.loglist.data); // 리덕스 store에 있는 데이터 접근
   const dispatch = useDispatch();
 
@@ -198,7 +203,7 @@ function LogTable() {
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
         {showModal && <div className={classes.modalBackdrop}></div>}
         <div className={classes.filteringBox}>
-          F I L T E R I N G
+          FILTERING
         </div>
         <div className={classes.inputContainer}>
           <form onSubmit={handleFilter} className={classes.relativeBoxContainer}>
@@ -207,19 +212,19 @@ function LogTable() {
                 <tr>
                   <td>
                     <label htmlFor="name" className={classes.labelText}>이름</label>
-                    <input className={classes.inputText} type="text" name="name" placeholder="이름" value={filters.name} onChange={handleInputChange} />
+                    <input className={classes.inputText} type="text" name="name" placeholder="이 름" value={filters.name} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="department" className={classes.labelText}>부서</label>
-                    <input className={classes.inputText} type="text" name="department" placeholder="부서" value={filters.department} onChange={handleInputChange} />
+                    <input className={classes.inputText} type="text" name="department" placeholder="부 서" value={filters.department} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="position" className={classes.labelText}>직책</label>
-                    <input className={classes.inputText} type="text" name="position" placeholder="직책" value={filters.position} onChange={handleInputChange} />
+                    <input className={classes.inputText} type="text" name="position" placeholder="직 책" value={filters.position} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
-                    <input className={classes.inputText} type="number" name="entering" placeholder="출/퇴" value={filters.entering} onChange={handleInputChange} />
+                    <input className={classes.inputText} type="number" name="entering" placeholder="출 / 퇴" value={filters.entering} onChange={handleInputChange} />
                   </td>
                 </tr>
                 <tr>
@@ -243,12 +248,12 @@ function LogTable() {
                 <tr>
                   <td colSpan="1">
                     <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
-                    <input className={classes.inputText} type="number" name="issue" placeholder="보안 이슈" value={filters.issue} onChange={handleInputChange} />
+                    <input className={classes.inputText} type="number" name="issue" placeholder="보 안  이 슈" value={filters.issue} onChange={handleInputChange} />
                   </td>
                 </tr>
               </tbody>
             </table>
-            <button type="submit" className={classes.formButton}>검색</button>
+            <button type="submit" className={classes.formButton}>검 색</button>
           </form>
         </div>
       </div>
@@ -257,9 +262,8 @@ function LogTable() {
           전체 이슈 로그
         </div>
         <div className={classes.logCount}>
-          {totalLogsCount}
+          현재 조회 이슈 : {totalLogsCount}개
         </div>
-
         <table className={classes.logTable}>
           <thead>
             <tr>

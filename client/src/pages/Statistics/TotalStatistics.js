@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import Modal from 'react-modal';
-import classes from './Statistics.module.css';
+import { useSelector } from 'react-redux';
+import lightClasses from './Statistics.module.css';
+import darkClasses from './StatisticsDark.module.css';
 import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO } from 'date-fns';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function TotalStatistics({ loglist }) {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
+
   const [selectedTotalXOption, setSelectedTotalXOption] = useState('day');
   const [selectedTotalYOption, setSelectedTotalYOption] = useState('fail');
   const [selectedTotalPopOption, setSelectedTotalPopOption] = useState('gate');
@@ -193,6 +200,52 @@ function TotalStatistics({ loglist }) {
     };
   };
 
+  const options = {
+    responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        },
+        grid: {
+          color: '#444'
+        }
+      },
+      y: {
+        beginAtZero: true,
+        ticks: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          },
+          callback: function(value) {
+            return value + ' 명';
+          }
+        },
+        grid: {
+          color: '#444'
+        },
+        max: 10
+      }
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: '#bbb',
+          font: {
+            size: 14,
+            weight: 'bold'
+          }
+        }
+      },
+    }
+  };  
+  
   return (
     <div className={classes.dateStatisticsContainer}>
       <div className={classes.relativeBoxContainer}>
@@ -337,17 +390,26 @@ function TotalStatistics({ loglist }) {
               className={classes.modal}
               overlayClassName={classes.overlay}
             >
-              <div className={classes.selectButtonsContainer}>
-                {selectedItems.length === items.length ? (
-                  <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
-                ) : selectedItems.length === 0 ? (
-                  <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
-                ) : (
-                  <>
-                    <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+              <div className={classes.modalTopContainer}>
+                <div className={classes.title}>
+                  {selectedTotalPopOption === 'gate' ? (
+                    <div>기기 선택</div>
+                  ) : (
+                    <div>부서 선택</div>
+                  )}
+                </div>
+                <div className={classes.selectButtonsContainer}>
+                  {selectedItems.length === items.length ? (
                     <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
-                  </>
-                )}
+                  ) : selectedItems.length === 0 ? (
+                    <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+                  ) : (
+                    <>
+                      <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+                      <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
+                    </>
+                  )}
+                </div>
               </div>
               <table className={classes.itemsTable}>
                 <tbody>
@@ -389,12 +451,13 @@ function TotalStatistics({ loglist }) {
                   ))}
                 </tbody>
               </table>
+              <span className={classes.closeButton} onClick={closeModal}>
+                <FontAwesomeIcon icon={faTimes} />
+              </span>
               <div className={classes.modalButtonContainer}>
-                <button onClick={handleConfirm} className={classes.confirmButton}>확인</button>
-                <button onClick={closeModal} className={classes.cancelButton}>취소</button>
+                <button onClick={handleConfirm} className={classes.confirmButton}>확 인</button>
               </div>
             </Modal>
-
           </div>
         </div>
         <div className={classes.graphContainer}>
@@ -403,7 +466,7 @@ function TotalStatistics({ loglist }) {
             return (
               <div key={item} className={classes.graphBox}>
                 <div className={classes.graphTitle}>{item}</div>
-                <Line data={data} options={{}} />
+                <Line data={data} options={options} />
               </div>
             );
           })}

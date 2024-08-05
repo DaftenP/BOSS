@@ -16,9 +16,9 @@ function MonitoringNavbar({ onNextPerson, currentIndex }) {
       <button onClick={navigateToMain} className={classes.navButton}>
         <img src={mainIcon} alt="main_icon" className={classes.mainIcon} />
       </button>
-      <button onClick={onNextPerson} className={classes.nextPersonButton}>
+      <div onClick={onNextPerson} className={classes.nextPersonButton}>
         <img src={logoImage} alt="logo_icon" className={classes.logoIcon} />
-      </button>
+      </div>
       <div className={classes.rightContent}>
         {/* 데이터 index */}
         {currentIndex + 1}번 

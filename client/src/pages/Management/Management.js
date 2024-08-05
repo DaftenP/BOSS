@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import classes from './Management.module.css';
+import lightClasses from './Management.module.css';
+import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function Management() {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
+
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
+  const fileInputRef = useRef(null)
   const [filters, setFilters] = useState({
     memberName: '',
     department: '',
@@ -17,11 +24,11 @@ function Management() {
 
   const [submitMemberData, setSubmitMemberData] = useState({
     name: '',
-    department: '',
-    position: '',
+    departmentId: '',
+    positionId: '',
     phoneNumber: '',
     nfc: '',
-    profileImage: ''
+    profileImage: null,
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,11 +87,21 @@ function Management() {
   };
 
   const handleSubmitChange = (event) => {
-    const { name, value } = event.target
-    setSubmitMemberData({
-      ...submitMemberData, [name]: value,
-    });
-  }
+    const { name, value, type, files } = event.target;
+    if (type === 'file') {
+      const file = files[0];
+      setSubmitMemberData((prevState) => ({
+        ...prevState,
+        [name]: file,
+      }));
+    } else {
+      const processedValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
+      setSubmitMemberData((prevState) => ({
+        ...prevState,
+        [name]: processedValue,
+      }));
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -92,6 +109,17 @@ function Management() {
       ...submitMemberData, profileImage: submitMemberData.profileImage || 'aaa.jpg'
     }
     dispatch(memberRegistration(dataToSubmit))
+    setSubmitMemberData({
+      name: '',
+      departmentId: '',
+      positionId: '',
+      phoneNumber: '',
+      nfc: '',
+      profileImage: null,
+    });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   }
 
   const displayedLogs = logsData.slice(0, visibleCount);
@@ -100,11 +128,13 @@ function Management() {
     setVisibleCount(20);
   }, [logsData]);
 
+  const totalLogsCount = logsData.length
+
   return (
     <div className={classes.mainContainer}>
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
         <div className={classes.filteringBox}>
-            F I L T E R I N G
+            FILTERING
         </div>
         <div className={classes.inputContainer}> 
           <form onSubmit={handleSearch} className={classes.relativeBoxContainer}>
@@ -146,7 +176,7 @@ function Management() {
       </div>
       <div className={`${classes.registrationContainer} ${classes.relativeBoxContainer}`}>
         <div className={classes.filteringBox}>
-          N E W
+          NEW
         </div>
         <div className={classes.inputContainer}>
           <div className={classes.optionLabel}>등록 옵션</div>
@@ -179,31 +209,29 @@ function Management() {
                   <tr>
                     <td>
                       <label htmlFor="new memberName" className={classes.labelText}>이름</label>
-                      <input className={classes.inputText} name="name" type="text" id="new memberName" placeholder="이 름" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="name" type="text" id="new memberName" value={submitMemberData.name} placeholder="이 름" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new department" className={classes.labelText}>부서</label>
-                      <input className={classes.inputText} name="department" type="text" id="new department" placeholder="부 서" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="departmentId" type="number" id="new department" value={submitMemberData.departmentId} placeholder="부 서" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new position" className={classes.labelText}>직책</label>
-                      <input className={classes.inputText} name="position" type="text" id="new position" placeholder="직 책" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="positionId" type="number" id="new position" value={submitMemberData.positionId} placeholder="직 책" onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new phoneNumber" className={classes.labelText}>연락처</label>
-                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" placeholder="연 락 처" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" value={submitMemberData.phoneNumber} placeholder="연 락 처" onChange={handleSubmitChange} />
                     </td>
                   </tr>
                   <tr>
                     <td>
                       <label htmlFor="new nfc" className={classes.labelText}>NFC</label>
-                      <input className={classes.inputText} name="nfc" type="text" id="new nfc" placeholder="N F C" onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="nfc" type="text" id="new nfc" value={submitMemberData.nfc} placeholder="N F C" onChange={handleSubmitChange} />
                     </td>
-                  </tr>
-                  <tr>
                     <td colSpan="4">
                       <label htmlFor="new profile" className={classes.labelText}>프로필 사진 파일을 선택해 주세요!</label>
-                      <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} />
+                      <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} ref={fileInputRef} />
                     </td>
                   </tr>
                 </tbody>
@@ -221,6 +249,9 @@ function Management() {
       <div className={classes.listContainer}>
         <div className={classes.listTitle}>
           등록 인원 목록
+        </div>
+        <div className={classes.logCount}>
+          현재 조회 인원 : {totalLogsCount}명
         </div>
         <div className={classes.tableContainer}>
           <table className={classes.logTable}>
@@ -242,9 +273,9 @@ function Management() {
                   <td>{log.id}</td>
                   <td>{log.memberName}</td>
                   <td>{log.departmentName}</td>
-                  <td>{log.positonName}</td>
+                  <td>{log.positionName}</td>
                   <td>{log.phoneNumber}</td>
-                  <td>{log.nfcUid}</td>
+                  <td>{log.nfc}</td>
                   <td>{log.issueCount}</td>
                   <td>
                     <img src={detailIcon}
@@ -269,6 +300,8 @@ function Management() {
 }
 
 const Modal = ({ log, onClose }) => {
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const classes = isDarkMode ? darkClasses : lightClasses;
   if (!log) return null;
 
   const handleBackgroundClick = (e) => {
@@ -280,11 +313,15 @@ const Modal = ({ log, onClose }) => {
   return (
     <div className={classes.modal} onClick={handleBackgroundClick}>
       <div className={classes.modalContent}>
-        <span className={classes.close} onClick={onClose}>&times;</span>
-        <h2>{log.memberName}</h2>
-        <p>부서: {log.departmentName}</p>
-        <p>직책: {log.positionName}</p>
-        <p>자세히: {log.memberProfile}</p>
+        <span className={classes.close} onClick={onClose}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+        <div className={classes.detailBox}>
+          <div>{log.memberName}</div>
+          <div className={classes.departmentBox}>부서: {log.departmentName}</div>
+          <div>직책: {log.positionName}</div>
+        </div>
+        <div>자세히: {log.memberProfile}</div>
       </div>
     </div>
   );

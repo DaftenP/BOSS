@@ -2,8 +2,8 @@ package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.fixture.MemberFixtureService;
 import com.ssafy.BOSS.repository.EnteringLogRepository;
-import com.ssafy.BOSS.repository.MemberRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,21 +28,19 @@ class EnteringLogControllerTest {
     EnteringLogRepository enteringLogRepository;
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberFixtureService memberFixtureService;
 
     @AfterEach
     void setup() {
         enteringLogRepository.deleteAll();
-        memberRepository.deleteAll();
+        memberFixtureService.deleteAll();
     }
 
     @DisplayName("/api/log/view 테스트")
     @Test
     void viewLog() throws Exception {
 
-        Member member = new Member();
-        member.setName("ssafy");
-        memberRepository.save(member);
+        Member member = memberFixtureService.getMember();
 
         EnteringLog enteringLog = new EnteringLog();
         enteringLog.setMember(member);

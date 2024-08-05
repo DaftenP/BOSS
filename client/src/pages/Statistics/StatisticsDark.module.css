@@ -4,8 +4,8 @@
 }
 
 .dateStatisticsContainer {
-  background-color: white;
-  border: 1px solid #CDCDCD;
+  background-color: #222222;
+  border: 1px solid #242424;
   border-radius: 20px;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -16,7 +16,8 @@
 }
 
 .statisticsTitleBox {
-  background-color: #B0D2FA;
+  /* background-color: #B0D2FA; */
+  color: #bbb;
   border-radius: 18px 0 18px 0;
   display: inline-block;
   padding: 7px 17px 7px 17px;
@@ -40,36 +41,36 @@
 }
 
 .dataSelectContainer {
-  border: 1px solid #CDCDCD;
+  color: #bbb;
+  border: 1px solid #242424;
   border-radius: 20px;
   padding: 0 23px 15px 18px;
   margin-right: 40px;
   min-width: 400px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: rgba(128, 128, 128, 0.041);
+  background-color: rgba(128, 128, 128, 0.21);
   border-radius: 10px;
   box-shadow: 0 6px 20px -15px #000;
   border-width: 1px 1px 0 0;
-  border-color: #fff;
   border-style: solid;
   max-height: 380px;
 }
 
 .totalDataSelectContainer {
+  color: #bbb;
   display: flex;
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 20px;
   padding: 0 23px 15px 18px;
   margin-right: 40px;
   min-width: 400px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: rgba(128, 128, 128, 0.041);
+  background-color: rgba(128, 128, 128, 0.21);
   border-radius: 10px;
   box-shadow: 0 6px 20px -15px #000;
   border-width: 1px 1px 0 0;
-  border-color: #fff;
   border-style: solid;
   max-height: 380px;
 }
@@ -89,14 +90,14 @@
   margin-right: 40px;
   font-size: 15px;
   font-weight: bold;
-  color: gray;
+  color: #bbb;
 }
 
 .totalAxisSelectTitle {
   margin-right: 13px;
   font-size: 15px;
   font-weight: bold;
-  color: gray;
+  color: #bbb;
 }
 
 .dataSelectBox {
@@ -105,6 +106,7 @@
 }
 
 .graphContainer {
+  color: #bbb;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
@@ -113,7 +115,7 @@
 .graphContainer > div {
   min-width: 50px;
   min-height: 200px;
-  border: 1px solid #CDCDCD;
+  border: 1px solid #555555;
   border-radius: 10px;
 }
 
@@ -136,10 +138,11 @@
 }
 
 .statisticsCard {
-  border: 1px solid #ddd;
+  color: #bbb;
+  border: 1px solid #242424;
   border-radius: 8px;
   padding: 10px 20px 23px 20px;
-  background-color: #fff;
+  background-color: #444444;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
@@ -157,21 +160,21 @@
 .statisticsCard .value {
   font-size: 24px;
   font-weight: bold;
-  color: #007bff;
+  color: #bb86fc;
 }
 
 .inputText {
   display: flex;
   align-items: center;
   height: 40px;
-  border: 2px solid white;
+  border: 2px solid #bbb;
   border-radius: 10px;
-  background-color: #7ab8fe;
+  background-color: #cecece;
   margin-left: 50px;
   font-size: 16px;
   font-weight: bold;
   font-family: Arial, sans-serif;
-  color: white;
+  color: #242424;
   width: 135px;
   text-align: center;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -211,14 +214,13 @@
 
 .inputText:hover {
   cursor: pointer;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  outline: none;
+  border-color: #bb86fc;
+  box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
 }
 
 .chartContainer {
   width: 100%;
-  border: 1px solid #CDCDCD;
+  border: 1px solid #555555;
   border-radius: 10px;
   padding: 12px;
 }
@@ -245,10 +247,10 @@
 
 .buttonBox {
   cursor: pointer;
-  background-color: #B0D2FA;
-  border: 1px solid #B0D2FA;
+  background-color: #bb86fc;
+  border: 1px solid #bb86fc;
   border-radius: 10px;
-  color: white;
+  color: whitesmoke;
   font-size: 12px;
   font-weight: bold;
   margin-left: 15px;
@@ -270,7 +272,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
+  background: #242424;
+  color: #bbb;
   padding: 5px 35px 25px 35px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -285,7 +288,7 @@
 .title {
   font-size: 17px;
   font-weight: 500;
-  color: gray;
+  color: #bbb;
   margin-right: 20px;
 }
 
@@ -296,7 +299,7 @@
 }
 
 .itemsTable td {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   text-align: left;
   vertical-align: middle;
 }
@@ -311,7 +314,7 @@
 }
 
 .selectedRow {
-  background-color: #f0f0f0;
+  background-color: #444444;
 }
 
 .clickableCell {
@@ -326,8 +329,8 @@
 
 .confirmButton {
   cursor: pointer;
-  background-color: #B0D2FA;
-  color: #0A47A3;
+  background-color: #bb86fc;
+  color: whitesmoke;
   border: none;
   padding: 8px 30px;
   font-size: 14px;
@@ -343,7 +346,7 @@
 .selectAllButton {
   cursor: pointer;
   background-color: #64acffab;
-  color: #00254d;
+  color: #bbb;
   border: none;
   padding: 8px 30px;
   margin-right: 10px;
@@ -355,8 +358,8 @@
 
 .deselectAllButton {
   cursor: pointer;
-  background-color: #ff797983;
-  color: #4d1e1e;
+  background-color: #CF6679;
+  color: #bbb;
   border: none;
   padding: 8px 30px;
   font-size: 14px;
@@ -366,15 +369,15 @@
 }
 
 .confirmButton:hover {
-  background-color: #0057b36c;
+  background-color: #bb86fca7;
 }
 
 .selectAllButton:hover {
-  background-color: #64acff;
+  background-color: #64acff85;
 }
 
 .deselectAllButton:hover {
-  background-color: #ff7979;
+  background-color: rgba(255, 121, 121, 0.697);
 }
 
 .closeButton {

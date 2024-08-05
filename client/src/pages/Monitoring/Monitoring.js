@@ -13,60 +13,69 @@ const Monitoring = () => {
   const current_time = currentPerson.time_lst.length - 1;
 
   const handleNextPerson = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1) % monitoringData.length); // 다음 사람으로 이동, 마지막 사람 이후엔 처음으로 돌아감
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % monitoringData.length); // 다음 사람으로 이동, 마지막 사람 이후엔 처음으로 돌아감
   };
 
-
+  // console.log(previous_time, current_time);
+  // console.log(currentPerson.time_lst[previous_time]);
+  // console.log(currentPerson.time_lst[current_time]);
 
   return (
     <div>
       <div className={classes['main-container']}>
       <div className={classes['rectangle']}>
-        <div className={classes['rectangle-1']}>
+        <div className={classes['rectangle-info']}>
           <div className={classes['success-person']} />
           <span className={classes['person-info']}>
             이름 : {currentPerson.name}
             <br />
-            <br />
             부서 : {currentPerson.department}
-            <br />
             <br />
             직책 : {currentPerson.position}
           </span>
-        </div>
-        <div className={classes['rectangle-2']}>
-          <div className={classes['line' ]}/>
-          <span className={classes['date-time']}>{currentPerson.time_lst[previous_time]}</span>
-          <div className={classes['galaxy-s']}>
-            <span className={classes['front']}>앞면</span>
-          </div>
-          <span className={classes['back']}>뒷면</span>
-        </div>
-        <div className={classes['rectangle-3']}>
-          <span className={classes['real-time-monitoring']}>실시간 모니터링</span>
-          <div className={classes['conveyor-belt' ]}/>
-          <div className={classes['rectangle-4' ]}/>
-        </div>
-        <div className={classes['rectangle-5']}>
-          <div className={classes['line-6' ]}/>
-          <div className={classes['line-7' ]}/>
-          <span className={classes['date-time-8']}>{currentPerson.time_lst[current_time]}</span>
-          <div className={classes['galaxy-s-9']}>
-            <span className={classes['front-a']}>앞면</span>
-          </div>
-          <span className={classes['back-side']}>뒷면</span>
-        </div>
-        <div className={classes['rectangle-b']}>
           <div className={classes['flex-row-daf']}>
             <span className={classes['security-issue']}>Security Issue</span>
             <span className={classes['total-count']}>총 {currentPerson.issuance_count}건</span>
           </div>
           <span className={classes['usb-detection']}>
-            {currentPerson.security_issue}
+          {currentPerson.security_issue.map((issue, index) => (
+            <div key={index}>
+              {issue}
+              <br />
+            </div>
+          ))}
           </span>
         </div>
+        
+        <div className={classes['rectangle-live-video-front']}>
+          <span className={classes['real-time-monitoring']}>실시간 모니터링</span>
+          <div className={classes['conveyor-belt' ]}/>
+          {/* <div className={classes['rectangle-4' ]}/> */}
+        </div>
+        <div className={classes['rectangle-live-video-back']}>
+          <span className={classes['real-time-monitoring']}>실시간 모니터링</span>
+          <div className={classes['conveyor-belt' ]}/>
+          {/* <div className={classes['rectangle-4' ]}/> */}
+        </div>
+        <div className={classes['rectangle-prev-record']}>
+          {(previous_time >= 0) && <div className={classes['phone-prev-front']} />}
+          {(previous_time >= 0) && <div className={classes['phone-prev-back']} />}
+          {/* <span className={classes['front-prev']}>앞면</span> */}
+          {/* <span className={classes['back-prev']}>뒷면</span> */}
+          <div className={classes['line-prev' ]}/>
+          <span className={classes['date-time-prev']}>{currentPerson.time_lst[previous_time]}</span>
+          
+        </div>
+        <div className={classes['rectangle-current-record']}>
+          <div className={classes['phone-current-front']} />
+          <div className={classes['phone-current-back']} />
+          {/* <span className={classes['front-current']}>앞면</span> */}
+          {/* <span className={classes['back-current']}>뒷면</span> */}
+          <div className={classes['line-current' ]}/>
+          <span className={classes['date-time-current']}>{currentPerson.time_lst[current_time]}</span>
+        </div>
+        </div>
       </div>
-    </div>
       {/* 로고 누르면 다음 사람으로 넘어가고 몇 번째 사람인지 표시 */}
       <MonitoringNavbar onNextPerson={handleNextPerson} currentIndex={currentIndex}/>
       

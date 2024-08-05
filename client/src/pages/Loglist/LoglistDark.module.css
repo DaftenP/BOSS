@@ -1,23 +1,23 @@
 .filteringContainer {
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 20px;
-  background-color: white;
+  background-color: #222222;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .registrationContainer {
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 20px;
-  background-color: white;
+  background-color: #222222;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .listContainer {
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
   border-radius: 20px;
-  background-color: white;
+  background-color: #222222;
   margin: 15px 10px 10px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -31,9 +31,8 @@
   bottom: 8px;
   right: 2px;
   cursor: pointer;
-  background-color: #B0D2FA;
-  color: #0A47A3;
-  border: none;
+  /* background-color: #bb86fc; */
+  color: #242424;
   padding: 8px 30px;
   font-size: 14px;
   font-weight: bold;
@@ -42,11 +41,12 @@
 }
 
 .formButton:hover {
-  background-color: #0057b36c;
+  background-color: #bbb;
 }
 
 .filteringBox {
-  background-color: #B0D2FA;
+  /* background-color: #bb86fc; */
+  color: #bbb;
   border-radius: 0 18px 0 20px;
   display: inline-block;
   padding: 5px 15px 5px 20px;
@@ -61,29 +61,31 @@
 }
 
 .labelText {
+  color: #bbb;
   margin-right: 10px;
   font-size: 12px;
 }
 
 .updateLabelText {
-  color: gray;
+  color: #bbb;
   margin-right: 11px;
   font-size: 13px;
 }
 
 .inputText {
+  background-color: #555555;
   margin-right: 30px;
   margin-bottom: 10px;
   border-radius: 10px;
   padding-left: 5px;
   padding-right: 5px;
   height: 19px;
-  border: 1px solid #CDCDCD;
+  border: 1px solid #242424;
 }
 
 .specificInputText {
   width: 150px;
-  color: gray;
+  color: #bbb;
   text-align: center;
 }
 
@@ -93,61 +95,14 @@
 }
 
 .inputText::placeholder {
+  color: #bbb;
   text-align: center;
   font-size: 10px;
 }
 
-.optionLabel {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.optionContainer {
-  display: flex;
-}
-
-.radioLabel {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-.radioInput {
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-/* .radioCustom {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #ccc;
-  border-radius: 50%;
-  margin-right: 8px;
-  position: relative;
-} */
-
-.radioInput:checked + .radioCustom {
-  border-color: #007bff;
-  background-color: #007bff;
-}
-
-.radioCustom::after {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-}
-
 .listTitle {
-  background-color: #B0D2FA;
+  /* background-color: #B0D2FA; */
+  color: #bbb;
   border-radius: 18px 18px 0 0;
   text-align: center;
   padding: 10px;
@@ -156,7 +111,8 @@
 }
 
 .logCount {
-  background-color: #6b9ed7;
+  background-color: #333333;
+  color: #bbb;
   text-align: center;
   padding: 10px;
   font-size: 15px;
@@ -164,6 +120,7 @@
 }
 
 .logTable {
+  color: #bbb;
   width: 97%;
   border-collapse: collapse;
   margin: 20px;
@@ -191,7 +148,8 @@
   cursor: pointer;
   padding: 10px 100px 10px 100px;
   margin-bottom: 16px;
-  background-color: #B0D2FA;
+  background-color: #f0f0f0;
+  color: #242424;
   border: none;
   border-radius: 20px;
   opacity: 70%;
@@ -258,7 +216,7 @@
 
 .modalContent {
   position: relative;
-  background: white;
+  background: #222222;
   border-radius: 10px;
   max-width: 600px;
   width: auto;
@@ -266,6 +224,7 @@
 }
 
 .deviceInfoBox {
+  color: #bbb;
   text-align: center;
   font-size: 30px;
   font-weight: bold;
@@ -329,13 +288,14 @@
 }
 
 .updateInputText {
+  background-color: #555555;
   margin-right: 30px;
   margin-bottom: 10px;
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 15px;
   height: 25px;
-  border: 2px solid #5f7690;
+  border: 2px solid #666666;
 }
 
 .updateInputText::placeholder {
@@ -351,7 +311,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid #1d8afe;
+  background-color: #f0f0f0;
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
 }
@@ -362,8 +322,7 @@
 }
 
 .submitButton:hover {
-  background-color: #B0D2FA;
-  border-color: #1d8afe;
+  background-color: #b0b0b0;
 }
 
 .updateButtonContainer {

@@ -5,10 +5,12 @@ import com.ssafy.BOSS.dto.adminDto.SignInDto;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.dto.memberDto.*;
 import com.ssafy.BOSS.service.MemberService;
+import com.ssafy.BOSS.service.S3UploadService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +22,16 @@ import java.util.Optional;
 public class MemberController {
 
     private final MemberService memberService;
+    private final S3UploadService s3UploadService;
 
     @PostMapping("/regist")
-    public ResponseEntity<?> memberRegiste(@RequestBody MemberRegistDto memberRegistDto) {
+    public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false)MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
         try {
             MemberDto member = memberService.join(memberRegistDto);
             if(member != null) {
+                String image = s3UploadService.upload(file);
+                String imgLink = "https://d3vud5llnd72x5.cloudfront.net/" + image.split("/")[image.split("/").length-1];
+                member.setProfileImage(imgLink);
                 return ResponseEntity.ok(member);
             } else {
                 return ResponseEntity.noContent().build();

@@ -25,8 +25,6 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final JwtTokenProvider jwtTokenProvider;
 
     public MemberDto join(MemberRegistDto memberRegistDto) {
         Member member = convertRegistDtoToMember(memberRegistDto);
@@ -46,7 +44,7 @@ public class MemberService {
         Member member = new Member();
         member.setName(memberRegistDto.getName());
         member.setNfc(memberRegistDto.getNfc());
-        member.setProfileImage(memberRegistDto.getProfileImage());
+        member.setProfileImage("");
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
         member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
         member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));

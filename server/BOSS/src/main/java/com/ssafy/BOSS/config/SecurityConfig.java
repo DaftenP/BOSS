@@ -37,7 +37,7 @@ public class SecurityConfig {
                                 // 해당 API에 대해서는 모든 요청을 허가
                                 .requestMatchers("/api/admin/sign-in").permitAll()
                                 // 이 밖에 모든 요청에 대해서 인증을 필요로 한다는 설정
-                                .anyRequest().authenticated()
+                                //.anyRequest().authenticated()
                 )
                 // JWT 인증을 위하여 직접 구현한 필터를 UsernamePasswordAuthenticationFilter 전에 실행
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class).build();

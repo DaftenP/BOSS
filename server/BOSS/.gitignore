@@ -40,4 +40,4 @@ out/
 **/application-aws.yml
 
 ###jwt###
-*/application-jwt.yml
+**/application-jwt.yml

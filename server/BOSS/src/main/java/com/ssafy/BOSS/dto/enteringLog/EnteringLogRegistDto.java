@@ -1,8 +1,10 @@
 package com.ssafy.BOSS.dto.enteringLog;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EnteringLogRegistDto {
 
     private long memberId;

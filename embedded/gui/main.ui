@@ -134,8 +134,8 @@
     <widget class="QPushButton" name="btn_1">
      <property name="geometry">
       <rect>
-       <x>150</x>
-       <y>440</y>
+       <x>210</x>
+       <y>450</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -155,6 +155,28 @@
      </property>
      <property name="text">
       <string/>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="textEdit_4">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>450</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
     </widget>
    </widget>

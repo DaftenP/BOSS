@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5 import uic
+from embedded.module.connection import get_member_info
 import requests
 import cv2
 
@@ -17,11 +18,16 @@ class MainWindow(QMainWindow, form_class):
 
     def btn_clicked(self):
         print("Button clicked")
-        self.textEdit.setText('김싸피')
-        self.textEdit_2.setText('SSAFY')
-        self.textEdit_3.setText('교육생')
-        response = requests.get('https://mybossbucket.s3.ap-northeast-2.amazonaws.com/5fc31d49-egot.jpg')
-        self.profileImage.setPixmap(QPixmap.fromImage(QImage.fromData(response.content)))
+
+        response = get_member_info(self.textEdit_4.toPlainText().strip())
+        if response.status_code == 200:
+            response = response.json()
+            self.textEdit.setText(response['name'])
+            self.textEdit_2.setText(response['department']['departmentName'])
+            self.textEdit_3.setText(response['position']['positionName'])
+            if response['profileImage']:
+                image = requests.get(response['profileImage'])
+                self.profileImage.setPixmap(QPixmap.fromImage(QImage.fromData(image.content)))
 
     def update_cam(self, frames):
         for idx, f in enumerate(frames):

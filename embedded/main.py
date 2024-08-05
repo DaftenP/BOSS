@@ -6,7 +6,7 @@ import sys
 import threading
 
 if __name__ == '__main__':
-    model = Model('./model/best.pt')
+    # model = Model('./model/best.pt')
 
     # QApplication : 프로그램을 실행시켜주는 클래스
     app = QApplication(sys.argv)
@@ -18,8 +18,8 @@ if __name__ == '__main__':
     myWindow.show()
 
     # 객체 탐지
-    detection_thread = threading.Thread(target=object_detection.run, args=(model, myWindow, 640, 360, 3, 0.40))
+    # detection_thread = threading.Thread(target=object_detection.run, args=(model, myWindow, 640, 360, 3, 0.40))
 
-    detection_thread.start()
+    # detection_thread.start()
     # 프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
     app.exec_()

@@ -11,9 +11,13 @@ export const fetchMembers = createAsyncThunk('management/fetchMembers', async ()
 });
 
 // 멤버 등록하기
-export const memberRegistration = createAsyncThunk('management/memberRegistration', async (submitData) => {
-  console.log('등록 보낸 것', submitData)
-  const response = await api.post('/api/member/regist', submitData);
+export const memberRegistration = createAsyncThunk('management/memberRegistration', async (formData) => {
+  console.log('등록 보낸 것', formData)
+  const response = await api.post('/api/member/regist', formData, {
+    headers: {
+      'Content-Type' : 'multipart/form-data',
+    },
+  });
   console.log('등록 받은 것', response.data)
   return response.data
 })

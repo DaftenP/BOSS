@@ -13,6 +13,7 @@ api.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${token}`;
       console.log('Access Token:', token); // 디버깅용 콘솔 출력
     }
+    console.log('Request Config:', config); // 요청 설정 출력z
     return config;
   },
   (error) => Promise.reject(error)
@@ -30,8 +31,8 @@ api.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, { token: refreshToken });
-          const newAccessToken = data.access_token;
+          const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/auth/refresh-token`, { refresh_token: refreshToken });
+          const newAccessToken = data.accessToken; // 여기서 응답 데이터의 키를 확인합니다.
           setAccessToken(newAccessToken);
 
           originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
@@ -40,6 +41,7 @@ api.interceptors.response.use(
           console.error('리프레시 토큰 오류:', refreshError);
           removeAccessToken();
           removeRefreshToken();
+          // 추가적인 로그아웃 처리 등
         }
       }
     }

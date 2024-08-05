@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public class RequestEnteringLogDto {
 
     private String name = null;
-    private Position positionName = null;
-    private Department departmentName = null;
+    private String positionName = null;
+    private String departmentName = null;
     private int entering = -1;
     private int issue = -1;
     private LocalDateTime time = null;

@@ -104,6 +104,7 @@ button {
 
 .rectangle-2 {
   position: absolute;
+  left: 3%;
   width: 580px;
   height: 668px;
   /* top: 16px;
@@ -249,8 +250,8 @@ button {
   position: absolute;
   width: 452px;
   height: 94px;
-  top: 500px;
-  left: 753px;
+  top: 450px;
+  left: 53%;
   color: #ffffff;
   font-family: Roboto, var(--default-font-family);
   font-size: 40px;
@@ -268,8 +269,8 @@ button {
   justify-content: flex-start;
   position: absolute;
   height: 23px;
-  top: 595px;
-  left: 753px;
+  top: 550px;
+  left: 53%;
   color: #ffffff;
   font-family: Roboto, var(--default-font-family);
   font-size: 20px;

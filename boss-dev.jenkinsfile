@@ -8,9 +8,10 @@ pipeline {
 
     stages {
         stage('setup AWS config') {
-            steps {
-                writeFile file: 'server/BOSS/src/main/resources/application-aws.yml', text: AWS_CONFIG
-                sh 'ls server/BOSS/src/main/resources'
+            withCredentials([file(credentialsId: 'application-aws', variable: 'aws-config')]) {
+                script {
+                    sh 'cp $aws-config server/BOSS/src/main/resources/application-aws.yml'
+                }
             }
         }
         stage('build images') {

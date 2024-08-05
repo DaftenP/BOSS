@@ -4,6 +4,8 @@ import lightClasses from './Management.module.css';
 import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function Management() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
@@ -311,11 +313,15 @@ const Modal = ({ log, onClose }) => {
   return (
     <div className={classes.modal} onClick={handleBackgroundClick}>
       <div className={classes.modalContent}>
-        <span className={classes.close} onClick={onClose}>&times;</span>
-        <h2>{log.memberName}</h2>
-        <p>부서: {log.departmentName}</p>
-        <p>직책: {log.positionName}</p>
-        <p>자세히: {log.memberProfile}</p>
+        <span className={classes.close} onClick={onClose}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+        <div className={classes.detailBox}>
+          <div>{log.memberName}</div>
+          <div className={classes.departmentBox}>부서: {log.departmentName}</div>
+          <div>직책: {log.positionName}</div>
+        </div>
+        <div>자세히: {log.memberProfile}</div>
       </div>
     </div>
   );

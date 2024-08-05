@@ -10,6 +10,7 @@ pipeline {
         stage('setup AWS config') {
             steps {
                 writeFile file: 'server/BOSS/src/main/resources/application-aws.yml', text: AWS_CONFIG
+                sh 'ls server/BOSS/src/main/resources'
             }
         }
         stage('build images') {

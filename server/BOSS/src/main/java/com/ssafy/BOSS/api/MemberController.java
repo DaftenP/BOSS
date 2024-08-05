@@ -49,15 +49,7 @@ public class MemberController {
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
         Optional<Member> member = memberService.findbyNfc(nfc);
         if(member.isPresent()) {
-            MemberResponseDto memberResponseDto = new MemberResponseDto();
-            memberResponseDto.setId(member.get().getMemberId());
-            memberResponseDto.setMemberProfile(member.get().getProfileImage());
-            memberResponseDto.setMemberName(member.get().getName());
-            memberResponseDto.setDepartment(member.get().getDepartment());
-            memberResponseDto.setPosition(member.get().getPosition());
-            memberResponseDto.setIssueCount(member.get().getIssueCount());
-            memberResponseDto.setPhoneNumber(member.get().getPhoneNumber());
-            return ResponseEntity.ok(memberResponseDto);
+            return ResponseEntity.ok(MemberDto.of(member.get()));
         }
         else {
             return ResponseEntity.noContent().build();

@@ -27,11 +27,8 @@ public class MemberController {
     @PostMapping("/regist")
     public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false)MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
         try {
-            MemberDto member = memberService.join(memberRegistDto);
+            MemberDto member = memberService.join(memberRegistDto, file);
             if(member != null) {
-                String image = s3UploadService.upload(file);
-                String imgLink = "https://d3vud5llnd72x5.cloudfront.net/" + image.split("/")[image.split("/").length-1];
-                member.setProfileImage(imgLink);
                 return ResponseEntity.ok(member);
             } else {
                 return ResponseEntity.noContent().build();

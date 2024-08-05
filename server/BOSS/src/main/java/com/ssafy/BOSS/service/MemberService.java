@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,10 +26,14 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
+    private final S3UploadService s3UploadService;
 
-    public MemberDto join(MemberRegistDto memberRegistDto) {
+    public MemberDto join(MemberRegistDto memberRegistDto, MultipartFile file) {
         Member member = convertRegistDtoToMember(memberRegistDto);
         validateDuplicateMember(member); // 중복 검사
+        String image = s3UploadService.upload(file);
+        String imgLink = "https://d3vud5llnd72x5.cloudfront.net/" + image.split("/")[image.split("/").length-1];
+        member.setProfileImage(imgLink);
         return MemberDto.of(memberRepository.save(member));
     }
 

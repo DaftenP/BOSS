@@ -23,8 +23,8 @@ public class AdminController {
 
     @PostMapping("/sign-in")
     public JwtToken signIn(@RequestBody SignInDto signInDto) {
-        String username = signInDto.getUsername();
-        String password = signInDto.getPassword();
+        String username = signInDto.getAdminLoginId();
+        String password = signInDto.getAdminLoginPw();
         JwtToken jwtToken = adminService.signIn(username, password);
         log.info("request username = {}, password = {}", username, password);
         log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());

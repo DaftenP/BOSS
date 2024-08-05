@@ -1,0 +1,51 @@
+# 12번 핀에 입력이 들어오면 16번핀에 출력을 방출하는 코드
+# 16번 핀의 값이 True가 되면 경고음이 울리면서 빨간색 LED가 켜진다.
+
+import RPi.GPIO as GPIO
+from time import sleep
+import pygame
+
+# Initialize pygame mixer
+pygame.mixer.init()
+
+# Load the mp3 file
+mp3_file_path = "/home/ssafy/Desktop/subo/alert.mp3"
+pygame.mixer.music.load(mp3_file_path)
+
+def toggle_output_and_play_music(channel):
+    # Toggle pin 6
+    current_state = GPIO.input(6)
+    GPIO.output(6, not current_state)
+    
+    # Play music if not already playing
+    if not pygame.mixer.music.get_busy():
+        pygame.mixer.music.play()
+
+GPIO.setmode(GPIO.BCM)
+
+# Set up GPIO pins
+GPIO.setup(16, GPIO.OUT)  # Set pin 16 as output
+GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  # Set pin 12 as input with pull-down resistor
+GPIO.setup(6, GPIO.OUT)  # Set pin 6 as output
+
+# Add event detection on pin 12
+GPIO.add_event_detect(12, GPIO.RISING, callback=toggle_output_and_play_music, bouncetime=300)
+
+try:
+    # Blink pin 16 for visual indication
+    GPIO.output(16, True)
+    sleep(0.5)
+    GPIO.output(16, False)
+    sleep(0.3)
+    GPIO.output(16, True)
+    sleep(0.5)
+    GPIO.output(16, False)
+    sleep(0.3)
+    GPIO.output(16, True)
+    sleep(0.5)
+    GPIO.output(16, False)
+    sleep(0.3)
+except KeyboardInterrupt:
+    pass
+
+GPIO.cleanup()

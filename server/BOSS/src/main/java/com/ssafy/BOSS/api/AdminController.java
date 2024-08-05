@@ -41,7 +41,7 @@ public class AdminController {
                 adminReturnDto.setAdminPw(admin.getAdminLoginPw());
                 return ResponseEntity.ok(adminReturnDto);
             } else {
-                return ResponseEntity.noContent().build();
+                return ResponseEntity.status(401).build();
             }
         }
         catch(Exception e) {

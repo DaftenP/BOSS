@@ -1,8 +1,6 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.adminDto.SignInDto;
-import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.dto.memberDto.*;
 import com.ssafy.BOSS.service.MemberService;
 import com.ssafy.BOSS.service.S3UploadService;

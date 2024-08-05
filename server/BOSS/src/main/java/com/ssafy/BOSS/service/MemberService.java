@@ -1,16 +1,11 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.dto.memberDto.*;
-import com.ssafy.BOSS.jwt.JwtTokenProvider;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.repository.PositionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;

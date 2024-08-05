@@ -1,7 +1,5 @@
 package com.ssafy.BOSS.dto.enteringLog;
 
-import com.ssafy.BOSS.domain.Department;
-import com.ssafy.BOSS.domain.Position;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

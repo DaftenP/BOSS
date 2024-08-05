@@ -39,6 +39,7 @@ public class AdminController {
                 AdminReturnDto adminReturnDto = new AdminReturnDto();
                 adminReturnDto.setAdminId(admin.getAdminLoginId());
                 adminReturnDto.setAdminPw(admin.getAdminLoginPw());
+                adminReturnDto.setAdminName(admin.getAdminName());
                 return ResponseEntity.ok(adminReturnDto);
             } else {
                 return ResponseEntity.status(401).build();

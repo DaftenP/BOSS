@@ -9,4 +9,5 @@ import lombok.*;
 public class AdminReturnDto {
     private String adminId;
     private String adminPw;
+    private String adminName;
 }

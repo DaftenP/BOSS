@@ -12,8 +12,8 @@ function Login() {
   const dispatch = useDispatch();
   // admin Id, password 통합 state
   const [adminInfo, setAdminInfo] = useState({
-    adminId: '',
-    adminPw: '',
+    adminLoginId: '',
+    adminLoginPw: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
   const [errorKey, setErrorKey] = useState(0);
@@ -27,13 +27,13 @@ function Login() {
 
   useEffect(() => {
     if (isSuccess !== null) {
-      if (!adminInfo.adminId && !adminInfo.adminPw) {
+      if (!adminInfo.adminLoginId && !adminInfo.adminLoginPw) {
         setErrorMessage('아이디와 비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!adminInfo.adminId) {
+      } else if (!adminInfo.adminLoginId) {
         setErrorMessage('아이디를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
-      } else if (!adminInfo.adminPw) {
+      } else if (!adminInfo.adminLoginPw) {
         setErrorMessage('비밀번호를 입력해 주세요!');
         setErrorKey(prev => prev + 1);
       } else if (isSuccess === false) {
@@ -66,30 +66,30 @@ function Login() {
       </div>
       <form onSubmit={loginHandler} className={classes.formContainer}>
         <div className={classes.formGroup}>
-          <label htmlFor='adminId' className={classes.labelText}>
+          <label htmlFor='adminLoginId' className={classes.labelText}>
             아이디
             <img src={idIcon} alt="id_icon" className={classes.labelIcon} />
           </label>
           <input 
             type='text' 
-            id='adminId' 
+            id='adminLoginId' 
             placeholder="아 이 디" 
             className={classes.inputText} 
-            value={adminInfo.adminId} 
+            value={adminInfo.adminLoginId} 
             onChange={handleAdminInfo} 
           />
         </div>
         <div className={classes.formGroup}>
-          <label htmlFor='adminPw' className={classes.labelText}>
+          <label htmlFor='adminLoginPw' className={classes.labelText}>
             비밀번호
             <img src={passwordIcon} alt="password_icon" className={classes.labelIcon} />
           </label>
           <input 
             type='password' 
-            id='adminPw' 
+            id='adminLoginPw' 
             placeholder="비 밀 번 호" 
             className={classes.inputText} 
-            value={adminInfo.adminPw} 
+            value={adminInfo.adminLoginPw} 
             onChange={handleAdminInfo} 
           />
         </div>

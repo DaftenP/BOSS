@@ -1,9 +1,8 @@
 FROM node:22-alpine AS build
 WORKDIR /app
-COPY package.json ./
-COPY package-lock.json ./
+COPY . .
+ENV REACT_APP_API_URL=https://i11e102.p.ssafy.io
 RUN npm install
-COPY . ./
 RUN npm run build
 
 FROM nginx:alpine

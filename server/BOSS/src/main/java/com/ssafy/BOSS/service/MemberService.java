@@ -1,11 +1,16 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.dto.memberDto.*;
+import com.ssafy.BOSS.jwt.JwtTokenProvider;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.repository.PositionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,11 +25,21 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public MemberDto join(MemberRegistDto memberRegistDto) {
         Member member = convertRegistDtoToMember(memberRegistDto);
         validateDuplicateMember(member); // 중복 검사
         return MemberDto.of(memberRepository.save(member));
+    }
+
+    public MemberLoginDto login(MemberLoginDto memberLoginDto) {
+        Optional<Member> member = memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw());
+        if (member.isPresent()) {
+            return memberLoginDto;
+        }
+        return null;
     }
 
     private Member convertRegistDtoToMember(MemberRegistDto memberRegistDto) {
@@ -35,6 +50,8 @@ public class MemberService {
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
         member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
         member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
+        member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
+        member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         return member;
     }
 

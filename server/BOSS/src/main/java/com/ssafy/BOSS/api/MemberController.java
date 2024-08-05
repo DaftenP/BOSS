@@ -1,15 +1,19 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.dto.adminDto.SignInDto;
+import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.dto.memberDto.*;
 import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/member")
@@ -30,6 +34,15 @@ public class MemberController {
         catch(Exception e) {
             return exceptionHandling(e);
         }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> memberLogin(@RequestBody MemberLoginDto memberLoginDto) {
+        MemberLoginDto memberLogin = memberService.login(memberLoginDto);
+        if(memberLogin != null) {
+            return ResponseEntity.ok(memberLogin);
+        }
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/check/{nfc}")

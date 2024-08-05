@@ -5,6 +5,8 @@ export const login = createAsyncThunk('login/login', async (adminInfo) => {
   console.log(adminInfo)
   const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/login`, adminInfo);
   console.log(response)
+  console.log('주소 테스트', process.env.REACT_APP_API_URL)
+  console.log('주소 테스트2', `${process.env.REACT_APP_API_URL}/api/admin/login`)
   return response.data;
 });
 

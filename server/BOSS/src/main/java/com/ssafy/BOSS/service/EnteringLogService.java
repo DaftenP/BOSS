@@ -41,7 +41,11 @@ public class EnteringLogService {
 
     public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto) {
         EnteringLog enteringLog = new EnteringLog();
-        enteringLog.setMember(memberRepository.getReferenceById(enteringLogRegistDto.getMemberId()));
+        Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());
+        if(member.isEmpty()) {
+            throw new RuntimeException("Member not found");
+        }
+        enteringLog.setMember(member.get());
         enteringLog.setDeviceFrontImage(enteringLogRegistDto.getDeviceFrontImage());
         enteringLog.setDeviceBackImage(enteringLogRegistDto.getDeviceBackImage());
         enteringLog.setEntering(enteringLogRegistDto.getEntering());

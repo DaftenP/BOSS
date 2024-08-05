@@ -3,8 +3,12 @@ import torch
 
 
 class Model:
-    def __init__(self, name: str):
-        self.model = YOLO(name)
+    def __init__(self, path: str) -> None:
+        self.model = YOLO(path)
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
         print(f'YOLO v8 initialized. device : {self.device}')
         self.model.to(self.device)
+
+    def predict(self, img) -> list:
+        frame_tensor = torch.from_numpy(img).permute(2, 0, 1).unsqueeze(0).float().to(self.device) / 255.0
+        return self.model(frame_tensor)

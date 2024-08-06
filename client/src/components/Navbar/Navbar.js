@@ -30,9 +30,7 @@ function Navbar() {
   };
 
   useEffect(() => {
-    console.log("adminName: ", adminName); // test
   }, [adminName]);
-  // console.log(logs);
 
   useEffect(() => {
     if (loginTime) {

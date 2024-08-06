@@ -1,7 +1,6 @@
 package com.ssafy.BOSS.repository;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

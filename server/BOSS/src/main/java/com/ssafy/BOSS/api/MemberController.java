@@ -1,7 +1,10 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.*;
+import com.ssafy.BOSS.dto.memberDto.MemberDto;
+import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
+import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
+import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.service.MemberService;
 import com.ssafy.BOSS.service.S3UploadService;
 import lombok.RequiredArgsConstructor;

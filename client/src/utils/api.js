@@ -11,9 +11,7 @@ api.interceptors.request.use(
     const token = getAccessToken();
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
-      console.log('Access Token:', token); // 디버깅용 콘솔 출력
     }
-    console.log('Request Config:', config); // 요청 설정 출력z
     return config;
   },
   (error) => Promise.reject(error)

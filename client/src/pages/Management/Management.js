@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Swal from 'sweetalert2';
 import lightClasses from './Management.module.css';
 import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
@@ -11,12 +12,6 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 function Management() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
-
-  const urlToBlob = async (url) => {
-    const response = await fetch(url);
-    const blob = await response.blob();
-    return blob;
-  }
 
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
@@ -110,38 +105,112 @@ function Management() {
     }
   };
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   if (submitMemberData.profileImage && !['image/jpg', 'image/jpeg', 'image/png'].includes(submitMemberData.profileImage.type)) {
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: '<strong>유효하지 않은 형식입니다!</strong>',
+  //       html: '<b>JPG, JPEG, PNG</b> 파일을 첨부해주세요!',
+  //     });
+  //     return
+  //   }
+
+  //   const formData = new FormData();
+  //   formData.append('name', submitMemberData.name);
+  //   formData.append('departmentId', submitMemberData.departmentId);
+  //   formData.append('positionId', submitMemberData.positionId);
+  //   formData.append('phoneNumber', submitMemberData.phoneNumber);
+  //   formData.append('nfc', submitMemberData.nfc);
+
+  //   if (submitMemberData.profileImage) {
+  //       formData.append('profileImage', submitMemberData.profileImage);
+  //   } else {
+  //       const defaultProfileBlob = await urlToBlob(normalProfile);
+  //       formData.append('profileImage', defaultProfileBlob, 'normal_profile_image.png');
+  //   }
+  //   for (let [key, value] of formData.entries()) {
+  //     console.log(`${key}: ${value}`);
+  //   }
+  //   dispatch(memberRegistration(formData));
+
+  //   setSubmitMemberData({
+  //       name: '',
+  //       departmentId: '',
+  //       positionId: '',
+  //       phoneNumber: '',
+  //       nfc: '',
+  //       profileImage: null,
+  //   });
+
+  //   if (fileInputRef.current) {
+  //       fileInputRef.current.value = '';
+  //   }
+  // }
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append('name', submitMemberData.name);
-    formData.append('departmentId', submitMemberData.departmentId);
-    formData.append('positionId', submitMemberData.positionId);
-    formData.append('phoneNumber', submitMemberData.phoneNumber);
-    formData.append('nfc', submitMemberData.nfc);
+    // const defaultProfile = await fetch(normalProfile)
+    // .then(response => response.blob())
+    // .then(blob => new Promise((resolve, reject) => {
+    //   const reader = new FileReader();
+    //   reader.onloadend = () => resolve(reader.result);
+    //   reader.onerror = reject;
+    //   reader.readAsDataURL(blob);
+    // }));
 
-    if (submitMemberData.profileImage) {
-        formData.append('profileImage', submitMemberData.profileImage);
-    } else {
-        const defaultProfileBlob = await urlToBlob(normalProfile);
-        formData.append('profileImage', defaultProfileBlob, 'normal_profile_image.png');
+    if (submitMemberData.profileImage && !['image/jpg', 'image/jpeg', 'image/png'].includes(submitMemberData.profileImage.type)) {
+      Swal.fire({
+        icon: 'error',
+        title: '<strong>유효하지 않은 형식입니다!</strong>',
+        html: '<b>JPG, JPEG, PNG</b> 파일을 첨부해주세요!',
+      });
+      return
     }
 
-    dispatch(memberRegistration(formData));
+    const formData = new FormData()
 
-    setSubmitMemberData({
+    if (submitMemberData.profileImage) {
+      formData.append('profileImage', submitMemberData.profileImage);
+    } else {
+      const response = await fetch(normalProfile);
+      const blob = await response.blob();
+      const file = new File([blob], 'normal_profile_image.png', { type: 'image/png' });
+      formData.append('profileImage', file);
+    }
+
+    const memberRegistDto = {
+      phoneNumber: submitMemberData.phoneNumber,
+      name: submitMemberData.name,
+      nfc: submitMemberData.nfc,
+      departmentId: submitMemberData.departmentId,
+      positionId: submitMemberData.positionId,
+      memberLoginId: 'aa',
+      memberLoginPw: '11',
+    };
+
+    formData.append('memberRegistDto', new Blob([JSON.stringify(memberRegistDto)], { type: 'application/json' }));  
+
+    try {
+      await dispatch(memberRegistration(formData)).unwrap();
+
+      setSubmitMemberData({
         name: '',
         departmentId: '',
         positionId: '',
         phoneNumber: '',
         nfc: '',
         profileImage: null,
-    });
+      });
 
-    if (fileInputRef.current) {
+      if (fileInputRef.current) {
         fileInputRef.current.value = '';
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
     }
-  }
+  };
 
   const displayedLogs = logsData.slice(0, visibleCount);
 
@@ -252,7 +321,7 @@ function Management() {
                     </td>
                     <td colSpan="4">
                       <label htmlFor="new profile" className={classes.labelText}>프로필 사진 파일을 선택해 주세요!</label>
-                      <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" onChange={handleSubmitChange} ref={fileInputRef} />
+                      <input type="file" id="new profile" name="profileImage" placeholder="프로필 사진" accept='.jpg, .jpeg, .png' onChange={handleSubmitChange} ref={fileInputRef} />
                     </td>
                   </tr>
                 </tbody>

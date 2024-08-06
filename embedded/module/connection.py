@@ -16,17 +16,25 @@ def post_log(log: dict):
     print(response.status_code)
 
 
+def get_member_logs(member_id: int):
+    response = requests.get(BASE_URI + f'log/search?member_id={member_id}&issue={1}')
+    if response.status_code == 200:
+        return response
+    else:
+        print(response.status_code)
+        return None
+
 # Test Code
 # if __name__ == '__main__':
 #     # get_member_info('1234')
-#     data = {"member_id": 1,
-#             "time": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S"),
+#     data = {"memberId": 5,
 #             "deviceFrontImage": "front.jpg",
 #             "deviceBackImage": "back.jpg",
 #             "entering": 1,
 #             "gateNumber": 1,
 #             "stickerCount": 3,
-#             "issue": 0,
+#             "issue": 1,
 #             "cameraLens": 0
 #             }
 #     post_log(data)
+#     get_member_logs(5)

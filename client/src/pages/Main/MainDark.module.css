@@ -4,7 +4,7 @@
 
 .todayIssueContainer {
   background-color: #222222;
-  border: 1px solid #242424;
+  background-color: #393944;
   color: #bbb;
   border-radius: 20px;
   width: 50%;
@@ -23,6 +23,7 @@ position: relative;
 }
 
 .issueTitleBox {
+  
   position: absolute;
   top: 0;
   left: 0;
@@ -35,13 +36,13 @@ position: relative;
   font-weight: bold;
   text-align: center;
   box-sizing: border-box;
-  color: #bbb;
+  color: #e3e3e3;
 }
 
 .totalIssueContainer {
   border: 1px solid #242424;
   border-radius: 20px;
-  background-color: #222222;
+  background-color: #393944;
   min-height: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -64,7 +65,7 @@ position: relative;
 
 .lineChartContainer {
   display: flex;
-  border: 1px solid #242424;
+  border: 1px solid #4d505f;
   border-radius: 15px;
   margin-top: 20px;
   padding: 0 20px 10px 20px;
@@ -75,7 +76,7 @@ position: relative;
 
 .doughnutChartContainer {
   display: flex;
-  border: 1px solid #242424;
+  border: 1px solid #4d505f;
   border-radius: 15px;
   margin-top: 20px;
   padding: 0 20px 10px 20px;
@@ -85,12 +86,14 @@ position: relative;
 }
 
 .chartTitle {
+  color: #e3e3e3;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
 }
 
 .doughnutChartTitle {
+  color: #e3e3e3;
   margin-top: 70px;
   font-size: 20px;
   font-weight: bold;
@@ -102,7 +105,7 @@ position: relative;
 }
 
 .logTable {
-  color: #bbb;
+  color: #e3e3e3;
   width: 100%;
   border-collapse: collapse;
   margin: 25px 0 25px 0;
@@ -164,14 +167,14 @@ position: relative;
 }
 
 .ruleTitle {
-  color: #bbb;
+  color: #e3e3e3;
   position: absolute;
   top: -20px;
   left: 50%;
   transform: translateX(-50%);
   border: 0;
   border-radius: 15px;
-  background-color: #CF6679;
+  background-color: #7990FD;
   padding: 7px 40px 7px 40px;
   font-weight: bold;
   font-size: 17px;
@@ -188,7 +191,7 @@ position: relative;
   padding: 10px 15px 10px 15px;
   font-size: 20px;
   font-weight: bold;
-  color: #bbb;
+  color: #e3e3e3;
   text-align: center;
   box-sizing: border-box;
 }

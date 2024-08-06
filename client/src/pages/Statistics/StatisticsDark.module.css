@@ -4,7 +4,7 @@
 }
 
 .dateStatisticsContainer {
-  background-color: #222222;
+  background-color: #393944;
   border: 1px solid #242424;
   border-radius: 20px;
   margin: 10px;
@@ -16,8 +16,8 @@
 }
 
 .statisticsTitleBox {
-  /* background-color: #B0D2FA; */
-  color: #bbb;
+  background-color: #4d505f;
+  color: #e3e3e3;
   border-radius: 18px 0 18px 0;
   display: inline-block;
   padding: 7px 17px 7px 17px;
@@ -83,7 +83,7 @@
 .totalAxisSelectBox {
   display: flex;
   margin-top: 20px;
-  margin-left: 50px;
+  margin-left: 25px;
 }
 
 .axisSelectTitle {
@@ -138,7 +138,7 @@
 }
 
 .statisticsCard {
-  color: #bbb;
+  color: #e3e3e3;
   border: 1px solid #242424;
   border-radius: 8px;
   padding: 10px 20px 23px 20px;
@@ -148,7 +148,7 @@
 }
 
 .statisticsCard h3 {
-  font-size: 18px;
+  font-size: 15px;
   margin-bottom: 10px;
 }
 
@@ -247,8 +247,8 @@
 
 .buttonBox {
   cursor: pointer;
-  background-color: #bb86fc;
-  border: 1px solid #bb86fc;
+  background-color: #52e2c2;
+  border: 1px solid #52e2c2;
   border-radius: 10px;
   color: whitesmoke;
   font-size: 12px;

@@ -69,8 +69,8 @@ function Main() {
       {
         label: '적발 인원',
         data: groupedData,
-        borderColor: '#7990FD',
-        backgroundColor: 'rgba(176, 210, 250, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
         fill: true,
       },
     ],
@@ -85,7 +85,7 @@ function Main() {
           callback: function(value) {
             return value + ' 명';
           },
-          color: '#bbb',
+          color: '#e3e3e3',
           font: {
             size: 14,
             weight: 'bold'
@@ -97,7 +97,7 @@ function Main() {
       },
       x: {
         ticks: {
-          color: '#bbb',
+          color: '#e3e3e3',
           font: {
             size: 14,
             weight: 'bold'
@@ -111,7 +111,7 @@ function Main() {
     plugins: {
       legend: {
         labels: {
-          color: '#bbb',
+          color: '#e3e3e3',
           font: {
             size: 14,
             weight: 'bold'
@@ -147,7 +147,7 @@ function Main() {
     plugins: {
       legend: {
         labels: {
-          color: '#bbb', // 범례 글자색
+          color: '#e3e3e3', // 범례 글자색
           font: {
             size: 14,
             weight: 'bold'

@@ -1,7 +1,7 @@
 .filteringContainer {
   border: 1px solid #242424;
   border-radius: 20px;
-  background-color: #222222;
+  background-color: #393944;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -9,15 +9,16 @@
 .registrationContainer {
   border: 1px solid #242424;
   border-radius: 20px;
-  background-color: #222222;
+  background-color: #393944;
   margin: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .listContainer {
+  color: #e3e3e3;
   border: 1px solid #242424;
   border-radius: 20px;
-  background-color: #222222;
+  background-color: #393944;
   margin: 15px 10px 10px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -31,8 +32,8 @@
   bottom: 8px;
   right: 2px;
   cursor: pointer;
-  /* background-color: #bb86fc; */
-  color: #242424;
+  background-color: #52e2c2;
+  color: #e3e3e3;
   padding: 8px 30px;
   font-size: 14px;
   font-weight: bold;
@@ -45,8 +46,8 @@
 }
 
 .filteringBox {
-  /* background-color: #bb86fc; */
-  color: #bbb;
+  background-color: #4d505f;
+  color: #e3e3e3;
   border-radius: 0 18px 0 20px;
   display: inline-block;
   padding: 5px 15px 5px 20px;
@@ -73,14 +74,15 @@
 }
 
 .inputText {
-  background-color: #555555;
+  color: #e3e3e3;
+  background-color: #4d505f;
   margin-right: 30px;
   margin-bottom: 10px;
   border-radius: 10px;
   padding-left: 5px;
   padding-right: 5px;
   height: 19px;
-  border: 1px solid #242424;
+  border: 1px solid #333333;
 }
 
 .specificInputText {
@@ -102,7 +104,7 @@
 
 .listTitle {
   /* background-color: #B0D2FA; */
-  color: #bbb;
+  /* color: #bbb; */
   border-radius: 18px 18px 0 0;
   text-align: center;
   padding: 10px;
@@ -112,7 +114,7 @@
 
 .logCount {
   background-color: #333333;
-  color: #bbb;
+  /* color: #bbb; */
   text-align: center;
   padding: 10px;
   font-size: 15px;
@@ -120,7 +122,7 @@
 }
 
 .logTable {
-  color: #bbb;
+  /* color: #bbb; */
   width: 97%;
   border-collapse: collapse;
   margin: 20px;
@@ -148,11 +150,11 @@
   cursor: pointer;
   padding: 10px 100px 10px 100px;
   margin-bottom: 16px;
-  background-color: #f0f0f0;
-  color: #242424;
+  background-color: #4d505f;
+  color: #e3e3e3;
   border: none;
   border-radius: 20px;
-  opacity: 70%;
+  opacity: 90%;
 }
 
 .logIcon {
@@ -275,6 +277,7 @@
 }
 
 .updateModalContainer {
+  /* background-color: #4d505f; */
   padding: 20px;
 }
 
@@ -288,6 +291,7 @@
 }
 
 .updateInputText {
+  color: #e3e3e3;
   background-color: #555555;
   margin-right: 30px;
   margin-bottom: 10px;

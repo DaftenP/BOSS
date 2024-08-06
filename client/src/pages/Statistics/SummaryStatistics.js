@@ -43,23 +43,31 @@ function SummaryStatistics({ loglist }) {
 
   const calculateStatistics = () => {
     let filteredLogs = loglist.filter(log => {
+      const filteredLog = {
+        gate: log.gateNumber,
+        date: log.time.split('T')[0],
+        time: log.time.split('T')[1],
+        department: log.member.department.departmentName,
+        issue: log.issue,
+        memberId: log.member.memberId,
+      }
       if (selectedSummaryOption === 'day') {
-        return log.date === selectedSummaryDate;
+        return filteredLog.date === selectedSummaryDate;
       } else if (selectedSummaryOption === 'week') {
         const selectedDateObj = new Date(selectedSummaryDate);
-        const logDateObj = new Date(log.date);
+        const logDateObj = new Date(filteredLog.date);
         const diffDays = (logDateObj - selectedDateObj) / (1000 * 60 * 60 * 24);
         return diffDays >= 0 && diffDays < 7;
       } else if (selectedSummaryOption === 'month') {
-        return log.date && selectedSummaryDate && log.date.startsWith(selectedSummaryDate);
+        return filteredLog.date && selectedSummaryDate && filteredLog.date.startsWith(selectedSummaryDate);
       } else if (selectedSummaryOption === 'year') {
-        return log.date && selectedSummaryDate && log.date.startsWith(selectedSummaryDate);
+        return filteredLog.date && selectedSummaryDate && filteredLog.date.startsWith(selectedSummaryDate);
       }
       return false;
     });
 
-    const uniqueUsers = new Set(filteredLogs.map(log => log.id)).size;
-    const issues = filteredLogs.filter(log => log.issue === 'F').length;
+    const uniqueUsers = new Set(filteredLogs.map(log => log.member.memberId)).size;
+    const issues = filteredLogs.filter(log => log.issue === 1).length;
     const logs = filteredLogs.length;
     const daysInPeriod = selectedSummaryOption === 'day'
       ? 1

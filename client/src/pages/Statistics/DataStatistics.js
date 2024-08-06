@@ -83,23 +83,29 @@ function DateStatistics({ loglist }) {
 
   const filterData = () => {
     const filteredLogs = loglist.filter(log => {
-      if (selectedDateYOption === 'fail' && log.issue !== 'F') return false;
-      if (selectedDateYOption === 'pass' && log.issue !== 'P') return false;
-  
+      const filteredLog = {
+        gateNumber: log.gateNumber,
+        date: log.time.split('T')[0],
+        time: log.time.split('T')[1],
+        department: log.member.department.departmentName,
+        issue: log.issue,
+      }
+      if (selectedDateYOption === 'fail' && filteredLog.issue !== 1) return false;
+      if (selectedDateYOption === 'pass' && filteredLog.issue !== 0) return false;
+
       if (selectedDateXOption === 'day') {
-        return log.date === selectedDate;
+        return filteredLog.date === selectedDate;
       } else if (selectedDateXOption === 'week') {
         const selectedDateObj = parseISO(selectedDate);
-        const logDateObj = parseISO(log.date);
+        const logDateObj = parseISO(filteredLog.date);
         if (!isValid(selectedDateObj) || !isValid(logDateObj)) return false; // 유효하지 않은 날짜인 경우 false 반환
         const diffDays = (logDateObj - selectedDateObj) / (1000 * 60 * 60 * 24);
         return diffDays >= 0 && diffDays < 7;
       } else if (selectedDateXOption === 'month') {
-        return log.date.startsWith(selectedDate);
+        return filteredLog.date.startsWith(selectedDate);
       } else if (selectedDateXOption === 'year') {
-        return log.date.startsWith(selectedDate.split('-')[0]);
+        return filteredLog.date.startsWith(selectedDate.split('-')[0]);
       }
-  
       return false;
     });
   
@@ -121,14 +127,21 @@ function DateStatistics({ loglist }) {
     });
   
     filteredLogs.forEach(log => {
+      const filteredLog = {
+        gateNumber: log.gateNumber,
+        date: log.time.split('T')[0],
+        time: log.time.split('T')[1],
+        department: log.member.department.departmentName,
+        issue: log.issue,
+      }
       let key;
       if (selectedDateXOption === 'day') {
-        const hour = parseInt(log.time.split(':')[0], 10);
+        const hour = parseInt(filteredLog.time.split(':')[0], 10);
         key = `${hour}~${hour + 1}시`;
       } else if (selectedDateXOption === 'week' || selectedDateXOption === 'month') {
-        key = log.date;
+        key = filteredLog.date;
       } else if (selectedDateXOption === 'year') {
-        key = log.date.split('-')[1] + '월';
+        key = filteredLog.date.split('-')[1] + '월';
       }
   
       if (groupedData[key] !== undefined) {

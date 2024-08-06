@@ -141,6 +141,7 @@ function LogTable() {
     startTime: '',
     endTime: '',
     issue: '',
+    memberId: '',
   });
   const [showModal, setShowModal] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
@@ -163,6 +164,7 @@ function LogTable() {
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
+    console.log('첫 번쨰', filteredFilters)
 
     const transformedFilters = {
       ...filteredFilters,
@@ -178,6 +180,7 @@ function LogTable() {
       startTime: transformedFilters.startTime,
       endTime: transformedFilters.endTime,
       issue: transformedFilters.issue,
+      memberId: transformedFilters.memberId,
     };
 
     setVisibleCount(20);
@@ -192,6 +195,7 @@ function LogTable() {
       startTime: '',
       endTime: '',
       issue: '',
+      memberId: '',
     });
   };
 
@@ -237,16 +241,16 @@ function LogTable() {
                     <input className={classes.inputText} type="text" name="name" placeholder="이 름" value={filters.name} onChange={handleInputChange} />
                   </td>
                   <td>
+                    <label htmlFor="memberId" className={classes.labelText}>멤버 ID</label>
+                    <input className={classes.inputText} type="number" name="memberId" placeholder="멤 버  I D" value={filters.memberId} onChange={handleInputChange} />
+                  </td>
+                  <td>
                     <label htmlFor="departmentName" className={classes.labelText}>부서</label>
                     <input className={classes.inputText} type="text" name="departmentName" placeholder="부 서" value={filters.departmentName} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="positionName" className={classes.labelText}>직책</label>
                     <input className={classes.inputText} type="text" name="positionName" placeholder="직 책" value={filters.positionName} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
-                    <input className={classes.inputText} type="number" name="entering" placeholder="출 / 퇴" value={filters.entering} onChange={handleInputChange} />
                   </td>
                 </tr>
                 <tr>
@@ -268,7 +272,11 @@ function LogTable() {
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="1">
+                  <td>
+                    <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
+                    <input className={classes.inputText} type="number" name="entering" placeholder="출 / 퇴" value={filters.entering} onChange={handleInputChange} />
+                  </td>
+                  <td>
                     <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
                     <input className={classes.inputText} type="number" name="issue" placeholder="보 안  이 슈" value={filters.issue} onChange={handleInputChange} />
                   </td>
@@ -291,6 +299,7 @@ function LogTable() {
             <tr>
               <th>기기</th>
               <th>로그 ID</th>
+              <th>멤버 ID</th>
               <th>이름</th>
               <th>부서</th>
               <th>직책</th>
@@ -308,6 +317,7 @@ function LogTable() {
               <tr key={index}>
                 <td>{log.gateNumber}</td>
                 <td>{log.logId}</td>
+                <td>{log.member.memberId}</td>
                 <td>{log.member.name}</td>
                 <td>{log.member.department.departmentName}</td>
                 <td>{log.member.position.positionName}</td>
@@ -336,7 +346,6 @@ function LogTable() {
             <button onClick={handleLoadMore} className={classes.moreButton}>▼ 더보기</button>
           )}
         </div>
-
       </div>
     </div>
   );

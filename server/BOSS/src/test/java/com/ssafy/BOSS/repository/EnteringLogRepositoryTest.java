@@ -2,7 +2,6 @@ package com.ssafy.BOSS.repository;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.fixture.MemberFixtureService;
 import org.junit.jupiter.api.AfterEach;
@@ -83,10 +82,10 @@ class EnteringLogRepositoryTest {
         //when
         RequestEnteringLogDto dto = new RequestEnteringLogDto();
         dto.setName("ssafy");
-        List<EnteringLogDto> enteringLogDtos = enteringLogRepository.searchEnteringLogs(dto);
+        List<EnteringLog> enteringLogs = enteringLogRepository.searchEnteringLogs(dto);
 
         //then
-        assertNotEquals(0, enteringLogDtos.size());
+        assertNotEquals(0, enteringLogs.size());
     }
 
 

@@ -61,25 +61,11 @@ public class EnteringLogService {
     @Transactional(readOnly = true)
     public List<EnteringLogDto> getAllEnteringLogs() {
         List<EnteringLog> logs = enteringLogRepository.findAll();
-        return logs.stream().map(log -> {
-            EnteringLogDto dto = new EnteringLogDto();
-            if (log.getMember() != null) {
-                dto.setName(log.getMember().getName());
-                if (log.getMember().getPosition() != null) {
-                    dto.setPosition(log.getMember().getPosition().getPositionName());
-                }
-                if (log.getMember().getDepartment() != null) {
-                    dto.setDepartment(log.getMember().getDepartment().getDepartmentName());
-                }
-            }
-            dto.setId(log.getLogId());
-            dto.setIssue(log.getIssue());
-            dto.setTime(log.getTime());
-            return dto;
-        }).toList();
+        return logs.stream().map(EnteringLogDto::of).toList();
     }
 
     public List<EnteringLogDto> getAllSearchEnteringLogs(RequestEnteringLogDto logDto) {
-        return enteringLogRepository.searchEnteringLogs(logDto);
+        List<EnteringLog> logs = enteringLogRepository.searchEnteringLogs(logDto);
+        return logs.stream().map(EnteringLogDto::of).toList();
     }
 }

@@ -1,7 +1,6 @@
 package com.ssafy.BOSS.repository;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.fixture.MemberFixtureService;
 import org.junit.jupiter.api.AfterEach;
@@ -47,10 +46,10 @@ class MemberRepositoryTest {
         //when
         RequestMemberDto dto = new RequestMemberDto();
         dto.setName("ssafy");
-        List<MemberLogDto> logDtos = memberRepository.searchMemberLogs(dto);
+        List<Member> members = memberRepository.searchMember(dto);
 
         //then
-        assertNotEquals(0, logDtos.size());
+        assertNotEquals(0, members.size());
     }
 
 }

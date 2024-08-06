@@ -1,7 +1,10 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.*;
+import com.ssafy.BOSS.dto.memberDto.MemberDto;
+import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
+import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
+import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.repository.PositionRepository;
@@ -70,7 +73,8 @@ public class MemberService {
         return members.stream().map(MemberDto::of).toList();
     }
 
-    public List<MemberLogDto> searchMemberLogs(RequestMemberDto requestMemberDto) {
-        return memberRepository.searchMemberLogs(requestMemberDto);
+    public List<MemberDto> searchMemberLogs(RequestMemberDto requestMemberDto) {
+        List<Member> members = memberRepository.searchMember(requestMemberDto);
+        return members.stream().map(MemberDto::of).toList();
     }
 }

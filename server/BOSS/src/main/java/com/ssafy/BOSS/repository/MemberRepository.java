@@ -1,7 +1,6 @@
 package com.ssafy.BOSS.repository;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.MemberLogDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,14 +13,14 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByNfc(String nfc);
 
-    @Query("SELECT new com.ssafy.BOSS.dto.memberDto.MemberLogDto(m.name, m.department.departmentName, m.position.positionName, m.nfc, m.issueCount)" +
+    @Query("SELECT m " +
             " FROM Member m " +
             "WHERE (:#{#memberDto.name} IS NULL OR m.name LIKE %:#{#memberDto.name}%) " +
             "AND (:#{#memberDto.departmentName} IS NULL OR m.department.departmentName LIKE %:#{#memberDto.departmentName}%)" +
             "AND (:#{#memberDto.positionName} IS NULL OR m.position.positionName LIKE %:#{#memberDto.positionName}%)" +
             "AND (:#{#memberDto.nfc} IS NULL OR m.nfc LIKE %:#{#memberDto.nfc}%)" +
             "AND (:#{#memberDto.issue} < 0 OR m.issueCount = :#{#memberDto.issue})")
-    List<MemberLogDto> searchMemberLogs(@Param("memberDto")RequestMemberDto memberDto);
+    List<Member> searchMember(@Param("memberDto")RequestMemberDto memberDto);
 
     Optional<Member> findByMemberLoginIdAndMemberLoginPw(String loginId, String loginPw);
 }

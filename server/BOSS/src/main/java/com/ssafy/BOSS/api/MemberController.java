@@ -1,7 +1,10 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.memberDto.*;
+import com.ssafy.BOSS.dto.memberDto.MemberDto;
+import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
+import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
+import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.service.MemberService;
 import com.ssafy.BOSS.service.S3UploadService;
 import lombok.RequiredArgsConstructor;
@@ -58,15 +61,15 @@ public class MemberController {
     }
 
     @GetMapping("/check")
-    public ResponseEntity<?> getMembers() {
+    public ResponseEntity<List<MemberDto>> getMembers() {
         return ResponseEntity.ok(memberService.getAllMembers());
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchMembers(@ModelAttribute RequestMemberDto dto) {
-        List<MemberLogDto> memberLogs = memberService.searchMemberLogs(dto);
-        if(!memberLogs.isEmpty()) {
-            return ResponseEntity.ok(memberLogs);
+    public ResponseEntity<List<MemberDto>> searchMembers(@ModelAttribute RequestMemberDto dto) {
+        List<MemberDto> memberDtos = memberService.searchMemberLogs(dto);
+        if(!memberDtos.isEmpty()) {
+            return ResponseEntity.ok(memberDtos);
         }
         return ResponseEntity.noContent().build();
     }

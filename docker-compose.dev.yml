@@ -4,14 +4,14 @@ services:
 
   frontend:
     build: ./client
-    image: boss-dev-frontend:latest
+    image: slowcloud/boss-frontend:latest
     container_name: boss-dev-frontend
     environment:
       - TZ=Asia/Seoul
 
   backend:
     build: ./server/BOSS
-    image: boss-dev-backend:latest
+    image: slowcloud/boss-backend:latest
     container_name: boss-dev-backend
     depends_on:
       - db
@@ -21,7 +21,7 @@ services:
 
   db:
     build: ./mysql
-    image: boss-dev-mysql:latest
+    image: slowcloud/boss-mysql:latest
     container_name: boss-dev-db
     environment:
       - MYSQL_ROOT_PASSWORD=ssafy
@@ -31,7 +31,7 @@ services:
   
   server:
     build: ./nginx
-    image: boss-dev-server:latest
+    image: slowcloud/boss-server:latest
     container_name: boss-dev-nginx
     depends_on:
       - frontend

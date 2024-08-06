@@ -58,15 +58,15 @@ public class MemberController {
     }
 
     @GetMapping("/check")
-    public ResponseEntity<?> getMembers() {
+    public ResponseEntity<List<MemberDto>> getMembers() {
         return ResponseEntity.ok(memberService.getAllMembers());
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchMembers(@ModelAttribute RequestMemberDto dto) {
-        List<MemberLogDto> memberLogs = memberService.searchMemberLogs(dto);
-        if(!memberLogs.isEmpty()) {
-            return ResponseEntity.ok(memberLogs);
+    public ResponseEntity<List<MemberDto>> searchMembers(@ModelAttribute RequestMemberDto dto) {
+        List<MemberDto> memberDtos = memberService.searchMemberLogs(dto);
+        if(!memberDtos.isEmpty()) {
+            return ResponseEntity.ok(memberDtos);
         }
         return ResponseEntity.noContent().build();
     }

@@ -70,7 +70,8 @@ public class MemberService {
         return members.stream().map(MemberDto::of).toList();
     }
 
-    public List<MemberLogDto> searchMemberLogs(RequestMemberDto requestMemberDto) {
-        return memberRepository.searchMemberLogs(requestMemberDto);
+    public List<MemberDto> searchMemberLogs(RequestMemberDto requestMemberDto) {
+        List<Member> members = memberRepository.searchMember(requestMemberDto);
+        return members.stream().map(MemberDto::of).toList();
     }
 }

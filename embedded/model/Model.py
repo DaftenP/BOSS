@@ -1,6 +1,9 @@
 from ultralytics import YOLO
 import torch
+import logging
 
+# 로깅 레벨을 설정하여 출력 억제
+logging.getLogger('ultralytics').setLevel(logging.WARNING)
 
 class Model:
     def __init__(self, path: str) -> None:

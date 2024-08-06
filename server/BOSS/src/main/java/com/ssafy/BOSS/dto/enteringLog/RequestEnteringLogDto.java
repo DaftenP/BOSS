@@ -19,5 +19,6 @@ public class RequestEnteringLogDto {
     private int departmentId = -1;
     private int entering = -1;
     private int issue = -1;
-    private LocalDateTime time = null;
+    private LocalDateTime startTime = LocalDateTime.MIN;
+    private LocalDateTime endTime = LocalDateTime.MAX;
 }

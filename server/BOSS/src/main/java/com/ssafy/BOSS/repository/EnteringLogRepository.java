@@ -31,6 +31,6 @@ public interface EnteringLogRepository extends JpaRepository<EnteringLog, Long> 
             "AND (:#{#logDto.departmentId} < 0 OR e.member.department.departmentId = :#{#logDto.departmentId}) " +
             "AND (:#{#logDto.entering} < 0 OR e.entering = :#{#logDto.entering}) " +
             "AND (:#{#logDto.issue} < 0 OR e.issue = :#{#logDto.issue}) " +
-            "AND (:#{#logDto.time} IS NULL OR e.time >= :#{#logDto.time})")
+            "AND (:#{#logDto.startTime} <= e.time AND e.time <= :#{#logDto.endTime})")
     List<EnteringLog> searchEnteringLogs(@Param("logDto")RequestEnteringLogDto logDto);
 }

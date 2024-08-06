@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -19,6 +21,6 @@ public class RequestEnteringLogDto {
     private int departmentId = -1;
     private int entering = -1;
     private int issue = -1;
-    private Instant startTime = Instant.MIN;
-    private Instant endTime = Instant.MAX;
+    private LocalDateTime startTime = LocalDateTime.of(1970,1,1,1,0);
+    private LocalDateTime endTime = LocalDateTime.of(2038,1,1,0,0);
 }

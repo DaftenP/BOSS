@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -44,7 +45,7 @@ class EnteringLogControllerTest {
 
         EnteringLog enteringLog = new EnteringLog();
         enteringLog.setMember(member);
-        enteringLog.setTime(Instant.now());
+        enteringLog.setTime(LocalDateTime.now());
         enteringLog.setDeviceBackImage("back.png");
         enteringLog.setDeviceFrontImage("front.png");
         enteringLog.setEntering(0);

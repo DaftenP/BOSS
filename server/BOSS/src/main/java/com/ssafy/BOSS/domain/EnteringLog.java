@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter @Setter
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class EnteringLog {
 
     @Column(name = "time", nullable = false)
     @CreationTimestamp
-    private Instant time;
+    private LocalDateTime time;
 
     private String deviceFrontImage;
 

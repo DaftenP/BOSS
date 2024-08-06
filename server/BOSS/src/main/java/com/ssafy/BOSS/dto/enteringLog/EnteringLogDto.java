@@ -5,6 +5,7 @@ import com.ssafy.BOSS.dto.memberDto.MemberDto;
 import lombok.*;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter @Setter
 @AllArgsConstructor
@@ -14,7 +15,7 @@ public class EnteringLogDto {
 
     private Long logId;
     private MemberDto member;
-    private Instant time;
+    private LocalDateTime time;
     private String deviceFrontImage;
     private String deviceBackImage;
     private int entering;

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -38,7 +39,7 @@ class EnteringLogRepositoryTest {
 
         EnteringLog enteringLog = new EnteringLog();
         enteringLog.setMember(member);
-        enteringLog.setTime(Instant.now());
+        enteringLog.setTime(LocalDateTime.now());
         enteringLog.setDeviceBackImage("back.png");
         enteringLog.setDeviceFrontImage("front.png");
         enteringLog.setEntering(0);
@@ -63,7 +64,7 @@ class EnteringLogRepositoryTest {
 
         EnteringLog enteringLog = new EnteringLog();
         enteringLog.setMember(member);
-        enteringLog.setTime(Instant.now());
+        enteringLog.setTime(LocalDateTime.now());
         enteringLog.setDeviceBackImage("back.png");
         enteringLog.setDeviceFrontImage("front.png");
         enteringLog.setEntering(0);

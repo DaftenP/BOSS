@@ -17,11 +17,11 @@ function Management() {
   const [visibleCount, setVisibleCount] = useState(20);
   const fileInputRef = useRef(null)
   const [filters, setFilters] = useState({
-    memberName: '',
+    name: '',
     department: '',
     position: '',
     nfc: '',
-    issueCount: '',
+    issue: '',
   });
 
   const [submitMemberData, setSubmitMemberData] = useState({
@@ -79,12 +79,11 @@ function Management() {
     setVisibleCount(20);
     dispatch(fetchFilteredMember(filteredFilters))
     setFilters({
-      memberName: '',
-      id: '',
+      name: '',
       department: '',
       position: '',
       nfc: '',
-      issueCount: '',
+      issue: '',
     })
   };
 
@@ -232,8 +231,8 @@ function Management() {
               <tbody>
                 <tr>
                   <td>
-                    <label htmlFor="memberName" className={classes.labelText}>이름</label>
-                    <input className={classes.inputText} type="text" id="memberName" placeholder="이 름" value={filters.memberName} onChange={handleFilterChange} />
+                    <label htmlFor="name" className={classes.labelText}>이름</label>
+                    <input className={classes.inputText} type="text" id="name" placeholder="이 름" value={filters.name} onChange={handleFilterChange} />
                   </td>
                   <td>
                     <label htmlFor="department" className={classes.labelText}>부서</label>
@@ -250,8 +249,8 @@ function Management() {
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="issueCount" className={classes.labelText}>누적 이슈</label>
-                    <input className={classes.inputText} type="number" id="issueCount" placeholder="누 적 이 슈" value={filters.issueCount} onChange={handleFilterChange} />
+                    <label htmlFor="issue" className={classes.labelText}>누적 이슈</label>
+                    <input className={classes.inputText} type="number" id="issue" placeholder="누 적 이 슈" value={filters.issue} onChange={handleFilterChange} />
                   </td>
                 </tr>
                 <tr>
@@ -360,10 +359,10 @@ function Management() {
             <tbody>
               {displayedLogs.map((log, index) => (
                 <tr key={index}>
-                  <td>{log.id}</td>
-                  <td>{log.memberName}</td>
-                  <td>{log.departmentName}</td>
-                  <td>{log.positionName}</td>
+                  <td>{log.memberId}</td>
+                  <td>{log.name}</td>
+                  <td>{log.department.departmentName}</td>
+                  <td>{log.position.positionName}</td>
                   <td>{log.phoneNumber}</td>
                   <td>{log.nfc}</td>
                   <td>{log.issueCount}</td>
@@ -394,8 +393,8 @@ const Modal = ({ log, onClose }) => {
   const classes = isDarkMode ? darkClasses : lightClasses;
   if (!log) return null;
 
-  const handleBackgroundClick = (e) => {
-    if (e.target === e.currentTarget) {
+  const handleBackgroundClick = (event) => {
+    if (event.target === event.currentTarget) {
       onClose();
     }
   };
@@ -407,11 +406,11 @@ const Modal = ({ log, onClose }) => {
           <FontAwesomeIcon icon={faTimes} />
         </span>
         <div className={classes.detailBox}>
-          <div>{log.memberName}</div>
-          <div className={classes.departmentBox}>부서: {log.departmentName}</div>
-          <div>직책: {log.positionName}</div>
+          <div>{log.name}</div>
+          <div className={classes.departmentBox}>부서: {log.department.departmentName}</div>
+          <div>직책: {log.position.positionName}</div>
         </div>
-        <div>자세히: {log.memberProfile}</div>
+        <div>자세히: {log.profileImage}</div>
       </div>
     </div>
   );

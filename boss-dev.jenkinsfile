@@ -3,8 +3,7 @@ pipeline {
 
     environment {
         COMPOSE_DEV='docker-compose.dev.yml'
-        AWS_CONFIG=credentials('application-aws')
-        DOCKER_CREDENTIALS_ID= 'dockerhub'
+        DOCKER_CREDENTIALS_ID='dockerhub'
     }
 
     stages {
@@ -27,7 +26,6 @@ pipeline {
                 script {
                     echo 'trying to push docker images...'
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-                        echo 'seccess to login.'
                         echo 'now push...'
                         sh 'docker compose -f $COMPOSE_DEV push'
                     }

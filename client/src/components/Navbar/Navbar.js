@@ -3,16 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../store/login";
 import { fetchAdminLogs } from "../../store/admin";
 import { toggleDarkMode } from "../../store/theme";
+import { toggleEnglish } from '../../store/language';
 import lightClasses from './Navbar.module.css';
 import darkClasses from './NavbarDark.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
 
-
 function Navbar() {
+  const dispatch = useDispatch();
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
-  
-  const dispatch = useDispatch();
+
+  const isEnglish = useSelector((state) => state.language.isEnglish);
+
   const adminName = useSelector((state) => state.login.adminName);
   const loginTime = useSelector((state) => state.login.loginTime);
   const logs = useSelector((state) => state.admin.data);
@@ -56,6 +58,10 @@ function Navbar() {
   const handleDarkModeToggle = () => {
     dispatch(toggleDarkMode());
   }
+  
+  const handleEnglishToggle = () => {
+    dispatch(toggleEnglish())
+  }
 
   return (
     <div className={classes.navbar}>
@@ -73,6 +79,9 @@ function Navbar() {
       </div>
       <span className={classes.loginTimeButton} onClick={handleDarkModeToggle}>
         {isDarkMode ? '라이트 모드' :'다크 모드'}
+      </span>
+      <span className={classes.loginTimeButton} onClick={handleEnglishToggle}>
+        {isEnglish ? 'English' :'한국어'}
       </span>
       <span className={classes.loginTimeButton} onClick={handleToggleLogs}>
         접속기록

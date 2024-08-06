@@ -1,0 +1,22 @@
+{
+    "name": "이름",
+    "department": "부서",
+    "position": "직책",
+    "nfc": "NFC",
+    "issue": "누적 이슈",
+    "search": "검 색",
+    "new": "NEW",
+    "registrationOptions": "등록 옵션",
+    "directRegistration": "직접 등록하기",
+    "batchRegistration": "일괄 등록하기",
+    "selectProfileImage": "프로필 사진 파일을 선택해 주세요!",
+    "selectBatchFile": "일괄 등록을 위해 파일을 선택해 주세요!",
+    "register": "등 록",
+    "memberList": "등록 인원 목록",
+    "currentCount": "현재 조회 인원",
+    "more": "▼  더보기",
+    "departmentBox": "부서",
+    "positionBox": "직책",
+    "details": "자세히"
+  }
+  

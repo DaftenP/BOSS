@@ -1,0 +1,22 @@
+{
+    "name": "Name",
+    "department": "Department",
+    "position": "Position",
+    "nfc": "NFC",
+    "issue": "Accumulated Issue",
+    "search": "Search",
+    "new": "NEW",
+    "registrationOptions": "Registration Options",
+    "directRegistration": "Direct Registration",
+    "batchRegistration": "Batch Registration",
+    "selectProfileImage": "Please select a profile picture file!",
+    "selectBatchFile": "Please select a file for batch registration!",
+    "register": "Register",
+    "memberList": "Registered Members List",
+    "currentCount": "Current Members",
+    "more": "▼  Load More",
+    "departmentBox": "Department",
+    "positionBox": "Position",
+    "details": "Details"
+  }
+  

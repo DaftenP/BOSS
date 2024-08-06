@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import lightClasses from './Management.module.css';
 import darkClasses from './ManagementDark.module.css';
@@ -12,6 +13,10 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 function Management() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
+  
+  const isEnglish = useSelector((state) => state.language.isEnglish);
+  const { t } = useTranslation();
+  const getText = (key, defaultText) => isEnglish ? t(key) : defaultText;
 
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
@@ -104,60 +109,8 @@ function Management() {
     }
   };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-
-  //   if (submitMemberData.profileImage && !['image/jpg', 'image/jpeg', 'image/png'].includes(submitMemberData.profileImage.type)) {
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: '<strong>유효하지 않은 형식입니다!</strong>',
-  //       html: '<b>JPG, JPEG, PNG</b> 파일을 첨부해주세요!',
-  //     });
-  //     return
-  //   }
-
-  //   const formData = new FormData();
-  //   formData.append('name', submitMemberData.name);
-  //   formData.append('departmentId', submitMemberData.departmentId);
-  //   formData.append('positionId', submitMemberData.positionId);
-  //   formData.append('phoneNumber', submitMemberData.phoneNumber);
-  //   formData.append('nfc', submitMemberData.nfc);
-
-  //   if (submitMemberData.profileImage) {
-  //       formData.append('profileImage', submitMemberData.profileImage);
-  //   } else {
-  //       const defaultProfileBlob = await urlToBlob(normalProfile);
-  //       formData.append('profileImage', defaultProfileBlob, 'normal_profile_image.png');
-  //   }
-  //   for (let [key, value] of formData.entries()) {
-  //     console.log(`${key}: ${value}`);
-  //   }
-  //   dispatch(memberRegistration(formData));
-
-  //   setSubmitMemberData({
-  //       name: '',
-  //       departmentId: '',
-  //       positionId: '',
-  //       phoneNumber: '',
-  //       nfc: '',
-  //       profileImage: null,
-  //   });
-
-  //   if (fileInputRef.current) {
-  //       fileInputRef.current.value = '';
-  //   }
-  // }
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    // const defaultProfile = await fetch(normalProfile)
-    // .then(response => response.blob())
-    // .then(blob => new Promise((resolve, reject) => {
-    //   const reader = new FileReader();
-    //   reader.onloadend = () => resolve(reader.result);
-    //   reader.onerror = reject;
-    //   reader.readAsDataURL(blob);
-    // }));
 
     if (submitMemberData.profileImage && !['image/jpg', 'image/jpeg', 'image/png'].includes(submitMemberData.profileImage.type)) {
       Swal.fire({
@@ -391,6 +344,11 @@ function Management() {
 const Modal = ({ log, onClose }) => {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
+
+  const isEnglish = useSelector((state) => state.language.isEnglish);
+  const { t } = useTranslation();
+  const getText = (key, defaultText) => isEnglish ? t(key) : defaultText;
+
   if (!log) return null;
 
   const handleBackgroundClick = (event) => {

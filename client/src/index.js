@@ -6,6 +6,7 @@ import './index.css';
 import App from './App';
 import { store, persistor } from './store';
 import Modal from 'react-modal';
+import './i18n'
 
 import reportWebVitals from './reportWebVitals';
 
@@ -16,7 +17,7 @@ const RootComponent = () => {
 
   useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.style.setProperty('--background-color', '#555555');
+      document.documentElement.style.setProperty('--background-color', '#2a2a30');
     } else {
       document.documentElement.style.setProperty('--background-color', '#EEEEEE');
     }

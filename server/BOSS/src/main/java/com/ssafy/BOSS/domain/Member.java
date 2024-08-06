@@ -1,7 +1,6 @@
 package com.ssafy.BOSS.domain;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,6 +26,10 @@ public class Member {
     private Position position;
 
     private String name;
+
+    private String memberLoginId;
+
+    private String memberLoginPw;
 
     private String nfc;
 

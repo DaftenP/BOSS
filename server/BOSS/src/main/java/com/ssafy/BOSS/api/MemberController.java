@@ -3,24 +3,29 @@ package com.ssafy.BOSS.api;
 import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.dto.memberDto.*;
 import com.ssafy.BOSS.service.MemberService;
+import com.ssafy.BOSS.service.S3UploadService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/member")
 public class MemberController {
 
     private final MemberService memberService;
+    private final S3UploadService s3UploadService;
 
     @PostMapping("/regist")
-    public ResponseEntity<?> memberRegiste(@RequestBody MemberRegistDto memberRegistDto) {
+    public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false)MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
         try {
-            MemberDto member = memberService.join(memberRegistDto);
+            MemberDto member = memberService.join(memberRegistDto, file);
             if(member != null) {
                 return ResponseEntity.ok(member);
             } else {
@@ -32,19 +37,20 @@ public class MemberController {
         }
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> memberLogin(@RequestBody MemberLoginDto memberLoginDto) {
+        MemberLoginDto memberLogin = memberService.login(memberLoginDto);
+        if(memberLogin != null) {
+            return ResponseEntity.ok(memberLogin);
+        }
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
         Optional<Member> member = memberService.findbyNfc(nfc);
         if(member.isPresent()) {
-            MemberResponseDto memberResponseDto = new MemberResponseDto();
-            memberResponseDto.setId(member.get().getMemberId());
-            memberResponseDto.setMemberProfile(member.get().getProfileImage());
-            memberResponseDto.setMemberName(member.get().getName());
-            memberResponseDto.setDepartment(member.get().getDepartment());
-            memberResponseDto.setPosition(member.get().getPosition());
-            memberResponseDto.setIssueCount(member.get().getIssueCount());
-            memberResponseDto.setPhoneNumber(member.get().getPhoneNumber());
-            return ResponseEntity.ok(memberResponseDto);
+            return ResponseEntity.ok(MemberDto.of(member.get()));
         }
         else {
             return ResponseEntity.noContent().build();

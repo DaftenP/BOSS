@@ -2,10 +2,7 @@ package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
-import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
-import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
+import com.ssafy.BOSS.dto.enteringLog.*;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.service.EnteringLogService;
 import com.ssafy.BOSS.service.MemberService;
@@ -29,8 +26,8 @@ public class EnteringLogController {
     private final EnteringLogService enteringLogService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    @GetMapping
     @Deprecated
+    @GetMapping
     public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
         Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
         return ResponseEntity.ok(logs);
@@ -42,6 +39,7 @@ public class EnteringLogController {
         return ResponseEntity.ok(logs);
     }
 
+    @Deprecated
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
         Optional<Member> member = memberRepository.findById(id);
@@ -54,22 +52,22 @@ public class EnteringLogController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
+    public ResponseEntity<Void> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
         enteringLogService.updateEnteringLog(id, updateEnteringLog.getCountOfSticker(), updateEnteringLog.getIssue());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLog enteringLog) {
-        enteringLogService.save(enteringLog);
-        if (enteringLog.isFail()) {
-            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
-        }
+    public ResponseEntity<Void> saveEnteringLog(@RequestBody EnteringLogRegistDto enteringLogRegistDto) {
+        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto);
+//        if (enteringLog.isFail()) {
+//            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
+//        }
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchEnteringLog(@ModelAttribute RequestEnteringLogDto dto) {
+    public ResponseEntity<List<EnteringLogDto>> searchEnteringLog(@ModelAttribute RequestEnteringLogDto dto) {
         List<EnteringLogDto> logs = enteringLogService.getAllSearchEnteringLogs(dto);
         return ResponseEntity.ok(logs);
     }

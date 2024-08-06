@@ -1,19 +1,23 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios'
+import api from '../utils/api';
 import { generateManagementData } from "../utils/managementDummy";
 
 // 멤버 데이터 불러오기
 export const fetchMembers = createAsyncThunk('management/fetchMembers', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/member/check`);
+  const response = await api.get('/api/member/check');
   const data = Array.isArray(response.data) ? response.data : [response.data];
   console.log('전체데이터', data)
-  return data;
+  return response.data;
 });
 
 // 멤버 등록하기
-export const memberRegistration = createAsyncThunk('management/memberRegistration', async (submitData) => {
-  console.log('등록 보낸 것', submitData)
-  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/member/regist`, submitData);
+export const memberRegistration = createAsyncThunk('management/memberRegistration', async (formData) => {
+  console.log('등록 보낸 것', formData)
+  const response = await api.post('/api/member/regist', formData, {
+    headers: {
+      'Content-Type' : 'multipart/form-data',
+    },
+  });
   console.log('등록 받은 것', response.data)
   return response.data
 })
@@ -21,7 +25,7 @@ export const memberRegistration = createAsyncThunk('management/memberRegistratio
 // 멤버 필터링
 export const fetchFilteredMember = createAsyncThunk('management/fetchFilteredMember', async (filters) => {
   console.log('필터 보낸 것', filters)
-  const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/member/search`, {
+  const response = await api.get('/api/member/search', {
     params: filters,
   });
   console.log('필터 받은 것', response.data)

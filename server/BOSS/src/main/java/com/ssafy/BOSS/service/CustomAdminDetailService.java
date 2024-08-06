@@ -1,9 +1,7 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Admin;
-import com.ssafy.BOSS.jwt.CustomAdmin;
 import com.ssafy.BOSS.repository.AdminRepository;
-import com.ssafy.BOSS.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

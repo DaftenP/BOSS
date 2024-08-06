@@ -1,18 +1,30 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../utils/api';
+import { setAccessToken, setRefreshToken, getAccessToken, getRefreshToken, removeAccessToken, removeRefreshToken } from '../utils/token';
 
 export const login = createAsyncThunk('login/login', async (adminInfo) => {
-  console.log(adminInfo)
-  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/login`, adminInfo);
-  console.log(response)
-  console.log('주소 테스트', process.env.REACT_APP_API_URL)
-  console.log('주소 테스트2', `${process.env.REACT_APP_API_URL}/api/admin/login`)
+  const response = await api.post('/api/admin/sign-in', adminInfo);
+
+  console.log('Server response:', response.data);
+
+  const accessToken = response.data.accessToken;
+  const refreshToken = response.data.refreshToken
+
+  setAccessToken(accessToken);
+  setRefreshToken(refreshToken);
+  
   return response.data;
 });
 
-export const logout = createAsyncThunk('login/logout', async () => {
-  const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/logout`);
-  return response.data;
+export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {
+  const accessToken = getAccessToken();
+  const refreshToken = getRefreshToken();
+
+  if (accessToken && refreshToken) {
+    return { accessToken, refreshToken };
+  }
+
+  return null;
 });
 
 const initialLoginState = {
@@ -26,7 +38,17 @@ const initialLoginState = {
 const loginSlice = createSlice({
   name: 'login',
   initialState: initialLoginState,
-  reducers: {},
+  reducers: {
+    logout(state) {
+      removeAccessToken();
+      removeRefreshToken();
+      state.isLogin = false;
+      state.success = null;
+      state.adminName = '';
+      state.loginTime = null;
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(login.pending, (state) => {
@@ -35,7 +57,8 @@ const loginSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLogin = true;
         state.success = true;
-        state.adminName = action.payload.adminName;
+        // state.adminName = action.payload.adminName;
+        state.adminName = action.payload.adminId;
         state.loginTime = new Date().toISOString();
         state.error = null;
       })
@@ -46,20 +69,24 @@ const loginSlice = createSlice({
         state.loginTime = null;
         state.error = action.error.message;
       })
-      .addCase(logout.pending, (state) => {
-        state.error = null;
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.isLogin = true;
+          state.loginTime = new Date().toISOString();
+        } else {
+          state.isLogin = false;
+          state.adminName = '';
+          state.loginTime = null;
+        }
       })
-      .addCase(logout.fulfilled, (state) => {
+      .addCase(checkAuth.rejected, (state) => {
         state.isLogin = false;
-        state.success = null;
         state.adminName = '';
         state.loginTime = null;
-        state.error = null;
-      })
-      .addCase(logout.rejected, (state, action) => {
-        state.error = action.error.message;
       });
   },
 });
+
+export const { logout } = loginSlice.actions;
 
 export default loginSlice.reducer;

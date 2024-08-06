@@ -6,7 +6,7 @@ from time import sleep
 servo_pin = 12
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(servo_pin, GPIO.OUT);3
+GPIO.setup(servo_pin, GPIO.OUT);
 
 GPIO.setup(16, GPIO.OUT)
 

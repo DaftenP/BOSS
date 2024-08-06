@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import lightClasses from './Management.module.css';
 import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png'
+import normalProfile from '../../assets/List/Normal_profile_image.png'
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -10,6 +11,12 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 function Management() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
+
+  const urlToBlob = async (url) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return blob;
+  }
 
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
@@ -103,22 +110,36 @@ function Management() {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const dataToSubmit = {
-      ...submitMemberData, profileImage: submitMemberData.profileImage || 'aaa.jpg'
+
+    const formData = new FormData();
+    formData.append('name', submitMemberData.name);
+    formData.append('departmentId', submitMemberData.departmentId);
+    formData.append('positionId', submitMemberData.positionId);
+    formData.append('phoneNumber', submitMemberData.phoneNumber);
+    formData.append('nfc', submitMemberData.nfc);
+
+    if (submitMemberData.profileImage) {
+        formData.append('profileImage', submitMemberData.profileImage);
+    } else {
+        const defaultProfileBlob = await urlToBlob(normalProfile);
+        formData.append('profileImage', defaultProfileBlob, 'normal_profile_image.png');
     }
-    dispatch(memberRegistration(dataToSubmit))
+
+    dispatch(memberRegistration(formData));
+
     setSubmitMemberData({
-      name: '',
-      departmentId: '',
-      positionId: '',
-      phoneNumber: '',
-      nfc: '',
-      profileImage: null,
+        name: '',
+        departmentId: '',
+        positionId: '',
+        phoneNumber: '',
+        nfc: '',
+        profileImage: null,
     });
+
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+        fileInputRef.current.value = '';
     }
   }
 

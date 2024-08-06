@@ -1,27 +1,15 @@
 package com.ssafy.BOSS.jwt;
 
-import com.ssafy.BOSS.domain.Admin;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 public class CustomAdmin implements UserDetails {
 
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
-
-    public CustomAdmin(Admin admin) {
-        this.username = admin.getAdminLoginId();
-        this.password = admin.getAdminLoginPw();
-        this.authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
-    }
 
     public CustomAdmin(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;

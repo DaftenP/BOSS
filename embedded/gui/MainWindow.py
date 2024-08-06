@@ -33,6 +33,8 @@ class MainWindow(QMainWindow, form_class):
             for log in logs:
                 self.issue_list.addItem(f'{log["time"]} : {log["gateNumber"]}번 게이트')
             self.issue_count.setText(str(len(logs)))
+            last_in_log = get_member_logs(response['memberId'], issue=False)[-1]
+            print(last_in_log)
 
     def set_default(self):
         self.member_name.setText('')

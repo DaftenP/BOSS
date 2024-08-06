@@ -6,14 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Table(indexes = {@Index(name = "time_index", columnList = "time")})
 public class EnteringLog {
@@ -26,9 +24,9 @@ public class EnteringLog {
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Member member;
 
-    @Column(name = "time", nullable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "time", nullable = false)
     @CreationTimestamp
-    private LocalDateTime time;
+    private Instant time;
 
     private String deviceFrontImage;
 

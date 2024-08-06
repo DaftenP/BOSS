@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -38,7 +38,7 @@ class EnteringLogRepositoryTest {
 
         EnteringLog enteringLog = new EnteringLog();
         enteringLog.setMember(member);
-        enteringLog.setTime(LocalDateTime.now());
+        enteringLog.setTime(Instant.now());
         enteringLog.setDeviceBackImage("back.png");
         enteringLog.setDeviceFrontImage("front.png");
         enteringLog.setEntering(0);
@@ -63,7 +63,7 @@ class EnteringLogRepositoryTest {
 
         EnteringLog enteringLog = new EnteringLog();
         enteringLog.setMember(member);
-        enteringLog.setTime(LocalDateTime.now());
+        enteringLog.setTime(Instant.now());
         enteringLog.setDeviceBackImage("back.png");
         enteringLog.setDeviceFrontImage("front.png");
         enteringLog.setEntering(0);
@@ -81,12 +81,11 @@ class EnteringLogRepositoryTest {
 
         //when
         RequestEnteringLogDto dto = new RequestEnteringLogDto();
-        dto.setName("ssafy");
+//        dto.setName("ssafy");
         List<EnteringLog> enteringLogs = enteringLogRepository.searchEnteringLogs(dto);
 
         //then
         assertNotEquals(0, enteringLogs.size());
     }
-
 
 }

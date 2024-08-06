@@ -4,7 +4,7 @@ pipeline {
     environment {
         COMPOSE_DEV='docker-compose.dev.yml'
         AWS_CONFIG=credentials('application-aws')
-        DOCKER_CREDENTIALS_ID=credentials('dockerhub')
+        DOCKER_CREDENTIALS_ID= 'dockerhub'
     }
 
     stages {

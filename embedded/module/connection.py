@@ -7,13 +7,16 @@ BASE_URI = r'https://i11e102.p.ssafy.io/api/'
 
 def get_member_info(nfc_id: str):
     response = requests.get(BASE_URI + f'member/{nfc_id}')
-    print(response.status_code)
-    print(response.text)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(response.status_code)
+        return None
 
 
 def post_log(log: dict):
     response = requests.post(BASE_URI + 'log/regist', json=log)
-    print(response.status_code)
+    return response.status_code
 
 
 def get_member_logs(member_id: int):

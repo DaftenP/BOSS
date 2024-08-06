@@ -60,9 +60,9 @@ public class EnteringLogController {
     @PostMapping("/regist")
     public ResponseEntity<Void> saveEnteringLog(@RequestBody EnteringLogRegistDto enteringLogRegistDto) {
         EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto);
-        if (enteringLog.isFail()) {
-            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
-        }
+//        if (enteringLog.isFail()) {
+//            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
+//        }
         return ResponseEntity.ok().build();
     }
 

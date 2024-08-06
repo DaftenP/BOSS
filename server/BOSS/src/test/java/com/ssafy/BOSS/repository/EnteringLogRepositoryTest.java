@@ -2,7 +2,6 @@ package com.ssafy.BOSS.repository;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.fixture.MemberFixtureService;
 import org.junit.jupiter.api.AfterEach;

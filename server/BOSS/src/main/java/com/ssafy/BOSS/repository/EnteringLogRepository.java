@@ -2,7 +2,6 @@ package com.ssafy.BOSS.repository;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import org.springframework.data.domain.Page;

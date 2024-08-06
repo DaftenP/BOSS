@@ -28,8 +28,8 @@ public interface EnteringLogRepository extends JpaRepository<EnteringLog, Long> 
             "LEFT JOIN m.department d " +
             "WHERE " +
             "(:#{#logDto.name} IS NULL OR m.name LIKE %:#{#logDto.name}%) " +
-            "AND (:#{#logDto.positionName} IS NULL OR p.positionId = :#{#logDto.positionName}) " +
-            "AND (:#{#logDto.departmentName} IS NULL OR d.departmentId = :#{#logDto.departmentName}) " +
+            "AND (:#{#logDto.positionName} IS NULL OR p.positionName LIKE :#{#logDto.positionName}) " +
+            "AND (:#{#logDto.departmentName} IS NULL OR d.departmentName LIKE :#{#logDto.departmentName}) " +
             "AND (:#{#logDto.entering} < 0 OR e.entering = :#{#logDto.entering}) " +
             "AND (:#{#logDto.issue} < 0 OR e.issue = :#{#logDto.issue}) " +
             "AND (:#{#logDto.time} IS NULL OR e.time = :#{#logDto.time})")

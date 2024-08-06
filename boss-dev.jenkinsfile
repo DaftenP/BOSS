@@ -25,9 +25,13 @@ pipeline {
         stage('image backup') {
             steps {
                 script {
+                    echo 'trying to push docker images...'
                     docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                        echo 'seccess to login.'
+                        echo 'now push...'
                         sh 'docker compose -f $COMPOSE_DEV push'
                     }
+                    echo 'done!'
                 }
             }
         }

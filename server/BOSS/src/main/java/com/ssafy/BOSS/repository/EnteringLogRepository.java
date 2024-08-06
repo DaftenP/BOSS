@@ -21,17 +21,14 @@ public interface EnteringLogRepository extends JpaRepository<EnteringLog, Long> 
 
     List<EnteringLog> findEnteringLogsByMember(Optional<Member> member);
 
-    @Query("SELECT new com.ssafy.BOSS.dto.enteringLog.EnteringLogDto(m.name, p.positionName, d.departmentName, e.logId, e.entering, e.issue, e.time)" +
-            " FROM EnteringLog e " +
-            "LEFT JOIN e.member m " +
-            "LEFT JOIN m.position p " +
-            "LEFT JOIN m.department d " +
+    @Query("SELECT e " +
+            "FROM EnteringLog e " +
             "WHERE " +
-            "(:#{#logDto.name} IS NULL OR m.name LIKE %:#{#logDto.name}%) " +
-            "AND (:#{#logDto.positionName} IS NULL OR p.positionName LIKE :#{#logDto.positionName}) " +
-            "AND (:#{#logDto.departmentName} IS NULL OR d.departmentName LIKE :#{#logDto.departmentName}) " +
+            "(:#{#logDto.name} IS NULL OR e.member.name LIKE %:#{#logDto.name}%) " +
+            "AND (:#{#logDto.positionName} IS NULL OR e.member.position.positionName LIKE :#{#logDto.positionName}) " +
+            "AND (:#{#logDto.departmentName} IS NULL OR e.member.department.departmentName LIKE :#{#logDto.departmentName}) " +
             "AND (:#{#logDto.entering} < 0 OR e.entering = :#{#logDto.entering}) " +
             "AND (:#{#logDto.issue} < 0 OR e.issue = :#{#logDto.issue}) " +
             "AND (:#{#logDto.time} IS NULL OR e.time = :#{#logDto.time})")
-    List<EnteringLogDto> searchEnteringLogs(@Param("logDto")RequestEnteringLogDto logDto);
+    List<EnteringLog> searchEnteringLogs(@Param("logDto")RequestEnteringLogDto logDto);
 }

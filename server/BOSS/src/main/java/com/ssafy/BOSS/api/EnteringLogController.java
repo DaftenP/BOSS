@@ -26,8 +26,8 @@ public class EnteringLogController {
     private final EnteringLogService enteringLogService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    @GetMapping
     @Deprecated
+    @GetMapping
     public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
         Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
         return ResponseEntity.ok(logs);
@@ -39,6 +39,7 @@ public class EnteringLogController {
         return ResponseEntity.ok(logs);
     }
 
+    @Deprecated
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
         Optional<Member> member = memberRepository.findById(id);
@@ -51,13 +52,13 @@ public class EnteringLogController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
+    public ResponseEntity<Void> updateEnteringLog(@RequestBody UpdateEnteringLog updateEnteringLog, @PathVariable Long id) {
         enteringLogService.updateEnteringLog(id, updateEnteringLog.getCountOfSticker(), updateEnteringLog.getIssue());
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<?> saveEnteringLog(@RequestBody EnteringLogRegistDto enteringLogRegistDto) {
+    public ResponseEntity<Void> saveEnteringLog(@RequestBody EnteringLogRegistDto enteringLogRegistDto) {
         EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto);
         if (enteringLog.isFail()) {
             messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
@@ -66,7 +67,7 @@ public class EnteringLogController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchEnteringLog(@ModelAttribute RequestEnteringLogDto dto) {
+    public ResponseEntity<List<EnteringLogDto>> searchEnteringLog(@ModelAttribute RequestEnteringLogDto dto) {
         List<EnteringLogDto> logs = enteringLogService.getAllSearchEnteringLogs(dto);
         return ResponseEntity.ok(logs);
     }

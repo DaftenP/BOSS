@@ -83,10 +83,10 @@ class EnteringLogRepositoryTest {
         //when
         RequestEnteringLogDto dto = new RequestEnteringLogDto();
         dto.setName("ssafy");
-        List<EnteringLogDto> enteringLogDtos = enteringLogRepository.searchEnteringLogs(dto);
+        List<EnteringLog> enteringLogs = enteringLogRepository.searchEnteringLogs(dto);
 
         //then
-        assertNotEquals(0, enteringLogDtos.size());
+        assertNotEquals(0, enteringLogs.size());
     }
 
 

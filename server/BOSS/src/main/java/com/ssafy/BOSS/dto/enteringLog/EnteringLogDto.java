@@ -1,5 +1,9 @@
 package com.ssafy.BOSS.dto.enteringLog;
 
+import com.ssafy.BOSS.domain.EnteringLog;
+import com.ssafy.BOSS.dto.department.DepartmentDto;
+import com.ssafy.BOSS.dto.memberDto.MemberDto;
+import com.ssafy.BOSS.dto.position.PositionDto;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -10,11 +14,29 @@ import java.time.LocalDateTime;
 @ToString
 public class EnteringLogDto {
 
-    private String name;
-    private String position;
-    private String department;
-    private Long id;
-    private int entering;
-    private int issue;
+    private Long logId;
+    private MemberDto member;
     private LocalDateTime time;
+    private String deviceFrontImage;
+    private String deviceBackImage;
+    private int entering;
+    private int gateNumber;
+    private int stickerCount;
+    private int issue;
+    private int cameraLens;
+
+    public static EnteringLogDto of(EnteringLog enteringLog) {
+        EnteringLogDto enteringLogDto = new EnteringLogDto();
+        enteringLogDto.setLogId(enteringLog.getLogId());
+        enteringLogDto.setMember(MemberDto.of(enteringLog.getMember()));
+        enteringLogDto.setTime(enteringLog.getTime());
+        enteringLogDto.setDeviceFrontImage(enteringLog.getDeviceFrontImage());
+        enteringLogDto.setDeviceBackImage(enteringLog.getDeviceBackImage());
+        enteringLogDto.setEntering(enteringLog.getEntering());
+        enteringLogDto.setGateNumber(enteringLog.getGateNumber());
+        enteringLogDto.setStickerCount(enteringLog.getStickerCount());
+        enteringLogDto.setIssue(enteringLog.getIssue());
+        enteringLogDto.setCameraLens(enteringLog.getCameraLens());
+        return enteringLogDto;
+    }
 }

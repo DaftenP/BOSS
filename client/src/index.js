@@ -16,7 +16,7 @@ const RootComponent = () => {
 
   useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.style.setProperty('--background-color', '#555555');
+      document.documentElement.style.setProperty('--background-color', '#2a2a30');
     } else {
       document.documentElement.style.setProperty('--background-color', '#EEEEEE');
     }

@@ -16,12 +16,6 @@ function Main() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
 
-  if (isDarkMode) {
-      document.body.classList.add(darkClasses['dark-mode']);
-  } else {
-      document.body.classList.remove(darkClasses['dark-mode']);
-  }
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState('');
 
@@ -91,7 +85,7 @@ function Main() {
           callback: function(value) {
             return value + ' 명';
           },
-          color: '#bbb',
+          color: '#e3e3e3',
           font: {
             size: 14,
             weight: 'bold'
@@ -103,7 +97,7 @@ function Main() {
       },
       x: {
         ticks: {
-          color: '#bbb',
+          color: '#e3e3e3',
           font: {
             size: 14,
             weight: 'bold'
@@ -117,7 +111,7 @@ function Main() {
     plugins: {
       legend: {
         labels: {
-          color: '#bbb',
+          color: '#e3e3e3',
           font: {
             size: 14,
             weight: 'bold'
@@ -153,7 +147,7 @@ function Main() {
     plugins: {
       legend: {
         labels: {
-          color: '#bbb', // 범례 글자색
+          color: '#e3e3e3', // 범례 글자색
           font: {
             size: 14,
             weight: 'bold'

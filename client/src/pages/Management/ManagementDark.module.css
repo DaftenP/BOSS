@@ -1,12 +1,3 @@
-/* body {
-  background-color: #161616;
-} */
-
-.dark-mode {
-  background-color: #2a2a30;
-  color: #e3e3e3;
-}
-
 .filteringContainer {
   border: 1px solid #242424;
   border-radius: 20px;
@@ -25,7 +16,7 @@
 }
 
 .listContainer {
-  color: #bbb;
+  color: #e3e3e3;
   border: 1px solid #242424;
   border-radius: 20px;
   background-color: #393944;

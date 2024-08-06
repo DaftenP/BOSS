@@ -11,12 +11,6 @@ function Management() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
 
-  if (isDarkMode) {
-      document.body.classList.add(darkClasses['dark-mode']);
-  } else {
-      document.body.classList.remove(darkClasses['dark-mode']);
-  }
-
   const [selectedOption, setSelectedOption] = useState('direct');
   const [visibleCount, setVisibleCount] = useState(20);
   const fileInputRef = useRef(null)

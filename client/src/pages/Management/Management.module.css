@@ -1,12 +1,3 @@
-/* body {
-  background-color: #eeeeee;
-} */
-
-:root {
-  --bg-color: #ffffff;
-  --text-color: #000000;
-}
-
 .filteringContainer {
   border: 1px solid #CDCDCD;
   border-radius: 20px;
@@ -124,7 +115,7 @@
 }
 
 .optionLabel {
-  background-color: #4d505f;
+  /* background-color: #4d505f; */
   font-weight: bold;
   margin-bottom: 10px;
 }

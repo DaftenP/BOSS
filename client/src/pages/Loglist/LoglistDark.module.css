@@ -1,8 +1,3 @@
-.dark-mode {
-  background-color: #2a2a30;
-  color: #e3e3e3;
-}
-
 .filteringContainer {
   border: 1px solid #242424;
   border-radius: 20px;
@@ -20,6 +15,7 @@
 }
 
 .listContainer {
+  color: #e3e3e3;
   border: 1px solid #242424;
   border-radius: 20px;
   background-color: #393944;
@@ -108,7 +104,7 @@
 
 .listTitle {
   /* background-color: #B0D2FA; */
-  color: #bbb;
+  /* color: #bbb; */
   border-radius: 18px 18px 0 0;
   text-align: center;
   padding: 10px;
@@ -118,7 +114,7 @@
 
 .logCount {
   background-color: #333333;
-  color: #bbb;
+  /* color: #bbb; */
   text-align: center;
   padding: 10px;
   font-size: 15px;
@@ -126,7 +122,7 @@
 }
 
 .logTable {
-  color: #bbb;
+  /* color: #bbb; */
   width: 97%;
   border-collapse: collapse;
   margin: 20px;

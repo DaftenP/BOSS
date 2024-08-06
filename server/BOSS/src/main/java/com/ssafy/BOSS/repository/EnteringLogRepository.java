@@ -24,10 +24,13 @@ public interface EnteringLogRepository extends JpaRepository<EnteringLog, Long> 
             "FROM EnteringLog e " +
             "WHERE " +
             "(:#{#logDto.name} IS NULL OR e.member.name LIKE %:#{#logDto.name}%) " +
+            "AND (:#{#logDto.memberId} < 0 OR e.member.memberId = :#{#logDto.memberId}) " +
             "AND (:#{#logDto.positionName} IS NULL OR e.member.position.positionName LIKE :#{#logDto.positionName}) " +
+            "AND (:#{#logDto.positionId} < 0 OR e.member.position.positionId = :#{#logDto.positionId}) " +
             "AND (:#{#logDto.departmentName} IS NULL OR e.member.department.departmentName LIKE :#{#logDto.departmentName}) " +
+            "AND (:#{#logDto.departmentId} < 0 OR e.member.department.departmentId = :#{#logDto.departmentId}) " +
             "AND (:#{#logDto.entering} < 0 OR e.entering = :#{#logDto.entering}) " +
             "AND (:#{#logDto.issue} < 0 OR e.issue = :#{#logDto.issue}) " +
-            "AND (:#{#logDto.time} IS NULL OR e.time = :#{#logDto.time})")
+            "AND (:#{#logDto.time} IS NULL OR e.time >= :#{#logDto.time})")
     List<EnteringLog> searchEnteringLogs(@Param("logDto")RequestEnteringLogDto logDto);
 }

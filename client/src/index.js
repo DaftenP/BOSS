@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider, useSelector } from 'react-redux';
-
+import { PersistGate } from 'redux-persist/integration/react';
 import './index.css';
 import App from './App';
-import store from './store'
+import { store, persistor } from './store';
 import Modal from 'react-modal';
 
 import reportWebVitals from './reportWebVitals';
@@ -29,7 +29,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RootComponent  />
+      <PersistGate loading={null} persistor={persistor}>
+        <RootComponent />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

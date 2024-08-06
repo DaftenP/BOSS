@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import lightClasses from './Loglist.module.css';
 import darkClasses from './LoglistDark.module.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLogs, updateLog, fetchFilteredLogs } from '../../store/loglist';
+import { fetchLogs, updateLog, fetchFilteredLogs, loglistActions } from '../../store/loglist';
 import pictureIcon from '../../assets/List/Picture_icon.png'
 import editIcon from '../../assets/List/Edit_icon.png'
 import checkIcon from '../../assets/List/Check_icon.png'
@@ -13,6 +13,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 const Modal = ({ show, onClose, log, update }) => {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
+
   const [formData, setFormData] = useState({
     logId: 0,
     issue: 0,
@@ -45,10 +46,16 @@ const Modal = ({ show, onClose, log, update }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(updateLog(formData)).then(() => {
-      dispatch(fetchLogs());
-      onClose();
-    });
+    dispatch(updateLog(formData))
+      .then((response) => {
+        if (response.payload) {
+          dispatch(loglistActions.updateLogInState(response.payload));
+          onClose();
+        }
+      })
+      .then(() => {
+        window.location.href = '/loglist'
+      });
   };
 
   const handleBackdropClick = (event) => {
@@ -126,14 +133,13 @@ function LogTable() {
   const [update, setUpdate] = useState(false);
   const [filters, setFilters] = useState({
     name: '',
-    department: '',
-    position: '',
+    departmentName: '',
+    positionName: '',
     entering: '',
-    // startDate: '',
-    // endDate: '',
-    // startTime: '',
-    // endTime: '',
-    time: '',
+    startDate: '',
+    endDate: '',
+    startTime: '',
+    endTime: '',
     issue: '',
   });
   const [showModal, setShowModal] = useState(false);
@@ -157,18 +163,34 @@ function LogTable() {
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
+
+    const transformedFilters = {
+      ...filteredFilters,
+      startTime: filteredFilters.startTime && filteredFilters.startDate ? `${filteredFilters.startDate}T${filteredFilters.startTime}:00` : null,
+      endTime: filteredFilters.endTime && filteredFilters.endDate ? `${filteredFilters.endDate}T${filteredFilters.endTime}:00` : null,
+    }
+
+    const finalFilters = {
+      name: transformedFilters.name,
+      departmentName: transformedFilters.departmentName,
+      positionName: transformedFilters.positionName,
+      entering: transformedFilters.entering,
+      startTime: transformedFilters.startTime,
+      endTime: transformedFilters.endTime,
+      issue: transformedFilters.issue,
+    };
+
     setVisibleCount(20);
-    dispatch(fetchFilteredLogs(filteredFilters));
+    dispatch(fetchFilteredLogs(finalFilters));
     setFilters({
       name: '',
-      department: '',
-      position: '',
+      departmentName: '',
+      positionName: '',
       entering: '',
-      // startDate: '',
-      // endDate: '',
-      // startTime: '',
-      // endTime: '',
-      time: '',
+      startDate: '',
+      endDate: '',
+      startTime: '',
+      endTime: '',
       issue: '',
     });
   };
@@ -215,12 +237,12 @@ function LogTable() {
                     <input className={classes.inputText} type="text" name="name" placeholder="이 름" value={filters.name} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="department" className={classes.labelText}>부서</label>
-                    <input className={classes.inputText} type="text" name="department" placeholder="부 서" value={filters.department} onChange={handleInputChange} />
+                    <label htmlFor="departmentName" className={classes.labelText}>부서</label>
+                    <input className={classes.inputText} type="text" name="departmentName" placeholder="부 서" value={filters.departmentName} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="position" className={classes.labelText}>직책</label>
-                    <input className={classes.inputText} type="text" name="position" placeholder="직 책" value={filters.position} onChange={handleInputChange} />
+                    <label htmlFor="positionName" className={classes.labelText}>직책</label>
+                    <input className={classes.inputText} type="text" name="positionName" placeholder="직 책" value={filters.positionName} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
@@ -233,12 +255,12 @@ function LogTable() {
                     <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="endDate" className={classes.labelText}>종료 날짜</label>
-                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
-                  </td>
-                  <td>
                     <label htmlFor="startTime" className={classes.labelText}>시작 시간</label>
                     <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="startTime" value={filters.startTime} onChange={handleInputChange} />
+                  </td>
+                  <td>
+                    <label htmlFor="endDate" className={classes.labelText}>종료 날짜</label>
+                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
                   </td>
                   <td>
                     <label htmlFor="endTime" className={classes.labelText}>종료 시간</label>
@@ -286,9 +308,9 @@ function LogTable() {
               <tr key={index}>
                 <td>{log.gateNumber}</td>
                 <td>{log.logId}</td>
-                <td>{log.name}</td>
-                <td>{log.department}</td>
-                <td>{log.position}</td>
+                <td>{log.member.name}</td>
+                <td>{log.member.department.departmentName}</td>
+                <td>{log.member.position.positionName}</td>
                 <td>{log.time.split('T')[0]}</td>
                 <td>{log.time.split('T')[1]}</td>
                 <td>{log.entering}</td>

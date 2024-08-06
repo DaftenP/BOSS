@@ -15,7 +15,7 @@ export const updateLog = createAsyncThunk('loglist/updateLog', async (formData) 
   const { logId, ...updateData } = formData
   console.log('수정 보낸 것', updateData)
   const response = await api.put(`/api/log/update/${logId}`, updateData)
-  console.log('수정 받은 것', response)
+  console.log('수정 받은 것', response.data)
   return response.data.length ? response.data : [];
 })
 
@@ -55,6 +55,14 @@ const loglistSlice = createSlice({
     addLogs(state, action) {
       state.data.push(...action.payload);
     },
+    updateLogInState(state, action) {
+      const updatedLog = action.payload;
+      const existingLog = state.data.find(log => log.logId === updatedLog.logId);
+      if (existingLog) {
+        existingLog.issue = updatedLog.issue;
+        existingLog.stickerCount = updatedLog.stickerCount;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -74,7 +82,8 @@ const loglistSlice = createSlice({
       })
       .addCase(updateLog.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.data = state.data.map(log => log.logId === action.payload.logId ? action.payload : log);
+        console.log('업데이트된 데이터:', state.data)
       })
       .addCase(updateLog.rejected, (state, action) => {
         state.status = 'failed';

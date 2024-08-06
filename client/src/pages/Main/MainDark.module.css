@@ -1,10 +1,15 @@
+.dark-mode {
+  background-color: #2a2a30;
+  color: #e3e3e3;
+}
+
 .mainContainer {
   display: flex;
 }
 
 .todayIssueContainer {
   background-color: #222222;
-  border: 1px solid #242424;
+  background-color: #393944;
   color: #bbb;
   border-radius: 20px;
   width: 50%;
@@ -41,7 +46,7 @@ position: relative;
 .totalIssueContainer {
   border: 1px solid #242424;
   border-radius: 20px;
-  background-color: #222222;
+  background-color: #393944;
   min-height: 600px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
@@ -64,7 +69,7 @@ position: relative;
 
 .lineChartContainer {
   display: flex;
-  border: 1px solid #242424;
+  border: 1px solid #4d505f;
   border-radius: 15px;
   margin-top: 20px;
   padding: 0 20px 10px 20px;
@@ -75,7 +80,7 @@ position: relative;
 
 .doughnutChartContainer {
   display: flex;
-  border: 1px solid #242424;
+  border: 1px solid #4d505f;
   border-radius: 15px;
   margin-top: 20px;
   padding: 0 20px 10px 20px;
@@ -171,7 +176,7 @@ position: relative;
   transform: translateX(-50%);
   border: 0;
   border-radius: 15px;
-  background-color: #CF6679;
+  background-color: #fa449a;
   padding: 7px 40px 7px 40px;
   font-weight: bold;
   font-size: 17px;

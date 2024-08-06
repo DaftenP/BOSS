@@ -13,6 +13,14 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 const Modal = ({ show, onClose, log, update }) => {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
+
+  if (isDarkMode) {
+    document.body.classList.add(darkClasses['dark-mode']);
+  } else {
+      document.body.classList.remove(darkClasses['dark-mode']);
+  }
+
+
   const [formData, setFormData] = useState({
     logId: 0,
     issue: 0,

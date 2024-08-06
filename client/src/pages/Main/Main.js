@@ -16,6 +16,12 @@ function Main() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
 
+  if (isDarkMode) {
+      document.body.classList.add(darkClasses['dark-mode']);
+  } else {
+      document.body.classList.remove(darkClasses['dark-mode']);
+  }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState('');
 
@@ -69,8 +75,8 @@ function Main() {
       {
         label: '적발 인원',
         data: groupedData,
-        borderColor: '#7990FD',
-        backgroundColor: 'rgba(176, 210, 250, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.6)',
         fill: true,
       },
     ],

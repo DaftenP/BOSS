@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5 import uic
-from embedded.module.connection import get_member_info
+from embedded.module.connection import get_member_info, get_member_logs
 import requests
 import cv2
 
@@ -14,20 +14,33 @@ class MainWindow(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.btn_1.clicked.connect(self.btn_clicked)
+        self.btn_1.clicked.connect(self.set_member_info)
+        self.btn_clear.clicked.connect(self.set_default)
+        self.set_default()
 
-    def btn_clicked(self):
+    def set_member_info(self):
         print("Button clicked")
 
         response = get_member_info(self.textEdit_4.toPlainText().strip())
-        if response.status_code == 200:
-            response = response.json()
-            self.textEdit.setText(response['name'])
-            self.textEdit_2.setText(response['department']['departmentName'])
-            self.textEdit_3.setText(response['position']['positionName'])
+        if response:
+            self.member_name.setText(response['name'])
+            self.member_department.setText(response['department']['departmentName'])
+            self.member_position.setText(response['position']['positionName'])
             if response['profileImage']:
                 image = requests.get(response['profileImage'])
-                self.profileImage.setPixmap(QPixmap.fromImage(QImage.fromData(image.content)))
+                self.profile_image.setPixmap(QPixmap.fromImage(QImage.fromData(image.content)))
+            logs = get_member_logs(response['memberId'])
+            for log in logs:
+                self.issue_list.addItem(f'{log["time"]} : {log["gateNumber"]}번 게이트')
+            self.issue_count.setText(str(len(logs)))
+
+    def set_default(self):
+        self.member_name.setText('')
+        self.member_department.setText('')
+        self.member_position.setText('')
+        self.issue_count.setText('0')
+        self.profile_image.setPixmap(QPixmap('./gui/profile.png'))
+        self.issue_list.clear()
 
     def update_cam(self, frames):
         for idx, f in enumerate(frames):

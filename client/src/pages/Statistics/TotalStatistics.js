@@ -19,14 +19,34 @@ function TotalStatistics({ loglist }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedTotalDate, setSelectedTotalDate] = useState('');
 
+  // useEffect(() => {
+  //   setDefaultTotalDate();
+  //   if (selectedTotalPopOption === 'gate') {
+  //     setSelectedItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]); // 모든 기기 기본 선택
+  //   } else if (selectedTotalPopOption === 'department') {
+  //     setSelectedItems(["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"]); // 모든 부서 기본 선택
+  //   }
+  // }, [selectedTotalXOption, selectedTotalPopOption]);
   useEffect(() => {
     setDefaultTotalDate();
+
+    // gate 번호와 부서 이름을 동적으로 추출하는 코드
+    const gates = [];
+    const departments = new Set();
+
+    loglist.forEach(log => {
+      if (!gates.includes(log.gateNumber)) {
+        gates.push(log.gateNumber);
+      }
+      departments.add(log.member.department.departmentName);
+    });
+
     if (selectedTotalPopOption === 'gate') {
-      setSelectedItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]); // 모든 기기 기본 선택
+      setSelectedItems(gates);
     } else if (selectedTotalPopOption === 'department') {
-      setSelectedItems(["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"]); // 모든 부서 기본 선택
+      setSelectedItems(Array.from(departments));
     }
-  }, [selectedTotalXOption, selectedTotalPopOption]);
+  }, [loglist, selectedTotalXOption, selectedTotalPopOption]);
 
   const setDefaultTotalDate = () => {
     const today = new Date();
@@ -88,9 +108,24 @@ function TotalStatistics({ loglist }) {
     setSelectedItems([]);
   };
 
+  // const items = selectedTotalPopOption === 'gate'
+  //   ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  //   : ["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"];
+
+  // gate 번호와 부서 이름을 동적으로 추출
+  const gates = [];
+  const departments = new Set();
+
+  loglist.forEach(log => {
+    if (!gates.includes(log.gateNumber)) {
+      gates.push(log.gateNumber);
+    }
+    departments.add(log.member.department.departmentName);
+  });
+
   const items = selectedTotalPopOption === 'gate'
-    ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    : ["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"];
+    ? gates
+    : Array.from(departments);
 
   const generateTotalHourlyLabels = () => {
     const labels = [];
@@ -132,24 +167,31 @@ function TotalStatistics({ loglist }) {
 
   const filterDataForTotal = (loglist, filterBy) => {
     const filteredLogs = loglist.filter(log => {
-      if (selectedTotalYOption === 'fail' && log.issue !== 'F') return false;
-      if (selectedTotalYOption === 'pass' && log.issue !== 'P') return false;
+      const filteredLog = {
+        gate: log.gateNumber,
+        date: log.time.split('T')[0],
+        time: log.time.split('T')[1],
+        department: log.member.department.departmentName,
+        issue: log.issue,
+      }
+      if (selectedTotalYOption === 'fail' && filteredLog.issue !== 1) return false;
+      if (selectedTotalYOption === 'pass' && filteredLog.issue !== 0) return false;
   
-      if (selectedTotalPopOption === 'gate' && log.gate !== filterBy) return false;
-      if (selectedTotalPopOption === 'department' && log.department !== filterBy) return false;
+      if (selectedTotalPopOption === 'gate' && filteredLog.gate !== filterBy) return false;
+      if (selectedTotalPopOption === 'department' && filteredLog.department !== filterBy) return false;
   
       if (selectedTotalXOption === 'day') {
-        return log.date === selectedTotalDate;
+        return filteredLog.date === selectedTotalDate;
       } else if (selectedTotalXOption === 'week') {
         const selectedDateObj = parseISO(selectedTotalDate);
-        const logDateObj = parseISO(log.date);
+        const logDateObj = parseISO(filteredLog.date);
         if (!isValid(selectedDateObj) || !isValid(logDateObj)) return false; // 유효하지 않은 날짜인 경우 false 반환
         const diffDays = (logDateObj - selectedDateObj) / (1000 * 60 * 60 * 24);
         return diffDays >= 0 && diffDays < 7;
       } else if (selectedTotalXOption === 'month') {
-        return log.date.startsWith(selectedTotalDate);
+        return filteredLog.date.startsWith(selectedTotalDate);
       } else if (selectedTotalXOption === 'year') {
-        return log.date.startsWith(selectedTotalDate.split('-')[0]);
+        return filteredLog.date.startsWith(selectedTotalDate.split('-')[0]);
       }
   
       return false;
@@ -173,14 +215,21 @@ function TotalStatistics({ loglist }) {
     });
   
     filteredLogs.forEach(log => {
+      const filteredLog = {
+        gate: log.gateNumber,
+        date: log.time.split('T')[0],
+        time: log.time.split('T')[1],
+        department: log.member.department.departmentName,
+        issue: log.issue,
+      }
       let key;
       if (selectedTotalXOption === 'day') {
-        const hour = parseInt(log.time.split(':')[0], 10);
+        const hour = parseInt(filteredLog.time.split(':')[0], 10);
         key = `${hour}~${hour + 1}시`;
       } else if (selectedTotalXOption === 'week' || selectedTotalXOption === 'month') {
-        key = log.date;
+        key = filteredLog.date;
       } else if (selectedTotalXOption === 'year') {
-        key = log.date.split('-')[1] + '월';
+        key = filteredLog.date.split('-')[1] + '월';
       }
   
       if (groupedData[key] !== undefined) {
@@ -230,7 +279,6 @@ function TotalStatistics({ loglist }) {
         grid: {
           color: '#444'
         },
-        max: 10
       }
     },
     plugins: {
@@ -243,7 +291,7 @@ function TotalStatistics({ loglist }) {
           }
         }
       },
-    }
+    },
   };  
   
   return (

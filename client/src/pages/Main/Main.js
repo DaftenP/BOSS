@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchFilteredLogs } from '../../store/loglist';
 import lightClasses from './Main.module.css';
 import darkClasses from './MainDark.module.css';
 import { Line } from 'react-chartjs-2';
@@ -10,9 +11,10 @@ import damageImage from '../../assets/Main/Damage_state.png'
 import noAttachedImage from '../../assets/Main/No_attached_state.png'
 import changeImage from '../../assets/Main/Change_state.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCogs, faExclamationTriangle, faPercentage } from '@fortawesome/free-solid-svg-icons';
 
 function Main() {
+  const dispatch = useDispatch()
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
 
@@ -29,21 +31,45 @@ function Main() {
   };
 
   const logs = useSelector((state) => state.loglist.data)
+  useEffect(() => {
+    const getTodayDateString = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+      const day = String(today.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
+
+    const todayDateString = getTodayDateString();
+    const startTime = `${todayDateString}T00:00:01`;
+    const endTime = `${todayDateString}T23:59:59`;
+    const transformedFilters = {
+      name: null,
+      departmentName: null,
+      positionName: null,
+      entering: null,
+      startTime: startTime,
+      endTime: endTime,
+      issue: null,
+    }
+    dispatch(fetchFilteredLogs(transformedFilters))
+  }, [dispatch])
 
   const today = new Date()
   const todayString = today.toISOString().split('T')[0];
-  const firstFilteredLogs = logs.filter(log => log['date'] === todayString)
+  const firstFilteredLogs = logs.filter(log => log.time.split('T')[0] === todayString)
 
-  const secondFilteredLogs = firstFilteredLogs.filter(log => log['issue'] === 'F'
-  ).map(log => ({
-    gate: log['gate'],
-    date: log['time'].split('T')[0],
-    time: log['time'].split('T')[1],
-    name: log['name'],
-    department: log['department'],
-    position: log['position'],
-    entering: log['entering'],
-  }))
+  const secondFilteredLogs = firstFilteredLogs
+  .filter(log => log.issue === 1)
+  .map(log => ({
+    gateNumber: log.gateNumber,
+    date: log.time.split('T')[0],
+    time: log.time.split('T')[1],
+    name: log.member.name,
+    department: log.member.department.departmentName,
+    position: log.member.position.positionName,
+    entering: log.entering,
+  }));
 
   // 시간 단위로 그룹화 (9시부터 21시까지)
   const startHour = 9;
@@ -85,7 +111,7 @@ function Main() {
           callback: function(value) {
             return value + ' 명';
           },
-          color: '#e3e3e3',
+          color: '#a8a8a8',
           font: {
             size: 14,
             weight: 'bold'
@@ -97,7 +123,7 @@ function Main() {
       },
       x: {
         ticks: {
-          color: '#e3e3e3',
+          color: '#a8a8a8',
           font: {
             size: 14,
             weight: 'bold'
@@ -111,7 +137,7 @@ function Main() {
     plugins: {
       legend: {
         labels: {
-          color: '#e3e3e3',
+          color: '#a8a8a8',
           font: {
             size: 14,
             weight: 'bold'
@@ -147,7 +173,7 @@ function Main() {
     plugins: {
       legend: {
         labels: {
-          color: '#e3e3e3', // 범례 글자색
+          color: '#a8a8a8', // 범례 글자색
           font: {
             size: 14,
             weight: 'bold'
@@ -176,7 +202,7 @@ function Main() {
           <div className={classes.doughnutChartContainer}>
             <Doughnut data={doughnutData} options={optionsDounut} />
           </div>
-          <div>
+          {/* <div>
             <table className={classes.logTable}>
               <thead>
                 <tr>
@@ -193,7 +219,32 @@ function Main() {
                 </tr>
               </tbody>
             </table>
+          </div> */}
+
+          <div className={classes.statisticsContainer}>
+            <div className={`${classes.card} ${classes.topCard}`}>
+              <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
+              <div className={classes.cardContent}>
+                <div className={classes.cardTitle}>금일 검사 횟수</div>
+                <div className={classes.cardValue}>{firstFilteredLogs.length} 회</div>
+              </div>
+            </div>
+            <div className={`${classes.card} ${classes.bottomRightCard}`}>
+              <FontAwesomeIcon icon={faExclamationTriangle} className={classes.cardIcon} />
+              <div className={classes.cardContent}>
+                <div className={classes.cardTitle}>이슈 발생 횟수</div>
+                <div className={classes.cardValue}>{secondFilteredLogs.length} 회</div>
+              </div>
+            </div>
+            <div className={`${classes.card} ${classes.bottomLeftCard}`}>
+              <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
+              <div className={classes.cardContent}>
+                <div className={classes.cardTitle}>금일 이슈 비율</div>
+                <div className={classes.cardValue}>{errorPercent} %</div>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
       <div className={classes.issueLogContainer}>
@@ -218,7 +269,7 @@ function Main() {
               <tbody>
                 {sliceLogs.map((log, index) => (
                   <tr key={index}>
-                    <td>{log.gate}</td>
+                    <td>{log.gateNumber}</td>
                     <td>{log.time}</td>
                     <td>{log.name}</td>
                     <td>{log.department}</td>

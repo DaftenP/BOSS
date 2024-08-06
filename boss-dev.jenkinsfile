@@ -4,6 +4,7 @@ pipeline {
     environment {
         COMPOSE_DEV='docker-compose.dev.yml'
         AWS_CONFIG=credentials('application-aws')
+        DOCKER_CREDENTIALS_ID=credentials('dockerhub')
     }
 
     stages {
@@ -19,6 +20,15 @@ pipeline {
         stage('build images') {
             steps {
                 sh 'docker compose -f $COMPOSE_DEV build'
+            }
+        }
+        stage('image backup') {
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                        sh 'docker compose -f $COMPOSE_DEV push'
+                    }
+                }
             }
         }
         stage('run container') {

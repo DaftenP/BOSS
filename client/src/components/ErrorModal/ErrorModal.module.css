@@ -1,0 +1,41 @@
+/* Modal.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7); /* 배경 어두워짐 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.modal {
+  /* top: 50%; */
+  background: white;
+  width: 30%;
+  height: 25%;
+  padding: 25px;
+  /* border-radius: 8px; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+.modal-text {
+  /* bottom: 100%; */
+}
+
+.modal-button {
+  color: #ffffff;
+  padding: 10px 0;
+  width: 25%;
+  background: #3c90e2;
+  margin-top: 8%;
+  display: inline-block;
+}

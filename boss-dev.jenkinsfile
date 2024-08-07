@@ -8,6 +8,11 @@ pipeline {
     }
 
     stages {
+        stage('check enviroment') {
+            steps {
+                sh 'env'
+            }
+        }
         stage('setup AWS config') {
             steps {
                 withCredentials([file(credentialsId: 'application-aws', variable: 'awsConfig')]) {

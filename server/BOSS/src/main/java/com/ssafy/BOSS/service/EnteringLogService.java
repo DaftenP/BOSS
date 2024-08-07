@@ -50,12 +50,10 @@ public class EnteringLogService {
         }
         // 이미지 업로드
         String image1 = s3UploadService.upload(file1);
-        String imgLink1 = "https://d3vud5llnd72x5.cloudfront.net/" + image1.split("/")[image1.split("/").length-1];
         String image2 = s3UploadService.upload(file2);
-        String imgLink2 = "https://d3vud5llnd72x5.cloudfront.net/" + image2.split("/")[image2.split("/").length-1];
         enteringLog.setMember(member.get());
-        enteringLog.setDeviceFrontImage(imgLink1);
-        enteringLog.setDeviceBackImage(imgLink2);
+        enteringLog.setDeviceFrontImage(image1);
+        enteringLog.setDeviceBackImage(image2);
         enteringLog.setEntering(enteringLogRegistDto.getEntering());
         enteringLog.setGateNumber(enteringLogRegistDto.getGateNumber());
         enteringLog.setStickerCount(enteringLogRegistDto.getStickerCount());

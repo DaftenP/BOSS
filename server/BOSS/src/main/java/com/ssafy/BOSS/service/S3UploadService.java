@@ -96,6 +96,9 @@ public class S3UploadService {
             is.close();
         }
 
-        return amazonS3.getUrl(bucketName, s3FileName).toString();
+        String url = amazonS3.getUrl(bucketName, s3FileName).toString();
+        String cdn = "https://d3vud5llnd72x5.cloudfront.net/" + url.split("/")[url.split("/").length-1];
+
+        return cdn;
     }
 }

@@ -1,6 +1,8 @@
 package com.ssafy.BOSS.service;
 
+import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.dto.memberDto.MemberDto;
 import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
@@ -49,8 +51,27 @@ public class MemberService {
         member.setNfc(memberRegistDto.getNfc());
         member.setProfileImage("");
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
-        member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
-        member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
+
+        Department department = null;
+        if (!departmentRepository.existsById(memberRegistDto.getDepartmentId())) {
+            department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
+            departmentRepository.save(department);
+        }
+        else {
+            department = departmentRepository.getReferenceById(memberRegistDto.getDepartmentId());
+        }
+        member.setDepartment(department);
+
+        Position position = null;
+        if (!positionRepository.existsById(memberRegistDto.getPositionId())) {
+            position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
+            positionRepository.save(position);
+        }
+        else {
+            position = positionRepository.getReferenceById(memberRegistDto.getPositionId());
+        }
+        member.setPosition(position);
+
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         return member;

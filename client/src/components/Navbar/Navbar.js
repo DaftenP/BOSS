@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from "../../store/login";
 import { fetchAdminLogs } from "../../store/admin";
-import { toggleDarkMode } from "../../store/theme";
-import { toggleEnglish } from '../../store/language';
+import { useTranslation } from 'react-i18next';
 import lightClasses from './Navbar.module.css';
 import darkClasses from './NavbarDark.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
@@ -13,7 +12,7 @@ function Navbar() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
 
-  const isEnglish = useSelector((state) => state.language.isEnglish);
+  const { t } = useTranslation();
 
   const adminName = useSelector((state) => state.login.adminName);
   const loginTime = useSelector((state) => state.login.loginTime);
@@ -55,44 +54,30 @@ function Navbar() {
     dispatch(logout());
   };
 
-  const handleDarkModeToggle = () => {
-    dispatch(toggleDarkMode());
-  }
-  
-  const handleEnglishToggle = () => {
-    dispatch(toggleEnglish())
-  }
-
   return (
     <div className={classes.navbar}>
       <div className={classes.navbarContainer}>
         <span className={classes.adminName}>
-          {adminName ? `관리자: ${adminName}` : '로그인하지 않음'}
+          {adminName ? `${t('Admin')}: ${adminName}` : t('Anonymous Admin')}
         </span>
         <span className={classes.loginTime}>
-          {loginTime ? `로그인 시간: ${new Date(loginTime).toLocaleTimeString()} (${elapsedTime} 접속 중)` : ''}
+          {loginTime ? `${t('Login Time')}: ${new Date(loginTime).toLocaleTimeString()} (${elapsedTime} ${t('Elapsed Time')})` : ''}
         </span>
         <button onClick={logoutHandler} className={classes.logoutButton}>
-          로그아웃
+          {t('Logout')}
           <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
         </button>
       </div>
-      <span className={classes.loginTimeButton} onClick={handleDarkModeToggle}>
-        {isDarkMode ? '라이트 모드' :'다크 모드'}
-      </span>
-      <span className={classes.loginTimeButton} onClick={handleEnglishToggle}>
-        {isEnglish ? 'English' :'한국어'}
-      </span>
       <span className={classes.loginTimeButton} onClick={handleToggleLogs}>
-        접속기록
+        {t('Login Records')}
       </span>
       <div className={`${classes.logsDropdown} ${showLogs ? classes.open : ''}`}>
         <table>
           <thead>
             <tr>
-              <th>날짜</th>
-              <th>시간</th>
-              <th>이름</th>
+              <th>{t('Date')}</th>
+              <th>{t('Time')}</th>
+              <th>{t('Name')}</th>
             </tr>
           </thead>
           <tbody>

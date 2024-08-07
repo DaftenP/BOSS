@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import lightClasses from './Loglist.module.css';
-import darkClasses from './LoglistDark.module.css';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLogs, updateLog, fetchFilteredLogs, loglistActions } from '../../store/loglist';
-import pictureIcon from '../../assets/List/Picture_icon.png'
-import editIcon from '../../assets/List/Edit_icon.png'
-import checkIcon from '../../assets/List/Check_icon.png'
+import lightClasses from './Loglist.module.css';
+import darkClasses from './LoglistDark.module.css';
+import pictureIcon from '../../assets/List/Picture_icon.png';
+import editIcon from '../../assets/List/Edit_icon.png';
+import checkIcon from '../../assets/List/Check_icon.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
- 
 
 const Modal = ({ show, onClose, log, update }) => {
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const { t } = useTranslation();
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
 
   const [formData, setFormData] = useState({
@@ -25,24 +26,25 @@ const Modal = ({ show, onClose, log, update }) => {
       setFormData({
         logId: log.logId,
         issue: log.issue,
-        countOfSticker: log.stickerCount
-      })
+        countOfSticker: log.stickerCount,
+      });
     }
-  }, [log])
+  }, [log]);
 
   const dispatch = useDispatch();
 
   if (!show) {
     return null;
   }
+
   const handleModalInputChange = (event) => {
-    const { name, value, type } = event.target
+    const { name, value, type } = event.target;
     const processdValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
     setFormData((processdFilters) => ({
       ...processdFilters,
       [name]: processdValue,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -54,7 +56,7 @@ const Modal = ({ show, onClose, log, update }) => {
         }
       })
       .then(() => {
-        window.location.href = '/loglist'
+        window.location.href = '/loglist';
       });
   };
 
@@ -74,23 +76,23 @@ const Modal = ({ show, onClose, log, update }) => {
             </span>
             <form className={classes.formContainer} onSubmit={handleSubmit}>
               <div className={classes.formGroup}>
-                <label htmlFor="issue" className={classes.updateLabelText}>보안 이슈</label>
+                <label htmlFor="issue" className={classes.updateLabelText}>{t('Security Issue')}</label>
                 <input
                   className={classes.updateInputText}
                   type="number"
                   name="issue"
-                  placeholder="보안 이슈"
+                  placeholder={t('Security Issue')}
                   value={formData.issue}
                   onChange={handleModalInputChange}
                 />
               </div>
               <div className={classes.formGroup}>
-                <label htmlFor="countOfSticker" className={classes.updateLabelText}>발급 개수</label>
+                <label htmlFor="countOfSticker" className={classes.updateLabelText}>{t('Number of Stickers Issued')}</label>
                 <input
                   className={classes.updateInputText}
                   type="number"
                   name="countOfSticker"
-                  placeholder="발급 개수"
+                  placeholder={t('Number of Stickers Issued')}
                   value={formData.countOfSticker}
                   onChange={handleModalInputChange}
                 />
@@ -124,13 +126,15 @@ const Modal = ({ show, onClose, log, update }) => {
 };
 
 function LogTable() {
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const { t } = useTranslation();
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
-  const logsData = useSelector(state => state.loglist.data); // 리덕스 store에 있는 데이터 접근
+  const logsData = useSelector((state) => state.loglist.data);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchLogs())
+    dispatch(fetchLogs());
   }, [dispatch]);
 
   const [visibleCount, setVisibleCount] = useState(20);
@@ -153,9 +157,9 @@ function LogTable() {
   const handleInputChange = (event) => {
     const { name, value, type } = event.target;
     const processedValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
-    setFilters(prevFilters => ({
+    setFilters((prevFilters) => ({
       ...prevFilters,
-      [name]: processedValue
+      [name]: processedValue,
     }));
   };
 
@@ -168,13 +172,12 @@ function LogTable() {
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
-    console.log('첫 번쨰', filteredFilters)
 
     const transformedFilters = {
       ...filteredFilters,
       startTime: filteredFilters.startTime && filteredFilters.startDate ? `${filteredFilters.startDate}T${filteredFilters.startTime}:00` : null,
       endTime: filteredFilters.endTime && filteredFilters.endDate ? `${filteredFilters.endDate}T${filteredFilters.endTime}:00` : null,
-    }
+    };
 
     const finalFilters = {
       name: transformedFilters.name,
@@ -213,7 +216,7 @@ function LogTable() {
     setUpdate(true);
     setSelectedLog(log);
     setShowModal(true);
-  }
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -233,7 +236,7 @@ function LogTable() {
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
         {showModal && <div className={classes.modalBackdrop}></div>}
         <div className={classes.filteringBox}>
-          FILTERING
+          {t('FILTERING')}
         </div>
         <div className={classes.inputContainer}>
           <form onSubmit={handleFilter} className={classes.relativeBoxContainer}>
@@ -241,79 +244,79 @@ function LogTable() {
               <tbody>
                 <tr>
                   <td>
-                    <label htmlFor="name" className={classes.labelText}>이름</label>
-                    <input className={classes.inputText} type="text" name="name" placeholder="이 름" value={filters.name} onChange={handleInputChange} />
+                    <label htmlFor="name" className={classes.labelText}>{t('Name')}</label>
+                    <input className={classes.inputText} type="text" name="name" placeholder={t('Name')} value={filters.name} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="memberId" className={classes.labelText}>멤버 ID</label>
-                    <input className={classes.inputText} type="number" name="memberId" placeholder="멤 버  I D" value={filters.memberId} onChange={handleInputChange} />
+                    <label htmlFor="memberId" className={classes.labelText}>{t('Member ID')}</label>
+                    <input className={classes.inputText} type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="departmentName" className={classes.labelText}>부서</label>
-                    <input className={classes.inputText} type="text" name="departmentName" placeholder="부 서" value={filters.departmentName} onChange={handleInputChange} />
+                    <label htmlFor="departmentName" className={classes.labelText}>{t('Department')}</label>
+                    <input className={classes.inputText} type="text" name="departmentName" placeholder={t('Department')} value={filters.departmentName} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="positionName" className={classes.labelText}>직책</label>
-                    <input className={classes.inputText} type="text" name="positionName" placeholder="직 책" value={filters.positionName} onChange={handleInputChange} />
+                    <label htmlFor="positionName" className={classes.labelText}>{t('Position')}</label>
+                    <input className={classes.inputText} type="text" name="positionName" placeholder={t('Position')} value={filters.positionName} onChange={handleInputChange} />
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="startDate" className={classes.labelText}>시작 날짜</label>
+                    <label htmlFor="startDate" className={classes.labelText}>{t('Start Date')}</label>
                     <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="startTime" className={classes.labelText}>시작 시간</label>
+                    <label htmlFor="startTime" className={classes.labelText}>{t('Start Time')}</label>
                     <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="startTime" value={filters.startTime} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="endDate" className={classes.labelText}>종료 날짜</label>
+                    <label htmlFor="endDate" className={classes.labelText}>{t('End Date')}</label>
                     <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="endTime" className={classes.labelText}>종료 시간</label>
+                    <label htmlFor="endTime" className={classes.labelText}>{t('End Time')}</label>
                     <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="endTime" value={filters.endTime} onChange={handleInputChange} />
                   </td>
                 </tr>
                 <tr>
                   <td>
-                    <label htmlFor="entering" className={classes.labelText}>출/퇴</label>
-                    <input className={classes.inputText} type="number" name="entering" placeholder="출 / 퇴" value={filters.entering} onChange={handleInputChange} />
+                    <label htmlFor="entering" className={classes.labelText}>{t('In/Out')}</label>
+                    <input className={classes.inputText} type="number" name="entering" placeholder={t('In/Out')} value={filters.entering} onChange={handleInputChange} />
                   </td>
                   <td>
-                    <label htmlFor="issue" className={classes.labelText}>보안 이슈</label>
-                    <input className={classes.inputText} type="number" name="issue" placeholder="보 안  이 슈" value={filters.issue} onChange={handleInputChange} />
+                    <label htmlFor="issue" className={classes.labelText}>{t('Security Issue')}</label>
+                    <input className={classes.inputText} type="number" name="issue" placeholder={t('Security Issue')} value={filters.issue} onChange={handleInputChange} />
                   </td>
                 </tr>
               </tbody>
             </table>
-            <button type="submit" className={classes.formButton}>검 색</button>
+            <button type="submit" className={classes.formButton}>{t('Search')}</button>
           </form>
         </div>
       </div>
       <div className={classes.listContainer}>
         <div className={classes.listTitle}>
-          전체 이슈 로그
+          {t('Total Issue Logs')}
         </div>
         <div className={classes.logCount}>
-          현재 조회 이슈 : {totalLogsCount}개
+          {t('Total Issues Found')}: {totalLogsCount}
         </div>
         <table className={classes.logTable}>
           <thead>
             <tr>
-              <th>기기</th>
-              <th>로그 ID</th>
-              <th>멤버 ID</th>
-              <th>이름</th>
-              <th>부서</th>
-              <th>직책</th>
-              <th>날짜</th>
-              <th>시간</th>
-              <th>출/퇴</th>
-              <th>보안 이슈</th>
-              <th>발급 개수</th>
-              <th>자세히</th>
-              <th>수정</th>
+              <th>{t('Device')}</th>
+              <th>{t('Log ID')}</th>
+              <th>{t('Member ID')}</th>
+              <th>{t('Name')}</th>
+              <th>{t('Department')}</th>
+              <th>{t('Position')}</th>
+              <th>{t('Date')}</th>
+              <th>{t('Time')}</th>
+              <th>{t('In/Out')}</th>
+              <th>{t('Security Issue')}</th>
+              <th>{t('Number of Stickers Issued')}</th>
+              <th>{t('Details')}</th>
+              <th>{t('Edit')}</th>
             </tr>
           </thead>
           <tbody>
@@ -347,7 +350,7 @@ function LogTable() {
         <Modal show={showModal} onClose={handleCloseModal} log={selectedLog} update={update} />
         <div className={classes.moreButtonContainer}>
           {visibleCount < logsData.length && (
-            <button onClick={handleLoadMore} className={classes.moreButton}>▼ 더보기</button>
+            <button onClick={handleLoadMore} className={classes.moreButton}>▼ {t('Load More')}</button>
           )}
         </div>
       </div>

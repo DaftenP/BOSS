@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import lightClasses from './Statistics.module.css';
 import darkClasses from './StatisticsDark.module.css';
 import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO } from 'date-fns';
 
 function DateStatistics({ loglist }) {
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const { t } = useTranslation();
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
-  
+
   const [selectedDateXOption, setSelectedDateXOption] = useState('day');
   const [selectedDateYOption, setSelectedDateYOption] = useState('fail');
   const [selectedDate, setSelectedDate] = useState('');
@@ -46,7 +48,7 @@ function DateStatistics({ loglist }) {
   const generateHourlyLabels = () => {
     const labels = [];
     for (let hour = 9; hour < 21; hour++) {
-      labels.push(`${hour}~${hour + 1}시`);
+      labels.push(`${hour}~${hour + 1}${t('hour')}`);
     }
     return labels;
   };
@@ -54,7 +56,7 @@ function DateStatistics({ loglist }) {
   const generateMonthlyLabels = () => {
     const labels = [];
     for (let month = 1; month <= 12; month++) {
-      labels.push(`${String(month).padStart(2, '0')}월`);
+      labels.push(`${String(month).padStart(2, '0')}${t('month')}`);
     }
     return labels;
   };
@@ -62,7 +64,7 @@ function DateStatistics({ loglist }) {
   const generateWeeklyLabels = (startDate) => {
     const labels = [];
     const start = parseISO(startDate);
-    if (!isValid(start)) return []; // 유효하지 않은 날짜인 경우 빈 배열 반환
+    if (!isValid(start)) return [];
     for (let i = 0; i < 7; i++) {
       const date = new Date(start);
       date.setDate(start.getDate() + i);
@@ -89,7 +91,7 @@ function DateStatistics({ loglist }) {
         time: log.time.split('T')[1],
         department: log.member.department.departmentName,
         issue: log.issue,
-      }
+      };
       if (selectedDateYOption === 'fail' && filteredLog.issue !== 1) return false;
       if (selectedDateYOption === 'pass' && filteredLog.issue !== 0) return false;
 
@@ -98,7 +100,7 @@ function DateStatistics({ loglist }) {
       } else if (selectedDateXOption === 'week') {
         const selectedDateObj = parseISO(selectedDate);
         const logDateObj = parseISO(filteredLog.date);
-        if (!isValid(selectedDateObj) || !isValid(logDateObj)) return false; // 유효하지 않은 날짜인 경우 false 반환
+        if (!isValid(selectedDateObj) || !isValid(logDateObj)) return false;
         const diffDays = (logDateObj - selectedDateObj) / (1000 * 60 * 60 * 24);
         return diffDays >= 0 && diffDays < 7;
       } else if (selectedDateXOption === 'month') {
@@ -108,10 +110,10 @@ function DateStatistics({ loglist }) {
       }
       return false;
     });
-  
+
     const groupedData = {};
     let sortedLabels = [];
-  
+
     if (selectedDateXOption === 'day') {
       sortedLabels = generateHourlyLabels();
     } else if (selectedDateXOption === 'week') {
@@ -121,11 +123,11 @@ function DateStatistics({ loglist }) {
     } else if (selectedDateXOption === 'year') {
       sortedLabels = generateMonthlyLabels();
     }
-  
+
     sortedLabels.forEach(label => {
       groupedData[label] = 0;
     });
-  
+
     filteredLogs.forEach(log => {
       const filteredLog = {
         gateNumber: log.gateNumber,
@@ -133,26 +135,26 @@ function DateStatistics({ loglist }) {
         time: log.time.split('T')[1],
         department: log.member.department.departmentName,
         issue: log.issue,
-      }
+      };
       let key;
       if (selectedDateXOption === 'day') {
         const hour = parseInt(filteredLog.time.split(':')[0], 10);
-        key = `${hour}~${hour + 1}시`;
+        key = `${hour}~${hour + 1}${t('hour')}`;
       } else if (selectedDateXOption === 'week' || selectedDateXOption === 'month') {
         key = filteredLog.date;
       } else if (selectedDateXOption === 'year') {
-        key = filteredLog.date.split('-')[1] + '월';
+        key = filteredLog.date.split('-')[1] + t('month');
       }
-  
+
       if (groupedData[key] !== undefined) {
         groupedData[key]++;
       }
     });
-  
+
     return {
       labels: sortedLabels,
       datasets: [{
-        label: selectedDateYOption === 'fail' ? '적발 횟수' : '통과 횟수',
+        label: selectedDateYOption === 'fail' ? t('Detection Count') : t('Pass Count'),
         data: sortedLabels.map(label => groupedData[label]),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -188,8 +190,8 @@ function DateStatistics({ loglist }) {
             size: 14,
             weight: 'bold'
           },
-          callback: function(value) {
-            return value + ' 명';
+          callback: function (value) {
+            return value + t('people');
           }
         },
         grid: {
@@ -213,12 +215,12 @@ function DateStatistics({ loglist }) {
   return (
     <div className={classes.dateStatisticsContainer}>
       <div className={classes.relativeBoxContainer}>
-        <div className={classes.statisticsTitleBox}>날짜별 통계</div>
+        <div className={classes.statisticsTitleBox}>{t('Statistics by Date')}</div>
       </div>
       <div className={classes.statisticsContent}>
         <div className={classes.dataSelectContainer}>
           <div className={classes.axisSelectBox}>
-            <div className={classes.axisSelectTitle}>선택 옵션 - X축</div>
+            <div className={classes.axisSelectTitle}>{t('Selection Options - X Axis')}</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -227,7 +229,7 @@ function DateStatistics({ loglist }) {
                   checked={selectedDateXOption === 'day'}
                   onChange={handleDateXOption}
                 />
-                일
+                {t('Day')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -236,7 +238,7 @@ function DateStatistics({ loglist }) {
                   checked={selectedDateXOption === 'week'}
                   onChange={handleDateXOption}
                 />
-                주
+                {t('Week')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -245,7 +247,7 @@ function DateStatistics({ loglist }) {
                   checked={selectedDateXOption === 'month'}
                   onChange={handleDateXOption}
                 />
-                월
+                {t('Month')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -254,19 +256,10 @@ function DateStatistics({ loglist }) {
                   checked={selectedDateXOption === 'year'}
                   onChange={handleDateXOption}
                 />
-                년
+                {t('Year')}
               </label>
             </div>
             <div className={classes.buttonContainer}>
-              {selectedDateXOption === 'year' &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
-              {(selectedDateXOption === 'year' || selectedDateXOption === 'month' || selectedDateXOption === 'week') &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
-              {(selectedDateXOption === 'year' || selectedDateXOption === 'month') &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
               {(selectedDateXOption === 'day' || selectedDateXOption === 'week') && (
                 <input
                   className={classes.inputText}
@@ -289,13 +282,13 @@ function DateStatistics({ loglist }) {
                   type="number"
                   value={selectedDate.split('-')[0]}
                   onChange={(e) => handleDateChange({ target: { value: `${e.target.value}-01` } })}
-                  placeholder="년도 입력"
+                  placeholder={t('Enter Year')}
                 />
               )}
             </div>
           </div>
           <div className={classes.axisSelectBox}>
-            <div className={classes.axisSelectTitle}>선택 옵션 - Y축</div>
+            <div className={classes.axisSelectTitle}>{t('Selection Options - Y Axis')}</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -304,7 +297,7 @@ function DateStatistics({ loglist }) {
                   checked={selectedDateYOption === 'fail'}
                   onChange={handleDateYOption}
                 />
-                적발 횟수
+                {t('Detection Count')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -313,7 +306,7 @@ function DateStatistics({ loglist }) {
                   checked={selectedDateYOption === 'pass'}
                   onChange={handleDateYOption}
                 />
-                통과 횟수
+                {t('Pass Count')}
               </label>
             </div>
           </div>

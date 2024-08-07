@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { fetchFilteredLogs } from '../../store/loglist';
 import lightClasses from './Main.module.css';
 import darkClasses from './MainDark.module.css';
-import { Line } from 'react-chartjs-2';
-import { Doughnut } from 'react-chartjs-2';
+import { Line, Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
-import ruleImage from '../../assets/Main/Rule_background_image.png'
-import damageImage from '../../assets/Main/Damage_state.png'
-import noAttachedImage from '../../assets/Main/No_attached_state.png'
-import changeImage from '../../assets/Main/Change_state.png'
+import ruleImage from '../../assets/Main/Rule_background_image.png';
+import damageImage from '../../assets/Main/Damage_state.png';
+import noAttachedImage from '../../assets/Main/No_attached_state.png';
+import changeImage from '../../assets/Main/Change_state.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCogs, faExclamationTriangle, faPercentage } from '@fortawesome/free-solid-svg-icons';
 
 function Main() {
-  const dispatch = useDispatch()
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +31,7 @@ function Main() {
     setIsModalOpen(false);
   };
 
-  const logs = useSelector((state) => state.loglist.data)
+  const logs = useSelector((state) => state.loglist.data);
   useEffect(() => {
     const getTodayDateString = () => {
       const today = new Date();
@@ -51,32 +52,32 @@ function Main() {
       startTime: startTime,
       endTime: endTime,
       issue: null,
-    }
-    dispatch(fetchFilteredLogs(transformedFilters))
-  }, [dispatch])
+    };
+    dispatch(fetchFilteredLogs(transformedFilters));
+  }, [dispatch]);
 
-  const today = new Date()
+  const today = new Date();
   const todayString = today.toISOString().split('T')[0];
-  const firstFilteredLogs = logs.filter(log => log.time.split('T')[0] === todayString)
+  const firstFilteredLogs = logs.filter((log) => log.time.split('T')[0] === todayString);
 
   const secondFilteredLogs = firstFilteredLogs
-  .filter(log => log.issue === 1)
-  .map(log => ({
-    gateNumber: log.gateNumber,
-    date: log.time.split('T')[0],
-    time: log.time.split('T')[1],
-    name: log.member.name,
-    department: log.member.department.departmentName,
-    position: log.member.position.positionName,
-    entering: log.entering,
-  }));
+    .filter((log) => log.issue === 1)
+    .map((log) => ({
+      gateNumber: log.gateNumber,
+      date: log.time.split('T')[0],
+      time: log.time.split('T')[1],
+      name: log.member.name,
+      department: log.member.department.departmentName,
+      position: log.member.position.positionName,
+      entering: log.entering,
+    }));
 
   // 시간 단위로 그룹화 (9시부터 21시까지)
   const startHour = 9;
   const endHour = 21;
   const groupedData = new Array(endHour - startHour + 1).fill(0);
 
-  secondFilteredLogs.forEach(log => {
+  secondFilteredLogs.forEach((log) => {
     const hour = new Date(`${todayString}T${log.time}`).getHours();
     if (hour >= startHour && hour <= endHour) {
       groupedData[hour - startHour]++;
@@ -86,14 +87,14 @@ function Main() {
   // 차트 데이터를 준비
   const labels = [];
   for (let i = startHour; i <= endHour; i++) {
-    labels.push(`${i} ~ ${i + 1} 시`);
+    labels.push(`${i} ~ ${i + 1} ${t('hour')}`);
   }
 
   const chartData = {
     labels,
     datasets: [
       {
-        label: '적발 인원',
+        label: t('Detected People'),
         data: groupedData,
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.6)',
@@ -108,31 +109,31 @@ function Main() {
         beginAtZero: true,
         ticks: {
           stepSize: 1,
-          callback: function(value) {
-            return value + ' 명';
+          callback: function (value) {
+            return value + t('people');
           },
           color: '#a8a8a8',
           font: {
             size: 14,
-            weight: 'bold'
-          }
+            weight: 'bold',
+          },
         },
         grid: {
-          color: '#555555'
-        }
+          color: '#555555',
+        },
       },
       x: {
         ticks: {
           color: '#a8a8a8',
           font: {
             size: 14,
-            weight: 'bold'
-          }
+            weight: 'bold',
+          },
         },
         grid: {
-          color: '#555555'
-        }
-      }
+          color: '#555555',
+        },
+      },
     },
     plugins: {
       legend: {
@@ -140,20 +141,20 @@ function Main() {
           color: '#a8a8a8',
           font: {
             size: 14,
-            weight: 'bold'
-          }
-        }
+            weight: 'bold',
+          },
+        },
       },
-    }
+    },
   };
 
   const normalUsersCount = firstFilteredLogs.length - secondFilteredLogs.length;
   const badUsersCount = secondFilteredLogs.length;
-  const errorPercent = secondFilteredLogs.length === 0 ? 0 : (secondFilteredLogs.length / firstFilteredLogs.length * 100).toFixed(2)
+  const errorPercent = secondFilteredLogs.length === 0 ? 0 : ((secondFilteredLogs.length / firstFilteredLogs.length) * 100).toFixed(2);
 
   // 도넛 차트를 위한 데이터 준비
   const doughnutData = {
-    labels: ['정상 기록', '문제 발생'],
+    labels: [t('Normal Records'), t('Issues')],
     datasets: [
       {
         data: [normalUsersCount, badUsersCount],
@@ -165,7 +166,7 @@ function Main() {
   };
 
   // 도넛 차트 옵션 설정
-  const optionsDounut = {
+  const optionsDoughnut = {
     responsive: true,
     maintainAspectRatio: false,
     cutout: '70%',
@@ -176,94 +177,70 @@ function Main() {
           color: '#a8a8a8', // 범례 글자색
           font: {
             size: 14,
-            weight: 'bold'
-          }
-        }
+            weight: 'bold',
+          },
+        },
       },
-    }
+    },
   };
-  
+
   // 20개의 데이터만 보여주는 코드
-  const sliceLogs = secondFilteredLogs.slice(0, 15)
+  const sliceLogs = secondFilteredLogs.slice(0, 15);
 
   return (
     <div className={classes.mainContainer}>
       <div className={classes.todayIssueContainer}>
         <div>
           <div className={classes.chartTitle}>
-            금일 이슈 현황
+            {t('Today\'s Issues')}
             <div className={classes.lineChartContainer}>
               <Line data={chartData} options={options} />
             </div>
           </div>
-          <div className={classes.doughnutChartTitle}>
-            금일 이슈 인원 비율
-          </div>
+          <div className={classes.doughnutChartTitle}>{t('Today\'s Issue Ratio')}</div>
           <div className={classes.doughnutChartContainer}>
-            <Doughnut data={doughnutData} options={optionsDounut} />
+            <Doughnut data={doughnutData} options={optionsDoughnut} />
           </div>
-          {/* <div>
-            <table className={classes.logTable}>
-              <thead>
-                <tr>
-                  <th>금일 기기 횟수</th>
-                  <th>금일 보안 이슈 발생 횟수</th>
-                  <th>금일 보안 이슈 비율</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{firstFilteredLogs.length} 회</td>
-                  <td>{secondFilteredLogs.length} 회</td>
-                  <td>{errorPercent} %</td>
-                </tr>
-              </tbody>
-            </table>
-          </div> */}
-
           <div className={classes.statisticsContainer}>
             <div className={`${classes.card} ${classes.topCard}`}>
               <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
               <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>금일 검사 횟수</div>
-                <div className={classes.cardValue}>{firstFilteredLogs.length} 회</div>
+                <div className={classes.cardTitle}>{t('Total Inspections Today')}</div>
+                <div className={classes.cardValue}>{firstFilteredLogs.length} {t('times')}</div>
               </div>
             </div>
             <div className={`${classes.card} ${classes.bottomRightCard}`}>
               <FontAwesomeIcon icon={faExclamationTriangle} className={classes.cardIcon} />
               <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>이슈 발생 횟수</div>
-                <div className={classes.cardValue}>{secondFilteredLogs.length} 회</div>
+                <div className={classes.cardTitle}>{t('Issues Detected')}</div>
+                <div className={classes.cardValue}>{secondFilteredLogs.length} {t('times')}</div>
               </div>
             </div>
             <div className={`${classes.card} ${classes.bottomLeftCard}`}>
               <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
               <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>금일 이슈 비율</div>
+                <div className={classes.cardTitle}>{t('Issue Ratio Today')}</div>
                 <div className={classes.cardValue}>{errorPercent} %</div>
               </div>
             </div>
           </div>
-
         </div>
       </div>
       <div className={classes.issueLogContainer}>
         <div className={classes.totalIssueContainer}>
           <div className={classes.relativeBoxContainer}>
-            <div className={classes.issueTitleBox}>
-              실시간 적발 상황
-            </div>
+            <div className={classes.issueTitleBox}>{t('Real-Time Issue Detection')}</div>
           </div>
           <div className={classes.tableContainer}>
             <table className={classes.logTable}>
               <thead>
                 <tr>
-                  <th>기기</th>
-                  <th>시간</th>
-                  <th>이름</th>
-                  <th>부서</th>
-                  <th>직책</th>
-                  <th>출/퇴</th>
+                  <th>{t('Device')}</th>
+                  <th>{t('Time')}</th>
+                  <th>{t('Name')}</th>
+                  <th>{t('Department')}</th>
+                  <th>{t('Position')}</th>
+                  <th>{t('In/Out')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -283,52 +260,51 @@ function Main() {
         </div>
         <div className={classes.totalRuleContainer} style={{ backgroundImage: `url(${ruleImage})` }}>
           <div className={classes.relativeBoxContainer}>
-            <div className={classes.ruleTitleBox}>이슈 조치 사항</div>
+            <div className={classes.ruleTitleBox}>{t('Issue Handling')}</div>
           </div>
           <div className={classes.firstRuleContainer}>
-            <div className={classes.ruleTitle}>스티커 훼손</div>
+            <div className={classes.ruleTitle}>{t('Sticker Damage')}</div>
             <div className={classes.ruleContent}>
               <div className={classes.imageContainer}>
-                <img src={damageImage} alt="damage_image" className={classes.guideImage} onClick={() => handleImageClick(damageImage)} />
-                <div>예시 사진</div>
+                <img src={damageImage} alt={t('damage_image')} className={classes.guideImage} onClick={() => handleImageClick(damageImage)} />
+                <div>{t('Example Photo')}</div>
               </div>
               <ul>
-                <p>1. <span className={classes.warningFont}>적발된 인원</span>을 <span className={classes.highlight}>대기열에서 분리</span></p>
-                <p>2. <span className={classes.highlight}>훼손 사유</span>가 정당한지 판단</p>
-                <p>3. <span className={classes.highlight}>훼손된 스티커</span> 제거</p>
-                <p>4. <span className={classes.highlight}>새로운 스티커</span> 재부착</p>
-                <p>5. <span className={classes.warningFont}>문제가 있다면 상급자에게 보고</span></p>
+                <p>1. <span className={classes.warningFont}>{t('Separate the detected person')}</span> {t('from the queue')}</p>
+                <p>2. {t('Determine if the reason for the damage is valid')}</p>
+                <p>3. {t('Remove the damaged sticker')}</p>
+                <p>4. {t('Reattach a new sticker')}</p>
+                <p>5. <span className={classes.warningFont}>{t('Report to a superior if there is an issue')}</span></p>
               </ul>
             </div>
           </div>
           <div className={classes.ruleContainer}>
-            <div className={classes.ruleTitle}>스티커 미부착</div>
+            <div className={classes.ruleTitle}>{t('No Sticker Attached')}</div>
             <div className={classes.ruleContent}>
-
               <div className={classes.imageContainer}>
-                <img src={noAttachedImage} alt="no_attached_image" className={classes.guideImage} onClick={() => handleImageClick(noAttachedImage)} />
-                <div>예시 사진</div>
+                <img src={noAttachedImage} alt={t('no_attached_image')} className={classes.guideImage} onClick={() => handleImageClick(noAttachedImage)} />
+                <div>{t('Example Photo')}</div>
               </div>
               <ul>
-                <p>1. <span className={classes.warningFont}>적발된 인원</span>을 <span className={classes.highlight}>대기열에서 분리</span></p>
-                <p>2. <span className={classes.highlight}>미부착 사유</span>가 정당한지 판단</p>
-                <p>3. <span className={classes.highlight}>이전 기록</span>을 조회 후 <span className={classes.warningFont}>스티커를 재부착</span></p>
-                <p>4. <span className={classes.warningFont}>문제가 있다면</span> <span className={classes.warningFont}>상급자에게 보고</span></p>
+                <p>1. <span className={classes.warningFont}>{t('Separate the detected person')}</span> {t('from the queue')}</p>
+                <p>2. {t('Determine if the reason for no sticker is valid')}</p>
+                <p>3. {t('Check previous records and reattach the sticker')}</p>
+                <p>4. <span className={classes.warningFont}>{t('Report to a superior if there is an issue')}</span></p>
               </ul>
             </div>
           </div>
-          <div className={classes.ruleContainer}  >
-            <div className={classes.ruleTitle}>휴대폰 변경</div>
+          <div className={classes.ruleContainer}>
+            <div className={classes.ruleTitle}>{t('Phone Change')}</div>
             <div className={classes.ruleContent}>
               <div className={classes.imageContainer}>
-                <img src={changeImage} alt="change_image" className={classes.guideImage} onClick={() => handleImageClick(changeImage)} />
-                <div>예시 사진</div>
+                <img src={changeImage} alt={t('change_image')} className={classes.guideImage} onClick={() => handleImageClick(changeImage)} />
+                <div>{t('Example Photo')}</div>
               </div>
               <ul>
-                <p>1. <span className={classes.warningFont}>적발된 인원</span>을 <span className={classes.highlight}>대기열에서 분리</span></p>
-                <p>2. <span className={classes.highlight}>휴대폰 변경 사유</span>가 정당한지 판단</p>
-                <p>3. <span className={classes.warningFont}>보안 관리자에게 연락</span>하여 상황을 설명</p>
-                <p>4. <span className={classes.highlight}>보안 관리자가 도착할 때까지 대기</span></p>
+                <p>1. <span className={classes.warningFont}>{t('Separate the detected person')}</span> {t('from the queue')}</p>
+                <p>2. {t('Determine if the reason for phone change is valid')}</p>
+                <p>3. <span className={classes.warningFont}>{t('Contact the security manager')}</span> {t('and explain the situation')}</p>
+                <p>4. {t('Wait for the security manager to arrive')}</p>
               </ul>
             </div>
           </div>
@@ -348,5 +324,4 @@ function Main() {
   );
 }
 
-export default Main
-  
+export default Main;

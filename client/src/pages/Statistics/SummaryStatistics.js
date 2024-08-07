@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import lightClasses from './Statistics.module.css';
 import darkClasses from './StatisticsDark.module.css';
 import { format, startOfWeek, startOfMonth, startOfYear, getDaysInMonth, isLeapYear } from 'date-fns';
 
 function SummaryStatistics({ loglist }) {
+  const { t } = useTranslation();
   const isDarkMode = useSelector((state) => state.theme.isDarkMode)
   const classes = isDarkMode ? darkClasses : lightClasses;
 
@@ -86,12 +88,12 @@ function SummaryStatistics({ loglist }) {
   return (
     <div className={classes.dateStatisticsContainer}>
       <div className={classes.relativeBoxContainer}>
-        <div className={classes.statisticsTitleBox}>통계 요약</div>
+        <div className={classes.statisticsTitleBox}>{t('Summary Statistics')}</div>
       </div>
       <div className={classes.statisticsContent}>
         <div className={classes.dataSelectContainer}>
           <div className={classes.axisSelectBox}>
-            <div className={classes.axisSelectTitle}>선택 옵션</div>
+            <div className={classes.axisSelectTitle}>{t('Selection Options')}</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -100,7 +102,7 @@ function SummaryStatistics({ loglist }) {
                   checked={selectedSummaryOption === 'day'}
                   onChange={handleSummaryOption}
                 />
-                일
+                {t('Day')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -109,7 +111,7 @@ function SummaryStatistics({ loglist }) {
                   checked={selectedSummaryOption === 'week'}
                   onChange={handleSummaryOption}
                 />
-                주
+                {t('Week')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -118,7 +120,7 @@ function SummaryStatistics({ loglist }) {
                   checked={selectedSummaryOption === 'month'}
                   onChange={handleSummaryOption}
                 />
-                월
+                {t('Month')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -127,19 +129,10 @@ function SummaryStatistics({ loglist }) {
                   checked={selectedSummaryOption === 'year'}
                   onChange={handleSummaryOption}
                 />
-                년
+                {t('Year')}
               </label>
             </div>
             <div className={classes.buttonContainer}>
-              {selectedSummaryOption === 'year' &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
-              {(selectedSummaryOption === 'year' || selectedSummaryOption === 'month' || selectedSummaryOption === 'week') &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
-              {(selectedSummaryOption === 'year' || selectedSummaryOption === 'month') &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
               {(selectedSummaryOption === 'day' || selectedSummaryOption === 'week') && (
                 <input
                   className={classes.inputText}
@@ -162,7 +155,7 @@ function SummaryStatistics({ loglist }) {
                   type="number"
                   value={selectedSummaryDate}
                   onChange={handleSummaryDateChange}
-                  placeholder="년도 입력"
+                  placeholder={t('Enter Year')}
                 />
               )}
             </div>
@@ -171,19 +164,19 @@ function SummaryStatistics({ loglist }) {
         <div>
           <div className={classes.summaryStatisticsContainer}>
             <div className={classes.statisticsCard}>
-              <h3>이용자 수</h3>
-              <p className={classes.value}>{statistics.users} 명</p>
+              <h3>{t('Number of Users')}</h3>
+              <p className={classes.value}>{statistics.users} {t('people')}</p>
             </div>
             <div className={classes.statisticsCard}>
-              <h3>적발 횟수</h3>
-              <p className={classes.value}>{statistics.issues} 회</p>
+              <h3>{t('Number of Issues')}</h3>
+              <p className={classes.value}>{statistics.issues} {t('times')}</p>
             </div>
             <div className={classes.statisticsCard}>
-              <h3>로그 수</h3>
-              <p className={classes.value}>{statistics.logs} 개</p>
+              <h3>{t('Number of Logs')}</h3>
+              <p className={classes.value}>{statistics.logs} {t('logs')}</p>
             </div>
             <div className={classes.statisticsCard}>
-              <h3>평균 적발률</h3>
+              <h3>{t('Average Issue Rate')}</h3>
               <p className={classes.value}>{statistics.averageIssues.toFixed(2)}</p>
             </div>
           </div>

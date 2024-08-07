@@ -1,6 +1,8 @@
 package com.ssafy.BOSS.service;
 
+import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.domain.Member;
+import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.dto.memberDto.MemberDto;
 import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
@@ -34,25 +36,48 @@ public class MemberService {
         return MemberDto.of(memberRepository.save(member));
     }
 
-    public MemberLoginDto login(MemberLoginDto memberLoginDto) {
-        Optional<Member> member = memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw());
-        if (member.isPresent()) {
-            return memberLoginDto;
-        }
-        return null;
-    }
-
     private Member convertRegistDtoToMember(MemberRegistDto memberRegistDto) {
         Member member = new Member();
         member.setName(memberRegistDto.getName());
         member.setNfc(memberRegistDto.getNfc());
         member.setProfileImage("");
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
-        member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
-        member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
+
+        if(memberRegistDto.getDepartmentId() == -1) {
+            String departmentName = memberRegistDto.getDepartmentName();
+            if(departmentRepository.existsByDepartmentName(departmentName)) {
+                member.setDepartment(departmentRepository.findByDepartmentName(departmentName));
+            }
+            else {
+                Department department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
+                departmentRepository.save(department);
+                member.setDepartment(department);
+            }
+        }
+
+        if(memberRegistDto.getPositionId() == -1) {
+            String positionName = memberRegistDto.getPositionName();
+            if(positionRepository.existsByPositionName(positionName)) {
+                member.setPosition(positionRepository.findByPositionName(positionName));
+            }
+            else {
+                Position position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
+                positionRepository.save(position);
+                member.setPosition(position);
+            }
+        }
+
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         return member;
+    }
+
+    public MemberLoginDto login(MemberLoginDto memberLoginDto) {
+        Optional<Member> member = memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw());
+        if (member.isPresent()) {
+            return memberLoginDto;
+        }
+        return null;
     }
 
     private void validateDuplicateMember(Member member) {

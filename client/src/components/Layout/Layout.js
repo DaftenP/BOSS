@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from '../Sidebar/Sidebar';
 import Navbar from '../Navbar/Navbar';
+import Settings from '../Settings/Settings'
 import classes from './Layout.module.css';
 
 function Layout({ children }) {
@@ -13,6 +14,7 @@ function Layout({ children }) {
           {children}
         </main>
       </div>
+      <Settings />
     </div>
   );
 }

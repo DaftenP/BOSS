@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import classes from './Sidebar.module.css';
 import { navigationActions } from '../../store/navigation';
 import logoImage from '../../assets/Layout/Logo_icon.png';
@@ -11,6 +12,7 @@ import monitoringIcon from '../../assets/Layout/Monitoring_icon.png';
 import statisticsIcon from '../../assets/Layout/Statistics_icon.png';
 
 function Sidebar() {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const location = useLocation();
   const activePage = useSelector((state) => state.navigation.activePage);
@@ -22,9 +24,7 @@ function Sidebar() {
 
   return (
     <div className={classes.sidebar}>
-      <NavLink
-        to="/main"
-      >
+      <NavLink to="/main">
         <img src={logoImage} alt="logo_image" className={classes.logoImage} />
       </NavLink>
       <ul>
@@ -34,7 +34,9 @@ function Sidebar() {
             className={activePage === 'main' ? classes.activeLink : undefined}
           >
             <img src={mainIcon} alt="main_icon" className={classes.labelIcon} />
-            <span className={activePage === 'main' ? classes.activeText : undefined}>메인</span>
+            <span className={activePage === 'main' ? classes.activeText : undefined}>
+              {t('Main', '메인')}
+            </span>
           </NavLink>
         </li>
         <li>
@@ -43,7 +45,9 @@ function Sidebar() {
             className={activePage === 'loglist' ? classes.activeLink : undefined}
           >
             <img src={loglistIcon} alt="loglist_icon" className={classes.labelIcon} />
-            <span className={activePage === 'loglist' ? classes.activeText : undefined}>조회</span>
+            <span className={activePage === 'loglist' ? classes.activeText : undefined}>
+              {t('Log List', '조회')}
+            </span>
           </NavLink>
         </li>
         <li>
@@ -52,7 +56,9 @@ function Sidebar() {
             className={activePage === 'statistics' ? classes.activeLink : undefined}
           >
             <img src={statisticsIcon} alt="statistics_icon" className={classes.labelIcon} />
-            <span className={activePage === 'statistics' ? classes.activeText : undefined}>통계</span>
+            <span className={activePage === 'statistics' ? classes.activeText : undefined}>
+              {t('Statistics', '통계')}
+            </span>
           </NavLink>
         </li>
         <li>
@@ -61,7 +67,9 @@ function Sidebar() {
             className={activePage === 'management' ? classes.activeLink : undefined}
           >
             <img src={managementIcon} alt="management_icon" className={classes.labelIcon} />
-            <span className={activePage === 'management' ? classes.activeText : undefined}>관리</span>
+            <span className={activePage === 'management' ? classes.activeText : undefined}>
+              {t('Management', '관리')}
+            </span>
           </NavLink>
         </li>
         <li>
@@ -70,7 +78,9 @@ function Sidebar() {
             className={activePage === 'monitoring' ? classes.activeLink : undefined}
           >
             <img src={monitoringIcon} alt="monitoring_icon" className={classes.labelIcon} />
-            <span className={activePage === 'monitoring' ? classes.activeText : undefined}>실황</span>
+            <span className={activePage === 'monitoring' ? classes.activeText : undefined}>
+              {t('Monitoring', '실황')}
+            </span>
           </NavLink>
         </li>
         <li>
@@ -79,7 +89,9 @@ function Sidebar() {
             className={activePage === 'edussafylogin' ? classes.activeLink : undefined}
           >
             {/* <img src={monitoringIcon} alt="monitoring_icon" className={classes.labelIcon} /> */}
-            <span className={activePage === 'edussafylogin' ? classes.activeText : undefined}>에듀싸피</span>
+            <span className={activePage === 'edussafylogin' ? classes.activeText : undefined}>
+              {t('Edussafy', '에듀싸피')}
+            </span>
           </NavLink>
         </li>
       </ul>

@@ -19,6 +19,7 @@
     "i18next-browser-languagedetector": "^8.0.0",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
+    "react-datepicker": "^7.3.0",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.0",
     "react-modal": "^3.16.1",

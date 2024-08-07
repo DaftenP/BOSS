@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import Modal from 'react-modal';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import lightClasses from './Statistics.module.css';
 import darkClasses from './StatisticsDark.module.css';
@@ -9,7 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function TotalStatistics({ loglist }) {
-  const isDarkMode = useSelector((state) => state.theme.isDarkMode)
+  const { t } = useTranslation();
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
 
   const [selectedTotalXOption, setSelectedTotalXOption] = useState('day');
@@ -19,18 +21,9 @@ function TotalStatistics({ loglist }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedTotalDate, setSelectedTotalDate] = useState('');
 
-  // useEffect(() => {
-  //   setDefaultTotalDate();
-  //   if (selectedTotalPopOption === 'gate') {
-  //     setSelectedItems([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]); // 모든 기기 기본 선택
-  //   } else if (selectedTotalPopOption === 'department') {
-  //     setSelectedItems(["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"]); // 모든 부서 기본 선택
-  //   }
-  // }, [selectedTotalXOption, selectedTotalPopOption]);
   useEffect(() => {
     setDefaultTotalDate();
 
-    // gate 번호와 부서 이름을 동적으로 추출하는 코드
     const gates = [];
     const departments = new Set();
 
@@ -108,11 +101,6 @@ function TotalStatistics({ loglist }) {
     setSelectedItems([]);
   };
 
-  // const items = selectedTotalPopOption === 'gate'
-  //   ? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  //   : ["OO엔진 개발 및 설계", "OO기술 연구소", "OO제품 디자인팀", "OO마케팅", "OO인사팀"];
-
-  // gate 번호와 부서 이름을 동적으로 추출
   const gates = [];
   const departments = new Set();
 
@@ -130,7 +118,7 @@ function TotalStatistics({ loglist }) {
   const generateTotalHourlyLabels = () => {
     const labels = [];
     for (let hour = 9; hour < 21; hour++) {
-      labels.push(`${hour}~${hour + 1}시`);
+      labels.push(`${hour}~${hour + 1}${t('hour')}`);
     }
     return labels;
   };
@@ -138,7 +126,7 @@ function TotalStatistics({ loglist }) {
   const generateTotalMonthlyLabels = () => {
     const labels = [];
     for (let month = 1; month <= 12; month++) {
-      labels.push(`${String(month).padStart(2, '0')}월`);
+      labels.push(`${String(month).padStart(2, '0')}${t('month')}`);
     }
     return labels;
   };
@@ -146,7 +134,7 @@ function TotalStatistics({ loglist }) {
   const generateTotalWeeklyLabels = (startDate) => {
     const labels = [];
     const start = parseISO(startDate);
-    if (!isValid(start)) return []; // 유효하지 않은 날짜인 경우 빈 배열 반환
+    if (!isValid(start)) return [];
     for (let i = 0; i < 7; i++) {
       const date = new Date(start);
       date.setDate(start.getDate() + i);
@@ -173,7 +161,7 @@ function TotalStatistics({ loglist }) {
         time: log.time.split('T')[1],
         department: log.member.department.departmentName,
         issue: log.issue,
-      }
+      };
       if (selectedTotalYOption === 'fail' && filteredLog.issue !== 1) return false;
       if (selectedTotalYOption === 'pass' && filteredLog.issue !== 0) return false;
   
@@ -185,7 +173,7 @@ function TotalStatistics({ loglist }) {
       } else if (selectedTotalXOption === 'week') {
         const selectedDateObj = parseISO(selectedTotalDate);
         const logDateObj = parseISO(filteredLog.date);
-        if (!isValid(selectedDateObj) || !isValid(logDateObj)) return false; // 유효하지 않은 날짜인 경우 false 반환
+        if (!isValid(selectedDateObj) || !isValid(logDateObj)) return false;
         const diffDays = (logDateObj - selectedDateObj) / (1000 * 60 * 60 * 24);
         return diffDays >= 0 && diffDays < 7;
       } else if (selectedTotalXOption === 'month') {
@@ -221,15 +209,15 @@ function TotalStatistics({ loglist }) {
         time: log.time.split('T')[1],
         department: log.member.department.departmentName,
         issue: log.issue,
-      }
+      };
       let key;
       if (selectedTotalXOption === 'day') {
         const hour = parseInt(filteredLog.time.split(':')[0], 10);
-        key = `${hour}~${hour + 1}시`;
+        key = `${hour}~${hour + 1}${t('hour')}`;
       } else if (selectedTotalXOption === 'week' || selectedTotalXOption === 'month') {
         key = filteredLog.date;
       } else if (selectedTotalXOption === 'year') {
-        key = filteredLog.date.split('-')[1] + '월';
+        key = filteredLog.date.split('-')[1] + t('month');
       }
   
       if (groupedData[key] !== undefined) {
@@ -240,7 +228,7 @@ function TotalStatistics({ loglist }) {
     return {
       labels: sortedLabels,
       datasets: [{
-        label: selectedTotalYOption === 'fail' ? '적발 횟수' : '통과 횟수',
+        label: selectedTotalYOption === 'fail' ? t('Detection Count') : t('Pass Count'),
         data: sortedLabels.map(label => groupedData[label]),
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -273,7 +261,7 @@ function TotalStatistics({ loglist }) {
             weight: 'bold'
           },
           callback: function(value) {
-            return value + ' 명';
+            return value + t('people');
           }
         },
         grid: {
@@ -297,12 +285,12 @@ function TotalStatistics({ loglist }) {
   return (
     <div className={classes.dateStatisticsContainer}>
       <div className={classes.relativeBoxContainer}>
-        <div className={classes.statisticsTitleBox}>통합 통계</div>
+        <div className={classes.statisticsTitleBox}>{t('Total Statistics')}</div>
       </div>
       <div className={classes.totalStatisticsContent}>
         <div className={classes.totalDataSelectContainer}>
           <div className={classes.totalAxisSelectBox}>
-            <div className={classes.totalAxisSelectTitle}>선택 옵션 - X축</div>
+            <div className={classes.totalAxisSelectTitle}>{t('Selection Options - X Axis')}</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -311,7 +299,7 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalXOption === 'day'}
                   onChange={handleTotalXOption}
                 />
-                일
+                {t('Day')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -320,7 +308,7 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalXOption === 'week'}
                   onChange={handleTotalXOption}
                 />
-                주
+                {t('Week')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -329,7 +317,7 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalXOption === 'month'}
                   onChange={handleTotalXOption}
                 />
-                월
+                {t('Month')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -338,19 +326,10 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalXOption === 'year'}
                   onChange={handleTotalXOption}
                 />
-                년
+                {t('Year')}
               </label>
             </div>
             <div className={classes.buttonContainer}>
-              {selectedTotalXOption === 'year' &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
-              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month' || selectedTotalXOption === 'week') &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
-              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month') &&
-                <div className={classes.emptySpace}>EMPTY</div>
-              }
               {(selectedTotalXOption === 'day' || selectedTotalXOption === 'week') && (
                 <input
                   className={`${classes.inputText} ${classes.specificInputText}`}
@@ -373,13 +352,13 @@ function TotalStatistics({ loglist }) {
                   type="number"
                   value={selectedTotalDate.split('-')[0]}
                   onChange={(e) => handleTotalDateChange({ target: { value: `${e.target.value}-01` } })}
-                  placeholder="년도 입력"
+                  placeholder={t('Enter Year')}
                 />
               )}
             </div>
           </div>
           <div className={classes.totalAxisSelectBox}>
-            <div className={classes.totalAxisSelectTitle}>선택 옵션 - Y축</div>
+            <div className={classes.totalAxisSelectTitle}>{t('Selection Options - Y Axis')}</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -388,7 +367,7 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalYOption === 'fail'}
                   onChange={handleTotalYOption}
                 />
-                적발 횟수
+                {t('Detection Count')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -397,12 +376,12 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalYOption === 'pass'}
                   onChange={handleTotalYOption}
                 />
-                통과 횟수
+                {t('Pass Count')}
               </label>
             </div>
           </div>
           <div className={classes.totalAxisSelectBox}>
-            <div className={classes.totalAxisSelectTitle}>모집단 선택 옵션</div>
+            <div className={classes.totalAxisSelectTitle}>{t('Population Selection Options')}</div>
             <div className={classes.dataSelectBox}>
               <label className={classes.labelBox}>
                 <input
@@ -411,7 +390,7 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalPopOption === 'gate'}
                   onChange={handleTotalPopOption}
                 />
-                기기별 보기
+                {t('View by Gate')}
               </label>
               <label className={classes.labelBox}>
                 <input
@@ -420,7 +399,7 @@ function TotalStatistics({ loglist }) {
                   checked={selectedTotalPopOption === 'department'}
                   onChange={handleTotalPopOption}
                 />
-                부서별 보기
+                {t('View by Department')}
               </label>
             </div>
             <div className={classes.buttonContainer}>
@@ -428,7 +407,7 @@ function TotalStatistics({ loglist }) {
                 <div className={classes.emptySpace}>EMPTY</div>
               }
               <button className={classes.buttonBox} onClick={openModal}>
-                {selectedTotalPopOption === 'gate' ? '기기 선택하기' : '부서 선택하기'}
+                {selectedTotalPopOption === 'gate' ? t('Select Gate') : t('Select Department')}
               </button>
             </div>
             <Modal
@@ -441,20 +420,20 @@ function TotalStatistics({ loglist }) {
               <div className={classes.modalTopContainer}>
                 <div className={classes.title}>
                   {selectedTotalPopOption === 'gate' ? (
-                    <div>기기 선택</div>
+                    <div>{t('Select Gate')}</div>
                   ) : (
-                    <div>부서 선택</div>
+                    <div>{t('Select Department')}</div>
                   )}
                 </div>
                 <div className={classes.selectButtonsContainer}>
                   {selectedItems.length === items.length ? (
-                    <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
+                    <button onClick={handleDeselectAll} className={classes.deselectAllButton}>{t('Deselect All')}</button>
                   ) : selectedItems.length === 0 ? (
-                    <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
+                    <button onClick={handleSelectAll} className={classes.selectAllButton}>{t('Select All')}</button>
                   ) : (
                     <>
-                      <button onClick={handleSelectAll} className={classes.selectAllButton}>모두 선택</button>
-                      <button onClick={handleDeselectAll} className={classes.deselectAllButton}>모두 취소</button>
+                      <button onClick={handleSelectAll} className={classes.selectAllButton}>{t('Select All')}</button>
+                      <button onClick={handleDeselectAll} className={classes.deselectAllButton}>{t('Deselect All')}</button>
                     </>
                   )}
                 </div>
@@ -477,7 +456,7 @@ function TotalStatistics({ loglist }) {
                               type="checkbox"
                               checked={selectedItems.includes(item)}
                               onChange={() => handleItemClick(item)}
-                              onClick={(e) => e.stopPropagation()} // 클릭 이벤트 전파 중지
+                              onClick={(e) => e.stopPropagation()}
                             />
                           </td>
                           <td
@@ -503,7 +482,7 @@ function TotalStatistics({ loglist }) {
                 <FontAwesomeIcon icon={faTimes} />
               </span>
               <div className={classes.modalButtonContainer}>
-                <button onClick={handleConfirm} className={classes.confirmButton}>확 인</button>
+                <button onClick={handleConfirm} className={classes.confirmButton}>{t('Confirm')}</button>
               </div>
             </Modal>
           </div>

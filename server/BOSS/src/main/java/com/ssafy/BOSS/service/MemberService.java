@@ -52,25 +52,29 @@ public class MemberService {
         member.setProfileImage("");
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
 
-        Department department = null;
-        if (!departmentRepository.existsById(memberRegistDto.getDepartmentId())) {
-            department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
-            departmentRepository.save(department);
+        if(memberRegistDto.getDepartmentId() == -1) {
+            String departmentName = memberRegistDto.getDepartmentName();
+            if(departmentRepository.existsByDepartmentName(departmentName)) {
+                member.setDepartment(departmentRepository.findByDepartmentName(departmentName));
+            }
+            else {
+                Department department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
+                departmentRepository.save(department);
+                member.setDepartment(department);
+            }
         }
-        else {
-            department = departmentRepository.getReferenceById(memberRegistDto.getDepartmentId());
-        }
-        member.setDepartment(department);
 
-        Position position = null;
-        if (!positionRepository.existsById(memberRegistDto.getPositionId())) {
-            position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
-            positionRepository.save(position);
+        if(memberRegistDto.getPositionId() == -1) {
+            String positionName = memberRegistDto.getPositionName();
+            if(positionRepository.existsByPositionName(positionName)) {
+                member.setPosition(positionRepository.findByPositionName(positionName));
+            }
+            else {
+                Position position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
+                positionRepository.save(position);
+                member.setPosition(position);
+            }
         }
-        else {
-            position = positionRepository.getReferenceById(memberRegistDto.getPositionId());
-        }
-        member.setPosition(position);
 
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());

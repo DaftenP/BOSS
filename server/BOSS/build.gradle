@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
 
 //	SQL 로그에 값을 주입해주는 의존성
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1'

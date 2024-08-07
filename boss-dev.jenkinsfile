@@ -7,7 +7,7 @@ pipeline {
         MATTERMOST_WEBHOOK=credentials('mattermost-webhook')
     }
 
-    stages {
+    // stages {
     //     stage('setup AWS config') {
     //         steps {
     //             withCredentials([file(credentialsId: 'application-aws', variable: 'awsConfig')]) {
@@ -40,7 +40,7 @@ pipeline {
     //             sh 'docker compose -f $COMPOSE_DEV up -d'
     //         }
     //     }
-    }
+    // }
 
     post {
         always {

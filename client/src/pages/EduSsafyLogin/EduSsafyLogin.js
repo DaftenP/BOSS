@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMembers } from '../../store/management';
 import classes from './EduSsafyLogin.module.css';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../../components/ErrorModal/ErrorModal';
 
 
 export default function Main() {
@@ -23,14 +24,12 @@ export default function Main() {
     e.preventDefault();
     setErrorMessage(null);
 
-    if (!memberId && !nfc) {
-      setErrorMessage('아이디와 비밀번호를 모두 입력해주세요.');
-      return;
-    } else if (!memberId) {
-      setErrorMessage('아이디를 입력해 주세요!');
+
+    if (!memberId) {
+      setErrorMessage('[아이디]은(는) 필수값입니다.');
       return;
     } else if (!nfc) {
-      setErrorMessage('비밀번호를 입력해 주세요!');
+      setErrorMessage('[비밀번호]은(는) 필수값입니다.');
       return;
     }
 
@@ -44,12 +43,16 @@ export default function Main() {
       handleLoginClick();
       // 로그인 성공 처리, 예를 들어 유저 상태 저장, 리디렉션 등
     } else {
-      setErrorMessage('ID 또는 비밀번호가 잘못되었습니다.');
+      setErrorMessage('아이디 또는 비밀번호를 잘못 입력했습니다.');
     }
   };
 
   const handleLoginClick = () => {
     navigate('/EduSsafy');
+  };
+
+  const closeModal = () => {
+    setErrorMessage(null);
   };
 
   return (
@@ -87,19 +90,18 @@ export default function Main() {
               onChange={(e) => setNfc(e.target.value)}
             />
 
-            
-
             <button className={classes['rectangle-5']}>
               <span className={classes['login']}>로그인</span>
             </button>
             <span className={classes['password-recovery']}>비밀번호 찾기</span>
             <div className={classes['rectangle-6']} />
 
-            {errorMessage && <div className={classes.errorBox}>{errorMessage}</div>}
+            {/* {errorMessage && <div className={classes.errorBox}>{errorMessage}</div>} */}
             
             <span className={classes['id-save']}>아이디 저장</span>
           </div>
         </form>
+        
         <span className={classes['samsung-sw-academy']}>
           SAMSUNG SW ACADEMY
           <br />
@@ -107,6 +109,7 @@ export default function Main() {
         </span>
         <span className={classes['ssafy-welcome']}>SSAFY에 오신것을 환영합니다.</span>
       </div>
+      <Modal message={errorMessage} onClose={closeModal} />
     </div>
   );
 }

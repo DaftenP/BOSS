@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import api from '../utils/api';
-import { loglistDummy } from "../utils/loglistDummy";
 
 // 전체 로그 조회 요청
 export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
@@ -28,21 +27,8 @@ export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', a
   console.log('필터링 받은 것', response.data)
   return response.data.length ? response.data : [];
 });
-// // 로그 필터링 요청(빈 문자열은 모두 제외하고 보내는 요청)
-// export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', async (filters) => {
-//   const filteredFilters = Object.fromEntries(
-//     Object.entries(filters).filter(([key, value]) => value !== '')
-//   );
-//   console.log('보낸 것', filteredFilters);
-//   const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/log/search`, {
-//     params: filteredFilters,
-//   });
-//   console.log('받은 것', response.data);
-//   return response.data;
-// });
 
 const initialLoglistState = {
-  // data: loglistDummy(8000),
   data: [],
   status: 'idle',
   error: null,
@@ -102,17 +88,6 @@ const loglistSlice = createSlice({
       });
   },
 });
-
-// const loglistSlice = createSlice({
-//   name: 'loglist',
-//   initialState: initialLoglistState,
-//   reducers: {
-//     addLogs(state, action) {
-//       state.data.push(...action.payload);
-//     }
-//   }
-// });
-
 
 export const loglistActions = loglistSlice.actions;
 export default loglistSlice.reducer;

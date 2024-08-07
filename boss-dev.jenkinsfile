@@ -8,65 +8,58 @@ pipeline {
     }
 
     stages {
-        stage('check enviroment') {
+        stage('setup AWS config') {
             steps {
-                sh 'printenv'
-                echo "${env.BRANCH_ID}"
-                echo "${env.GIT_BRANCH}"
+                withCredentials([file(credentialsId: 'application-aws', variable: 'awsConfig')]) {
+                    script {
+                        sh 'cp $awsConfig server/BOSS/src/main/resources/application-aws.yml'
+                    }
+                }
             }
         }
-        // stage('setup AWS config') {
-        //     steps {
-        //         withCredentials([file(credentialsId: 'application-aws', variable: 'awsConfig')]) {
-        //             script {
-        //                 sh 'cp $awsConfig server/BOSS/src/main/resources/application-aws.yml'
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('build images') {
-        //     steps {
-        //         sh 'docker compose -f $COMPOSE_DEV build'
-        //     }
-        // }
-        // stage('image backup') {
-        //     steps {
-        //         script {
-        //             echo 'trying to push docker images...'
-        //             docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-        //                 echo 'now push...'
-        //                 sh 'docker compose -f $COMPOSE_DEV push'
-        //             }
-        //             echo 'done!'
-        //         }
-        //     }
-        // }
-        // stage('run container') {
-        //     steps {
-        //         sh 'docker compose -f $COMPOSE_DEV down'
-        //         sh 'docker compose -f $COMPOSE_DEV up -d'
-        //     }
-        // }
+        stage('build images') {
+            steps {
+                sh 'docker compose -f $COMPOSE_DEV build'
+            }
+        }
+        stage('image backup') {
+            steps {
+                script {
+                    echo 'trying to push docker images...'
+                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                        echo 'now push...'
+                        sh 'docker compose -f $COMPOSE_DEV push'
+                    }
+                    echo 'done!'
+                }
+            }
+        }
+        stage('run container') {
+            steps {
+                sh 'docker compose -f $COMPOSE_DEV down'
+                sh 'docker compose -f $COMPOSE_DEV up -d'
+            }
+        }
     }
 
-    // post {
-    //     always {
-    //         script {
-    //             def message = currentBuild.result == 'SUCCESS' ?  '## 배포가 성공적으로 완료되었습니다!' : '## 배포에 실패했습니다. 확인이 필요합니다.') + '\n 브랜치명: ${env.GIT_BRANCH}'
+    post {
+        always {
+            script {
+                def message = currentBuild.result == 'SUCCESS' ?  '## 배포가 성공적으로 완료되었습니다!' : '## 배포에 실패했습니다. 확인이 필요합니다.') + "\n 브랜치명: ${env.GIT_BRANCH}"
 
-    //             def payload = [
-    //                 text: message
-    //             ]
+                def payload = [
+                    text: message
+                ]
 
-    //             def response = httpRequest(
-    //                 url: MATTERMOST_WEBHOOK,
-    //                 httpMode: 'POST',
-    //                 contentType: 'APPLICATION_JSON',
-    //                 requestBody: groovy.json.JsonOutput.toJson(payload)
-    //             )
+                def response = httpRequest(
+                    url: MATTERMOST_WEBHOOK,
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: groovy.json.JsonOutput.toJson(payload)
+                )
 
-    //             echo "Response: ${response}"
-    //         }
-    //     }
-    // }
+                echo "Response: ${response}"
+            }
+        }
+    }
 }

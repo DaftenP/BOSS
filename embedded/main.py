@@ -1,5 +1,5 @@
 from model.Model import Model
-from module import object_detection
+from module.VideoProcessor import VideoProcessor
 from PyQt6.QtWidgets import *
 from gui.MainWindow import MainWindow
 import sys
@@ -18,8 +18,8 @@ if __name__ == '__main__':
     myWindow.show()
 
     # 객체 탐지
-    detection_thread = threading.Thread(target=object_detection.run, args=(model, myWindow, 640, 360, 3, 0.40))
 
-    detection_thread.start()
+    video_processor = VideoProcessor(model, myWindow, 640, 360, 3, 0.40)
+
     # 프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
     app.exec()

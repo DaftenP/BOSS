@@ -28,6 +28,18 @@ def get_member_logs(member_id: int, issue: bool = True):
         print(f'get_member_logs : error {response.status_code}')
         return None
 
+
+def get_image(url: str):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.content
+        else:
+            print(f'get_image : error {response.status_code}')
+            return None
+    except:
+        return None
+
 # Test Code
 # if __name__ == '__main__':
 #     # get_member_info('1234')

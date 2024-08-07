@@ -15,16 +15,20 @@ public class LoggingAspect {
     private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
 
     @Pointcut("execution(* com.ssafy.BOSS..*Controller.*(..))")
-    public void controllerPointcut() {}
+    public void controllerPointcut() {
+    }
 
     @Pointcut("execution(* com.ssafy.BOSS..*Repository.*(..))")
-    public void repositoryPointcut() {}
+    public void repositoryPointcut() {
+    }
 
     @Pointcut("execution(* com.ssafy.BOSS..*Service.*(..))")
-    public void servicePointcut() {}
+    public void servicePointcut() {
+    }
 
     @Pointcut("controllerPointcut() || repositoryPointcut() || servicePointcut()")
-    public void mvcPointcut() {}
+    public void mvcPointcut() {
+    }
 
     @Around("mvcPointcut()")
     public Object logMethodCall(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -33,9 +37,9 @@ public class LoggingAspect {
         Object[] args = joinPoint.getArgs();
 
         StringBuilder params = new StringBuilder();
-        for(Object arg : args) {
-            if(arg != null) {
-                params.append(arg.getClass().getSimpleName() + ": " + arg.toString() + "\n");
+        for (Object arg : args) {
+            if (arg != null) {
+                params.append(arg.getClass().getSimpleName() + ": " + arg + "\n");
             }
         }
 

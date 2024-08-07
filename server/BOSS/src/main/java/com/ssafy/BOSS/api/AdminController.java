@@ -35,7 +35,7 @@ public class AdminController {
     public ResponseEntity<?> login(@RequestBody Admin admin) {
         try {
             Admin login = adminService.login(admin.getAdminLoginId(), admin.getAdminLoginPw());
-            if(login != null) {
+            if (login != null) {
                 AdminReturnDto adminReturnDto = new AdminReturnDto();
                 adminReturnDto.setAdminId(admin.getAdminLoginId());
                 adminReturnDto.setAdminPw(admin.getAdminLoginPw());
@@ -44,8 +44,7 @@ public class AdminController {
             } else {
                 return ResponseEntity.status(401).build();
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return exceptionHandling(e);
         }
     }

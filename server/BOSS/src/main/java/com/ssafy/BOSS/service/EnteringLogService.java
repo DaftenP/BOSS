@@ -45,7 +45,7 @@ public class EnteringLogService {
     public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile file1, MultipartFile file2) {
         EnteringLog enteringLog = new EnteringLog();
         Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());
-        if(member.isEmpty()) {
+        if (member.isEmpty()) {
             throw new RuntimeException("Member not found");
         }
         // 이미지 업로드

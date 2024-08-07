@@ -20,7 +20,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             "AND (:#{#memberDto.positionName} IS NULL OR m.position.positionName LIKE %:#{#memberDto.positionName}%)" +
             "AND (:#{#memberDto.nfc} IS NULL OR m.nfc LIKE %:#{#memberDto.nfc}%)" +
             "AND (:#{#memberDto.issue} < 0 OR m.issueCount = :#{#memberDto.issue})")
-    List<Member> searchMember(@Param("memberDto")RequestMemberDto memberDto);
+    List<Member> searchMember(@Param("memberDto") RequestMemberDto memberDto);
 
     Optional<Member> findByMemberLoginIdAndMemberLoginPw(String loginId, String loginPw);
 }

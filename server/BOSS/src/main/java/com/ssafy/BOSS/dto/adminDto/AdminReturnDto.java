@@ -2,7 +2,8 @@ package com.ssafy.BOSS.dto.adminDto;
 
 import lombok.*;
 
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor

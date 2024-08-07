@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PositionRepository extends JpaRepository<Position, Integer> {
     boolean existsByPositionName(String positionName);
+
     Position findByPositionName(String positionName);
 }

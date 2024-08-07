@@ -34,8 +34,7 @@ public class AdminLogController {
         if (admin.isPresent()) {
             List<LoginLog> loginLogs = adminLogService.findByAdmin(admin);
             return ResponseEntity.ok(loginLogs);
-        }
-        else {
+        } else {
             return ResponseEntity.notFound().build();
         }
 

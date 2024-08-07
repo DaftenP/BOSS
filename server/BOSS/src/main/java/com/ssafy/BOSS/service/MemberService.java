@@ -43,24 +43,22 @@ public class MemberService {
         member.setProfileImage("");
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
 
-        if(memberRegistDto.getDepartmentId() == -1) {
+        if (memberRegistDto.getDepartmentId() == -1) {
             String departmentName = memberRegistDto.getDepartmentName();
-            if(departmentRepository.existsByDepartmentName(departmentName)) {
+            if (departmentRepository.existsByDepartmentName(departmentName)) {
                 member.setDepartment(departmentRepository.findByDepartmentName(departmentName));
-            }
-            else {
+            } else {
                 Department department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
                 departmentRepository.save(department);
                 member.setDepartment(department);
             }
         }
 
-        if(memberRegistDto.getPositionId() == -1) {
+        if (memberRegistDto.getPositionId() == -1) {
             String positionName = memberRegistDto.getPositionName();
-            if(positionRepository.existsByPositionName(positionName)) {
+            if (positionRepository.existsByPositionName(positionName)) {
                 member.setPosition(positionRepository.findByPositionName(positionName));
-            }
-            else {
+            } else {
                 Position position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
                 positionRepository.save(position);
                 member.setPosition(position);
@@ -82,7 +80,7 @@ public class MemberService {
 
     private void validateDuplicateMember(Member member) {
         Optional<Member> joinMember = memberRepository.findByNfc(member.getNfc());
-        if(joinMember.isPresent()) {
+        if (joinMember.isPresent()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
     }

@@ -40,10 +40,9 @@ public class AdminService {
 
     public Admin login(String adminLoginId, String adminLoginPw) {
         Optional<Admin> admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw);
-        if(admin.isPresent()) {
+        if (admin.isPresent()) {
             return admin.get();
-        }
-        else {
+        } else {
             return null;
         }
     }

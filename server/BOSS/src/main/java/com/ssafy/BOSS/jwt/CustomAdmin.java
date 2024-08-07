@@ -7,9 +7,9 @@ import java.util.Collection;
 
 public class CustomAdmin implements UserDetails {
 
-    private String username;
-    private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private final String username;
+    private final String password;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public CustomAdmin(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;

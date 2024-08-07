@@ -19,11 +19,14 @@ public class SignalingHandler extends TextWebSocketHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(SignalingHandler.class);
 
-    /** 연결된 모든 WebSocket 세션을 저장하는 맵 */
-    private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
+    /**
+     * 연결된 모든 WebSocket 세션을 저장하는 맵
+     */
+    private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
     /**
      * 클라이언트가 연결되었을 때 호출되는 메서드입니다.
+     *
      * @param session 연결된 WebSocket 세션
      * @throws Exception 연결 중 발생할 수 있는 예외
      */
@@ -36,6 +39,7 @@ public class SignalingHandler extends TextWebSocketHandler {
 
     /**
      * 클라이언트로부터 메시지를 받았을 때 호출되는 메서드입니다.
+     *
      * @param session 메시지를 보낸 WebSocket 세션
      * @param message 받은 텍스트 메시지
      * @throws Exception 메시지 처리 중 발생할 수 있는 예외
@@ -59,8 +63,9 @@ public class SignalingHandler extends TextWebSocketHandler {
 
     /**
      * 클라이언트 연결이 종료되었을 때 호출되는 메서드입니다.
+     *
      * @param session 종료된 WebSocket 세션
-     * @param status 연결 종료 상태
+     * @param status  연결 종료 상태
      * @throws Exception 연결 종료 처리 중 발생할 수 있는 예외
      */
     @Override
@@ -72,7 +77,8 @@ public class SignalingHandler extends TextWebSocketHandler {
 
     /**
      * WebSocket 통신 중 예외가 발생했을 때 호출되는 메서드입니다.
-     * @param session 예외가 발생한 WebSocket 세션
+     *
+     * @param session   예외가 발생한 WebSocket 세션
      * @param exception 발생한 예외
      * @throws Exception 예외 처리 중 발생할 수 있는 추가 예외
      */

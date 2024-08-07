@@ -26,16 +26,15 @@ public class MemberController {
     private final S3UploadService s3UploadService;
 
     @PostMapping("/regist")
-    public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false)MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
+    public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false) MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
         try {
             MemberDto member = memberService.join(memberRegistDto, file);
-            if(member != null) {
+            if (member != null) {
                 return ResponseEntity.ok(member);
             } else {
                 return ResponseEntity.noContent().build();
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return exceptionHandling(e);
         }
     }
@@ -43,7 +42,7 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<?> memberLogin(@RequestBody MemberLoginDto memberLoginDto) {
         MemberLoginDto memberLogin = memberService.login(memberLoginDto);
-        if(memberLogin != null) {
+        if (memberLogin != null) {
             return ResponseEntity.ok(memberLogin);
         }
         return ResponseEntity.noContent().build();
@@ -52,10 +51,9 @@ public class MemberController {
     @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
         Optional<Member> member = memberService.findbyNfc(nfc);
-        if(member.isPresent()) {
+        if (member.isPresent()) {
             return ResponseEntity.ok(MemberDto.of(member.get()));
-        }
-        else {
+        } else {
             return ResponseEntity.noContent().build();
         }
     }
@@ -68,7 +66,7 @@ public class MemberController {
     @GetMapping("/search")
     public ResponseEntity<List<MemberDto>> searchMembers(@ModelAttribute RequestMemberDto dto) {
         List<MemberDto> memberDtos = memberService.searchMemberLogs(dto);
-        if(!memberDtos.isEmpty()) {
+        if (!memberDtos.isEmpty()) {
             return ResponseEntity.ok(memberDtos);
         }
         return ResponseEntity.noContent().build();

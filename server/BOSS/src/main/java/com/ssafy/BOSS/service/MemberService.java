@@ -30,8 +30,7 @@ public class MemberService {
         Member member = convertRegistDtoToMember(memberRegistDto);
         validateDuplicateMember(member); // 중복 검사
         String image = s3UploadService.upload(file);
-        String imgLink = "https://d3vud5llnd72x5.cloudfront.net/" + image.split("/")[image.split("/").length-1];
-        member.setProfileImage(imgLink);
+        member.setProfileImage(image);
         return MemberDto.of(memberRepository.save(member));
     }
 

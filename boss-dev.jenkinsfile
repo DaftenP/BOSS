@@ -44,8 +44,9 @@ pipeline {
 
     post {
         always {
+            sh 'printenv'
             script {
-                def message = currentBuild.result == 'SUCCESS' ?  "## 배포가 성공적으로 완료되었습니다!" : "## 배포에 실패했습니다. 확인이 필요합니다." + "\n 브랜치명: ${env.GIT_BRANCH}"
+                def message = (currentBuild.result == 'SUCCESS' ?  "## 배포가 성공적으로 완료되었습니다!" : "## 배포에 실패했습니다. 확인이 필요합니다.") + "\n 브랜치명: ${env.GIT_BRANCH}"
 
                 def payload = [
                     text: message

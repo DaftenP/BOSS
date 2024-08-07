@@ -4,6 +4,7 @@ pipeline {
     environment {
         COMPOSE_DEV='docker-compose.dev.yml'
         DOCKER_CREDENTIALS_ID='dockerhub'
+        MATTERMOST_WEBHOOK=credentials('mattermost-webhook')
     }
 
     stages {
@@ -37,6 +38,29 @@ pipeline {
             steps {
                 sh 'docker compose -f $COMPOSE_DEV down'
                 sh 'docker compose -f $COMPOSE_DEV up -d'
+            }
+        }
+    }
+
+    post {
+        always {
+            script {
+                def message = currentBuild.result == 'SUCCESS' ? 
+                    '배포가 성공적으로 완료되었습니다!' : 
+                    '배포가 실패했습니다. 확인이 필요합니다.'
+
+                def payload = [
+                    text: message
+                ]
+
+                def response = httpRequest(
+                    url: MATTERMOST_WEBHOOK,
+                    httpMode: 'POST',
+                    contentType: 'APPLICATION_JSON',
+                    requestBody: groovy.json.JsonOutput.toJson(payload)
+                )
+
+                echo "Response: ${response}"
             }
         }
     }

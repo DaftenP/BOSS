@@ -7,12 +7,14 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @Entity
 public class LoginLog {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "login_log_id")
     private Long loginLogId;
 

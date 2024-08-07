@@ -5,7 +5,8 @@ import com.ssafy.BOSS.dto.department.DepartmentDto;
 import com.ssafy.BOSS.dto.position.PositionDto;
 import lombok.*;
 
-@Getter @Setter
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor

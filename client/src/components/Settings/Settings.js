@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { toggleDarkMode } from '../../store/theme';
@@ -17,6 +17,7 @@ function Settings() {
   const { i18n, t } = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
+  const settingsRef = useRef(null)
 
   const handleToggleSettings = () => {
     setIsOpen(!isOpen);
@@ -32,17 +33,34 @@ function Settings() {
     dispatch(toggleEnglish());
   };
 
+  const handleClickOutside = (event) => {
+    if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div>
+    <div ref={settingsRef}>
       <button className={classes.settingsButton} onClick={handleToggleSettings}>
         <FontAwesomeIcon icon={faCog} />
       </button>
       <div className={`${classes.settingsPanel} ${isOpen ? classes.open : ''}`}>
-        <div className={classes.subTitle}>화면</div>
+        <div className={classes.subTitle}>{t('Display', '화면')}</div>
         <span className={classes.settingTitle} onClick={handleDarkModeToggle}>
           {isDarkMode ? t('Light Mode') : t('Dark Mode')}
         </span>
-        <div className={classes.subTitle}>언어</div>
+        <div className={classes.subTitle}>{t('Language', '언어')}</div>
         <span className={classes.settingTitle} onClick={handleEnglishToggle}>
           {isEnglish ? t('Korean') : t('English')}
         </span>

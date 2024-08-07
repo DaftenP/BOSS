@@ -101,15 +101,16 @@
   "Statistics": "Stats",
   "Management": "Mgmt",
   "Monitoring": "Monitor",
-  "Edussafy": "Edussafy",
   "Admin": "Admin",
   "Anonymous Admin": "Anon Admin",
   "Login Time": "Login",
   "Elapsed Time": "Elapsed",
   "Logout": "Logout",
-  "Light Mode": "Light",
-  "Dark Mode": "Dark",
+  "Light Mode": "Light Mode",
+  "Dark Mode": "Dark Mode",
   "Korean": "한국어",
   "English": "English",
-  "Login Records": "Login Records"
+  "Login Records": "Login Records",
+  "Display": "Display",
+  "Language": "Language"
 }

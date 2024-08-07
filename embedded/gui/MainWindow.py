@@ -1,8 +1,8 @@
 import sys
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5 import uic
-from embedded.module.connection import get_member_info, get_member_logs
+from PyQt6.QtWidgets import QMainWindow, QApplication, QLabel, QTextEdit, QListWidget, QPushButton  # 변경된 import 경로
+from PyQt6.QtGui import QImage, QPixmap
+from PyQt6 import uic
+from module.connection import get_member_info, get_member_logs
 import requests
 import cv2
 
@@ -29,11 +29,12 @@ class MainWindow(QMainWindow, form_class):
             if response['profileImage']:
                 image = requests.get(response['profileImage'])
                 self.profile_image.setPixmap(QPixmap.fromImage(QImage.fromData(image.content)))
-            logs = get_member_logs(response['memberId'])
-            for log in logs:
+            issue_logs = get_member_logs(response['memberId'])
+            for log in issue_logs:
                 self.issue_list.addItem(f'{log["time"]} : {log["gateNumber"]}번 게이트')
-            self.issue_count.setText(str(len(logs)))
-            last_in_log = get_member_logs(response['memberId'], issue=False)[-1]
+            self.issue_count.setText(str(len(issue_logs)))
+            entering_logs = get_member_logs(response['memberId'], issue=False)
+            last_in_log = entering_logs[-1] if entering_logs else None
             print(last_in_log)
 
     def set_default(self):
@@ -46,10 +47,10 @@ class MainWindow(QMainWindow, form_class):
 
     def update_cam(self, frames):
         for idx, f in enumerate(frames):
-            if f is not None:
+            if f is not None and f.size > 0:
                 height, width, _ = f.shape
                 rgb_frame = cv2.cvtColor(f, cv2.COLOR_BGR2RGB)
-                qimg = QImage(rgb_frame.data, width, height, QImage.Format_RGB888)
+                qimg = QImage(rgb_frame.data, width, height, QImage.Format.Format_RGB888)
                 if idx == 0:
                     self.cam1.setPixmap(QPixmap.fromImage(qimg))
                 elif idx == 1:

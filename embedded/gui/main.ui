@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>1080</height>
+    <height>1077</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -134,8 +134,8 @@
     <widget class="QPushButton" name="btn_1">
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>450</y>
+       <x>180</x>
+       <y>440</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -169,8 +169,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>110</x>
-       <y>450</y>
+       <x>80</x>
+       <y>440</y>
        <width>91</width>
        <height>20</height>
       </rect>
@@ -207,9 +207,9 @@
     <widget class="QLabel" name="issue_count">
      <property name="geometry">
       <rect>
-       <x>245</x>
+       <x>230</x>
        <y>560</y>
-       <width>91</width>
+       <width>81</width>
        <height>20</height>
       </rect>
      </property>
@@ -233,8 +233,8 @@
     <widget class="QPushButton" name="btn_clear">
      <property name="geometry">
       <rect>
-       <x>290</x>
-       <y>450</y>
+       <x>260</x>
+       <y>440</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -248,7 +248,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>10</y>
+      <y>0</y>
       <width>1520</width>
       <height>1080</height>
      </rect>
@@ -268,6 +268,9 @@
      <property name="contextMenuPolicy">
       <enum>Qt::NoContextMenu</enum>
      </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -280,6 +283,47 @@
        <width>640</width>
        <height>360</height>
       </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="front_image">
+     <property name="geometry">
+      <rect>
+       <x>770</x>
+       <y>50</y>
+       <width>640</width>
+       <height>360</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="back_image">
+     <property name="geometry">
+      <rect>
+       <x>770</x>
+       <y>500</y>
+       <width>640</width>
+       <height>360</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::Box</enum>
      </property>
      <property name="text">
       <string/>

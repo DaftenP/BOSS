@@ -37,14 +37,6 @@ public class MemberService {
         return MemberDto.of(memberRepository.save(member));
     }
 
-    public MemberLoginDto login(MemberLoginDto memberLoginDto) {
-        Optional<Member> member = memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw());
-        if (member.isPresent()) {
-            return memberLoginDto;
-        }
-        return null;
-    }
-
     private Member convertRegistDtoToMember(MemberRegistDto memberRegistDto) {
         Member member = new Member();
         member.setName(memberRegistDto.getName());
@@ -79,6 +71,14 @@ public class MemberService {
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         return member;
+    }
+
+    public MemberLoginDto login(MemberLoginDto memberLoginDto) {
+        Optional<Member> member = memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw());
+        if (member.isPresent()) {
+            return memberLoginDto;
+        }
+        return null;
     }
 
     private void validateDuplicateMember(Member member) {

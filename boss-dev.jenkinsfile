@@ -11,7 +11,8 @@ pipeline {
         stage('check enviroment') {
             steps {
                 sh 'printenv'
-                sh 'echo $BRANCH_ID'
+                sh 'echo ${env.BRANCH_ID}'
+                sh 'echo ${env.GIT_BRANCH}'
             }
         }
         // stage('setup AWS config') {
@@ -48,26 +49,24 @@ pipeline {
         // }
     }
 
-    post {
-        always {
-            script {
-                def prefix = currentBuild.result == 'SUCCESS' ?  '## 배포가 성공적으로 완료되었습니다!' : '## 배포에 실패했습니다. 확인이 필요합니다.'
-                def branch = '\n 브랜치명: $GIT_BRANCH'
-                def message = prefix + branch
+    // post {
+    //     always {
+    //         script {
+    //             def message = currentBuild.result == 'SUCCESS' ?  '## 배포가 성공적으로 완료되었습니다!' : '## 배포에 실패했습니다. 확인이 필요합니다.') + '\n 브랜치명: ${env.GIT_BRANCH}'
 
-                def payload = [
-                    text: message
-                ]
+    //             def payload = [
+    //                 text: message
+    //             ]
 
-                def response = httpRequest(
-                    url: MATTERMOST_WEBHOOK,
-                    httpMode: 'POST',
-                    contentType: 'APPLICATION_JSON',
-                    requestBody: groovy.json.JsonOutput.toJson(payload)
-                )
+    //             def response = httpRequest(
+    //                 url: MATTERMOST_WEBHOOK,
+    //                 httpMode: 'POST',
+    //                 contentType: 'APPLICATION_JSON',
+    //                 requestBody: groovy.json.JsonOutput.toJson(payload)
+    //             )
 
-                echo "Response: ${response}"
-            }
-        }
-    }
+    //             echo "Response: ${response}"
+    //         }
+    //     }
+    // }
 }

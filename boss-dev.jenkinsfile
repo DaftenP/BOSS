@@ -11,7 +11,7 @@ pipeline {
         stage('check enviroment') {
             steps {
                 sh 'printenv'
-                sh 'echo $env.BRANCH_ID'
+                sh 'echo $BRANCH_ID'
             }
         }
         stage('setup AWS config') {

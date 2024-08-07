@@ -176,6 +176,10 @@
   text-align: center;
 }
 
+.logTable th {
+  background-color: #B0D2FA
+}
+
 .listIcon {
   cursor: pointer;
   width: 24px;

@@ -135,6 +135,10 @@
   text-align: center;
 }
 
+.logTable th {
+  background-color: #333333;
+}
+
 .listIcon {
   cursor: pointer;
   width: 24px;

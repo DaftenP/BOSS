@@ -101,7 +101,6 @@
   "Statistics": "통계",
   "Management": "관리",
   "Monitoring": "실황",
-  "Edussafy": "에듀싸피",
   "Admin": "관리자",
   "Anonymous Admin": "익명의 관리자",
   "Login Time": "로그인 시간",
@@ -111,5 +110,7 @@
   "Dark Mode": "다크 모드",
   "Korean": "한국어",
   "English": "English",
-  "Login Records": "접속기록"
+  "Login Records": "접속기록",
+  "Display": "화면",
+  "Language": "언어"
 }

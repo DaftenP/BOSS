@@ -13,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class EnteringLogService {
 
     private final EnteringLogRepository enteringLogRepository;
     private final MemberRepository memberRepository;
+    private final S3UploadService s3UploadService;
 
     public Page<EnteringLog> getEnteringLogs(EnteringLogSpecifiedDto dto, Pageable pageable) {
         return enteringLogRepository.getEnteringLogs(dto, pageable);
@@ -40,15 +42,20 @@ public class EnteringLogService {
     }
 
     @Transactional
-    public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto) {
+    public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile file1, MultipartFile file2) {
         EnteringLog enteringLog = new EnteringLog();
         Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());
         if(member.isEmpty()) {
             throw new RuntimeException("Member not found");
         }
+        // 이미지 업로드
+        String image1 = s3UploadService.upload(file1);
+        String imgLink1 = "https://d3vud5llnd72x5.cloudfront.net/" + image1.split("/")[image1.split("/").length-1];
+        String image2 = s3UploadService.upload(file2);
+        String imgLink2 = "https://d3vud5llnd72x5.cloudfront.net/" + image2.split("/")[image2.split("/").length-1];
         enteringLog.setMember(member.get());
-        enteringLog.setDeviceFrontImage(enteringLogRegistDto.getDeviceFrontImage());
-        enteringLog.setDeviceBackImage(enteringLogRegistDto.getDeviceBackImage());
+        enteringLog.setDeviceFrontImage(imgLink1);
+        enteringLog.setDeviceBackImage(imgLink2);
         enteringLog.setEntering(enteringLogRegistDto.getEntering());
         enteringLog.setGateNumber(enteringLogRegistDto.getGateNumber());
         enteringLog.setStickerCount(enteringLogRegistDto.getStickerCount());

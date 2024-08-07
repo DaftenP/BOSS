@@ -5,14 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class EnteringLogRegistDto {
 
     private long memberId;
-    private String deviceFrontImage;
-    private String deviceBackImage;
+    //private String deviceFrontImage;
+    //private String deviceBackImage;
     private int entering;
     private int gateNumber;
     private int stickerCount;

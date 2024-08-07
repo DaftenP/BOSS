@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('check enviroment') {
             steps {
-                sh 'env'
+                sh 'printenv'
             }
         }
         stage('setup AWS config') {

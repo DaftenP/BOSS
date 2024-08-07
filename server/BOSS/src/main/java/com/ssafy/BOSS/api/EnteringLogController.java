@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -58,8 +59,12 @@ public class EnteringLogController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<Void> saveEnteringLog(@RequestBody EnteringLogRegistDto enteringLogRegistDto) {
-        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto);
+    public ResponseEntity<Void> saveEnteringLog(
+            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile file1,
+            @RequestPart(value = "deviceBackImage", required = false) MultipartFile file2,
+            @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
+    ) {
+        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
 //        if (enteringLog.isFail()) {
 //            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
 //        }

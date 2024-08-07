@@ -46,8 +46,8 @@ pipeline {
         always {
             script {
                 def message = currentBuild.result == 'SUCCESS' ? 
-                    '배포가 성공적으로 완료되었습니다!' : 
-                    '배포가 실패했습니다. 확인이 필요합니다.'
+                    '## 배포가 성공적으로 완료되었습니다!\n[$CHANGE_TITLE]($CHANGE_URL)' : 
+                    '## 배포에 실패했습니다. 확인이 필요합니다.\n[$CHANGE_TITLE]($CHANGE_URL)'
 
                 def payload = [
                     text: message

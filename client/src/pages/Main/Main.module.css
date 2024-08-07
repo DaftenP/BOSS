@@ -302,7 +302,6 @@ position: relative;
 
 .card {
   position: absolute;
-  background: #e8e8e8;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -312,6 +311,11 @@ position: relative;
   width: 180px;
   height: 100px;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.2);
 }
 
 .cardIcon {
@@ -335,22 +339,27 @@ position: relative;
 
 .cardValue {
   font-size: 1.5em;
-  color: #333;
 }
 
 .topCard {
   top: 50px;
-
+  background: linear-gradient(135deg, #cceeff, #99ccff);
+  color: #003366;
+  position: absolute;
 }
 
 .bottomRightCard {
   bottom: 0;
   right: 0;
-
+  background: linear-gradient(135deg, #ffcccc, #ff9999);
+  color: #660000;
+  position: absolute;
 }
 
 .bottomLeftCard {
   bottom: 0;
   left: 0;
-
+  background: linear-gradient(135deg, #ccffcc, #99ff99);
+  color: #006600;
+  position: absolute;
 }

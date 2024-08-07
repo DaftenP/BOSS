@@ -363,12 +363,17 @@ const Modal = ({ log, onClose }) => {
         <span className={classes.close} onClick={onClose}>
           <FontAwesomeIcon icon={faTimes} />
         </span>
-        <div className={classes.detailBox}>
-          <div>{log.name}</div>
-          <div className={classes.departmentBox}>부서: {log.department.departmentName}</div>
-          <div>직책: {log.position.positionName}</div>
+        <div className={classes.profileSection}>
+          <img src={log.profileImage} alt={`${log.name}'s profile`} className={classes.profileImage} />
         </div>
-        <div>자세히: {log.profileImage}</div>
+        <div className={classes.detailBox}>
+          <div className={classes.subInfo}>이름</div>
+          <div className={classes.name}>{log.name}</div>
+          <div className={classes.subInfo}>부서 & 직책</div>
+          <div className={classes.department}>{log.department.departmentName} | {log.position.positionName}</div>
+          <div className={classes.subInfo}>전화번호</div>
+          <div className={classes.phoneNumber}>{log.phoneNumber}</div>
+        </div>
       </div>
     </div>
   );

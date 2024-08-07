@@ -109,8 +109,12 @@ const Modal = ({ show, onClose, log, update }) => {
             </span>
             <div className={classes.deviceInfoBox}>{log.time.split('T')[0]} {log.time.split('T')[1]} {log.name}</div>
             <div className={classes.deviceImageBox}>
-              <div className={classes.deviceImage}>{log.deviceBackImage}</div>
-              <div className={classes.deviceImage}>{log.deviceFrontImage}</div>
+              <div className={classes.deviceImage}>
+                <img src={log.deviceBackImage} alt={`${log.member.name}'s deviceBackImage`} className={classes.devieEachImage} />
+              </div>
+              <div className={classes.deviceImage}>
+                <img src={log.deviceFrontImage} alt={`${log.member.name}'s deviceFrontImage`} className={classes.devieEachImage} />
+              </div>
             </div>
           </div>
         )}

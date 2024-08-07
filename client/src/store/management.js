@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import api from '../utils/api';
-import { generateManagementData } from "../utils/managementDummy";
 
 // 멤버 데이터 불러오기
 export const fetchMembers = createAsyncThunk('management/fetchMembers', async () => {
@@ -14,9 +13,6 @@ export const fetchMembers = createAsyncThunk('management/fetchMembers', async ()
 export const memberRegistration = createAsyncThunk('management/memberRegistration', async (formData) => {
   console.log('등록 보낸 것', formData)
   const response = await api.post('/api/member/regist', formData, {
-    // headers: {
-    //   'Content-Type' : 'multipart/form-data',
-    // },
   });
   console.log('등록 받은 것', response.data)
   return response.data
@@ -33,7 +29,6 @@ export const fetchFilteredMember = createAsyncThunk('management/fetchFilteredMem
 })
 
 const initialManagementState = {
-  // data: generateManagementData(60)
   data: [],
   status: 'idle',
   error: null,
@@ -84,16 +79,6 @@ const managementSlice = createSlice({
       });
   },
 });
-
-// const managementSlice = createSlice({
-//   name: 'management',
-//   initialState: initialManagementState,
-//   reducers: {
-//     addManagementData(state, action) {
-//       state.data.push(...action.payload);
-//     }
-//   }
-// });
 
 export const managementActions = managementSlice.actions;
 export default managementSlice.reducer;

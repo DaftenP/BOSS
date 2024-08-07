@@ -149,7 +149,7 @@ function Main() {
 
   const normalUsersCount = firstFilteredLogs.length - secondFilteredLogs.length;
   const badUsersCount = secondFilteredLogs.length;
-  const errorPercent = (secondFilteredLogs.length / firstFilteredLogs.length * 100).toFixed(2)
+  const errorPercent = secondFilteredLogs.length === 0 ? 0 : (secondFilteredLogs.length / firstFilteredLogs.length * 100).toFixed(2)
 
   // 도넛 차트를 위한 데이터 준비
   const doughnutData = {

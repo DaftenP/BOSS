@@ -19,7 +19,6 @@ public class ImageController {
     @PostMapping("/upload")
     public ResponseEntity<?> s3Upload(@RequestPart(value = "image", required = false) MultipartFile image){
         String profileImage = s3UploadService.upload(image);
-        String cdn = "https://d3vud5llnd72x5.cloudfront.net/" + profileImage.split("/")[profileImage.split("/").length-1];
-        return ResponseEntity.ok(cdn);
+        return ResponseEntity.ok(profileImage);
     }
 }

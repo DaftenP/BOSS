@@ -22,12 +22,10 @@ public class MemberFixtureService {
     private final PositionRepository positionRepository;
 
     public Member getMember() {
-        Department department = new Department();
-        department.setDepartmentName("test");
+        Department department = Department.builder().departmentName("test").build();
         departmentRepository.save(department);
 
-        Position position = new Position();
-        position.setPositionName("test");
+        Position position = Position.builder().positionName("test").build();
         positionRepository.save(position);
 
         Member member = new Member();

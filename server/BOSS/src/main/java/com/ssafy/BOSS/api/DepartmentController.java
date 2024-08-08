@@ -17,15 +17,11 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
 
-    @CacheEvict("departments")
-    @PostMapping("/regist")
     public ResponseEntity<?> registDepartment(@RequestBody Department department) {
         departmentService.save(department);
         return ResponseEntity.ok().build();
     }
 
-    @Cacheable("departments")
-    @GetMapping("/view")
     public ResponseEntity<List<Department>> getAllDepartments() {
         return ResponseEntity.ok(departmentService.getAllDepartments());
     }

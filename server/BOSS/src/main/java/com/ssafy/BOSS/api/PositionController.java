@@ -17,14 +17,12 @@ public class PositionController {
 
     private final PositionService positionService;
 
-    @CacheEvict("positions")
     @PostMapping("/regist")
     public ResponseEntity<?> registPosition(@RequestBody Position position) {
         positionService.save(position);
         return ResponseEntity.ok().build();
     }
 
-    @Cacheable("positions")
     @GetMapping("/view")
     public ResponseEntity<List<Position>> getAllDepartments() {
         return ResponseEntity.ok(positionService.getAllPositions());

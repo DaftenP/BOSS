@@ -3,6 +3,9 @@ package com.ssafy.BOSS.service;
 import com.ssafy.BOSS.domain.Department;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +16,12 @@ public class DepartmentService {
 
     private final DepartmentRepository departmentRepository;
 
+    @CachePut("departments")
     public void save(Department department) {
         departmentRepository.save(department);
     }
 
+    @Cacheable("departments")
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
     }

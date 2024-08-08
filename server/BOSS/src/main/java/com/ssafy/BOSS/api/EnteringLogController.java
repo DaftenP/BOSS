@@ -69,7 +69,7 @@ public class EnteringLogController {
         EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
         EnteringLogDto enteringLogDto = EnteringLogDto.of(enteringLog);
 
-        if(enteringLog.getIssue() == 1) {
+        if (enteringLog.getIssue() == 1) {
             sseEmiiters.createIssue(enteringLogDto);
         }
 //        if (enteringLog.isFail()) {

@@ -35,7 +35,7 @@ public class AdminLogService {
 
     @Transactional
     public void regist(AdminLogDto loginLog) {
-        Optional <Admin> admin = adminRepository.findByAdminName(loginLog.getAdmin().getAdminName());
+        Optional<Admin> admin = adminRepository.findByAdminName(loginLog.getAdmin().getAdminName());
         if (admin.isPresent()) {
             LoginLog loginLogEntity = new LoginLog();
             loginLogEntity.setAdmin(admin.get());

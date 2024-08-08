@@ -30,7 +30,6 @@ public class AdminLogService {
     public LoginLog regist(AdminLogDto loginLog) {
         LoginLog loginLogEntity = new LoginLog();
         loginLogEntity.setAdmin(loginLog.getAdmin());
-        loginLogEntity.setLoginTime(loginLog.getTime());
         return adminLogRepository.save(loginLogEntity);
     }
 }

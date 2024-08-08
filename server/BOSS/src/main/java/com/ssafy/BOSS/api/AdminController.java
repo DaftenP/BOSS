@@ -1,9 +1,11 @@
 package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Admin;
+import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.dto.adminDto.AdminReturnDto;
 import com.ssafy.BOSS.dto.adminDto.SignInDto;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
+import com.ssafy.BOSS.service.AdminLogService;
 import com.ssafy.BOSS.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,12 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AdminController {
 
     private final AdminService adminService;
+    private final AdminLogService adminLogService;
 
     @PostMapping("/sign-in")
     public JwtToken signIn(@RequestBody SignInDto signInDto) {
         String username = signInDto.getAdminLoginId();
         String password = signInDto.getAdminLoginPw();
         JwtToken jwtToken = adminService.signIn(username, password);
+        Admin admin = adminService.login(username, password);
+        AdminLogDto adminLogDto = new AdminLogDto();
+        adminLogDto.setAdmin(admin);
+        adminLogService.regist(adminLogDto);
         log.info("request username = {}, password = {}", username, password);
         log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
         return jwtToken;

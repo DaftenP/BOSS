@@ -2,6 +2,7 @@ package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Admin;
 import com.ssafy.BOSS.domain.LoginLog;
+import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.repository.AdminLogRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,13 @@ public class AdminLogService {
 
     public List<LoginLog> findByAdmin(Optional<Admin> admin) {
         return adminLogRepository.findByAdmin(admin);
+    }
+
+    @Transactional
+    public LoginLog regist(AdminLogDto loginLog) {
+        LoginLog loginLogEntity = new LoginLog();
+        loginLogEntity.setAdmin(loginLog.getAdmin());
+        loginLogEntity.setLoginTime(loginLog.getTime());
+        return adminLogRepository.save(loginLogEntity);
     }
 }

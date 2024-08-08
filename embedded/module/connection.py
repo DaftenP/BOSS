@@ -6,11 +6,11 @@ BASE_URI = r'https://i11e102.p.ssafy.io/api/'
 
 
 def get_member_info(nfc_id: str):
-    response = requests.get(BASE_URI + f'member/{nfc_id}')
+    response = requests.get(BASE_URI + f'member/check/{nfc_id}')
     if response.status_code == 200:
         return response.json()
     else:
-        print(response.status_code)
+        print(f'get_member_info : error {response.status_code}')
         return None
 
 
@@ -19,12 +19,25 @@ def post_log(log: dict):
     return response.status_code
 
 
-def get_member_logs(member_id: int):
-    response = requests.get(BASE_URI + f'log/search?member_id={member_id}&issue={1}')
+def get_member_logs(member_id: int, issue: bool = True):
+    response = requests.get(
+        BASE_URI + f'log/search?memberId={member_id}{"&issue=1" if issue else ("&startTime=" + datetime.now().strftime("%Y-%m-%d") + "T00:00:00")}')
     if response.status_code == 200:
-        return response
+        return response.json()
     else:
-        print(response.status_code)
+        print(f'get_member_logs : error {response.status_code}')
+        return None
+
+
+def get_image(url: str):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.content
+        else:
+            print(f'get_image : error {response.status_code}')
+            return None
+    except:
         return None
 
 # Test Code

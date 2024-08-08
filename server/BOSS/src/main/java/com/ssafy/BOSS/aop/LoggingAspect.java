@@ -18,15 +18,7 @@ public class LoggingAspect {
     public void controllerPointcut() {
     }
 
-    @Pointcut("execution(* com.ssafy.BOSS..*Repository.*(..))")
-    public void repositoryPointcut() {
-    }
-
-    @Pointcut("execution(* com.ssafy.BOSS..*Service.*(..))")
-    public void servicePointcut() {
-    }
-
-    @Pointcut("controllerPointcut() || repositoryPointcut() || servicePointcut()")
+    @Pointcut("controllerPointcut()")
     public void mvcPointcut() {
     }
 

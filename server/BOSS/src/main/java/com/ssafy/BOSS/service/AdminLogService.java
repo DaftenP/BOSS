@@ -4,10 +4,12 @@ import com.ssafy.BOSS.domain.Admin;
 import com.ssafy.BOSS.domain.LoginLog;
 import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.repository.AdminLogRepository;
+import com.ssafy.BOSS.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +19,12 @@ import java.util.Optional;
 public class AdminLogService {
 
     private final AdminLogRepository adminLogRepository;
+    private final AdminRepository adminRepository;
 
-    public List<LoginLog> findAll() {
-        return adminLogRepository.findAll();
+    @Transactional
+    public List<AdminLogDto> findAll() {
+        List<LoginLog> all = adminLogRepository.findAll();
+        return all.stream().map(AdminLogDto::of).toList();
     }
 
     public List<LoginLog> findByAdmin(Optional<Admin> admin) {
@@ -27,10 +32,12 @@ public class AdminLogService {
     }
 
     @Transactional
-    public LoginLog regist(AdminLogDto loginLog) {
-        LoginLog loginLogEntity = new LoginLog();
-        loginLogEntity.setAdmin(loginLog.getAdmin());
-        loginLogEntity.setLoginTime(loginLog.getTime());
-        return adminLogRepository.save(loginLogEntity);
+    public void regist(AdminLogDto loginLog) {
+        Optional <Admin> admin = adminRepository.findByAdminName(loginLog.getAdmin().getAdminName());
+        if (admin.isPresent()) {
+            LoginLog loginLogEntity = new LoginLog();
+            loginLogEntity.setAdmin(admin.get());
+            adminLogRepository.save(loginLogEntity);
+        }
     }
 }

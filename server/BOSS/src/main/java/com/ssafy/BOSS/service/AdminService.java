@@ -1,6 +1,8 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Admin;
+import com.ssafy.BOSS.dto.adminDto.AdminDto;
+import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.jwt.JwtTokenProvider;
 import com.ssafy.BOSS.repository.AdminRepository;
@@ -38,10 +40,14 @@ public class AdminService {
         return jwtToken;
     }
 
-    public Admin login(String adminLoginId, String adminLoginPw) {
+    @Transactional
+    public AdminLogDto checkAdmin(String adminLoginId, String adminLoginPw) {
         Optional<Admin> admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw);
         if (admin.isPresent()) {
-            return admin.get();
+            AdminLogDto adminLogDto = new AdminLogDto();
+            AdminDto adminDto = AdminDto.of(admin.get());
+            adminLogDto.setAdmin(adminDto);
+            return adminLogDto;
         } else {
             return null;
         }

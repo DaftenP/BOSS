@@ -8,8 +8,9 @@ class SoundPlayer:
 
         # Define relative paths
         self.base_path = os.path.abspath(os.path.dirname(__file__))
-        self.alert_path = os.path.join(self.base_path, "../pi5/sound/alert.mp3")
-        self.check_path = os.path.join(self.base_path, "../pi5/sound/check.mp3")
+        self.sound_folder = os.path.join(self.base_path, '../sound')
+        self.alert_path = os.path.join(self.sound_folder, 'alert.mp3')
+        self.check_path = os.path.join(self.sound_folder, 'check.mp3')
 
     def load_music(self, file_path):
         """Load a music file."""

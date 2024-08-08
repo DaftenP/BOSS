@@ -21,8 +21,8 @@ class UARTCommunication:
             print(f"Serial communication error: {e}")
         except Exception as e:
             print(f"Error with UART communication: {e}")
-        finally:
-            self.cleanup()
+        #finally:
+            #self.cleanup()
 
     def receive_message(self):
         """Receive message via UART."""

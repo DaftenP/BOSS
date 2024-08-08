@@ -3,13 +3,13 @@ package com.ssafy.BOSS.service;
 import com.ssafy.BOSS.domain.Admin;
 import com.ssafy.BOSS.domain.LoginLog;
 import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
+import com.ssafy.BOSS.mapper.AdminLogMapper;
 import com.ssafy.BOSS.repository.AdminLogRepository;
 import com.ssafy.BOSS.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +21,12 @@ public class AdminLogService {
     private final AdminLogRepository adminLogRepository;
     private final AdminRepository adminRepository;
 
+    private final AdminLogMapper adminLogMapper;
+
     @Transactional
     public List<AdminLogDto> findAll() {
         List<LoginLog> all = adminLogRepository.findAll();
-        return all.stream().map(AdminLogDto::of).toList();
+        return all.stream().map(adminLogMapper::loginLogToAdminLogDto).toList();
     }
 
     public List<LoginLog> findByAdmin(Optional<Admin> admin) {

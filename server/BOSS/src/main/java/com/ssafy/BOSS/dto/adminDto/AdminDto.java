@@ -13,13 +13,4 @@ public class AdminDto {
     private String adminLoginId;
     private String adminLoginPw;
     private String adminName;
-
-    public static AdminDto of(Admin admin) {
-        AdminDto adminDto = new AdminDto();
-        adminDto.setId(admin.getId());
-        adminDto.setAdminLoginId(admin.getAdminLoginId());
-        adminDto.setAdminLoginPw(admin.getAdminLoginPw());
-        adminDto.setAdminName(admin.getAdminName());
-        return adminDto;
-    }
 }

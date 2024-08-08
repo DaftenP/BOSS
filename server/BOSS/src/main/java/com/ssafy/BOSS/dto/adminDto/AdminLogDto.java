@@ -8,14 +8,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class AdminLogDto {
-
     private AdminDto admin;
     private LocalDateTime time;
-
-    public static AdminLogDto of(LoginLog log) {
-        AdminLogDto adminLogDto = new AdminLogDto();
-        adminLogDto.setAdmin(AdminDto.of(log.getAdmin()));
-        adminLogDto.setTime(log.getLoginTime());
-        return adminLogDto;
-    }
 }

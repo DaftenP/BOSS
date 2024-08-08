@@ -1,4 +1,4 @@
-from pn532 import PN532
+from module.pn532.api import PN532
 
 class NFCReader:
     def __init__(self):

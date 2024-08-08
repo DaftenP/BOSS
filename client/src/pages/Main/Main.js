@@ -190,40 +190,41 @@ function Main() {
   return (
     <div className={classes.mainContainer}>
       <div className={classes.todayIssueContainer}>
+        <div className={classes.chartTitle}>{t('Today\'s Issues Summary', "금일 이슈 요약")}</div>
+        <div className={classes.statisticsContainer}>
+          <div className={`${classes.card} ${classes.topCard}`}>
+            <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
+            <div className={classes.cardContent}>
+              <div className={classes.cardTitle}>{t('Total Inspections Today')}</div>
+              <div className={classes.cardValue}>{firstFilteredLogs.length} {t('times')}</div>
+            </div>
+          </div>
+          <div className={`${classes.card} ${classes.bottomRightCard}`}>
+            <FontAwesomeIcon icon={faExclamationTriangle} className={classes.cardIcon} />
+            <div className={classes.cardContent}>
+              <div className={classes.cardTitle}>{t('Issues Detected')}</div>
+              <div className={classes.cardValue}>{secondFilteredLogs.length} {t('times')}</div>
+            </div>
+          </div>
+          <div className={`${classes.card} ${classes.bottomLeftCard}`}>
+            <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
+            <div className={classes.cardContent}>
+              <div className={classes.cardTitle}>{t('Issue Ratio Today')}</div>
+              <div className={classes.cardValue}>{errorPercent} %</div>
+            </div>
+          </div>
+        </div>
         <div>
           <div className={classes.chartTitle}>
             {t('Today\'s Issues')}
-            <div className={classes.lineChartContainer}>
-              <Line data={chartData} options={options} />
+            <div className={classes.doughnutChartContainer}>
+              <Doughnut data={doughnutData} options={optionsDoughnut} />
             </div>
           </div>
           <div className={classes.doughnutChartTitle}>{t('Today\'s Issue Ratio')}</div>
-          <div className={classes.doughnutChartContainer}>
-            <Doughnut data={doughnutData} options={optionsDoughnut} />
-          </div>
-          <div className={classes.statisticsContainer}>
-            <div className={`${classes.card} ${classes.topCard}`}>
-              <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
-              <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>{t('Total Inspections Today')}</div>
-                <div className={classes.cardValue}>{firstFilteredLogs.length} {t('times')}</div>
-              </div>
+            <div className={classes.lineChartContainer}>
+              <Line data={chartData} options={options} />
             </div>
-            <div className={`${classes.card} ${classes.bottomRightCard}`}>
-              <FontAwesomeIcon icon={faExclamationTriangle} className={classes.cardIcon} />
-              <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>{t('Issues Detected')}</div>
-                <div className={classes.cardValue}>{secondFilteredLogs.length} {t('times')}</div>
-              </div>
-            </div>
-            <div className={`${classes.card} ${classes.bottomLeftCard}`}>
-              <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
-              <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>{t('Issue Ratio Today')}</div>
-                <div className={classes.cardValue}>{errorPercent} %</div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div className={classes.issueLogContainer}>

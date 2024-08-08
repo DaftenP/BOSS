@@ -20,7 +20,6 @@ function Sidebar() {
     const path = location.pathname.slice(1); // 현재 경로의 슬래시를 제거한 후 설정
     dispatch(navigationActions.setActivePage(path));
   }, [location, dispatch]);
-  console.log(activePage)
 
   return (
     <div className={classes.sidebar}>

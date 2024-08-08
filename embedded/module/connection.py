@@ -1,44 +1,38 @@
 from datetime import datetime
-
-import requests
+import aiohttp
 
 BASE_URI = r'https://i11e102.p.ssafy.io/api/'
 
 
-def get_member_info(nfc_id: str):
-    response = requests.get(BASE_URI + f'member/check/{nfc_id}')
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f'get_member_info : error {response.status_code}')
-        return None
+async def get_member_info(nfc_id: str):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(BASE_URI + f'member/check/{nfc_id}') as response:
+            if response.status == 200:
+                return await response.json()
+            else:
+                print(f'get_member_info : error {response.status}')
+                return None
 
 
-def post_log(log: dict):
-    response = requests.post(BASE_URI + 'log/regist', json=log)
-    return response.status_code
+async def get_member_logs(member_id: int, issue: bool = True):
+    async with aiohttp.ClientSession() as session:
+        url = BASE_URI + f'log/search?memberId={member_id}{"&issue=1" if issue else ("&startTime=" + datetime.now().strftime("%Y-%m-%d") + "T00:00:00")}'
+        async with session.get(url) as response:
+            if response.status == 200:
+                return await response.json()
+            else:
+                print(f'get_member_logs : error {response.status}')
+                return None
 
 
-def get_member_logs(member_id: int, issue: bool = True):
-    response = requests.get(
-        BASE_URI + f'log/search?memberId={member_id}{"&issue=1" if issue else ("&startTime=" + datetime.now().strftime("%Y-%m-%d") + "T00:00:00")}')
-    if response.status_code == 200:
-        return response.json()
-    else:
-        print(f'get_member_logs : error {response.status_code}')
-        return None
-
-
-def get_image(url: str):
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            return response.content
-        else:
-            print(f'get_image : error {response.status_code}')
-            return None
-    except:
-        return None
+async def get_image(url: str):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                return await response.read()
+            else:
+                print(f'get_image : error {response.status}')
+                return None
 
 # Test Code
 # if __name__ == '__main__':

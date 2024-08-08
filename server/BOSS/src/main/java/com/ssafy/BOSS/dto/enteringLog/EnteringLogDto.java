@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @ToString
 public class EnteringLogDto {
-
     private Long logId;
     private MemberDto member;
     private LocalDateTime time;
@@ -24,21 +23,4 @@ public class EnteringLogDto {
     private int stickerCount;
     private int issue;
     private int cameraLens;
-
-    private static MemberMapper memberMapper;
-
-    public static EnteringLogDto of(EnteringLog enteringLog) {
-        EnteringLogDto enteringLogDto = new EnteringLogDto();
-        enteringLogDto.setLogId(enteringLog.getLogId());
-        enteringLogDto.setMember(memberMapper.memberToMemberDto(enteringLog.getMember()));
-        enteringLogDto.setTime(enteringLog.getTime());
-        enteringLogDto.setDeviceFrontImage(enteringLog.getDeviceFrontImage());
-        enteringLogDto.setDeviceBackImage(enteringLog.getDeviceBackImage());
-        enteringLogDto.setEntering(enteringLog.getEntering());
-        enteringLogDto.setGateNumber(enteringLog.getGateNumber());
-        enteringLogDto.setStickerCount(enteringLog.getStickerCount());
-        enteringLogDto.setIssue(enteringLog.getIssue());
-        enteringLogDto.setCameraLens(enteringLog.getCameraLens());
-        return enteringLogDto;
-    }
 }

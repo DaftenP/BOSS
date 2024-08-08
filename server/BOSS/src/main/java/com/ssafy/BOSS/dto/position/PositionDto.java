@@ -7,11 +7,4 @@ import lombok.Data;
 public class PositionDto {
     private int positionId;
     private String positionName;
-
-    public static PositionDto of(Position position) {
-        PositionDto dto = new PositionDto();
-        dto.setPositionId(position.getPositionId());
-        dto.setPositionName(position.getPositionName());
-        return dto;
-    }
 }

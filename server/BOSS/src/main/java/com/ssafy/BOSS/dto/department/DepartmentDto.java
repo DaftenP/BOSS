@@ -7,11 +7,4 @@ import lombok.Data;
 public class DepartmentDto {
     private int departmentId;
     private String departmentName;
-
-    public static DepartmentDto of(Department department) {
-        DepartmentDto dto = new DepartmentDto();
-        dto.setDepartmentId(department.getDepartmentId());
-        dto.setDepartmentName(department.getDepartmentName());
-        return dto;
-    }
 }

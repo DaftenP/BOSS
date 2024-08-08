@@ -2,6 +2,7 @@ package com.ssafy.BOSS.dto.enteringLog;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.dto.memberDto.MemberDto;
+import com.ssafy.BOSS.mapper.MemberMapper;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,10 +25,12 @@ public class EnteringLogDto {
     private int issue;
     private int cameraLens;
 
+    private static MemberMapper memberMapper;
+
     public static EnteringLogDto of(EnteringLog enteringLog) {
         EnteringLogDto enteringLogDto = new EnteringLogDto();
         enteringLogDto.setLogId(enteringLog.getLogId());
-        enteringLogDto.setMember(MemberDto.of(enteringLog.getMember()));
+        enteringLogDto.setMember(memberMapper.memberToMemberDto(enteringLog.getMember()));
         enteringLogDto.setTime(enteringLog.getTime());
         enteringLogDto.setDeviceFrontImage(enteringLog.getDeviceFrontImage());
         enteringLogDto.setDeviceBackImage(enteringLog.getDeviceBackImage());

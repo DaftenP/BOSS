@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/api")
 public class SseController {
 
     private final CommentService commentService;

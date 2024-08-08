@@ -2,14 +2,12 @@ package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.Admin;
 import com.ssafy.BOSS.domain.LoginLog;
+import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.service.AdminLogService;
 import com.ssafy.BOSS.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -38,5 +36,11 @@ public class AdminLogController {
             return ResponseEntity.notFound().build();
         }
 
+    }
+
+    @PutMapping("/regist")
+    public ResponseEntity<?> regist(@RequestBody AdminLogDto admin) {
+        adminLogService.regist(admin);
+        return ResponseEntity.ok().build();
     }
 }

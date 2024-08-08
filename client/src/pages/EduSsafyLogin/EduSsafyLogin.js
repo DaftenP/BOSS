@@ -40,16 +40,16 @@ export default function Main() {
 
     if (member) {
       console.log('로그인 성공:', member);
-      handleLoginClick();
-      // 로그인 성공 처리, 예를 들어 유저 상태 저장, 리디렉션 등
+      navigate('/edussafy', { state: { member } });
+      // handleLoginClick();
     } else {
       setErrorMessage('아이디 또는 비밀번호를 잘못 입력했습니다.');
     }
   };
 
-  const handleLoginClick = () => {
-    navigate('/EduSsafy');
-  };
+  // const handleLoginClick = () => {
+  //   navigate('/edussafy');
+  // };
 
   const closeModal = () => {
     setErrorMessage(null);

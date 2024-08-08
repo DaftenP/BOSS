@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classes from './EduSsafy.module.css';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 // import './EduSsafy.module.css';
 
 export default function Main() {
@@ -19,6 +20,14 @@ export default function Main() {
   // 날짜, 시간 변수
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
+  const location = useLocation();
+  const { member } = location.state || {}; // 전달된 사용자 정보
+  // console.log('Location state:', location.state); // 추가된 로그
+
+  const memberId = member?.memberId || '알 수 없음';
+  const name = member?.name || '알 수 없음';
+
+  // console.log({ member});
   // 입실/퇴실 상태 변경 함수
   const checkIn = () => {
     console.log(incheckTime);
@@ -44,7 +53,7 @@ export default function Main() {
     navigate('/EduSsafyLogin');
   };
 
-  
+  console.log(member);
 
   useEffect(() => {
     // Google Fonts link 요소 생성
@@ -137,8 +146,8 @@ export default function Main() {
         </div>
 
         <div className={classes['navigate-container']}>
-          <span className={classes['number']}>1158916</span>
-          <span className={classes['kim-ji-hwan']}>김지환</span>
+          <span className={classes['number']}>{memberId}</span>
+          <span className={classes['kim-ji-hwan']}>{name}</span>
           <span className={classes['name']}>님</span>
           {/* 드롭다운을 여는 버튼 */}
           <div className={classes['navigate-next']} onClick={toggleDropdown} />

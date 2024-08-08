@@ -67,9 +67,10 @@ public class EnteringLogController {
             @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
     ) {
         EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
+        EnteringLogDto enteringLogDto = EnteringLogDto.of(enteringLog);
 
         if(enteringLog.getIssue() == 1) {
-            sseEmiiters.createIssue(enteringLog);
+            sseEmiiters.createIssue(enteringLogDto);
         }
 //        if (enteringLog.isFail()) {
 //            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);

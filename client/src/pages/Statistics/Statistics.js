@@ -15,9 +15,9 @@ function Statistics() {
   
   return (
     <div className={classes.statisticsContainer}>
+      <SummaryStatistics loglist={loglist} />
       <DateStatistics loglist={loglist} />
       <TotalStatistics loglist={loglist} />
-      <SummaryStatistics loglist={loglist} />
     </div>
   );
 }

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLogs, updateLog, fetchFilteredLogs, loglistActions } from '../../store/loglist';
+import { fetchDepartmentLists } from '../../store/department';
+import { fetchPositionLists } from '../../store/position';
 import lightClasses from './Loglist.module.css';
 import darkClasses from './LoglistDark.module.css';
 import pictureIcon from '../../assets/List/Picture_icon.png';
@@ -130,12 +132,27 @@ function LogTable() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
   const logsData = useSelector((state) => state.loglist.data);
+  const departmentLists = useSelector((state) => state.department.data)
+  const positionLists = useSelector((state) => state.position.data)
+  const [selectedSearchOption, setSelectedSearchOption] = useState('quick')
 
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(fetchDepartmentLists());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchPositionLists());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(fetchLogs());
   }, [dispatch]);
+
+  const handleSearchOptionChange = (event) => {
+    setSelectedSearchOption(event.target.value)
+  }
 
   const [visibleCount, setVisibleCount] = useState(20);
   const [update, setUpdate] = useState(false);
@@ -239,58 +256,138 @@ function LogTable() {
           {t('FILTERING')}
         </div>
         <div className={classes.inputContainer}>
+          <div className={classes.optionLabel}>{t('searchOptions', '검색 옵션')}</div>
+            <div className={classes.optionContainer}>
+            <label className={classes.radioLabel}>
+              <input
+                type="radio"
+                value="quick"
+                checked={selectedSearchOption === 'quick'}
+                onChange={handleSearchOptionChange}
+                className={classes.radioInput}
+              />
+              {t('quickSearch', '간편 검색')}
+            </label>
+            <label className={classes.radioLabel}>
+              <input
+                type="radio"
+                value="advanced"
+                checked={selectedSearchOption === 'advanced'}
+                onChange={handleSearchOptionChange}
+                className={classes.radioInput}
+              />
+              {t('advancedSearch', '상세 검색')}
+            </label>
+          </div>
           <form onSubmit={handleFilter} className={classes.relativeBoxContainer}>
-            <table className={classes.filterTable}>
-              <tbody>
-                <tr>
-                  <td>
-                    <label htmlFor="name" className={classes.labelText}>{t('Name')}</label>
-                    <input className={classes.inputText} type="text" name="name" placeholder={t('Name')} value={filters.name} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="memberId" className={classes.labelText}>{t('Member ID')}</label>
-                    <input className={classes.inputText} type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="departmentName" className={classes.labelText}>{t('Department')}</label>
-                    <input className={classes.inputText} type="text" name="departmentName" placeholder={t('Department')} value={filters.departmentName} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="positionName" className={classes.labelText}>{t('Position')}</label>
-                    <input className={classes.inputText} type="text" name="positionName" placeholder={t('Position')} value={filters.positionName} onChange={handleInputChange} />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label htmlFor="startDate" className={classes.labelText}>{t('Start Date')}</label>
-                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="startTime" className={classes.labelText}>{t('Start Time')}</label>
-                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="startTime" value={filters.startTime} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="endDate" className={classes.labelText}>{t('End Date')}</label>
-                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="endTime" className={classes.labelText}>{t('End Time')}</label>
-                    <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="endTime" value={filters.endTime} onChange={handleInputChange} />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <label htmlFor="entering" className={classes.labelText}>{t('In/Out')}</label>
-                    <input className={classes.inputText} type="number" name="entering" placeholder={t('In/Out')} value={filters.entering} onChange={handleInputChange} />
-                  </td>
-                  <td>
-                    <label htmlFor="issue" className={classes.labelText}>{t('Security Issue')}</label>
-                    <input className={classes.inputText} type="number" name="issue" placeholder={t('Security Issue')} value={filters.issue} onChange={handleInputChange} />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-            <button type="submit" className={classes.formButton}>{t('Search')}</button>
+            {selectedSearchOption === 'quick' ? (
+              <table className={classes.filterTable}>
+                <tbody>
+                  <tr>
+                    <td>
+                      <label htmlFor="name" className={classes.labelText}>{t('Name')}</label>
+                      <input className={classes.inputText} type="text" name="name" placeholder={t('Name')} value={filters.name} onChange={handleInputChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="memberId" className={classes.labelText}>{t('Member ID')}</label>
+                      <input className={classes.inputText} type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
+                    </td>
+                    <td className={classes.buttonCell}>
+                      <br />
+                      <button type="submit" className={classes.formButton}>{t('Search')}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <table className={classes.filterTable}>
+                <tbody>
+                  <tr>
+                    <td className={classes.tdCell}>
+                      <br />
+                      <div>{t('Basic Info', '기본 정보')}</div>
+                    </td>
+                    <td>
+                      <label htmlFor="name" className={classes.labelText}>{t('Name')}</label>
+                      <input className={classes.inputText} type="text" name="name" placeholder={t('Name')} value={filters.name} onChange={handleInputChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="memberId" className={classes.labelText}>{t('Member ID')}</label>
+                      <input className={classes.inputText} type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
+                    </td>
+                    <td className={`${classes.tdCell} ${classes.timeCell}`}>
+                      <br />
+                      <div>{t('Time Info', '시간 정보')}</div>
+                    </td>
+                    <td>
+                      <label htmlFor="startDate" className={classes.labelText}>{t('Start Date')}</label>
+                      <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="startDate" value={filters.startDate} onChange={handleInputChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="startTime" className={classes.labelText}>{t('Start Time')}</label>
+                      <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="startTime" value={filters.startTime} onChange={handleInputChange} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={classes.tdCell}>
+                      <br />
+                      <div>{t('Job Info', '부서 정보')}</div>
+                    </td>
+                    <td>
+                      <label htmlFor="departmentName" className={classes.labelText}>{t('Department')}</label>
+                      <select className={classes.inputText} name="departmentName" value={filters.departmentName} onChange={handleInputChange}>
+                        <option value="">{t('Select Department', '부서 선택')}</option>
+                        {departmentLists.map((department) => (
+                          <option key={department.departmentId} value={department.departmentName}>
+                            {department.departmentName}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>
+                      <label htmlFor="positionName" className={classes.labelText}>{t('Position')}</label>
+                      <select className={classes.inputText} name="positionName" value={filters.positionName} onChange={handleInputChange}>
+                        <option value="">{t('Select Position', '직무 선택')}</option>
+                        {positionLists.map((position) => (
+                          <option key={position.positionId} value={position.positionName}>
+                            {position.positionName}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td></td>
+                    <td>
+                      <label htmlFor="endDate" className={classes.labelText}>{t('End Date')}</label>
+                      <input className={`${classes.inputText} ${classes.specificInputText}`} type="date" name="endDate" value={filters.endDate} onChange={handleInputChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="endTime" className={classes.labelText}>{t('End Time')}</label>
+                      <input className={`${classes.inputText} ${classes.specificInputText}`} type="time" name="endTime" value={filters.endTime} onChange={handleInputChange} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={classes.tdCell}>
+                      <br />
+                      <div>{t('Security Info', '보안 정보')}</div>
+                    </td>
+                    <td>
+                      <label htmlFor="entering" className={classes.labelText}>{t('In/Out')}</label>
+                      <input className={classes.inputText} type="number" name="entering" placeholder={t('In/Out')} value={filters.entering} onChange={handleInputChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="issue" className={classes.labelText}>{t('Security Issue')}</label>
+                      <input className={classes.inputText} type="number" name="issue" placeholder={t('Security Issue')} value={filters.issue} onChange={handleInputChange} />
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td className={classes.buttonCell}>
+                      <br />
+                      <button type="submit" className={classes.formButton}>{t('Search')}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            )}
           </form>
         </div>
       </div>
@@ -330,9 +427,9 @@ function LogTable() {
                 <td>{log.member.position.positionName}</td>
                 <td>{log.time.split('T')[0]}</td>
                 <td>{log.time.split('T')[1]}</td>
-                <td>{log.entering}</td>
-                <td>{log.issue}</td>
-                <td>{log.stickerCount}</td>
+                <td>{log.entering === 0 ? (<div className={classes.entryText}>{t('Entry', '출입')}</div>) : (<div className={classes.exitText}>{t('Exit', '퇴장')}</div>)}</td>
+                <td>{log.issue === 0 ? (<div className={classes.noIssue}>{t('Clear', '정상')}</div>) : (<div className={classes.issueDetected}>{t('Alert', '경고')}</div>)}</td>
+                <td className={classes.countText}>{log.stickerCount}</td>
                 <td>
                   <div onClick={() => handleShowModal(log)}>
                     <img className={classes.logIcon} src={pictureIcon} alt="picture_icon" />

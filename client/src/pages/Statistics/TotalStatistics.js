@@ -330,6 +330,15 @@ function TotalStatistics({ loglist }) {
               </label>
             </div>
             <div className={classes.buttonContainer}>
+              {selectedTotalXOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month' || selectedTotalXOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
               {(selectedTotalXOption === 'day' || selectedTotalXOption === 'week') && (
                 <input
                   className={`${classes.inputText} ${classes.specificInputText}`}

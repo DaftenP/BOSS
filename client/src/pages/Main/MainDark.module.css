@@ -125,6 +125,10 @@ position: relative;
   text-align: center;
 }
 
+.logTable th {
+  background-color: #333333;
+}
+
 .totalRuleContainer {
   border: 1px solid #242424;
   border-radius: 20px;
@@ -232,11 +236,6 @@ position: relative;
 
 .warningFont {
   color: #CF6679;
-  font-weight: bold;
-}
-
-.highlight {
-  color: #BB86FC;
   font-weight: bold;
 }
 
@@ -352,14 +351,14 @@ position: relative;
 }
 
 .topCard {
-  top: 50px;
+  top: 20px;
   background: linear-gradient(135deg, #4a4a5a, #6a6a7a);
   color: #ffffff;
   position: absolute;
 }
 
 .bottomRightCard {
-  bottom: 0;
+  bottom: 20px;
   right: 0;
   background: linear-gradient(135deg, #5a4a4a, #7a6a6a);
   color: #ffffff;
@@ -367,7 +366,7 @@ position: relative;
 }
 
 .bottomLeftCard {
-  bottom: 0;
+  bottom: 20px;
   left: 0;
   background: linear-gradient(135deg, #4a5a4a, #6a7a6a);
   color: #ffffff;

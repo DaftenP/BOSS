@@ -83,9 +83,9 @@ function Navbar() {
           <tbody>
             {logs.map((log, index) => (
               <tr key={index}>
-                <td className={classes.cell}>{log.date}</td>
-                <td className={classes.cell}>{log.time}</td>
-                <td className={classes.cell}>{log.name}</td>
+                <td className={classes.cell}>{log.time.split('T')[0]}</td>
+                <td className={classes.cell}>{log.time.split('T')[1].split('.')[0]}</td>
+                <td className={classes.cell}>{log.admin.adminName}</td>
               </tr>
             ))}
           </tbody>

@@ -28,13 +28,12 @@
 }
 
 .formButton {
-  position: absolute;
-  bottom: 8px;
-  right: 2px;
   cursor: pointer;
   background-color: #52e2c2;
   color: #e3e3e3;
   padding: 8px 30px;
+  min-width: 100px;
+  margin: 0 0 0 25px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 20px;
@@ -42,7 +41,7 @@
 }
 
 .formButton:hover {
-  background-color: #bbb;
+  background-color: #41ad96;
 }
 
 .filteringBox {
@@ -76,30 +75,86 @@
 .inputText {
   color: #e3e3e3;
   background-color: #4d505f;
-  margin-right: 30px;
+  width: 12.3vw;
+  margin: 0;
   margin-bottom: 10px;
+  padding-left: 6.5px;
+  padding-right: 10px;
+  height: 32px;
+  box-sizing: border-box;
   border-radius: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
-  height: 19px;
   border: 1px solid #333333;
 }
 
 .specificInputText {
-  width: 150px;
   color: #bbb;
   text-align: center;
 }
 
 .inputContainer {
   margin: 20px;
-  width: 80%;
+  width: 100%;
 }
 
 .inputText::placeholder {
   color: #bbb;
   text-align: center;
   font-size: 10px;
+}
+
+.optionLabel {
+  color: #bbb;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.optionContainer {
+  display: flex;
+  color: #bbb;
+  border-bottom: 1px solid #CDCDCD;
+  padding: 5px 0px 5px 0px;
+  margin-bottom: 9px;
+  max-width: 280px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.radioInput {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* .radioCustom {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  margin-right: 8px;
+  position: relative;
+} */
+
+.radioInput:checked + .radioCustom {
+  border-color: #007bff;
+  background-color: #007bff;
+}
+
+.radioCustom::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
 }
 
 .listTitle {
@@ -168,7 +223,6 @@
 }
 
 .filterTable {
-  width: 100%;
   border-collapse: collapse;
 }
 
@@ -181,12 +235,6 @@
 .filterTable label {
   display: block;
   margin-bottom: 3px;
-}
-
-.inputText, .specificInputText {
-  width: calc(100% - 10px);
-  margin-bottom: 5px;
-  padding: 5px;
 }
 
 .submitButtonCell {
@@ -345,4 +393,63 @@
 .updateButtonContainer {
   display: flex;
   justify-content: flex-end;
+}
+
+.inputText:focus {
+  border-color: 1px solid #76b3e6;
+  box-shadow: 0 0 5px rgba(118, 179, 230, 0.5);
+  outline: none;
+}
+
+.tdCell {
+  display: block;
+}
+
+.tdCell div {
+  text-align: center;
+  padding: 5px 15px;
+  background-color: #52e2c2;
+  border-radius: 10px;
+  color: #fff;
+  border: none;
+  margin: 0 10px 0 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.buttonCell {
+  vertical-align: middle;
+  padding-top: 0;
+  line-height: 1;
+  text-align: right;
+}
+
+.timeCell {
+  margin-left: 30px;
+}
+
+.inputText option {
+  text-align: center;
+}
+
+.entryText {
+  color: #1E90FF;
+}
+
+.exitText {
+  color: #A9A9A9;
+}
+
+.noIssue {
+  font-weight: bold;
+  color: #90ee90;
+}
+
+.issueDetected {
+  font-weight: bold;
+  color: #ff6f6f;
+}
+
+.countText {
+  font-weight: bold;
 }

@@ -260,6 +260,15 @@ function DateStatistics({ loglist }) {
               </label>
             </div>
             <div className={classes.buttonContainer}>
+              {selectedDateXOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedDateXOption === 'year' || selectedDateXOption === 'month' || selectedDateXOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedDateXOption === 'year' || selectedDateXOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
               {(selectedDateXOption === 'day' || selectedDateXOption === 'week') && (
                 <input
                   className={classes.inputText}

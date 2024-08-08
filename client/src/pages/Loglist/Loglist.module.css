@@ -27,14 +27,13 @@
 }
 
 .formButton {
-  position: absolute;
-  bottom: 8px;
-  right: 2px;
   cursor: pointer;
   background-color: #B0D2FA;
   color: #0A47A3;
   border: none;
   padding: 8px 30px;
+  min-width: 100px;
+  margin: 0 0 0 25px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 20px;
@@ -72,24 +71,25 @@
 }
 
 .inputText {
-  margin-right: 30px;
+  width: 12.3vw;
+  margin: 0;
   margin-bottom: 10px;
+  padding-left: 6.5px;
+  padding-right: 10px;
+  height: 32px;
+  box-sizing: border-box;
   border-radius: 10px;
-  padding-left: 5px;
-  padding-right: 5px;
-  height: 19px;
   border: 1px solid #CDCDCD;
 }
 
 .specificInputText {
-  width: 150px;
   color: gray;
   text-align: center;
 }
 
 .inputContainer {
   margin: 20px;
-  width: 80%;
+  width: 100%;
 }
 
 .inputText::placeholder {
@@ -104,6 +104,10 @@
 
 .optionContainer {
   display: flex;
+  border-bottom: 1px solid #CDCDCD;
+  padding: 5px 0px 5px 0px;
+  margin-bottom: 9px;
+  max-width: 280px;
 }
 
 .radioLabel {
@@ -208,7 +212,6 @@
 }
 
 .filterTable {
-  width: 100%;
   border-collapse: collapse;
 }
 
@@ -221,12 +224,6 @@
 .filterTable label {
   display: block;
   margin-bottom: 3px;
-}
-
-.inputText, .specificInputText {
-  width: calc(100% - 10px);
-  margin-bottom: 5px;
-  padding: 5px;
 }
 
 .submitButtonCell {
@@ -381,4 +378,65 @@
 .updateButtonContainer {
   display: flex;
   justify-content: flex-end;
+}
+
+.inputText:focus {
+  border: 1px solid #4A90E2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  outline: none;
+}
+
+.tdCell {
+  display: block;
+}
+
+.tdCell div {
+  text-align: center;
+  padding: 5px 15px;
+  background-color: #B0D2FA;
+  border-radius: 10px;
+  color: #0A47A3;
+  border: none;
+  margin: 0 10px 0 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.buttonCell {
+  vertical-align: left;
+  padding-top: 0;
+  line-height: 1;
+  text-align: right;
+}
+
+.timeCell {
+  margin-left: 30px;
+}
+
+.inputText option {
+  text-align: center;
+}
+
+.entryText {
+  color: blue;
+  font-weight: bold;
+}
+
+.exitText {
+  color: gray;
+  font-weight: bold;
+}
+
+.noIssue {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.issueDetected {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.countText {
+  font-weight: bold;
 }

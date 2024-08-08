@@ -5,15 +5,18 @@ import { setAccessToken, setRefreshToken, getAccessToken, getRefreshToken, remov
 export const login = createAsyncThunk('login/login', async (adminInfo) => {
   const response = await api.post('/api/admin/sign-in', adminInfo);
 
-  console.log('Server response:', response.data);
-
   const accessToken = response.data.accessToken;
-  const refreshToken = response.data.refreshToken
+  const refreshToken = response.data.refreshToken;
+  console.log('reponse데이터', response.data)
+  const adminName = response.data.adminName;
 
   setAccessToken(accessToken);
   setRefreshToken(refreshToken);
   
-  return response.data;
+  return {
+    ...response.data,
+    adminName,
+  }
 });
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {
@@ -57,8 +60,8 @@ const loginSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLogin = true;
         state.success = true;
-        // state.adminName = action.payload.adminName;
-        state.adminName = action.payload.adminId;
+        console.log(action.payload)
+        state.adminName = action.payload.adminName;
         state.loginTime = new Date().toISOString();
         state.error = null;
       })

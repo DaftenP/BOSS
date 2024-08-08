@@ -27,14 +27,13 @@
 }
 
 .formButton {
-  position: absolute;
-  bottom: 8px;
-  right: 2px;
   cursor: pointer;
   background-color: #B0D2FA;
   color: #0A47A3;
   border: none;
   padding: 8px 30px;
+  min-width: 100px;
+  margin: 0 0 0 25px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 20px;
@@ -66,10 +65,12 @@
 }
 
 .inputText {
-  width: 100%;
+  width: 15vw;
   margin: 0;
   margin-bottom: 10px;
-  padding: 5px;
+  padding-left: 6.5px;
+  padding-right: 10px;
+  height: 32px;
   box-sizing: border-box;
   border-radius: 10px;
   border: 1px solid #CDCDCD;
@@ -84,7 +85,6 @@
 }
 
 .filterTable {
-  width: 100%;
   border-collapse: collapse;
 }
   
@@ -97,11 +97,6 @@
 .filterTable label {
   display: block;
   margin-bottom: 3px;
-}
-
-.submitButtonCell {
-  text-align: center;
-  padding-top: 10px;
 }
 
 .inputContainer {
@@ -183,6 +178,10 @@
   border: 1px solid #ccc;
   padding: 8px;
   text-align: center;
+}
+
+.logTable th {
+  background-color: #B0D2FA;
 }
 
 .listIcon {
@@ -279,4 +278,73 @@
   margin: 5px 0 15px 0;
   font-weight: 500;
   letter-spacing: 1px;
+}
+
+.disabledInput {
+  background-color: rgba(211, 211, 211, 0.5);
+  cursor: not-allowed;
+}
+
+.inputText:focus {
+  border: 1px solid #4A90E2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  outline: none;
+}
+
+.hiddenFileInput {
+  display: none;
+}
+
+.customFileInput {
+  display: inline-block;
+  padding: 0 5.9vw;
+  height: 30px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  background-color: #4A90E2;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.customFileInput:hover {
+  background-color: #357ABD;
+}
+
+.noIssue {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.issueDetected {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.tdCell {
+  display: block;
+}
+
+.tdCell div {
+  text-align: center;
+  padding: 5px 15px;
+  background-color: #B0D2FA;
+  border-radius: 10px;
+  color: #0A47A3;
+  border: none;
+  margin: 0 10px 0 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.buttonCell {
+  vertical-align: middle;
+  padding-top: 0;
+  line-height: 1;
+}
+
+.inputText option {
+  text-align: center;
 }

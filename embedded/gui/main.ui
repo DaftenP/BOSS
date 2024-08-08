@@ -20,7 +20,7 @@
       <x>0</x>
       <y>0</y>
       <width>400</width>
-      <height>1080</height>
+      <height>1000</height>
      </rect>
     </property>
     <property name="title">
@@ -191,14 +191,14 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>140</x>
+       <x>120</x>
        <y>560</y>
        <width>221</width>
        <height>20</height>
       </rect>
      </property>
      <property name="text">
-      <string>확인된 보안 이슈 :                         건</string>
+      <string>확인된 보안 이슈 :                                 건</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -226,7 +226,7 @@
        <x>40</x>
        <y>590</y>
        <width>311</width>
-       <height>192</height>
+       <height>341</height>
       </rect>
      </property>
     </widget>
@@ -250,7 +250,7 @@
       <x>400</x>
       <y>0</y>
       <width>1520</width>
-      <height>1080</height>
+      <height>1000</height>
      </rect>
     </property>
     <property name="title">
@@ -330,8 +330,22 @@
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="status_bar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>1000</y>
+      <width>1920</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
+   <zorder>status_bar</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

@@ -5,6 +5,7 @@ from PyQt6.QtCore import QTimer
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6 import uic
 from module.connection import get_member_info, get_member_logs, get_image
+from module.operate_signal import emit_result
 import serial
 import cv2
 
@@ -29,7 +30,6 @@ class WorkerThread(QThread):
             self.finished.emit(response)
 
 
-
 class MainWindow(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
@@ -44,45 +44,7 @@ class MainWindow(QMainWindow, form_class):
         self.timer.timeout.connect(self.read_nfc)
         self.timer.start(100)  # 약 100ms마다 호출
 
-    # def set_member_info(self, nfc_uid: str) -> None:
-    #     print("set_member_info")
-    #
-    #     # 사용자 정보 조회
-    #     # response = get_member_info(self.textEdit_4.toPlainText().strip())
-    #     response = get_member_info(nfc_uid)
-    #     if response:
-    #         # 사용자 정보 출력
-    #         self.member_name.setText(response['name'])
-    #         self.member_department.setText(response['department']['departmentName'])
-    #         self.member_position.setText(response['position']['positionName'])
-    #
-    #         # 프로필 이미지 조회
-    #         if response['profileImage']:
-    #             image = get_image(response['profileImage'])
-    #             if image:
-    #                 self.profile_image.setPixmap(QPixmap.fromImage(QImage.fromData(image)))
-    #
-    #         # 보안 이슈 조회
-    #         issue_logs = get_member_logs(response['memberId'])
-    #         for log in issue_logs:
-    #             self.issue_list.addItem(f'{log["time"]} : {log["gateNumber"]}번 게이트')
-    #         self.issue_count.setText(str(len(issue_logs)))
-    #
-    #         # 이전 출입 기록 조회
-    #         entering_logs = get_member_logs(response['memberId'], issue=False)
-    #         last_in_log = entering_logs[-1] if entering_logs else None
-    #
-    #         if last_in_log:
-    #             device_front_image = get_image(last_in_log['deviceFrontImage'])
-    #             device_back_image = get_image(last_in_log['deviceBackImage'])
-    #             if device_front_image:
-    #                 self.front_image.setPixmap(QPixmap.fromImage(QImage.fromData(device_front_image)))
-    #             if device_back_image:
-    #                 self.back_image.setPixmap(QPixmap.fromImage(QImage.fromData(device_back_image)))
-
     def set_member_info(self, nfc_uid: str) -> None:
-        print("set_member_info")
-
         # WorkerThread 인스턴스 생성
         self.thread = WorkerThread(nfc_uid)
         self.thread.finished.connect(lambda response: asyncio.run(self.handle_member_info(response)))  # 비동기 호출
@@ -126,6 +88,7 @@ class MainWindow(QMainWindow, form_class):
         self.profile_image.setPixmap(QPixmap('./gui/profile.png'))
         self.front_image.setText('')
         self.back_image.setText('')
+        self.status_bar.setText('default')
         self.issue_list.clear()
 
     def update_cam(self, frames) -> None:
@@ -146,3 +109,7 @@ class MainWindow(QMainWindow, form_class):
             if uid:
                 self.set_member_info(uid)
         return None
+
+    def set_status_bar(self, is_pass: bool):
+        self.status_bar.setText(is_pass)
+        emit_result(17 if is_pass else 18)

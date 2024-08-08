@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import classes from './EduSsafy.module.css';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { fetchLogs } from '../../store/loglist'; // fetchLogs 액션 가져오기
+import { useSelector, useDispatch } from 'react-redux';
 // import './EduSsafy.module.css';
 
 export default function Main() {
@@ -12,8 +13,8 @@ export default function Main() {
   // 내 정보 항목 표시 상태 변수
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // 입실, 퇴실 시간 변수
-  const [incheckTime, setIncheckTime] = useState('00:00');
-  const [outcheckTime, setOutcheckTime] = useState('00:00');
+  const [incheckTime, setIncheckTime] = useState('');
+  const [outcheckTime, setOutcheckTime] = useState('');
 
   const navigate = useNavigate();
 
@@ -23,16 +24,85 @@ export default function Main() {
   const location = useLocation();
   const { member } = location.state || {}; // 전달된 사용자 정보
   // console.log('Location state:', location.state); // 추가된 로그
-
+  const logsData = useSelector(state => state.loglist.data);
+  
   const memberId = member?.memberId || '알 수 없음';
   const name = member?.name || '알 수 없음';
 
-  // console.log({ member});
-  // 입실/퇴실 상태 변경 함수
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchLogs());
+  }, [dispatch]);
+
+
+  // 2023-01-23T12:00:00 => 12:00 형식으로 변환
+  const formatTime = (datetime) => {
+    const time = datetime.split('T')[1].split(':');
+    return `${time[0]}:${time[1]}`;
+  };
+
+  // 오늘 날짜 구하기
+  const isToday = (date) => {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+           date.getMonth() === today.getMonth() &&
+           date.getFullYear() === today.getFullYear();
+  };
+
   const checkIn = () => {
-    console.log(incheckTime);
     setIsCheckedIn(true);
   };
+  // console.log(isCheckedIn);
+
+  const getCheckInStatus = () => {
+    if (!isCheckedIn) return '입실하기';
+    
+    const [hours, minutes] = incheckTime.split(':').map(Number);
+    const checkInDate = new Date();
+    checkInDate.setHours(hours, minutes, 0, 0);
+
+    const nineAM = new Date();
+    nineAM.setHours(9, 0, 0, 0);
+
+    return checkInDate < nineAM ? '정상출석' : '지각';
+  };
+
+  // 자동 입실 체크
+  useEffect(() => {
+    const checkInAutomatically = async () => {
+      try {
+        // 로그인된 계정 정보와 NFC 이름을 기준으로 로그 데이터 필터링
+        const matchingLogs = logsData.filter(log => {
+          const logTime = new Date(log.time);
+          return log.member.memberId === member.memberId && 
+                 log.nfcName === member.nfcName &&
+                 log.entering === 0 && 
+                 log.issue === 0 &&
+                //  isToday(logTime) && 
+                 logTime.getHours() >= 6;
+        });
+
+        if (matchingLogs.length > 0) {
+          // 가장 빠른 시각의 로그를 찾기 위해 정렬
+          matchingLogs.sort((a, b) => new Date(a.time) - new Date(b.time));
+          const earliestLog = matchingLogs[0];
+
+          // 입실 체크 처리
+          setIsCheckedIn(true);
+          const formattedTime = formatTime(earliestLog.time);
+          setIncheckTime(formattedTime);
+        }
+      } catch (error) {
+        console.error('Error checking in automatically:', error);
+      }
+    };
+    
+    checkInAutomatically();
+    console.log(isCheckedIn, incheckTime);
+  }, [logsData, member]);
+
+  
 
   const checkOut = () => {
     const now = new Date();
@@ -53,9 +123,19 @@ export default function Main() {
     navigate('/EduSsafyLogin');
   };
 
-  console.log(member);
+  const handleToMain = () => {
+    navigate('/Main');
+  };
+
 
   useEffect(() => {
+    // 로컬 스토리지에서 입실 체크 시간 가져오기
+    // const storedIncheckTime = localStorage.getItem('incheckTime');
+    // if (storedIncheckTime) {
+    //   setIsCheckedIn(true);
+    //   setIncheckTime(storedIncheckTime);
+    // }
+
     // Google Fonts link 요소 생성
     const link = document.createElement('link');
     link.href = 'https://fonts.googleapis.com/css2?family=Roboto&display=swap';
@@ -82,25 +162,17 @@ export default function Main() {
   const month = String(currentDateTime.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
   const day = String(currentDateTime.getDate()).padStart(2, '0'); // 일
 
-  
 
   const checkInTime = currentDateTime.toLocaleTimeString('en-GB', {
     hour: '2-digit',
     minute: '2-digit',
   });
 
-  // const checkOutTime = currentDateTime.toLocaleTimeString('en-GB', {
-  //   hour: '2-digit',
-  //   minute: '2-digit',
-  // });
 
   useEffect(() => {
     setIncheckTime(String(checkInTime))
   }, [isCheckedIn])
 
-  // useEffect(() => {
-  //   setOutcheckTime(String(checkOutTime))
-  // }, [isCheckedOut])
 
   return (
     
@@ -131,9 +203,8 @@ export default function Main() {
           </span>
           <div className={classes['line-4']} />
         </div>
-        <div>
-          <Link to="/main" className={classes['rectangle-5']}></Link>
-        </div>
+        <div onClick={handleToMain} className={classes['rectangle-5']} />
+
         <div className={classes['ellipse']} />
         
         <span className={classes['my-campus']}>마이캠퍼스</span>
@@ -171,7 +242,7 @@ export default function Main() {
               {/* 입실/퇴실 버튼 */}
               <div
                 className={isCheckedIn ? classes['rectangle-on'] : classes['rectangle-off']}
-                onClick={checkIn}
+                onClick={checkIn} // 이미 체크인 되어 있으면 클릭 비활성화
               >
                 {isCheckedIn ? (
                   <span className={classes['time']} onClick={checkIn}>{incheckTime}</span>
@@ -181,7 +252,7 @@ export default function Main() {
                 
                 <span className={isCheckedIn ? classes['check-on'] : classes['check-off']}
                   onClick={checkIn}>
-                  {isCheckedIn ? '정상출석' : '입실하기'}
+                  {getCheckInStatus()} {/* 출석 상태 표시 */}
                 </span>
               </div>
               

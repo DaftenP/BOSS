@@ -20,9 +20,9 @@ public class AdminLogController {
     private final AdminLogService adminLogService;
     private final AdminService adminService;
 
-    @GetMapping
+    @GetMapping("check")
     public ResponseEntity<?> getLoginLog() {
-        List<LoginLog> loginLogs = adminLogService.findAll();
+        List<AdminLogDto> loginLogs = adminLogService.findAll();
         return ResponseEntity.ok(loginLogs);
     }
 

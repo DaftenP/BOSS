@@ -6,6 +6,7 @@ from module.ultrasonic_sensor import UltrasonicSensor
 from module.sound import SoundPlayer
 from module.servo_motor import ServoMotor
 from module.led import LED
+from module.input_detector import InputDetector
 
 class MainProgram:
     def __init__(self):
@@ -16,6 +17,7 @@ class MainProgram:
         self.servo = ServoMotor()
         self.sensor = UltrasonicSensor()
         self.led = LED()
+        self.inputdetector = InputDetector()
         self.running = True
         self.last_uid = None
         self.uid_str = None
@@ -33,13 +35,14 @@ class MainProgram:
                             self.uart_comm.send_uid(self.uid_str)
                             self.sound_player.play_check_sound()
                             self.last_uid = self.uid_str  # Update last_uid to the new UID
-                            sleep(0.1)
+                            sleep(1)
                             self.mod = 1
+                            # self.mod = self.inputdetector(17)
 
                         elif self.uid_str == self.last_uid:
                             self.sound_player.play_alert_sound()
                             print("이미 NFC 태깅된 카드입니다.")
-                            sleep(1)
+                            sleep(0.1)
 
                         else:
                             if self.uid_str is None:
@@ -47,21 +50,33 @@ class MainProgram:
 
                     elif self.mod == 1:
                         print("서보 동작")
-                        self.servo.move(angle=170)  # 170도 위치로 이동
+                        self.servo.move(angle=0)  # 170도 위치로 이동
                         sleep(1)
 
-                        # 사람이 이동하면 차단바 내려감
-                        while True:
-                            distance = self.sensor.measure_distance()
-                            print(f"측정된 거리: {distance:.2f} cm")
-                            if distance < 20:  # 10 cm 이하로 측정되면
-                                print("물체가 가까이 있습니다. 서보를 다시 동작시킵니다.")
-                                self.servo.move(angle=0)  # 0도 위치로 이동
-                                self.led.blink(duration=5, interval=0.5)
-                                sleep(1)  # 서보가 이동할 시간을 기다림
-                                break  # 거리 측정을 계속하지 않고 루프를 종료
-                            sleep(0.1)  # CPU 사용을 줄이기 위해 잠시 대기
-                        self.mod = 0  # 물체가 감지되면 mod를 0으로 설정하여 NFC 읽기로 돌아갑니다.
+                        if self.inputdetector.detect_input_pass() == 1: # 스티커 제대로 부착시
+                            while True:
+                                distance = self.sensor.measure_distance()
+                                print(f"측정된 거리: {distance:.2f} cm")
+                                # 사람이 이동하면 차단바 내려감
+                                if distance < 20:  # 10 cm 이하로 측정되면
+                                    print("물체가 가까이 있습니다. 서보를 다시 동작시킵니다.")
+                                    self.servo.move(angle=170)  # 0도 위치로 이동
+                                    self.led.blink_green(duration=3, interval=0.5)
+                                    sleep(1)  # 서보가 이동할 시간을 기다림
+                                    break  # 거리 측정을 계속하지 않고 루프를 종료
+                                sleep(0.1)  # CPU 사용을 줄이기 위해 잠시 대기
+                            self.mod = 0  # 물체가 감지되면 mod를 0으로 설정하여 NFC 읽기로 돌아갑니다.
+
+                        elif self.inputdetector.detect_input_fail() == 1: # 보안 이슈 발생
+                            self.led.blink_red(duration=3, interval=0.5)
+                            self.servo.move(angle=0)
+                            self.sound_player.play_alert_sound()
+                            self.sound_player.play_alert_sound()
+                            self.mod = 0
+                        
+                        else:
+                            self.mod = 0
+                            print("제대로 인식 못함")
 
                 except Exception as e:
                     print(f"Error reading NFC UID: {e}")

@@ -3,8 +3,6 @@ package com.ssafy.BOSS.api;
 import com.ssafy.BOSS.domain.Position;
 import com.ssafy.BOSS.service.PositionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

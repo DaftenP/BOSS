@@ -51,7 +51,11 @@ export default function Main() {
   };
 
   const checkIn = () => {
-    setIsCheckedIn(true);
+    if (!isCheckedIn) {
+      setIsCheckedIn(true);
+      setIncheckTime(String(checkInTime));
+    }
+    
   };
   // console.log(isCheckedIn);
 
@@ -68,9 +72,8 @@ export default function Main() {
     return checkInDate < nineAM ? '정상출석' : '지각';
   };
 
-  // 자동 입실 체크
   useEffect(() => {
-    const checkInAutomatically = async () => {
+    const checkInAutomatically = () => {
       try {
         // 로그인된 계정 정보와 NFC 이름을 기준으로 로그 데이터 필터링
         const matchingLogs = logsData.filter(log => {
@@ -79,19 +82,20 @@ export default function Main() {
                  log.nfcName === member.nfcName &&
                  log.entering === 0 && 
                  log.issue === 0 &&
-                //  isToday(logTime) && 
+                  // isToday(logTime) && 
                  logTime.getHours() >= 6;
         });
-
+  
         if (matchingLogs.length > 0) {
           // 가장 빠른 시각의 로그를 찾기 위해 정렬
           matchingLogs.sort((a, b) => new Date(a.time) - new Date(b.time));
           const earliestLog = matchingLogs[0];
-
+  
           // 입실 체크 처리
           setIsCheckedIn(true);
           const formattedTime = formatTime(earliestLog.time);
           setIncheckTime(formattedTime);
+          console.log(matchingLogs);
         }
       } catch (error) {
         console.error('Error checking in automatically:', error);
@@ -100,6 +104,7 @@ export default function Main() {
     
     checkInAutomatically();
     console.log(isCheckedIn, incheckTime);
+    
   }, [logsData, member]);
 
   
@@ -168,10 +173,10 @@ export default function Main() {
     minute: '2-digit',
   });
 
-
-  useEffect(() => {
-    setIncheckTime(String(checkInTime))
-  }, [isCheckedIn])
+  // 이게 뭔가 문제가 있는거 같다.
+  // useEffect(() => {
+  //   setIncheckTime(String(checkInTime))
+  // }, [isCheckedIn])
 
 
   return (

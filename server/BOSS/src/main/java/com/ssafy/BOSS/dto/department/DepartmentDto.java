@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class DepartmentDto {
-    private int DepartmentId;
-    private String DepartmentName;
+    private int departmentId;
+    private String departmentName;
 
     public static DepartmentDto of(Department department) {
         DepartmentDto dto = new DepartmentDto();

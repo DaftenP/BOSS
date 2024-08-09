@@ -55,6 +55,8 @@ public class MemberService {
                 departmentRepository.save(department);
                 member.setDepartment(department);
             }
+        } else {
+            member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
         }
 
         if (memberRegistDto.getPositionId() == -1) {
@@ -66,6 +68,8 @@ public class MemberService {
                 positionRepository.save(position);
                 member.setPosition(position);
             }
+        } else {
+            member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
         }
 
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());

@@ -477,12 +477,6 @@ function TotalStatistics({ loglist }) {
                           </td>
                         </React.Fragment>
                       ))}
-                      {Array.from({ length: (selectedTotalPopOption === 'gate' ? 4 : 2) - row.length }).map((_, i) => (
-                        <React.Fragment key={`empty-${i}`}>
-                          <td key={`empty-checkbox-${i}`}></td>
-                          <td key={`empty-name-${i}`}></td>
-                        </React.Fragment>
-                      ))}
                     </tr>
                   ))}
                 </tbody>

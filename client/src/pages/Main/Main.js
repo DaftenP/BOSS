@@ -65,10 +65,8 @@ function Main() {
   useEffect(() => {
     const setupSSEConnection = () => {
       const accessToken = getAccessToken(); // 로컬 스토리지에서 JWT 토큰을 가져옴
-      console.log(accessToken)
 
       if (!accessToken) {
-        console.error('JWT access token is missing');
         return;
       }
 
@@ -82,13 +80,12 @@ function Main() {
       );
 
       // 연결이 성공적으로 열렸을 때 호출
-      eventSource.onopen = () => {
-        console.log('SSE connection opened successfully.');
-      };
+      // eventSource.onopen = () => {
+      //   console.log('SSE connection opened successfully.');
+      // };
 
       // 서버로부터 메시지가 수신될 때마다 호출
       eventSource.onmessage = (event) => {
-        console.log('Received data:', event.data); // 수신된 데이터 로그 출력
         const startTime = `${todayDateString}T00:00:01`;
         const endTime = `${todayDateString}T23:59:59`;
 
@@ -112,7 +109,7 @@ function Main() {
         eventSource.close();
 
         setTimeout(() => {
-          console.log('Attempting to reconnect SSE...');
+          // console.log('Attempting to reconnect SSE...');
           setupSSEConnection(); // SSE 재연결 시도
         }, 1000);
       };
@@ -125,7 +122,7 @@ function Main() {
 
     // 컴포넌트가 언마운트될 때 연결 종료
     return () => {
-      console.log('Closing SSE connection');
+      // console.log('Closing SSE connection');
       eventSource.close();
     };
   }, [dispatch]);
@@ -264,7 +261,7 @@ function Main() {
   return (
     <div className={classes.mainContainer}>
       <div className={classes.todayIssueContainer}>
-        <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)}월 ${parseInt(todayDateString.split('-')[2], 10)}일`} {t('Issues Summary', "이슈 요약")}</div>
+        <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issues Summary', "이슈 요약")}</div>
         <div className={classes.statisticsContainer}>
           <div className={`${classes.card} ${classes.topCard}`}>
             <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
@@ -289,13 +286,13 @@ function Main() {
           </div>
         </div>
         <div>
-          <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)}월 ${parseInt(todayDateString.split('-')[2], 10)}일`} {t('Issue Overview')}</div>
+          <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Overview')}</div>
           <div className={classes.chartTitle}>
             <div className={classes.doughnutChartContainer}>
               <Doughnut data={doughnutData} options={optionsDoughnut} />
             </div>
           </div>
-          <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)}월 ${parseInt(todayDateString.split('-')[2], 10)}일`} {t('Issue Ratio')}</div>
+          <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Ratio')}</div>
           <div className={classes.lineChartContainer}>
               <Line data={chartData} options={options} />
           </div>

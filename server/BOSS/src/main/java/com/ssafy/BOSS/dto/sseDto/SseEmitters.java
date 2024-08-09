@@ -40,8 +40,8 @@ public class SseEmitters {
                         .data(log));
             } catch (IOException e) {
                 e.printStackTrace();
+                emitter.completeWithError(e);
                 System.out.println("로그 전송에 실패했습니다.");
-                throw new RuntimeException(e);
             }
         });
     }

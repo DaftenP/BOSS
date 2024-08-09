@@ -17,6 +17,14 @@ pipeline {
                 }
             }
         }
+        stage('build backend') {
+            dir('server/BOSS') {
+                steps {
+                    sh 'chmod +x ./gradlew'
+                    sh 'gradlew build'
+                }
+            }
+        }
         stage('build images') {
             steps {
                 sh 'docker compose -f $COMPOSE_DEV build'

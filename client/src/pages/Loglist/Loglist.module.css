@@ -335,7 +335,16 @@
 }
 
 .formGroup {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+.formGroup select {
+  height: 29px;
+  width: 13.4vw;
+  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
 }
 
 .updateInputText {
@@ -345,12 +354,20 @@
   padding-right: 10px;
   border-radius: 15px;
   height: 25px;
-  border: 2px solid #5f7690;
+  width: 12vw;
+  border: 1px solid #5f7690;
 }
+
 
 .updateInputText::placeholder {
   text-align: center;
   font-size: 13px;
+}
+
+.updateInputText:focus {
+  border: 1px solid #4A90E2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  outline: none;
 }
 
 .submitButton {

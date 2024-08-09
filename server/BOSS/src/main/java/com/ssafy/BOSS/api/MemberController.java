@@ -76,4 +76,13 @@ public class MemberController {
                 .internalServerError()
                 .body("Sorry: " + e.getMessage());
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<?> searchMemberIdAndPw() {
+        List<MemberLoginDto> memberLoginDtos = memberService.searchMemberInfo();
+        if (!memberLoginDtos.isEmpty()) {
+            return ResponseEntity.ok(memberLoginDtos);
+        }
+        return ResponseEntity.noContent().build();
+    }
 }

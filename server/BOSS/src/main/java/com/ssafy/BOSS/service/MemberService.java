@@ -107,4 +107,9 @@ public class MemberService {
         List<Member> members = memberRepository.searchMember(requestMemberDto);
         return members.stream().map(memberMapper::memberToMemberDto).toList();
     }
+
+    public List<MemberLoginDto> searchMemberInfo() {
+        List<Member> members = memberRepository.findAll();
+        return members.stream().map(memberMapper::memberToMemberLoginDto).toList();
+    }
 }

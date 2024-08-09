@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     # 객체 탐지
 
-    video_processor = VideoProcessor(model, myWindow, 640, 360, 3, 0.40)
+    video_processor = VideoProcessor(model, myWindow, 640, 360, 5)
 
     # 프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
     app.exec()

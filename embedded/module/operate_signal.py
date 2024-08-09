@@ -14,5 +14,6 @@ def emit_result(pin: int) -> None:
 
     GPIO.cleanup()
 
+
 if __name__ == '__main__':
     emit_result(17)

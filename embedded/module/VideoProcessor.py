@@ -3,10 +3,11 @@ from collections import deque, Counter
 from PyQt6.QtCore import QTimer
 
 COLOR_PALETTE = [(220, 220, 0), (255, 0, 0), (255, 255, 255), (0, 0, 220), (0, 220, 0)]
+THRESHOLD = {0: 0.3, 1: 0.4, 2: 0.8, 3: 0.4, 4: 0.4}
 
 
 class VideoProcessor:
-    def __init__(self, model: 'Model', window: 'MainWindow', w: int, h: int, rate: int, threshold: float = 0.45):
+    def __init__(self, model: 'Model', window: 'MainWindow', w: int, h: int, rate: int):
         # 카메라 객체 할당
         self.cap1 = cv2.VideoCapture(0)
         self.cap2 = cv2.VideoCapture(2)
@@ -28,7 +29,8 @@ class VideoProcessor:
         self.inferences = []
         self.model = model
         self.window = window
-        self.threshold = threshold
+        self.width = w
+        self.height = h
 
         # QTimer 설정
         self.timer = QTimer()
@@ -59,31 +61,35 @@ class VideoProcessor:
             for idx, result in enumerate(results):
                 for data in result[0].boxes.data.tolist():
                     confidence = float(data[4])
-                    if confidence < self.threshold:
+                    class_id = int(data[5])
+                    if confidence < THRESHOLD[class_id]:
                         continue
                     x1, y1, x2, y2 = data[:4]
-                    x1, x2 = list(map(lambda x: x / 640 * self.window.width(), (x1, x2)))
-                    y1, y2 = list(map(lambda x: x / 640 * self.window.height(), (y1, y2)))
+                    x1, x2 = list(map(lambda x: x / 640 * self.width, (x1, x2)))
+                    y1, y2 = list(map(lambda x: x / 640 * self.height, (y1, y2)))
 
-                    class_id = int(data[5])
                     label = f'{self.model.model.names[class_id]}: {confidence: .2f}'
                     self.inferences.append([idx, x1, y1, x2, y2, confidence, class_id, label])
 
-            for idx, x1, y1, x2, y2, confidence, class_id, label in self.inferences:
-                cv2.rectangle(frame[idx],
-                              (int(x1), int(y1)),
-                              (int(x2), int(y2)),
-                              COLOR_PALETTE[class_id % 5],
-                              1)
-                cv2.putText(frame[idx],
-                            label,
-                            (int(x1), int(y1) - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX,
-                            0.5,
-                            COLOR_PALETTE[class_id % 5],
-                            1)
+        for idx, x1, y1, x2, y2, confidence, class_id, label in self.inferences:
+            cv2.rectangle(frame[idx],
+                          (int(x1), int(y1)),
+                          (int(x2), int(y2)),
+                          COLOR_PALETTE[class_id % 5],
+                          1)
+            cv2.putText(frame[idx],
+                        label,
+                        (int(x1), int(y1) - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX,
+                        0.5,
+                        COLOR_PALETTE[class_id % 5],
+                        1)
 
-            self.window.update_cam(frame)
+        self.window.update_cam(frame)
+        if self.frame_count == 150:
+            _, image1 = cv2.imencode('.jpg', frame[0])
+            _, image2 = cv2.imencode('.jpg', frame[1])
+            self.window.send_log(image1, image2)
 
     def release_resources(self):
         self.cap1.release()

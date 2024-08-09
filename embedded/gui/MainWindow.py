@@ -4,7 +4,7 @@ from PyQt6.QtGui import QImage, QPixmap
 from PyQt6.QtCore import QTimer
 from PyQt6.QtCore import QThread, pyqtSignal
 from PyQt6 import uic
-from module.connection import get_member_info, get_member_logs, get_image
+from module.connection import get_member_info, get_member_logs, get_image, post_log
 from module.operate_signal import emit_result
 import serial
 import cv2
@@ -13,7 +13,7 @@ import cv2
 form_class = uic.loadUiType("./gui/main.ui")[0]
 
 
-class WorkerThread(QThread):
+class MemberThread(QThread):
     finished = pyqtSignal(dict)
 
     def __init__(self, nfc_uid):
@@ -28,6 +28,25 @@ class WorkerThread(QThread):
         if response:
             # 시그널을 통해 결과를 전달
             self.finished.emit(response)
+
+
+class LogThread(QThread):
+    finished = pyqtSignal(dict)
+
+    def __init__(self, image1, image2, data):
+        super().__init__()
+        self.image1 = image1
+        self.image2 = image2
+        self.data = data
+
+    def run(self):
+        asyncio.run(self.fetch_data())
+
+    async def fetch_data(self):
+        response = await post_log(self.image1, self.image2, self.data)
+        # if response:
+        # 시그널을 통해 결과를 전달
+        #    self.finished.emit(response)
 
 
 class MainWindow(QMainWindow, form_class):
@@ -46,7 +65,7 @@ class MainWindow(QMainWindow, form_class):
 
     def set_member_info(self, nfc_uid: str) -> None:
         # WorkerThread 인스턴스 생성
-        self.thread = WorkerThread(nfc_uid)
+        self.thread = MemberThread(nfc_uid)
         self.thread.finished.connect(lambda response: asyncio.run(self.handle_member_info(response)))  # 비동기 호출
         self.thread.start()  # 스레드 시작
 
@@ -105,7 +124,11 @@ class MainWindow(QMainWindow, form_class):
     def read_nfc(self) -> None:
         if self.serial_.in_waiting > 0:
             # UART로부터 데이터 수신
-            uid = self.serial_.readline().decode('utf-8').strip()
+            try:
+                uid = self.serial_.readline().decode('utf-8').strip()
+            except UnicodeDecodeError:
+                uid = self.serial_.readline()  # 바이트 데이터로 유지
+                print(f"Received raw data: {uid}")
             if uid:
                 self.set_member_info(uid)
         return None
@@ -113,3 +136,17 @@ class MainWindow(QMainWindow, form_class):
     def set_status_bar(self, is_pass: bool):
         self.status_bar.setText(is_pass)
         emit_result(17 if is_pass else 18)
+
+    def send_log(self, image1, image2):
+        data = {
+            'memberId': 15,
+            'entering': 1,
+            'gateNumber': 1,
+            'stickerCount': 4,
+            'issue': 0,
+            'cameraLens': 4
+        }
+        # WorkerThread 인스턴스 생성
+        self.thread = LogThread(image1, image2, data)
+        # self.thread.finished.connect(lambda response: asyncio.run(self.handle_member_info(response)))  # 비동기 호출
+        self.thread.start()  # 스레드 시작

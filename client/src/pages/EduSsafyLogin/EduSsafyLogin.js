@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMembers } from '../../store/management';
 import classes from './EduSsafyLogin.module.css';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../components/ErrorModal/ErrorModal';
+import { SsafyLoginContext } from '../../App';
 
 
 export default function Main() {
@@ -12,7 +13,8 @@ export default function Main() {
   const [memberId, setMemberId] = useState('');
   const [nfc, setNfc] = useState('');
   const [errorMessage, setErrorMessage] = useState();
-
+  // const [ssafyLogin, setSsafyLogin] = useState(false);
+  const { setSsafyLogin } = useContext(SsafyLoginContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +25,6 @@ export default function Main() {
   const handleLogin = (e) => {
     e.preventDefault();
     setErrorMessage(null);
-
 
     if (!memberId) {
       setErrorMessage('[아이디]은(는) 필수값입니다.');
@@ -40,6 +41,7 @@ export default function Main() {
 
     if (member) {
       console.log('로그인 성공:', member);
+      setSsafyLogin(true);
       navigate('/edussafy', { state: { member } });
       // handleLoginClick();
     } else {

@@ -72,7 +72,7 @@ public class EnteringLogController {
         EnteringLogDto enteringLogDto = enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
 
         if (enteringLog.getIssue() == 1) {
-            sseEmiiters.createIssue(enteringLogDto);
+            sseEmiiters.createIssue();
         }
 //        if (enteringLog.isFail()) {
 //            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);

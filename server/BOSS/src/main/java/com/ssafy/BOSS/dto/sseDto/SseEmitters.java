@@ -39,9 +39,7 @@ public class SseEmitters {
             log.info("emitter createIssue callback");
             log.info(emitter.toString());
             try {
-                emitter.send(SseEmitter.event()
-                        .name("issueLog")
-                        .data("ok"));
+                emitter.send("ok");
                 log.info("전송 성공!");
             } catch (IOException e) {
                 emitter.completeWithError(e);

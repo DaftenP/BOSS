@@ -7,12 +7,13 @@
   "Detected People": "적발 인원",
   "Normal Records": "정상 기록",
   "Issues": "누적 이슈",
-  "Today's Issues": "금일 이슈 현황",
+  "Issue Overview": "이슈 현황",
   "Today's Issue Ratio": "금일 이슈 인원 비율",
   "Total Inspections Today": "금일 검사 횟수",
+  "Issues Summary": "이슈 요약",
   "times": " 회",
   "Issues Detected": "이슈 발생 횟수",
-  "Issue Ratio Today": "금일 이슈 비율",
+  "Issue Ratio": "이슈 비율",
   "Real-Time Issue Detection": "실시간 적발 상황",
   "Device": "기기",
   "Time": "시간",
@@ -81,7 +82,7 @@
   "Number of Users": "이용자 수",
   "Number of Issues": "적발 횟수",
   "Number of Logs": "로그 수",
-  "Average Issue Rate": "평균 적발률",
+  "Average detections": "평균 적발수",
   "logs": "개",
   "NFC": "NFC",
   "NEW": "NEW",
@@ -133,5 +134,6 @@
   "minutes": "분",
   "seconds": "초",
   "Entry/Exit Text": "출/퇴 선택",
-  "Security Issue Text": "보안 이슈 선택"
+  "Security Issue Text": "보안 이슈 선택",
+  "Cnt": "개"
 }

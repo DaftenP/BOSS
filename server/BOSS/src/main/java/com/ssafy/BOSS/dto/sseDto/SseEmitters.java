@@ -2,6 +2,7 @@ package com.ssafy.BOSS.dto.sseDto;
 
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -37,7 +38,7 @@ public class SseEmitters {
             try {
                 emitter.send(SseEmitter.event()
                         .name("issueLog")
-                        .data(log));
+                        .data(log, MediaType.APPLICATION_JSON));
             } catch (IOException e) {
                 e.printStackTrace();
                 System.out.println("로그 전송에 실패했습니다.");

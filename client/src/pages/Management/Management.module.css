@@ -349,3 +349,10 @@
 .inputText option {
   text-align: center;
 }
+
+.sort {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 아이콘과 텍스트의 세로 정렬을 일관되게 맞춤 */
+  margin-left: 8px; 
+}

@@ -82,7 +82,7 @@ export default function Main() {
                  log.nfcName === member.nfcName &&
                  log.entering === 0 && 
                  log.issue === 0 &&
-                  // isToday(logTime) && 
+                  isToday(logTime) && 
                  logTime.getHours() >= 6;
         });
   

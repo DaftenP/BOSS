@@ -32,7 +32,7 @@ public class S3UploadService {
 
     public String upload(MultipartFile image) {
         //입력받은 이미지 파일이 빈 파일인지 검증
-        if(image.isEmpty() || Objects.isNull(image.getOriginalFilename())){
+        if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
             throw new MultipartException("파일이 비었음. " + image.getOriginalFilename());
         }
         //uploadImage를 호출하여 S3에 저장된 이미지의 public url을 반환한다.
@@ -78,7 +78,7 @@ public class S3UploadService {
         //S3에 요청할 때 사용할 byteInputStream 생성
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
-        try{
+        try {
             //S3로 putObject 할 때 사용할 요청 객체
             //생성자 : bucket 이름, 파일 명, byteInputStream, metadata
             PutObjectRequest putObjectRequest =
@@ -87,15 +87,18 @@ public class S3UploadService {
 
             //실제로 S3에 이미지 데이터를 넣는 부분이다.
             amazonS3.putObject(putObjectRequest); // put image to S3
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(amazonS3.getUrl(bucketName, s3FileName).toString());
             e.printStackTrace();
             throw new MultipartException("S3 넣기 실패!: " + originalFilename);
-        }finally {
+        } finally {
             byteArrayInputStream.close();
             is.close();
         }
 
-        return amazonS3.getUrl(bucketName, s3FileName).toString();
+        String url = amazonS3.getUrl(bucketName, s3FileName).toString();
+        String cdn = "https://d3vud5llnd72x5.cloudfront.net/" + url.split("/")[url.split("/").length - 1];
+
+        return cdn;
     }
 }

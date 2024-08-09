@@ -32,6 +32,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 
+
 //	SQL 로그에 값을 주입해주는 의존성
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1'
 
@@ -47,6 +48,14 @@ dependencies {
 //	유틸리티
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+//	매핑 자동화
+//	documentation: https://mapstruct.org/documentation/1.5/reference/html/
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+	testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+	implementation group: 'org.projectlombok', name: 'lombok-mapstruct-binding', version: '0.2.0'
+	testImplementation group: 'org.projectlombok', name: 'lombok-mapstruct-binding', version: '0.2.0'
 
 //  AWS S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'

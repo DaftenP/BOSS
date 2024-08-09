@@ -22,13 +22,11 @@ import java.time.LocalDateTime;
 class EnteringLogControllerTest {
 
     @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
     EnteringLogRepository enteringLogRepository;
-
     @Autowired
     MemberFixtureService memberFixtureService;
+    @Autowired
+    private MockMvc mockMvc;
 
     @AfterEach
     void setup() {

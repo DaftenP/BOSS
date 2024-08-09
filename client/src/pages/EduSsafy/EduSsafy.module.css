@@ -506,13 +506,13 @@ button {
   display: block;
   position: relative;
   height: 17px;
-  margin: 10px 0 0 13px;
+  margin: 10px 0 0 0;
   color: #3396f4;
   font-family: Malgun Gothic, var(--default-font-family);
   font-size: 13px;
   font-weight: 600;
   line-height: 16.943px;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   z-index: 99;
 }
@@ -520,13 +520,13 @@ button {
   display: block;
   position: relative;
   height: 17px;
-  margin: 10px 0 0 13px;
+  margin: 10px 0 0 0;
   color: #ffffff;
   font-family: Malgun Gothic, var(--default-font-family);
   font-size: 13px;
   font-weight: 600;
   line-height: 16.943px;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   z-index: 98;
 }

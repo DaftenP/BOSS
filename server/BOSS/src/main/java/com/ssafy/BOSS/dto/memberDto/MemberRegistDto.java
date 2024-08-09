@@ -8,8 +8,10 @@ public class MemberRegistDto {
     private String nfc;
     private String memberLoginId;
     private String memberLoginPw;
-    //private String profileImage;
     private String phoneNumber;
-    private int departmentId;
-    private int positionId;
+    private int departmentId = 0;
+    private int positionId = 0;
+
+    private String departmentName;
+    private String positionName;
 }

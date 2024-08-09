@@ -1,8 +1,11 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Admin;
+import com.ssafy.BOSS.dto.adminDto.AdminDto;
+import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.jwt.JwtTokenProvider;
+import com.ssafy.BOSS.mapper.AdminMapper;
 import com.ssafy.BOSS.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +22,8 @@ import java.util.Optional;
 public class AdminService {
 
     private final AdminRepository adminRepository;
+
+    private final AdminMapper adminMapper;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -38,12 +43,15 @@ public class AdminService {
         return jwtToken;
     }
 
-    public Admin login(String adminLoginId, String adminLoginPw) {
+    @Transactional
+    public AdminLogDto checkAdmin(String adminLoginId, String adminLoginPw) {
         Optional<Admin> admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw);
-        if(admin.isPresent()) {
-            return admin.get();
-        }
-        else {
+        if (admin.isPresent()) {
+            AdminLogDto adminLogDto = new AdminLogDto();
+            AdminDto adminDto = adminMapper.adminToAdminDto(admin.get());
+            adminLogDto.setAdmin(adminDto);
+            return adminLogDto;
+        } else {
             return null;
         }
     }

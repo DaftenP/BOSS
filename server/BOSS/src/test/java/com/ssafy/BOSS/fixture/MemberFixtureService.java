@@ -11,23 +11,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberFixtureService {
 
+    private final MemberRepository memberRepository;
+    private final DepartmentRepository departmentRepository;
+    private final PositionRepository positionRepository;
+
     public MemberFixtureService(MemberRepository memberRepository, DepartmentRepository departmentRepository, PositionRepository positionRepository) {
         this.departmentRepository = departmentRepository;
         this.memberRepository = memberRepository;
         this.positionRepository = positionRepository;
     }
 
-    private final MemberRepository memberRepository;
-    private final DepartmentRepository departmentRepository;
-    private final PositionRepository positionRepository;
-
     public Member getMember() {
-        Department department = new Department();
-        department.setDepartmentName("test");
+        Department department = Department.builder().departmentName("test").build();
         departmentRepository.save(department);
 
-        Position position = new Position();
-        position.setPositionName("test");
+        Position position = Position.builder().positionName("test").build();
         positionRepository.save(position);
 
         Member member = new Member();

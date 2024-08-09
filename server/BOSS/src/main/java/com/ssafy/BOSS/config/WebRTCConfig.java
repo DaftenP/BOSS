@@ -16,6 +16,7 @@ public class WebRTCConfig implements WebSocketConfigurer {
 
     /**
      * WebSocket 핸들러를 등록하는 메서드입니다.
+     *
      * @param registry WebSocket 핸들러 레지스트리
      */
     @Override

@@ -3,6 +3,8 @@ package com.ssafy.BOSS.api;
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.dto.enteringLog.*;
+import com.ssafy.BOSS.dto.sseDto.SseEmitters;
+import com.ssafy.BOSS.mapper.EnteringLogMapper;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.service.EnteringLogService;
 import com.ssafy.BOSS.service.MemberService;
@@ -12,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +28,8 @@ public class EnteringLogController {
     private final MemberRepository memberRepository;
     private final EnteringLogService enteringLogService;
     private final SimpMessagingTemplate messagingTemplate;
+    private final SseEmitters sseEmiiters;
+    private final EnteringLogMapper enteringLogMapper;
 
     @Deprecated
     @GetMapping
@@ -58,8 +63,17 @@ public class EnteringLogController {
     }
 
     @PostMapping("/regist")
-    public ResponseEntity<Void> saveEnteringLog(@RequestBody EnteringLogRegistDto enteringLogRegistDto) {
-        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto);
+    public ResponseEntity<Void> saveEnteringLog(
+            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile file1,
+            @RequestPart(value = "deviceBackImage", required = false) MultipartFile file2,
+            @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
+    ) {
+        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
+        EnteringLogDto enteringLogDto = enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
+
+        if (enteringLog.getIssue() == 1) {
+            sseEmiiters.createIssue(enteringLogDto);
+        }
 //        if (enteringLog.isFail()) {
 //            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
 //        }

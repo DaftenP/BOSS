@@ -1,8 +1,8 @@
 spring:
   config:
     import:
-    - application-aws.yml
-    - application-jwt.yml
+      - application-aws.yml
+      - application-jwt.yml
   datasource:
     driver-class-name: org.h2.Driver
     url: "jdbc:h2:mem:test/boss?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true"

@@ -1,6 +1,5 @@
 package com.ssafy.BOSS.api;
 
-import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.dto.memberDto.MemberDto;
 import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,16 +24,15 @@ public class MemberController {
     private final S3UploadService s3UploadService;
 
     @PostMapping("/regist")
-    public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false)MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
+    public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false) MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
         try {
             MemberDto member = memberService.join(memberRegistDto, file);
-            if(member != null) {
+            if (member != null) {
                 return ResponseEntity.ok(member);
             } else {
                 return ResponseEntity.noContent().build();
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return exceptionHandling(e);
         }
     }
@@ -43,7 +40,7 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<?> memberLogin(@RequestBody MemberLoginDto memberLoginDto) {
         MemberLoginDto memberLogin = memberService.login(memberLoginDto);
-        if(memberLogin != null) {
+        if (memberLogin != null) {
             return ResponseEntity.ok(memberLogin);
         }
         return ResponseEntity.noContent().build();
@@ -51,11 +48,10 @@ public class MemberController {
 
     @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
-        Optional<Member> member = memberService.findbyNfc(nfc);
-        if(member.isPresent()) {
-            return ResponseEntity.ok(MemberDto.of(member.get()));
-        }
-        else {
+        MemberDto member = memberService.findbyNfc(nfc);
+        if (member != null) {
+            return ResponseEntity.ok(member);
+        } else {
             return ResponseEntity.noContent().build();
         }
     }
@@ -68,7 +64,7 @@ public class MemberController {
     @GetMapping("/search")
     public ResponseEntity<List<MemberDto>> searchMembers(@ModelAttribute RequestMemberDto dto) {
         List<MemberDto> memberDtos = memberService.searchMemberLogs(dto);
-        if(!memberDtos.isEmpty()) {
+        if (!memberDtos.isEmpty()) {
             return ResponseEntity.ok(memberDtos);
         }
         return ResponseEntity.noContent().build();
@@ -79,5 +75,14 @@ public class MemberController {
         return ResponseEntity
                 .internalServerError()
                 .body("Sorry: " + e.getMessage());
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<?> searchMemberIdAndPw() {
+        List<MemberLoginDto> memberLoginDtos = memberService.searchMemberInfo();
+        if (!memberLoginDtos.isEmpty()) {
+            return ResponseEntity.ok(memberLoginDtos);
+        }
+        return ResponseEntity.noContent().build();
     }
 }

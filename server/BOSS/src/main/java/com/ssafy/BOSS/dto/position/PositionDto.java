@@ -1,6 +1,5 @@
 package com.ssafy.BOSS.dto.position;
 
-import com.ssafy.BOSS.domain.Position;
 import lombok.Data;
 
 @Data

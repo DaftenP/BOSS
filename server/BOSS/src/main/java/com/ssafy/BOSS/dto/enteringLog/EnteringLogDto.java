@@ -1,8 +1,6 @@
 package com.ssafy.BOSS.dto.enteringLog;
 
-import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.dto.memberDto.MemberDto;
-import com.ssafy.BOSS.mapper.MemberMapper;
 import lombok.*;
 
 import java.time.LocalDateTime;

@@ -18,9 +18,9 @@ pipeline {
             }
         }
         stage('build backend') {
-            dir('server/BOSS') {
-                steps {
-                    sh 'chmod +x ./gradlew'
+            steps {
+                dir('server/BOSS') {
+                    sh 'chmod +x gradlew'
                     sh 'gradlew build'
                 }
             }

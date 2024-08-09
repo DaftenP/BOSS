@@ -11,7 +11,6 @@ import editIcon from '../../assets/List/Edit_icon.png';
 import checkIcon from '../../assets/List/Check_icon.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import Select from 'react-select';
 
 const Modal = ({ show, onClose, log, update }) => {
   const { t } = useTranslation();

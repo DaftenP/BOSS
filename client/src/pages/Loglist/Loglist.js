@@ -11,6 +11,7 @@ import editIcon from '../../assets/List/Edit_icon.png';
 import checkIcon from '../../assets/List/Check_icon.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import Select from 'react-select';
 
 const Modal = ({ show, onClose, log, update }) => {
   const { t } = useTranslation();
@@ -40,8 +41,8 @@ const Modal = ({ show, onClose, log, update }) => {
   }
 
   const handleModalInputChange = (event) => {
-    const { name, value, type } = event.target;
-    const processdValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
+    const { name, value } = event.target;
+    const processdValue = (['issue', 'countOfSticker'].includes(name)) ? (value === '' ? '' : Number(value)) : value;
     setFormData((processdFilters) => ({
       ...processdFilters,
       [name]: processdValue,
@@ -77,28 +78,37 @@ const Modal = ({ show, onClose, log, update }) => {
               <FontAwesomeIcon icon={faTimes} />
             </span>
             <form className={classes.formContainer} onSubmit={handleSubmit}>
-              <div className={classes.formGroup}>
-                <label htmlFor="issue" className={classes.updateLabelText}>{t('Security Issue')}</label>
-                <input
-                  className={classes.updateInputText}
-                  type="number"
-                  name="issue"
-                  placeholder={t('Security Issue')}
-                  value={formData.issue}
-                  onChange={handleModalInputChange}
-                />
-              </div>
-              <div className={classes.formGroup}>
-                <label htmlFor="countOfSticker" className={classes.updateLabelText}>{t('Number of Stickers Issued')}</label>
-                <input
-                  className={classes.updateInputText}
-                  type="number"
-                  name="countOfSticker"
-                  placeholder={t('Number of Stickers Issued')}
-                  value={formData.countOfSticker}
-                  onChange={handleModalInputChange}
-                />
-              </div>
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div className={classes.formGroup}>
+                        <label htmlFor="issue" className={classes.updateLabelText}>{t('Security Issue')}</label>
+                        <select className={classes.updateInputText} name="issue" value={formData.issue} onChange={handleModalInputChange}>
+                          <option value="">{t('Security Issue Text')}</option>
+                          <option value="0">{t('Clear')}</option>
+                          <option value="1">{t('Alert')}</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div className={classes.formGroup}>
+                        <label htmlFor="countOfSticker" className={classes.updateLabelText}>{t('Number of Stickers Issued')}</label>
+                        <input
+                          className={classes.updateInputText}
+                          type="number"
+                          name="countOfSticker"
+                          placeholder={t('Number of Stickers Issued')}
+                          value={formData.countOfSticker}
+                          onChange={handleModalInputChange}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
               <div className={classes.updateButtonContainer}>
                 <button type="submit" className={classes.submitButton}>
                   <img src={checkIcon} alt="check_icon" />
@@ -173,7 +183,7 @@ function LogTable() {
 
   const handleInputChange = (event) => {
     const { name, value, type } = event.target;
-    const processedValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
+    const processedValue = (['entering', 'memberId', 'issue'].includes(name)) ? (value === '' ? '' : Number(value)) : value;
     setFilters((prevFilters) => ({
       ...prevFilters,
       [name]: processedValue,
@@ -239,6 +249,11 @@ function LogTable() {
     setShowModal(false);
     setSelectedLog(null);
   };
+
+  const options = [
+    { value: '0', label: t('Clear') },
+    { value: '1', label: t('Alert') },
+  ];
 
   const displayedLogs = logsData.slice(0, visibleCount);
 
@@ -371,12 +386,20 @@ function LogTable() {
                       <div>{t('Security Info', '보안 정보')}</div>
                     </td>
                     <td>
-                      <label htmlFor="entering" className={classes.labelText}>{t('In/Out')}</label>
-                      <input className={classes.inputText} type="number" name="entering" placeholder={t('In/Out')} value={filters.entering} onChange={handleInputChange} />
+                      <label htmlFor="entering" className={classes.labelText}>{t('Entry/Exit')}</label>
+                      <select className={classes.inputText} name="entering" value={filters.entering} onChange={handleInputChange}>
+                        <option value="">{t('Entry/Exit Text')}</option>
+                        <option value="0">{t('Entry')}</option>
+                        <option value="1">{t('Exit')}</option>
+                      </select>
                     </td>
                     <td>
                       <label htmlFor="issue" className={classes.labelText}>{t('Security Issue')}</label>
-                      <input className={classes.inputText} type="number" name="issue" placeholder={t('Security Issue')} value={filters.issue} onChange={handleInputChange} />
+                      <select className={classes.inputText} name="issue" value={filters.issue} onChange={handleInputChange}>
+                        <option value="">{t('Security Issue Text')}</option>
+                        <option value="0">{t('Clear')}</option>
+                        <option value="1">{t('Alert')}</option>
+                      </select>
                     </td>
                     <td></td>
                     <td></td>
@@ -409,7 +432,7 @@ function LogTable() {
               <th>{t('Position')}</th>
               <th>{t('Date')}</th>
               <th>{t('Time')}</th>
-              <th>{t('In/Out')}</th>
+              <th>{t('Entry/Exit')}</th>
               <th>{t('Security Issue')}</th>
               <th>{t('Number of Stickers Issued')}</th>
               <th>{t('Details')}</th>

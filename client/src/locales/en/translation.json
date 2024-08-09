@@ -19,7 +19,7 @@
   "Name": "Name",
   "Department": "Dept",
   "Position": "Pos",
-  "In/Out": "In/Out",
+  "Entry/Exit": "Entry/Exit",
   "Issue Handling": "Handling",
   "Sticker Damage": "Damage",
   "damage_image": "damage_img",
@@ -129,5 +129,9 @@
   "Entry": "Entry",
   "Exit": "Exit",
   "Clear": "Clear",
-  "Alert": "Alert"
+  "Alert": "Alert",
+  "minutes": "minutes",
+  "seconds": "seconds",
+  "Entry/Exit Text": "Select Entry/Exit",
+  "Security Issue Text": "Select Security Issue"
 }

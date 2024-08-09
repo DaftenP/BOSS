@@ -15,7 +15,7 @@ function Navbar() {
   const { t } = useTranslation();
 
   const adminName = useSelector((state) => state.login.adminName);
-  const loginTime = useSelector((state) => state.login.loginTime);
+  const loginTime = useSelector((state) => state.login.loginTime) || localStorage.getItem('loginTime');
   const logs = useSelector((state) => state.admin.data);
 
   const [elapsedTime, setElapsedTime] = useState('');
@@ -43,7 +43,7 @@ function Navbar() {
         const minutes = Math.floor(difference / 60000);
         const seconds = Math.floor((difference % 60000) / 1000);
 
-        setElapsedTime(`${minutes}분 ${seconds}초`);
+        setElapsedTime(`${minutes}${t('minutes', '분')} ${seconds}${t('seconds', '초')}`);
       }, 1000);
 
       return () => clearInterval(interval);
@@ -61,7 +61,7 @@ function Navbar() {
           {adminName ? `${t('Admin')}: ${adminName}` : t('Anonymous Admin')}
         </span>
         <span className={classes.loginTime}>
-          {loginTime ? `${t('Login Time')}: ${new Date(loginTime).toLocaleTimeString()} (${elapsedTime} ${t('Elapsed Time')})` : ''}
+          {loginTime ? `${t('Login Time')}: ${new Date(loginTime).toLocaleTimeString('en-US')} (${elapsedTime} ${t('Elapsed Time')})` : ''}
         </span>
         <button onClick={logoutHandler} className={classes.logoutButton}>
           {t('Logout')}

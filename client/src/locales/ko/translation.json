@@ -19,7 +19,7 @@
   "Name": "이름",
   "Department": "부서",
   "Position": "직책",
-  "In/Out": "출/퇴",
+  "Entry/Exit": "출/퇴",
   "Issue Handling": "이슈 조치 사항",
   "Sticker Damage": "스티커 훼손",
   "damage_image": "damage_image",
@@ -126,8 +126,12 @@
   "Job Info": "직무 정보",
   "Security Info": "보안 정보",
   "Time Info": "시간 정보",
-  "Entry": "입장",
+  "Entry": "출입",
   "Exit": "퇴장",
   "Clear": "통과",
-  "Alert": "경고"
+  "Alert": "경고",
+  "minutes": "분",
+  "seconds": "초",
+  "Entry/Exit Text": "출/퇴 선택",
+  "Security Issue Text": "보안 이슈 선택"
 }

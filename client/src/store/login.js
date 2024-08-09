@@ -50,6 +50,8 @@ const loginSlice = createSlice({
       state.adminName = '';
       state.loginTime = null;
       state.error = null;
+
+      localStorage.removeItem('loginTime')
     }
   },
   extraReducers: (builder) => {
@@ -64,6 +66,8 @@ const loginSlice = createSlice({
         state.adminName = action.payload.adminName;
         state.loginTime = new Date().toISOString();
         state.error = null;
+
+        localStorage.setItem('loginTime', state.loginTime)
       })
       .addCase(login.rejected, (state, action) => {
         state.isLogin = false;
@@ -76,6 +80,14 @@ const loginSlice = createSlice({
         if (action.payload) {
           state.isLogin = true;
           state.loginTime = new Date().toISOString();
+
+          const saveLoginTime = localStorage.getItem('loginTime');
+          if (saveLoginTime) {
+            state.loginTime = saveLoginTime;
+          } else {
+            state.loginTime = new Date().toISOString();
+            localStorage.setItem('loginTime', state.loginTime)
+          }
         } else {
           state.isLogin = false;
           state.adminName = '';

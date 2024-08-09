@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import lightClasses from './Management.module.css';
 import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png';
+import detailIconDarkMode from '../../assets/List/Detail_icon_darkmode.png';
 import normalProfile from '../../assets/List/Normal_profile_image.png';
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
 import { fetchDepartmentLists, departmentRegistration } from '../../store/department';
@@ -15,6 +16,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 function Management() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
+
+  const currentDetailIcon = isDarkMode ? detailIconDarkMode : detailIcon;
 
   const { t } = useTranslation();
 
@@ -267,109 +270,6 @@ function Management() {
 
   return (
     <div className={classes.mainContainer}>
-      <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
-        <div className={classes.filteringBox}>
-          {t('FILTERING', 'FILTERING')}
-        </div>
-        <div className={classes.inputContainer}>
-          <div className={classes.optionLabel}>{t('searchOptions', '검색 옵션')}</div>
-          <div className={classes.optionContainer}>
-            <label className={classes.radioLabel}>
-              <input
-                type="radio"
-                value="quick"
-                checked={selectedSearchOption === 'quick'}
-                onChange={handleSearchOptionChange}
-                className={classes.radioInput}
-              />
-              {t('quickSearch', '간편 검색')}
-            </label>
-            <label className={classes.radioLabel}>
-              <input
-                type="radio"
-                value="advanced"
-                checked={selectedSearchOption === 'advanced'}
-                onChange={handleSearchOptionChange}
-                className={classes.radioInput}
-              />
-              {t('advancedSearch', '상세 검색')}
-            </label>
-          </div>
-          <form onSubmit={handleSearch} className={classes.relativeBoxContainer}>
-            {selectedSearchOption === 'quick' ? (
-              <table className={classes.filterTable}>
-                <tbody>
-                  <tr>
-                    <td>
-                      <label htmlFor="name" className={classes.labelText}>{t('Name', '이름')}</label>
-                      <input className={classes.inputText} type="text" id="name" placeholder={t('Name', '이름')} value={filters.name} onChange={handleFilterChange} />
-                    </td>
-                    <td className={classes.buttonCell}>
-                      <br />
-                      <button type="submit" className={classes.formButton}>{t('Search', '검 색')}</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            ) : (
-              <table className={classes.filterTable}>
-                <tbody>
-                  <tr>
-                    <td className={classes.tdCell}>
-                      <br />
-                      <div>{t('Basic Info', '기본 정보')}</div>
-                    </td>
-                    <td>
-                      <label htmlFor="name" className={classes.labelText}>{t('Name', '이름')}</label>
-                      <input className={classes.inputText} type="text" id="name" placeholder={t('Name', '이름')} value={filters.name} onChange={handleFilterChange} />
-                    </td>
-                    <td>
-                      <label htmlFor="nfc" className={classes.labelText}>{t('NFC', 'NFC')}</label>
-                      <input className={classes.inputText} type="text" id="nfc" placeholder={t('NFC', 'NFC')} value={filters.nfc} onChange={handleFilterChange} />
-                    </td>
-                    <td>
-                      <label htmlFor="issue" className={classes.labelText}>{t('Issues', '누적 이슈')}</label>
-                      <input className={classes.inputText} type="number" id="issue" placeholder={t('Issues', '누적 이슈')} value={filters.issue} onChange={handleFilterChange} />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className={classes.tdCell}>
-                      <br />
-                      <div>{t('Job Info', '직무 정보')}</div>
-                    </td>
-                    <td>
-                      <label htmlFor="department" className={classes.labelText}>{t('Department', '부서')}</label>
-                      <select className={classes.inputText} name="department" id="departmentName" value={filters.departmentName} onChange={handleFilterChange}>
-                        <option value="">{t('Select Department', '부서 선택')}</option>
-                        {departmentLists.map((department) => (
-                          <option key={department.departmentId} value={department.departmentName}>
-                            {department.departmentName}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td>
-                      <label htmlFor="position" className={classes.labelText}>{t('Position', '직책')}</label>
-                      <select className={classes.inputText} name='position' id='positionName' value={filters.positionName} onChange={handleFilterChange}>
-                        <option value="">{t('Select Position', '직책 선택')}</option>
-                        {positionLists.map((position) => (
-                          <option key={position.positionId} value={position.positionName}>
-                            {position.positionName}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td className={classes.buttonCell}>
-                      <br />
-                      <button type="submit" className={classes.formButton}>{t('Search', '검 색')}</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              )}
-          </form>
-        </div>
-      </div>
       <div className={`${classes.registrationContainer} ${classes.relativeBoxContainer}`}>
         <div className={classes.filteringBox}>
           {t('NEW', 'NEW')}
@@ -480,6 +380,111 @@ function Management() {
           </form>
         </div>  
       </div>
+      
+      <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
+        <div className={classes.filteringBox}>
+          {t('FILTERING', 'FILTERING')}
+        </div>
+        <div className={classes.inputContainer}>
+          <div className={classes.optionLabel}>{t('searchOptions', '검색 옵션')}</div>
+          <div className={classes.optionContainer}>
+            <label className={classes.radioLabel}>
+              <input
+                type="radio"
+                value="quick"
+                checked={selectedSearchOption === 'quick'}
+                onChange={handleSearchOptionChange}
+                className={classes.radioInput}
+              />
+              {t('quickSearch', '간편 검색')}
+            </label>
+            <label className={classes.radioLabel}>
+              <input
+                type="radio"
+                value="advanced"
+                checked={selectedSearchOption === 'advanced'}
+                onChange={handleSearchOptionChange}
+                className={classes.radioInput}
+              />
+              {t('advancedSearch', '상세 검색')}
+            </label>
+          </div>
+          <form onSubmit={handleSearch} className={classes.relativeBoxContainer}>
+            {selectedSearchOption === 'quick' ? (
+              <table className={classes.filterTable}>
+                <tbody>
+                  <tr>
+                    <td>
+                      <label htmlFor="name" className={classes.labelText}>{t('Name', '이름')}</label>
+                      <input className={classes.inputText} type="text" id="name" placeholder={t('Name', '이름')} value={filters.name} onChange={handleFilterChange} />
+                    </td>
+                    <td className={classes.buttonCell}>
+                      <br />
+                      <button type="submit" className={classes.formButton}>{t('Search', '검 색')}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <table className={classes.filterTable}>
+                <tbody>
+                  <tr>
+                    <td className={classes.tdCell}>
+                      <br />
+                      <div>{t('Basic Info', '기본 정보')}</div>
+                    </td>
+                    <td>
+                      <label htmlFor="name" className={classes.labelText}>{t('Name', '이름')}</label>
+                      <input className={classes.inputText} type="text" id="name" placeholder={t('Name', '이름')} value={filters.name} onChange={handleFilterChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="nfc" className={classes.labelText}>{t('NFC', 'NFC')}</label>
+                      <input className={classes.inputText} type="text" id="nfc" placeholder={t('NFC', 'NFC')} value={filters.nfc} onChange={handleFilterChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="issue" className={classes.labelText}>{t('Issues', '누적 이슈')}</label>
+                      <input className={classes.inputText} type="number" id="issue" placeholder={t('Issues', '누적 이슈')} value={filters.issue} onChange={handleFilterChange} />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className={classes.tdCell}>
+                      <br />
+                      <div>{t('Job Info', '직무 정보')}</div>
+                    </td>
+                    <td>
+                      <label htmlFor="department" className={classes.labelText}>{t('Department', '부서')}</label>
+                      <select className={classes.inputText} name="department" id="departmentName" value={filters.departmentName} onChange={handleFilterChange}>
+                        <option value="">{t('Select Department', '부서 선택')}</option>
+                        {departmentLists.map((department) => (
+                          <option key={department.departmentId} value={department.departmentName}>
+                            {department.departmentName}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>
+                      <label htmlFor="position" className={classes.labelText}>{t('Position', '직책')}</label>
+                      <select className={classes.inputText} name='position' id='positionName' value={filters.positionName} onChange={handleFilterChange}>
+                        <option value="">{t('Select Position', '직책 선택')}</option>
+                        {positionLists.map((position) => (
+                          <option key={position.positionId} value={position.positionName}>
+                            {position.positionName}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className={classes.buttonCell}>
+                      <br />
+                      <button type="submit" className={classes.formButton}>{t('Search', '검 색')}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              )}
+          </form>
+        </div>
+      </div>
+      
       <div className={classes.listContainer}>
         <div className={classes.listTitle}>
           {t('registeredMembersList', '등록 인원 목록')}
@@ -518,7 +523,7 @@ function Management() {
                     )}
                   </td>
                   <td>
-                    <img src={detailIcon}
+                    <img src={currentDetailIcon}
                       alt="detail_icon"
                       className={classes.listIcon}
                       onClick={() => handleDetailClick(log)} />

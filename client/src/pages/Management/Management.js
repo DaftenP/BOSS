@@ -7,6 +7,8 @@ import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png';
 import detailIconDarkMode from '../../assets/List/Detail_icon_darkmode.png';
 import normalProfile from '../../assets/List/Normal_profile_image.png';
+import sortAscending  from '../../assets/List/Sort_as_icon.png';
+import sortDescending  from '../../assets/List/Sort_de_icon.png';
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
 import { fetchDepartmentLists, departmentRegistration } from '../../store/department';
 import { fetchPositionLists, positionRegistration } from '../../store/position';
@@ -260,13 +262,35 @@ function Management() {
     fileInputRef.current.click();
   };
 
-  const displayedLogs = logsData.slice(0, visibleCount);
+  const [sortdata, setDSortdata] = useState(logsData);
+  // const [isAscending, setIsAscending] = useState(true);
+
+  // 오름차순 정렬 버튼 클릭 시 호출되는 함수
+  const sortAsLogs = () => {
+    const sortedLogs = [...sortdata].sort((a, b) => {
+      return a.issueCount - b.issueCount;
+    });
+    setDSortdata(sortedLogs);
+  };
+
+  // 오름차순 정렬 버튼 클릭 시 호출되는 함수
+  const sortDeLogs = () => {
+    const sortedLogs = [...sortdata].sort((a, b) => {
+      return b.issueCount - a.issueCount;
+    });
+    setDSortdata(sortedLogs);
+  };
+
+  const displayedLogs = sortdata.slice(0, visibleCount);
 
   useEffect(() => {
     setVisibleCount(20);
   }, [logsData]);
 
   const totalLogsCount = logsData.length;
+
+  
+  
 
   return (
     <div className={classes.mainContainer}>
@@ -502,7 +526,13 @@ function Management() {
                 <th>{t('Position', '직책')}</th>
                 <th>{t('phoneNumber', '연락처')}</th>
                 <th>NFC UID</th>
-                <th>{t('Issues', '누적 이슈')}</th>
+                <th style={{ display: 'flex',  justifyContent: 'center', alignItems: 'center' }}>
+                  {t('Issues', '누적 이슈')}
+                  <div className={classes.sort}>
+                    <img onClick={sortAsLogs} src={sortAscending} alt="sort_as_icon" />
+                    <img onClick={sortDeLogs} src={sortDescending} alt="sort_de_icon" />
+                  </div>
+                </th>
                 <th>{t('profileImage', '프로필 사진')}</th>
               </tr>
             </thead>

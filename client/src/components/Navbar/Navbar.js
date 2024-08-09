@@ -31,6 +31,10 @@ function Navbar() {
   };
 
   useEffect(() => {
+    dispatch(fetchAdminLogs())
+  }, [dispatch])
+
+  useEffect(() => {
   }, [adminName]);
 
   useEffect(() => {
@@ -58,7 +62,7 @@ function Navbar() {
     <div className={classes.navbar}>
       <div className={classes.navbarContainer}>
         <span className={classes.adminName}>
-          {adminName ? `${t('Admin')}: ${adminName}` : t('Anonymous Admin')}
+          {t('Admin')} : {logs.length > 0 ? logs[0].admin.adminName : t('Anonymous Admin')}
         </span>
         <span className={classes.loginTime}>
           {loginTime ? `${t('Login Time')}: ${new Date(loginTime).toLocaleTimeString('en-US')} (${elapsedTime} ${t('Elapsed Time')})` : ''}

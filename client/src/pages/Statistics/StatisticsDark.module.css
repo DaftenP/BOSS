@@ -63,8 +63,7 @@
   border: 1px solid #242424;
   border-radius: 20px;
   padding: 0 23px 15px 18px;
-  margin-right: 40px;
-  min-width: 400px;
+  width: auto;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background-color: rgba(128, 128, 128, 0.21);
@@ -83,7 +82,7 @@
 .totalAxisSelectBox {
   display: flex;
   margin-top: 20px;
-  margin-left: 25px;
+  margin-left: 35px;
 }
 
 .axisSelectTitle {
@@ -115,8 +114,9 @@
 .graphContainer > div {
   min-width: 50px;
   min-height: 200px;
-  border: 1px solid #555555;
-  border-radius: 10px;
+  background-color: #4d505f;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.10);
 }
 
 .graphBox {
@@ -139,7 +139,7 @@
 
 .statisticsCard {
   color: #e3e3e3;
-  border: 1px solid #242424;
+  border: 1px solid #333333;
   border-radius: 8px;
   padding: 10px 18px 23px 18px;
   background-color: #444444;
@@ -220,8 +220,8 @@
 
 .chartContainer {
   width: 100%;
-  border: 1px solid #555555;
-  border-radius: 10px;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.10);
   padding: 12px;
 }
 
@@ -277,6 +277,7 @@
   padding: 5px 35px 25px 35px;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
 }
 
 .modalTopContainer {

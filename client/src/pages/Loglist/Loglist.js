@@ -19,8 +19,6 @@ const Modal = ({ show, onClose, log, update }) => {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
 
-  
-
   const [formData, setFormData] = useState({
     logId: 0,
     issue: 0,
@@ -127,10 +125,10 @@ const Modal = ({ show, onClose, log, update }) => {
             <div className={classes.deviceInfoBox}>{log.time.split('T')[0]} {log.time.split('T')[1]} {log.name}</div>
             <div className={classes.deviceImageBox}>
               <div className={classes.deviceImage}>
-                <img src={log.deviceBackImage} alt={`${log.member.name}'s deviceBackImage`} className={classes.devieEachImage} />
+                <img src={log.deviceBackImage} alt={`${log.member.name}'s deviceBackImage`} className={classes.deviceEachImage} />
               </div>
               <div className={classes.deviceImage}>
-                <img src={log.deviceFrontImage} alt={`${log.member.name}'s deviceFrontImage`} className={classes.devieEachImage} />
+                <img src={log.deviceFrontImage} alt={`${log.member.name}'s deviceFrontImage`} className={classes.deviceEachImage} />
               </div>
             </div>
           </div>

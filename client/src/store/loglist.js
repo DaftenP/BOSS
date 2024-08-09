@@ -5,7 +5,7 @@ import api from '../utils/api';
 export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
   const response = await api.get('/api/log/view');
   console.log('전체', response.data)
-  return response.data.length ? response.data : [];
+  return response.data.length ? response.data.reverse() : [];
 });
 
 

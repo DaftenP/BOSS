@@ -8,15 +8,11 @@ export const login = createAsyncThunk('login/login', async (adminInfo) => {
   const accessToken = response.data.accessToken;
   const refreshToken = response.data.refreshToken;
   console.log('reponse데이터', response.data)
-  const adminName = response.data.adminName;
 
   setAccessToken(accessToken);
   setRefreshToken(refreshToken);
   
-  return {
-    ...response.data,
-    adminName,
-  }
+  return response.data
 });
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {

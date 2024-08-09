@@ -78,4 +78,9 @@ public class MemberController {
                 .internalServerError()
                 .body("Sorry: " + e.getMessage());
     }
+
+    @GetMapping("/find")
+    private ResponseEntity<?> searchMemberIdPw() {
+        memberService.
+    }
 }

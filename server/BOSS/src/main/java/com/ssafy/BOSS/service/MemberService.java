@@ -110,6 +110,6 @@ public class MemberService {
 
     public List<MemberLoginDto> searchMemberInfo() {
         List<Member> members = memberRepository.findAll();
-
+        return members.stream().map(memberMapper::memberToMemberLoginDto).toList();
     }
 }

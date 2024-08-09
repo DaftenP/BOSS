@@ -78,7 +78,11 @@ public class MemberController {
     }
 
     @GetMapping("/find")
-    private ResponseEntity<?> searchMemberIdPw() {
-        memberService.
+    public ResponseEntity<?> searchMemberIdAndPw() {
+        List<MemberLoginDto> memberLoginDtos = memberService.searchMemberInfo();
+        if (!memberLoginDtos.isEmpty()) {
+            return ResponseEntity.ok(memberLoginDtos);
+        }
+        return ResponseEntity.noContent().build();
     }
 }

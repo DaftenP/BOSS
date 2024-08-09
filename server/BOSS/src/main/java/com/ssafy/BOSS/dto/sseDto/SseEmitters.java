@@ -42,6 +42,7 @@ public class SseEmitters {
                 emitter.send(SseEmitter.event()
                         .name("issueLog")
                         .data("ok"));
+                log.info("전송 성공!");
             } catch (IOException e) {
                 emitter.completeWithError(e);
                 emitters.remove(emitter);

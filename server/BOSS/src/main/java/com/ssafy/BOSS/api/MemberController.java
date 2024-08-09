@@ -1,6 +1,5 @@
 package com.ssafy.BOSS.api;
 
-import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.dto.memberDto.MemberDto;
 import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -50,9 +48,9 @@ public class MemberController {
 
     @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
-        Optional<Member> member = memberService.findbyNfc(nfc);
-        if (member.isPresent()) {
-            return ResponseEntity.ok(MemberDto.of(member.get()));
+        MemberDto member = memberService.findbyNfc(nfc);
+        if (member != null) {
+            return ResponseEntity.ok(member);
         } else {
             return ResponseEntity.noContent().build();
         }

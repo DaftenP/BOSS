@@ -6,6 +6,7 @@ import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogRegistDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
+import com.ssafy.BOSS.mapper.EnteringLogMapper;
 import com.ssafy.BOSS.repository.EnteringLogRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class EnteringLogService {
     private final EnteringLogRepository enteringLogRepository;
     private final MemberRepository memberRepository;
     private final S3UploadService s3UploadService;
+    private final EnteringLogMapper enteringLogMapper;
 
     public Page<EnteringLog> getEnteringLogs(EnteringLogSpecifiedDto dto, Pageable pageable) {
         return enteringLogRepository.getEnteringLogs(dto, pageable);
@@ -66,11 +68,11 @@ public class EnteringLogService {
     @Transactional(readOnly = true)
     public List<EnteringLogDto> getAllEnteringLogs() {
         List<EnteringLog> logs = enteringLogRepository.findAll();
-        return logs.stream().map(EnteringLogDto::of).toList();
+        return logs.stream().map(enteringLogMapper::enteringLogToEnteringLogDto).toList();
     }
 
     public List<EnteringLogDto> getAllSearchEnteringLogs(RequestEnteringLogDto logDto) {
         List<EnteringLog> logs = enteringLogRepository.searchEnteringLogs(logDto);
-        return logs.stream().map(EnteringLogDto::of).toList();
+        return logs.stream().map(enteringLogMapper::enteringLogToEnteringLogDto).toList();
     }
 }

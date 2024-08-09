@@ -45,36 +45,35 @@ public class MemberService {
         member.setNfc(memberRegistDto.getNfc());
         member.setProfileImage("");
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
-
-        if (memberRegistDto.getDepartmentId() == -1) {
-            String departmentName = memberRegistDto.getDepartmentName();
-            if (departmentRepository.existsByDepartmentName(departmentName)) {
-                member.setDepartment(departmentRepository.findByDepartmentName(departmentName));
-            } else {
-                Department department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
-                departmentRepository.save(department);
-                member.setDepartment(department);
-            }
-        } else {
-            member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
-        }
-
-        if (memberRegistDto.getPositionId() == -1) {
-            String positionName = memberRegistDto.getPositionName();
-            if (positionRepository.existsByPositionName(positionName)) {
-                member.setPosition(positionRepository.findByPositionName(positionName));
-            } else {
-                Position position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
-                positionRepository.save(position);
-                member.setPosition(position);
-            }
-        } else {
-            member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
-        }
-
+        member.setDepartment(getOrCreateDepartment(memberRegistDto));
+        member.setPosition(getOrCreatePosition(memberRegistDto));
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         return member;
+    }
+
+    private Department getOrCreateDepartment(MemberRegistDto memberRegistDto) {
+        if (memberRegistDto.getDepartmentId() != -1) {
+            return departmentRepository.getReferenceById(memberRegistDto.getDepartmentId());
+        }
+        if (departmentRepository.existsByDepartmentName(memberRegistDto.getDepartmentName())) {
+            return departmentRepository.findByDepartmentName(memberRegistDto.getDepartmentName());
+        }
+        Department department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
+        departmentRepository.save(department);
+        return department;
+    }
+
+    private Position getOrCreatePosition(MemberRegistDto memberRegistDto) {
+        if (memberRegistDto.getPositionId() != -1) {
+            return positionRepository.getReferenceById(memberRegistDto.getPositionId());
+        }
+        if (positionRepository.existsByPositionName(memberRegistDto.getPositionName())) {
+            return positionRepository.findByPositionName(memberRegistDto.getPositionName());
+        }
+        Position position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
+        positionRepository.save(position);
+        return position;
     }
 
     public MemberLoginDto login(MemberLoginDto memberLoginDto) {

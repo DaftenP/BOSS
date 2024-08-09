@@ -33,8 +33,11 @@ public class SseEmitters {
     }
 
     public void createIssue() {
+        log.info("createIssue callback");
 
         emitters.forEach(emitter -> {
+            log.info("emitter createIssue callback");
+            log.info(emitter.toString());
             try {
                 emitter.send(SseEmitter.event()
                         .name("issueLog")

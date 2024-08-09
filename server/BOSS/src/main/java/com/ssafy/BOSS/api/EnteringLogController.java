@@ -27,7 +27,6 @@ public class EnteringLogController {
     private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final EnteringLogService enteringLogService;
-    private final SimpMessagingTemplate messagingTemplate;
     private final SseEmitters sseEmiiters;
     private final EnteringLogMapper enteringLogMapper;
 
@@ -72,7 +71,7 @@ public class EnteringLogController {
         EnteringLogDto enteringLogDto = enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
 
         if (enteringLog.getIssue() == 1) {
-            sseEmiiters.createIssue(enteringLogDto);
+            sseEmiiters.createIssue();
         }
 //        if (enteringLog.isFail()) {
 //            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);

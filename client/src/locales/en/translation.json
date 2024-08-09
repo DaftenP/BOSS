@@ -7,12 +7,13 @@
   "Detected People": "Detected",
   "Normal Records": "Normal",
   "Issues": "Issues",
-  "Today's Issues": "Today's Issues",
+  "Issue Overview": "Issue Overview",
   "Today's Issue Ratio": "Today's Ratio",
   "Total Inspections Today": "Total Inspections",
+  "Issues Summary": "Issue Summary",
   "times": "times",
   "Issues Detected": "Detected",
-  "Issue Ratio Today": "Today's Ratio",
+  "Issue Ratio": "Issue Ratio",
   "Real-Time Issue Detection": "Real-Time Detection",
   "Device": "Device",
   "Time": "Time",
@@ -81,7 +82,7 @@
   "Number of Users": "Users",
   "Number of Issues": "Issues",
   "Number of Logs": "Logs",
-  "Average Issue Rate": "Avg Rate",
+  "Average detections": "Avg Det",
   "logs": "logs",
   "NFC": "NFC",
   "NEW": "NEW",
@@ -133,5 +134,6 @@
   "minutes": "minutes",
   "seconds": "seconds",
   "Entry/Exit Text": "Select Entry/Exit",
-  "Security Issue Text": "Select Security Issue"
+  "Security Issue Text": "Select Security Issue",
+  "Cnt": "Cnt"
 }

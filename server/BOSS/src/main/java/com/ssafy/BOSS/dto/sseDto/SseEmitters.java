@@ -2,6 +2,7 @@ package com.ssafy.BOSS.dto.sseDto;
 
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -31,17 +32,19 @@ public class SseEmitters {
         return emitter;
     }
 
-    public void createIssue(EnteringLogDto log) {
+    public void createIssue() {
+        log.info("createIssue callback");
 
         emitters.forEach(emitter -> {
+            log.info("emitter createIssue callback");
+            log.info(emitter.toString());
             try {
-                emitter.send(SseEmitter.event()
-                        .name("issueLog")
-                        .data(log));
+                emitter.send("ok");
+                log.info("전송 성공!");
             } catch (IOException e) {
-                e.printStackTrace();
+                emitter.completeWithError(e);
+                emitters.remove(emitter);
                 System.out.println("로그 전송에 실패했습니다.");
-                throw new RuntimeException(e);
             }
         });
     }

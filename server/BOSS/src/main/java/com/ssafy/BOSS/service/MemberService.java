@@ -7,6 +7,7 @@ import com.ssafy.BOSS.dto.memberDto.MemberDto;
 import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
+import com.ssafy.BOSS.mapper.MemberMapper;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.repository.PositionRepository;
@@ -26,14 +27,16 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PositionRepository positionRepository;
     private final DepartmentRepository departmentRepository;
+
     private final S3UploadService s3UploadService;
+    private final MemberMapper memberMapper;
 
     public MemberDto join(MemberRegistDto memberRegistDto, MultipartFile file) {
         Member member = convertRegistDtoToMember(memberRegistDto);
         validateDuplicateMember(member); // 중복 검사
         String image = s3UploadService.upload(file);
         member.setProfileImage(image);
-        return MemberDto.of(memberRepository.save(member));
+        return memberMapper.memberToMemberDto(memberRepository.save(member));
     }
 
     private Member convertRegistDtoToMember(MemberRegistDto memberRegistDto) {
@@ -52,6 +55,8 @@ public class MemberService {
                 departmentRepository.save(department);
                 member.setDepartment(department);
             }
+        } else {
+            member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
         }
 
         if (memberRegistDto.getPositionId() == -1) {
@@ -63,6 +68,8 @@ public class MemberService {
                 positionRepository.save(position);
                 member.setPosition(position);
             }
+        } else {
+            member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
         }
 
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
@@ -85,19 +92,20 @@ public class MemberService {
         }
     }
 
-    public Optional<Member> findbyNfc(String nfc) {
-        return memberRepository.findByNfc(nfc);
+    public MemberDto findbyNfc(String nfc) {
+        Optional<Member> member = memberRepository.findByNfc(nfc);
+        return member.map(memberMapper::memberToMemberDto).orElse(null);
     }
 
     @Transactional(readOnly = true)
     public List<MemberDto> getAllMembers() {
         List<Member> members = memberRepository.findAll();
-        return members.stream().map(MemberDto::of).toList();
+        return members.stream().map(memberMapper::memberToMemberDto).toList();
     }
 
     public List<MemberDto> searchMemberLogs(RequestMemberDto requestMemberDto) {
         List<Member> members = memberRepository.searchMember(requestMemberDto);
-        return members.stream().map(MemberDto::of).toList();
+        return members.stream().map(memberMapper::memberToMemberDto).toList();
     }
 
     public List<MemberLoginDto> searchMemberInfo() {

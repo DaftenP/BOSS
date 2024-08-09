@@ -1,6 +1,5 @@
 package com.ssafy.BOSS.dto.sseDto;
 
-import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

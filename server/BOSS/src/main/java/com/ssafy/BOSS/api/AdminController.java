@@ -1,8 +1,6 @@
 package com.ssafy.BOSS.api;
 
-import com.ssafy.BOSS.domain.Admin;
 import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
-import com.ssafy.BOSS.dto.adminDto.AdminReturnDto;
 import com.ssafy.BOSS.dto.adminDto.SignInDto;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
 import com.ssafy.BOSS.service.AdminLogService;

@@ -32,13 +32,13 @@ public class SseEmitters {
         return emitter;
     }
 
-    public void createIssue(EnteringLogDto log) {
+    public void createIssue() {
 
         emitters.forEach(emitter -> {
             try {
                 emitter.send(SseEmitter.event()
                         .name("issueLog")
-                        .data(log, MediaType.APPLICATION_JSON));
+                        .data("ok"));
             } catch (IOException e) {
                 e.printStackTrace();
                 emitter.completeWithError(e);

@@ -67,15 +67,10 @@ public class EnteringLogController {
             @RequestPart(value = "deviceBackImage", required = false) MultipartFile file2,
             @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
     ) {
-        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
-        EnteringLogDto enteringLogDto = enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
-
+        EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
         if (enteringLog.getIssue() == 1) {
             sseEmiiters.createIssue();
         }
-//        if (enteringLog.isFail()) {
-//            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
-//        }
         return ResponseEntity.ok().build();
     }
 

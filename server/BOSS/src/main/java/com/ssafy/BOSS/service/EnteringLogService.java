@@ -44,7 +44,7 @@ public class EnteringLogService {
     }
 
     @Transactional
-    public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile file1, MultipartFile file2) {
+    public EnteringLogDto save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile file1, MultipartFile file2) {
         Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());
         if (member.isEmpty()) {
             throw new RuntimeException("Member not found");
@@ -54,7 +54,7 @@ public class EnteringLogService {
         String image2 = s3UploadService.upload(file2);
         EnteringLog enteringLog = enteringLogMapper.enteringLogRegistDtoToEnteringLog(enteringLogRegistDto, member.get(), image1, image2);
         enteringLog = enteringLogRepository.save(enteringLog);
-        return enteringLog;
+        return enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
     }
 
     @Transactional(readOnly = true)

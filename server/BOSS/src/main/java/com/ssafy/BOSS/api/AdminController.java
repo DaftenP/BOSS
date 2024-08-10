@@ -34,24 +34,6 @@ public class AdminController {
         return jwtToken;
     }
 
-//    @PostMapping("/login")
-//    public ResponseEntity<?> login(@RequestBody Admin admin) {
-//        try {
-//            Admin login = adminService.login(admin.getAdminLoginId(), admin.getAdminLoginPw());
-//            if (login != null) {
-//                AdminReturnDto adminReturnDto = new AdminReturnDto();
-//                adminReturnDto.setAdminId(admin.getAdminLoginId());
-//                adminReturnDto.setAdminPw(admin.getAdminLoginPw());
-//                adminReturnDto.setAdminName(admin.getAdminName());
-//                return ResponseEntity.ok(adminReturnDto);
-//            } else {
-//                return ResponseEntity.status(401).build();
-//            }
-//        } catch (Exception e) {
-//            return exceptionHandling(e);
-//        }
-//    }
-
     private ResponseEntity<String> exceptionHandling(Exception e) {
         e.printStackTrace();
         return ResponseEntity

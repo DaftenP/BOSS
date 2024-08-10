@@ -45,7 +45,6 @@ public class EnteringLogService {
 
     @Transactional
     public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile file1, MultipartFile file2) {
-        EnteringLog enteringLog = new EnteringLog();
         Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());
         if (member.isEmpty()) {
             throw new RuntimeException("Member not found");
@@ -53,14 +52,7 @@ public class EnteringLogService {
         // 이미지 업로드
         String image1 = s3UploadService.upload(file1);
         String image2 = s3UploadService.upload(file2);
-        enteringLog.setMember(member.get());
-        enteringLog.setDeviceFrontImage(image1);
-        enteringLog.setDeviceBackImage(image2);
-        enteringLog.setEntering(enteringLogRegistDto.getEntering());
-        enteringLog.setGateNumber(enteringLogRegistDto.getGateNumber());
-        enteringLog.setStickerCount(enteringLogRegistDto.getStickerCount());
-        enteringLog.setIssue(enteringLogRegistDto.getIssue());
-        enteringLog.setCameraLens(enteringLogRegistDto.getCameraLens());
+        EnteringLog enteringLog = enteringLogMapper.enteringLogRegistDtoToEnteringLog(enteringLogRegistDto, member.get(), image1, image2);
         enteringLogRepository.save(enteringLog);
         return enteringLog;
     }

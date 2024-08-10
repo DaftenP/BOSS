@@ -9,6 +9,8 @@ import detailIconDarkMode from '../../assets/List/Detail_icon_darkmode.png';
 import normalProfile from '../../assets/List/Normal_profile_image.png';
 import sortAscending  from '../../assets/List/Sort_as_icon.png';
 import sortDescending  from '../../assets/List/Sort_de_icon.png';
+import sortAscendingDarkMode  from '../../assets/List/Sort_as_icon_darkmode.png';
+import sortDescendingDarkMode  from '../../assets/List/Sort_de_icon_darkmode.png';
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
 import { fetchDepartmentLists, departmentRegistration } from '../../store/department';
 import { fetchPositionLists, positionRegistration } from '../../store/position';
@@ -20,6 +22,8 @@ function Management() {
   const classes = isDarkMode ? darkClasses : lightClasses;
 
   const currentDetailIcon = isDarkMode ? detailIconDarkMode : detailIcon;
+  const currentSortAsIcon = isDarkMode ? sortAscendingDarkMode : sortAscending;
+  const currentSortDeIcon = isDarkMode ? sortDescendingDarkMode : sortDescending;
 
   const { t } = useTranslation();
 
@@ -529,8 +533,8 @@ function Management() {
                 <th style={{ display: 'flex',  justifyContent: 'center', alignItems: 'center' }}>
                   {t('Issues', '누적 이슈')}
                   <div className={classes.sort}>
-                    <img onClick={sortAsLogs} src={sortAscending} alt="sort_as_icon" />
-                    <img onClick={sortDeLogs} src={sortDescending} alt="sort_de_icon" />
+                    <img onClick={sortAsLogs} src={currentSortAsIcon} alt="sort_as_icon" />
+                    <img onClick={sortDeLogs} src={currentSortDeIcon} alt="sort_de_icon" />
                   </div>
                 </th>
                 <th>{t('profileImage', '프로필 사진')}</th>

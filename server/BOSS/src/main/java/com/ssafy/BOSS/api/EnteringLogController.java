@@ -63,11 +63,11 @@ public class EnteringLogController {
 
     @PostMapping("/regist")
     public ResponseEntity<Void> saveEnteringLog(
-            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile file1,
-            @RequestPart(value = "deviceBackImage", required = false) MultipartFile file2,
+            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile deviceFrontImage,
+            @RequestPart(value = "deviceBackImage", required = false) MultipartFile deviceBackImage,
             @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
     ) {
-        EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
+        EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, deviceFrontImage, deviceBackImage);
         if (enteringLog.getIssue() == 1) {
             sseEmiiters.createIssue();
         }

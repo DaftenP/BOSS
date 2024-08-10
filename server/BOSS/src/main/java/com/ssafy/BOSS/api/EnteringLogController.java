@@ -4,13 +4,9 @@ import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.dto.enteringLog.*;
 import com.ssafy.BOSS.dto.sseDto.SseEmitters;
-import com.ssafy.BOSS.mapper.EnteringLogMapper;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.service.EnteringLogService;
-import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +21,7 @@ public class EnteringLogController {
 
     private final MemberRepository memberRepository;
     private final EnteringLogService enteringLogService;
-    private final SseEmitters sseEmiiters;
+    private final SseEmitters sseEmitters;
 
     @GetMapping("/view")
     public ResponseEntity<?> getAllEnteringLogs() {
@@ -58,7 +54,7 @@ public class EnteringLogController {
     ) {
         EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, deviceFrontImage, deviceBackImage);
         if (enteringLog.getIssue() == 1) {
-            sseEmiiters.createIssue();
+            sseEmitters.createIssue();
         }
         return ResponseEntity.ok().build();
     }

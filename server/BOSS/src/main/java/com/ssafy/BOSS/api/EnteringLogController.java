@@ -27,20 +27,12 @@ public class EnteringLogController {
     private final EnteringLogService enteringLogService;
     private final SseEmitters sseEmiiters;
 
-    @Deprecated
-    @GetMapping
-    public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
-        Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
-        return ResponseEntity.ok(logs);
-    }
-
     @GetMapping("/view")
     public ResponseEntity<?> getAllEnteringLogs() {
         List<EnteringLogDto> logs = enteringLogService.getAllEnteringLogs();
         return ResponseEntity.ok(logs);
     }
 
-    @Deprecated
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
         Optional<Member> member = memberRepository.findById(id);

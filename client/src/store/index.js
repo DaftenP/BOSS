@@ -31,7 +31,7 @@ const store = configureStore({
     theme: themeReducer,
     language: languageReducer,
     department: departmentReducer,
-    position: positionReducer
+    position: positionReducer,
   },
   // serializableCheck 옵션을 구성하여 redux-persist 의 액션을 무시하는 설정
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

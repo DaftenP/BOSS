@@ -7,11 +7,12 @@ import { fetchPositionLists } from '../../store/position';
 import lightClasses from './Loglist.module.css';
 import darkClasses from './LoglistDark.module.css';
 import pictureIcon from '../../assets/List/Picture_icon.png';
+import pictureIconDarkmode from '../../assets/List/Picture_icon_darkmode.png';
 import editIcon from '../../assets/List/Edit_icon.png';
+import editIconDarkmode from '../../assets/List/Edit_icon_darkmode.png';
 import checkIcon from '../../assets/List/Check_icon.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import Select from 'react-select';
 
 const Modal = ({ show, onClose, log, update }) => {
   const { t } = useTranslation();
@@ -124,10 +125,10 @@ const Modal = ({ show, onClose, log, update }) => {
             <div className={classes.deviceInfoBox}>{log.time.split('T')[0]} {log.time.split('T')[1]} {log.name}</div>
             <div className={classes.deviceImageBox}>
               <div className={classes.deviceImage}>
-                <img src={log.deviceBackImage} alt={`${log.member.name}'s deviceBackImage`} className={classes.devieEachImage} />
+                <img src={log.deviceBackImage} alt={`${log.member.name}'s deviceBackImage`} className={classes.deviceEachImage} />
               </div>
               <div className={classes.deviceImage}>
-                <img src={log.deviceFrontImage} alt={`${log.member.name}'s deviceFrontImage`} className={classes.devieEachImage} />
+                <img src={log.deviceFrontImage} alt={`${log.member.name}'s deviceFrontImage`} className={classes.deviceEachImage} />
               </div>
             </div>
           </div>
@@ -145,6 +146,9 @@ function LogTable() {
   const departmentLists = useSelector((state) => state.department.data)
   const positionLists = useSelector((state) => state.position.data)
   const [selectedSearchOption, setSelectedSearchOption] = useState('quick')
+
+  const currentPictureIcon = isDarkMode ? pictureIconDarkmode : pictureIcon;
+  const currentEditIcon = isDarkMode ? editIconDarkmode : editIcon;
 
   const dispatch = useDispatch();
 
@@ -455,12 +459,12 @@ function LogTable() {
                 <td className={classes.countText}>{log.stickerCount}</td>
                 <td>
                   <div onClick={() => handleShowModal(log)}>
-                    <img className={classes.logIcon} src={pictureIcon} alt="picture_icon" />
+                    <img className={classes.logIcon} src={currentPictureIcon} alt="picture_icon" />
                   </div>
                 </td>
                 <td>
                   <div onClick={() => handleUpdateModal(log)}>
-                    <img className={classes.logIcon} src={editIcon} alt="edit_icon" />
+                    <img className={classes.logIcon} src={currentEditIcon} alt="edit_icon" />
                   </div>
                 </td>
               </tr>

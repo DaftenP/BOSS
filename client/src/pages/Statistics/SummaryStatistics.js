@@ -185,8 +185,8 @@ function SummaryStatistics({ loglist }) {
               <p className={classes.value}>{statistics.logs} {t('logs')}</p>
             </div>
             <div className={classes.statisticsCard}>
-              <h3>{t('Average Issue Rate')}</h3>
-              <p className={classes.value}>{statistics.averageIssues.toFixed(2)}</p>
+              <h3>{t('Average detections')}</h3>
+              <p className={classes.value}>{statistics.averageIssues.toFixed(1)} {t('Cnt', '개')}</p>
             </div>
           </div>
         </div>

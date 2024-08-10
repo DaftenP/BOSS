@@ -31,9 +31,9 @@
   background-color: #B0D2FA;
   color: #0A47A3;
   border: none;
-  padding: 8px 30px;
+  padding: 6px 20px;
   min-width: 100px;
-  margin: 0 0 0 25px;
+  margin: 5px 0 0 25px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 20px;
@@ -279,16 +279,14 @@
 }
 
 .deviceImageBox {
-  display: flex;
   margin-bottom: 40px;
 }
 
 /* 디바이스 이미지 16:9를 3.2배율로 설정 */
 .deviceImage {
   background-color: gray;
-  width: 288px;
-  height: 512px;
-  display: flex;
+  height: 288px;
+  width: 512px;
   justify-content: center;
   align-items: center;
 }
@@ -296,7 +294,7 @@
 .deviceEachImage {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: contain;
 }
 
 .close {

@@ -5,7 +5,7 @@ import api from '../utils/api';
 export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
   const response = await api.get('/api/log/view');
   console.log('전체', response.data)
-  return response.data.length ? response.data : [];
+  return response.data.length ? response.data.reverse() : [];
 });
 
 
@@ -18,7 +18,7 @@ export const updateLog = createAsyncThunk('loglist/updateLog', async (formData) 
   return response.data.length ? response.data : [];
 })
 
-// // 로그 필터링 요청
+// 로그 필터링 요청
 export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', async (filters) => {
   console.log('필터링 보낸 것', filters)
   const response = await api.get('/api/log/search', {

@@ -11,6 +11,8 @@ class SoundPlayer:
         self.sound_folder = os.path.join(self.base_path, '../sound')
         self.alert_path = os.path.join(self.sound_folder, 'alert.mp3')
         self.check_path = os.path.join(self.sound_folder, 'check.mp3')
+        self.pass_path = os.path.join(self.sound_folder, 'pass.mp3')
+        self.fail_path = os.path.join(self.sound_folder, 'fail.mp3')
 
     def load_music(self, file_path):
         """Load a music file."""
@@ -36,6 +38,17 @@ class SoundPlayer:
         """Load and play check sound."""
         self.load_music(self.check_path)
         self.play_music()
+
+    def play_pass_sound(self):
+        """Load and play check sound."""
+        self.load_music(self.pass_path)
+        self.play_music()
+
+    def play_fail_sound(self):
+        """Load and play check sound."""
+        self.load_music(self.fail_path)
+        self.play_music()
+
 
 
 if __name__ == "__main__":

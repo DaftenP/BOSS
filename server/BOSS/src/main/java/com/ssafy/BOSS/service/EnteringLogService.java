@@ -53,7 +53,7 @@ public class EnteringLogService {
         String image1 = s3UploadService.upload(file1);
         String image2 = s3UploadService.upload(file2);
         EnteringLog enteringLog = enteringLogMapper.enteringLogRegistDtoToEnteringLog(enteringLogRegistDto, member.get(), image1, image2);
-        enteringLogRepository.save(enteringLog);
+        enteringLog = enteringLogRepository.save(enteringLog);
         return enteringLog;
     }
 

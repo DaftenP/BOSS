@@ -1,8 +1,6 @@
 package com.ssafy.BOSS.dto.sseDto;
 
-import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 

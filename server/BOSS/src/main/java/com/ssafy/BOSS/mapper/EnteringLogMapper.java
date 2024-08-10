@@ -9,5 +9,6 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface EnteringLogMapper {
     EnteringLogDto enteringLogToEnteringLogDto(EnteringLog enteringLog);
+
     EnteringLog enteringLogRegistDtoToEnteringLog(EnteringLogRegistDto dto, Member member, String deviceFrontImage, String deviceBackImage);
 }

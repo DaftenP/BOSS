@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,11 +23,9 @@ import java.util.Optional;
 @RequestMapping("/api/log")
 public class EnteringLogController {
 
-    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final EnteringLogService enteringLogService;
     private final SseEmitters sseEmiiters;
-    private final EnteringLogMapper enteringLogMapper;
 
     @Deprecated
     @GetMapping

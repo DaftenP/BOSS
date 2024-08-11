@@ -24,6 +24,8 @@ function Management() {
   const classes = isDarkMode ? darkClasses : lightClasses;
 
   const currentDetailIcon = isDarkMode ? detailIconDarkMode : detailIcon;
+  const currentSortAsIcon = isDarkMode ? sortAscendingDarkMode : sortAscending;
+  const currentSortDeIcon = isDarkMode ? sortDescendingDarkMode : sortDescending;
 
   const { t } = useTranslation();
 

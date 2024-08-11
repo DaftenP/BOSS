@@ -4,15 +4,10 @@ import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
 import com.ssafy.BOSS.dto.enteringLog.*;
 import com.ssafy.BOSS.dto.sseDto.SseEmitters;
-import com.ssafy.BOSS.mapper.EnteringLogMapper;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.service.EnteringLogService;
-import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,18 +19,9 @@ import java.util.Optional;
 @RequestMapping("/api/log")
 public class EnteringLogController {
 
-    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final EnteringLogService enteringLogService;
-    private final SseEmitters sseEmiiters;
-    private final EnteringLogMapper enteringLogMapper;
-
-    @Deprecated
-    @GetMapping
-    public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
-        Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
-        return ResponseEntity.ok(logs);
-    }
+    private final SseEmitters sseEmitters;
 
     @GetMapping("/view")
     public ResponseEntity<?> getAllEnteringLogs() {
@@ -43,7 +29,6 @@ public class EnteringLogController {
         return ResponseEntity.ok(logs);
     }
 
-    @Deprecated
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
         Optional<Member> member = memberRepository.findById(id);
@@ -63,19 +48,14 @@ public class EnteringLogController {
 
     @PostMapping("/regist")
     public ResponseEntity<Void> saveEnteringLog(
-            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile file1,
-            @RequestPart(value = "deviceBackImage", required = false) MultipartFile file2,
+            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile deviceFrontImage,
+            @RequestPart(value = "deviceBackImage", required = false) MultipartFile deviceBackImage,
             @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
     ) {
-        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
-        EnteringLogDto enteringLogDto = enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
-
+        EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, deviceFrontImage, deviceBackImage);
         if (enteringLog.getIssue() == 1) {
-            sseEmiiters.createIssue();
+            sseEmitters.createIssue();
         }
-//        if (enteringLog.isFail()) {
-//            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
-//        }
         return ResponseEntity.ok().build();
     }
 

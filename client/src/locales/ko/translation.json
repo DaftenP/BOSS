@@ -9,13 +9,13 @@
   "Issues": "누적 이슈",
   "Issue Overview": "이슈 현황",
   "Today's Issue Ratio": "금일 이슈 인원 비율",
-  "Total Inspections Today": "금일 검사 횟수",
+  "Total Inspections Today": "검사 횟수",
   "Issues Summary": "이슈 요약",
   "times": " 회",
   "Issues Detected": "이슈 발생 횟수",
   "Issue Ratio": "이슈 비율",
   "Real-Time Issue Detection": "실시간 적발 상황",
-  "Device": "기기",
+  "Device": "기기 번호",
   "Time": "시간",
   "Name": "이름",
   "Department": "부서",
@@ -135,5 +135,7 @@
   "seconds": "초",
   "Entry/Exit Text": "출/퇴 선택",
   "Security Issue Text": "보안 이슈 선택",
-  "Cnt": "개"
+  "Cnt": "개",
+  "Sort: Ascending": "정렬: 오름차순",
+  "Sort: Descending": "정렬: 내림차순"
 }

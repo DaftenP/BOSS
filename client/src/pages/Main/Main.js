@@ -280,7 +280,7 @@ function Main() {
           <div className={`${classes.card} ${classes.bottomLeftCard}`}>
             <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
             <div className={classes.cardContent}>
-              <div className={classes.cardTitle}>{t('Issue Ratio Today')}</div>
+              <div className={classes.cardTitle}>{t('Issue Ratio')}</div>
               <div className={classes.cardValue}>{errorPercent} %</div>
             </div>
           </div>

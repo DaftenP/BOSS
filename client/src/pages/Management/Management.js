@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
@@ -7,13 +7,15 @@ import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png';
 import detailIconDarkMode from '../../assets/List/Detail_icon_darkmode.png';
 import normalProfile from '../../assets/List/Normal_profile_image.png';
-import sortAscending  from '../../assets/List/Sort_as_icon.png';
-import sortDescending  from '../../assets/List/Sort_de_icon.png';
-import sortAscendingDarkMode  from '../../assets/List/Sort_as_icon_darkmode.png';
-import sortDescendingDarkMode  from '../../assets/List/Sort_de_icon_darkmode.png';
+import ascendingIcon  from '../../assets/List/Ascending_icon.png';
+import ascendingIconDark  from '../../assets/List/Ascending_icon_darkmode.png';
+import descendingIcon  from '../../assets/List/Descending_icon.png';
+import descendingIconDark from '../../assets/List/Descending_icon_darkmode.png';
+
+
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
-import { fetchDepartmentLists, departmentRegistration } from '../../store/department';
-import { fetchPositionLists, positionRegistration } from '../../store/position';
+import { fetchDepartmentLists } from '../../store/department';
+import { fetchPositionLists } from '../../store/position';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -111,7 +113,6 @@ function Management() {
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
-    console.log(filteredFilters)
     setVisibleCount(20);
     dispatch(fetchFilteredMember(filteredFilters));
     setFilters({
@@ -266,35 +267,33 @@ function Management() {
     fileInputRef.current.click();
   };
 
-  const [sortdata, setDSortdata] = useState(logsData);
-  // const [isAscending, setIsAscending] = useState(true);
+  // ascending: 오름차순(1, 2, 3...), descending: 내림차순(5, 4, 3...)
+  const [sortConfig, setSortConfig] = useState({ key: 'memberId', direction: 'descending' })
+  const sortedLogs = useMemo(() => {
+    const sortableLogs = [...(logsData || [])]
+    sortableLogs.sort((a, b) => {
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1
+      }
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1
+      }
+      return 0
+    })
+    return sortableLogs
+  }, [logsData, sortConfig])
 
-  // 오름차순 정렬 버튼 클릭 시 호출되는 함수
-  const sortAsLogs = () => {
-    const sortedLogs = [...sortdata].sort((a, b) => {
-      return a.issueCount - b.issueCount;
-    });
-    setDSortdata(sortedLogs);
-  };
-
-  // 오름차순 정렬 버튼 클릭 시 호출되는 함수
-  const sortDeLogs = () => {
-    const sortedLogs = [...sortdata].sort((a, b) => {
-      return b.issueCount - a.issueCount;
-    });
-    setDSortdata(sortedLogs);
-  };
-
-  const displayedLogs = sortdata.slice(0, visibleCount);
-
-  useEffect(() => {
-    setVisibleCount(20);
-  }, [logsData]);
-
+  // ascending일 때 누르면 descending으로, descending일 때 누르면 asending으로 변경, key는 그대로 
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction })
+  }
+  
+  const displayedLogs = sortedLogs.slice(0, visibleCount);
   const totalLogsCount = logsData.length;
-
-  
-  
 
   return (
     <div className={classes.mainContainer}>
@@ -524,18 +523,62 @@ function Management() {
           <table className={classes.logTable}>
             <thead>
               <tr>
-                <th>ID</th>
+                <th className={classes.relativeBoxContainer}>
+                  {t('Member ID', '이용자 ID')}
+                  <span
+                    className={classes.sortIconWrapper}
+                    data-direction={sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? t('Sort: Ascending') : t('Sort: Descending')}
+                    onClick={() => requestSort('memberId')}
+                  >
+                    {isDarkMode ? (
+                      <span>
+                        {sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                        )}
+                      </span>
+                      ) : (
+                      <span>
+                        {sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                        )}
+                      </span>
+                    )}
+                  </span>
+                </th>
                 <th>{t('Name', '이름')}</th>
                 <th>{t('Department', '부서')}</th>
                 <th>{t('Position', '직책')}</th>
                 <th>{t('phoneNumber', '연락처')}</th>
                 <th>NFC UID</th>
-                <th style={{ display: 'flex',  justifyContent: 'center', alignItems: 'center' }}>
+                <th className={classes.relativeBoxContainer}>
                   {t('Issues', '누적 이슈')}
-                  <div className={classes.sort}>
-                    <img onClick={sortAsLogs} src={currentSortAsIcon} alt="sort_as_icon" />
-                    <img onClick={sortDeLogs} src={currentSortDeIcon} alt="sort_de_icon" />
-                  </div>
+                  <span
+                    className={classes.sortIconWrapper}
+                    data-direction={sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? t('Sort: Ascending') : t('Sort: Descending')}
+                    onClick={() => requestSort('issueCount')}
+                  >
+                    {isDarkMode ? (
+                      <span>
+                        {sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                        )}
+                      </span>
+                      ) : (
+                      <span>
+                        {sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                        )}
+                      </span>
+                      )}
+                    </span>
                 </th>
                 <th>{t('profileImage', '프로필 사진')}</th>
               </tr>

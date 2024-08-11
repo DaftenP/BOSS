@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import lightClasses from './Navbar.module.css';
 import darkClasses from './NavbarDark.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
+import logoutIconDark from '../../assets/Layout/Logout_icon_darkmode.png';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ function Navbar() {
         </span>
         <button onClick={logoutHandler} className={classes.logoutButton}>
           {t('Logout')}
-          <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
+          {isDarkMode ? (<img src={logoutIconDark} alt="logout_icon" className={classes.labelIcon} />) : (<img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />)}
         </button>
       </div>
       <span className={classes.loginTimeButton} onClick={handleToggleLogs}>

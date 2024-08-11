@@ -466,3 +466,56 @@
 .countText {
   font-weight: bold;
 }
+
+.sortIcon {
+  position: absolute;
+  right: 7px;
+  top: 28%;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  outline: none;
+  background-color: #5c5c5c;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.15);
+  padding: 2px;
+}
+
+.sortIcon:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3);
+}
+
+
+.sortIconWrapper:hover::after {
+  content: attr(data-direction);
+  position: absolute;
+  top: -35px;
+  left: 88%;
+  transform: translateX(-50%);
+  background-color: #bbb;
+  color: black;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.sortIconWrapper:hover::before {
+  content: "";
+  position: absolute;
+  top: -5px; 
+  left: 88%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #bbb transparent;
+  z-index: 9;
+}
+
+.sortCell {
+  min-width: 75px;;
+}

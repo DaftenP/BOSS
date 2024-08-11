@@ -15,7 +15,7 @@
   "Issues Detected": "Detected",
   "Issue Ratio": "Issue Ratio",
   "Real-Time Issue Detection": "Real-Time Detection",
-  "Device": "Device",
+  "Device": "Device Number",
   "Time": "Time",
   "Name": "Name",
   "Department": "Dept",
@@ -47,7 +47,7 @@
   "End Date": "End Date",
   "End Time": "End Time",
   "Security Issue": "Security",
-  "Number of Stickers Issued": "Number of Stickers",
+  "Number of Stickers Issued": "Stickers Count",
   "Search": "Search",
   "Total Issue Logs": "Total Logs",
   "Total Issues Found": "Total Issues",
@@ -135,5 +135,7 @@
   "seconds": "seconds",
   "Entry/Exit Text": "Select Entry/Exit",
   "Security Issue Text": "Select Security Issue",
-  "Cnt": "Cnt"
+  "Cnt": "Cnt",
+  "Sort: Ascending": "Sort: Ascending",
+  "Sort: Descending": "Sort: Descending"
 }

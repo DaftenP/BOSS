@@ -12,7 +12,6 @@ import ascendingIconDark  from '../../assets/List/Ascending_icon_darkmode.png';
 import descendingIcon  from '../../assets/List/Descending_icon.png';
 import descendingIconDark from '../../assets/List/Descending_icon_darkmode.png';
 
-
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
 import { fetchDepartmentLists } from '../../store/department';
 import { fetchPositionLists } from '../../store/position';
@@ -24,8 +23,6 @@ function Management() {
   const classes = isDarkMode ? darkClasses : lightClasses;
 
   const currentDetailIcon = isDarkMode ? detailIconDarkMode : detailIcon;
-  const currentSortAsIcon = isDarkMode ? sortAscendingDarkMode : sortAscending;
-  const currentSortDeIcon = isDarkMode ? sortDescendingDarkMode : sortDescending;
 
   const { t } = useTranslation();
 

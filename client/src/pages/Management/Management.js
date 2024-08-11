@@ -111,7 +111,6 @@ function Management() {
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
-    console.log(filteredFilters)
     setVisibleCount(20);
     dispatch(fetchFilteredMember(filteredFilters));
     setFilters({

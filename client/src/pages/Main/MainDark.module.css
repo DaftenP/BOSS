@@ -374,6 +374,7 @@ position: relative;
 }
 
 .todayTitle {
+  color: #e3e3e3;
   background-color: #4d505f;
   border-radius: 18px 18px 0 0;
   padding: 10px 15px 10px 15px;

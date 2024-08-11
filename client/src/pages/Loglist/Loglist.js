@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLogs, updateLog, fetchFilteredLogs, loglistActions } from '../../store/loglist';
@@ -13,6 +13,10 @@ import editIconDarkmode from '../../assets/List/Edit_icon_darkmode.png';
 import checkIcon from '../../assets/List/Check_icon.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import ascendingIcon  from '../../assets/List/Ascending_icon.png';
+import ascendingIconDark  from '../../assets/List/Ascending_icon_darkmode.png';
+import descendingIcon  from '../../assets/List/Descending_icon.png';
+import descendingIconDark from '../../assets/List/Descending_icon_darkmode.png';
 
 const Modal = ({ show, onClose, log, update }) => {
   const { t } = useTranslation();
@@ -86,7 +90,6 @@ const Modal = ({ show, onClose, log, update }) => {
                       <div className={classes.formGroup}>
                         <label htmlFor="issue" className={classes.updateLabelText}>{t('Security Issue')}</label>
                         <select className={classes.updateInputText} name="issue" value={formData.issue} onChange={handleModalInputChange}>
-                          <option value="">{t('Security Issue Text')}</option>
                           <option value="0">{t('Clear')}</option>
                           <option value="1">{t('Alert')}</option>
                         </select>
@@ -254,12 +257,34 @@ function LogTable() {
     setSelectedLog(null);
   };
 
-  const options = [
-    { value: '0', label: t('Clear') },
-    { value: '1', label: t('Alert') },
-  ];
+  const [sortConfig, setSortConfig] = useState({key: 'logId', direction: 'descending'})
+  
+  const sortedLogs = useMemo(() => {
+    const sortableLogs = [...(logsData || [])]
+    sortableLogs.sort((a, b) => {
+      const aValue = sortConfig.key.includes('.') ? sortConfig.key.split('.').reduce((obj, key) => obj[key], a) : a[sortConfig.key];
+      const bValue = sortConfig.key.includes('.') ? sortConfig.key.split('.').reduce((obj, key) => obj[key], b) : b[sortConfig.key];
+      
+      if (aValue > bValue) {
+        return sortConfig.direction === 'descending' ? -1 : 1
+      }
+      if (aValue < bValue) {
+        return sortConfig.direction === 'descending' ? 1 : -1
+      }
+      return 0
+    })
+    return sortableLogs
+  }, [logsData, sortConfig])
 
-  const displayedLogs = logsData.slice(0, visibleCount);
+  const requestSort = (key) => {
+    let direction = 'descending'
+    if (sortConfig.key === key && sortConfig.direction === 'descending') {
+      direction = 'ascending'
+    }
+    setSortConfig({ key, direction })
+  }
+
+  const displayedLogs = sortedLogs.slice(0, visibleCount);
 
   useEffect(() => {
     setVisibleCount(20);
@@ -429,8 +454,58 @@ function LogTable() {
           <thead>
             <tr>
               <th>{t('Device')}</th>
-              <th>{t('Log ID')}</th>
-              <th>{t('Member ID')}</th>
+              <th className={`${classes.relativeBoxContainer} ${classes.sortCell}`}>
+                {t('Log ID')}
+                <span
+                  className={classes.sortIconWrapper}
+                  data-direction={sortConfig.key === 'logId' && sortConfig.direction === 'ascending' ? t('Sort: Ascending') : t('Sort: Descending')}
+                  onClick={() => requestSort('logId')}
+                >
+                  {isDarkMode ? (
+                    <span>
+                      {sortConfig.key === 'logId' && sortConfig.direction === 'ascending' ? (
+                        <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                      ) : (
+                        <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                      )}
+                    </span>
+                    ) : (
+                    <span>
+                      {sortConfig.key === 'logId' && sortConfig.direction === 'ascending' ? (
+                        <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                      ) : (
+                        <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                      )}
+                    </span>
+                  )}
+                </span>
+              </th>
+              <th className={`${classes.relativeBoxContainer} ${classes.sortCell}`}>
+                {t('Member ID')}
+                <span
+                  className={classes.sortIconWrapper}
+                  data-direction={sortConfig.key === 'member.memberId' && sortConfig.direction === 'ascending' ? t('Sort: Ascending') : t('Sort: Descending')}
+                  onClick={() => requestSort('member.memberId')}
+                >
+                  {isDarkMode ? (
+                    <span>
+                      {sortConfig.key === 'member.memberId' && sortConfig.direction === 'ascending' ? (
+                        <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                      ) : (
+                        <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                      )}
+                    </span>
+                    ) : (
+                    <span>
+                      {sortConfig.key === 'member.memberId' && sortConfig.direction === 'ascending' ? (
+                        <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                      ) : (
+                        <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                      )}
+                    </span>
+                  )}
+                </span>
+              </th>
               <th>{t('Name')}</th>
               <th>{t('Department')}</th>
               <th>{t('Position')}</th>

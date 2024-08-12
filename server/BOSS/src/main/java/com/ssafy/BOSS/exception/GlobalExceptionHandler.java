@@ -16,8 +16,8 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleBossException(BossException e) {
         log.error(e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(errorCode.getHttpStatus(), errorCode.getErrorCode());
-        return new ErrorCodeProblemDetail(problemDetail, errorCode.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(errorCode.getHttpStatus(), errorCode.getMessage());
+        return new ErrorCodeProblemDetail(problemDetail, errorCode.getErrorCode());
     }
 
     @ExceptionHandler

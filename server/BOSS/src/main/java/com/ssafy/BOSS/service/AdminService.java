@@ -16,8 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
@@ -45,10 +43,9 @@ public class AdminService {
 
     @Transactional
     public AdminLogDto checkAdmin(String adminLoginId, String adminLoginPw) {
-        Optional<Admin> admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw);
-        if (admin.isEmpty()) throw new BossException(AdminErrorCode.ADMIN_NOT_FOUND);
+        Admin admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw).orElseThrow(() -> new BossException(AdminErrorCode.ADMIN_NOT_FOUND));
         AdminLogDto adminLogDto = new AdminLogDto();
-        AdminDto adminDto = adminMapper.adminToAdminDto(admin.get());
+        AdminDto adminDto = adminMapper.adminToAdminDto(admin);
         adminLogDto.setAdmin(adminDto);
         return adminLogDto;
     }

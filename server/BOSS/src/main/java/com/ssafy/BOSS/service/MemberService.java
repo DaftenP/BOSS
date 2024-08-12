@@ -65,4 +65,5 @@ public class MemberService {
         List<Member> members = memberRepository.findAll();
         return members.stream().map(memberMapper::memberToMemberLoginDto).toList();
     }
+
 }

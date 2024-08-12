@@ -210,6 +210,11 @@
 .yearInputText {
   width: 132px;
   height: 35px;
+  background-color: #dec3ff;
+}
+
+.dateInputText, .inputText[type="date"], .inputText[type="month"] {
+  background-color: #dec3ff;
 }
 
 .inputText:hover {

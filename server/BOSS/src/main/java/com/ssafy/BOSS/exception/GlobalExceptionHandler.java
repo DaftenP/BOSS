@@ -9,19 +9,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @Slf4j
 @RestControllerAdvice
-public class ExceptionController {
+public class GlobalExceptionHandler {
 
     @ExceptionHandler(BossException.class)
     public ProblemDetail handleBossException(BossException e) {
         log.error(e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
         return ProblemDetail.forStatusAndDetail(errorCode.getHttpStatus(), errorCode.getMessage());
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ProblemDetail handleRuntimeException(RuntimeException e) {
-        log.error(e.getMessage());
-        return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
     @ExceptionHandler

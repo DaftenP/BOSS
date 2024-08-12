@@ -34,7 +34,7 @@ public class EnteringLogService {
         enteringLog.setIssue(issue);
     }
 
-    public List<EnteringLog> findLogsByMember(Optional<Member> member) {
+    public List<EnteringLog> findLogsByMember(Member member) {
         return enteringLogRepository.findEnteringLogsByMember(member);
     }
 

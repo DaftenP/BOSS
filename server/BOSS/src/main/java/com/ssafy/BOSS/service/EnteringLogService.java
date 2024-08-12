@@ -62,6 +62,11 @@ public class EnteringLogService {
         enteringLog.setIssue(enteringLogRegistDto.getIssue());
         enteringLog.setCameraLens(enteringLogRegistDto.getCameraLens());
         enteringLogRepository.save(enteringLog);
+
+        if (enteringLog.getIssue() == 1) {
+            member.get().setIssueCount(member.get().getIssueCount() + 1);
+        }
+
         return enteringLog;
     }
 

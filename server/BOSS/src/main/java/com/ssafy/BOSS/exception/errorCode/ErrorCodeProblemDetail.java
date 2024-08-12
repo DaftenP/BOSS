@@ -5,10 +5,10 @@ import org.springframework.http.ProblemDetail;
 
 @Getter
 public class ErrorCodeProblemDetail extends ProblemDetail {
-    private final String message;
+    private final String errorCode;
 
-    public ErrorCodeProblemDetail(ProblemDetail problemDetail, String message) {
+    public ErrorCodeProblemDetail(ProblemDetail problemDetail, String errorCode) {
         super(problemDetail);
-        this.message = message;
+        this.errorCode = errorCode;
     }
 }

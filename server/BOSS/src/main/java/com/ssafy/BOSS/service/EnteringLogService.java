@@ -6,6 +6,8 @@ import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogRegistDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogSpecifiedDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
+import com.ssafy.BOSS.exception.BossException;
+import com.ssafy.BOSS.exception.errorCode.MemberErrorCode;
 import com.ssafy.BOSS.mapper.EnteringLogMapper;
 import com.ssafy.BOSS.repository.EnteringLogRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
@@ -47,7 +49,7 @@ public class EnteringLogService {
     public EnteringLogDto save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile deviceFrontImage, MultipartFile deviceBackImage) {
         Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());
         if (member.isEmpty()) {
-            throw new RuntimeException("Member not found");
+            throw new BossException(MemberErrorCode.MEMBER_NOT_FOUND);
         }
         // 이미지 업로드
         String deviceFrontImageLink = s3UploadService.upload(deviceFrontImage);

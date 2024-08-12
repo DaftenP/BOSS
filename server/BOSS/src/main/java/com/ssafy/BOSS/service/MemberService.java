@@ -8,6 +8,7 @@ import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
 import com.ssafy.BOSS.exception.BossException;
+import com.ssafy.BOSS.exception.errorCode.MemberErrorCode;
 import com.ssafy.BOSS.mapper.MemberMapper;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
@@ -78,18 +79,18 @@ public class MemberService {
 
     public void login(MemberLoginDto memberLoginDto) {
         if (!memberRepository.existsByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw())) {
-            throw new BossException("해당하는 멤버가 존재하지 않습니다.");
+            throw new BossException(MemberErrorCode.MEMBER_NOT_FOUND);
         }
     }
 
     private void validateDuplicateMember(Member member) {
         if (!memberRepository.existsByNfc(member.getNfc())) {
-            throw new BossException("이미 존재하는 회원입니다.");
+            throw new BossException(MemberErrorCode.MEMBER_ALREADY_EXISTS);
         }
     }
 
     public MemberDto findbyNfc(String nfc) {
-        Member member = memberRepository.findByNfc(nfc).orElseThrow(() -> new BossException("해당하는 멤버가 존재하지 않습니다."));
+        Member member = memberRepository.findByNfc(nfc).orElseThrow(() -> new BossException(MemberErrorCode.MEMBER_ALREADY_EXISTS));
         return memberMapper.memberToMemberDto(member);
     }
 

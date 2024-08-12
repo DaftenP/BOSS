@@ -25,16 +25,8 @@ public class MemberController {
 
     @PostMapping("/regist")
     public ResponseEntity<?> memberRegist(@RequestPart(value = "profileImage", required = false) MultipartFile file, @RequestPart(value = "memberRegistDto", required = false) MemberRegistDto memberRegistDto) {
-        try {
             MemberDto member = memberService.join(memberRegistDto, file);
-            if (member != null) {
-                return ResponseEntity.ok(member);
-            } else {
-                return ResponseEntity.noContent().build();
-            }
-        } catch (Exception e) {
-            return exceptionHandling(e);
-        }
+            return ResponseEntity.ok(member);
     }
 
     @PostMapping("/login")
@@ -57,25 +49,12 @@ public class MemberController {
     @GetMapping("/search")
     public ResponseEntity<List<MemberDto>> searchMembers(@ModelAttribute RequestMemberDto dto) {
         List<MemberDto> memberDtos = memberService.searchMemberLogs(dto);
-        if (!memberDtos.isEmpty()) {
-            return ResponseEntity.ok(memberDtos);
-        }
-        return ResponseEntity.noContent().build();
-    }
-
-    private ResponseEntity<String> exceptionHandling(Exception e) {
-        e.printStackTrace();
-        return ResponseEntity
-                .internalServerError()
-                .body("Sorry: " + e.getMessage());
+        return ResponseEntity.ok(memberDtos);
     }
 
     @GetMapping("/find")
     public ResponseEntity<?> searchMemberIdAndPw() {
         List<MemberLoginDto> memberLoginDtos = memberService.searchMemberInfo();
-        if (!memberLoginDtos.isEmpty()) {
-            return ResponseEntity.ok(memberLoginDtos);
-        }
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(memberLoginDtos);
     }
 }

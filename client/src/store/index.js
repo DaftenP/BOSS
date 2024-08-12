@@ -6,7 +6,6 @@ import navigationReducer from './navigation';
 import managementReducer from './management';
 import adminReducer from './admin';
 import loglistReducer from './loglist';
-import monitoringReducer from './monitoring';
 import themeReducer from './theme';
 import languageReducer from './language';
 import departmentReducer from './department';
@@ -27,7 +26,6 @@ const store = configureStore({
     management: managementReducer,
     admin: adminReducer,
     loglist: loglistReducer,
-    monitoring: monitoringReducer,
     theme: themeReducer,
     language: languageReducer,
     department: departmentReducer,

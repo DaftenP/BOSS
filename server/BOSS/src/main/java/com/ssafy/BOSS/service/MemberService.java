@@ -84,13 +84,13 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        if (!memberRepository.existsByNfc(member.getNfc())) {
+        if (memberRepository.existsByNfc(member.getNfc())) {
             throw new BossException(MemberErrorCode.MEMBER_ALREADY_EXISTS);
         }
     }
 
-    public MemberDto findbyNfc(String nfc) {
-        Member member = memberRepository.findByNfc(nfc).orElseThrow(() -> new BossException(MemberErrorCode.MEMBER_ALREADY_EXISTS));
+    public MemberDto findByNfc(String nfc) {
+        Member member = memberRepository.findByNfc(nfc).orElseThrow(() -> new BossException(MemberErrorCode.MEMBER_NOT_FOUND));
         return memberMapper.memberToMemberDto(member);
     }
 

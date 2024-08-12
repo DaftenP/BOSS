@@ -540,8 +540,8 @@ function LogTable() {
           </thead>
           <tbody>
             {displayedLogs.map((log, index) => (
-              <tr key={index}>
-                <td>{log.gateNumber}</td>
+              <tr key={index} className={classes.tableRow}>
+                <td>{t('Gate', { number: log.gateNumber })}</td>
                 <td>{log.logId}</td>
                 <td>{log.member.memberId}</td>
                 <td>{log.member.name}</td>

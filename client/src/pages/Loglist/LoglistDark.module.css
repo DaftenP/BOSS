@@ -519,3 +519,7 @@
 .sortCell {
   min-width: 75px;;
 }
+
+.tableRow:nth-child(even) {
+  background-color: #444;
+}

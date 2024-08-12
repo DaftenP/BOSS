@@ -15,7 +15,7 @@
   "Issues Detected": "이슈 발생 횟수",
   "Issue Ratio": "이슈 비율",
   "Real-Time Issue Detection": "실시간 적발 상황",
-  "Device": "기기 번호",
+  "Device": "게이트 번호",
   "Time": "시간",
   "Name": "이름",
   "Department": "부서",
@@ -41,13 +41,13 @@
   "and explain the situation": "하여 상황을 설명",
   "Wait for the security manager to arrive": "보안 관리자가 도착할 때까지 대기",
   "FILTERING": "FILTERING",
-  "Member ID": "멤버 ID",
+  "Member ID": "이용자 ID",
   "Start Date": "시작 날짜",
   "Start Time": "시작 시간",
   "End Date": "종료 날짜",
   "End Time": "종료 시간",
   "Security Issue": "보안 이슈",
-  "Number of Stickers Issued": "발급 개수",
+  "Number of Stickers Issued": "스티커 개수",
   "Search": "검색",
   "Total Issue Logs": "전체 이슈 로그",
   "Total Issues Found": "현재 조회 이슈",
@@ -142,5 +142,6 @@
   "startDateTime": "시작 날짜와 시작 시간 모두 입력해 주세요.",
   "endDateTime": "종료 날짜와 종료 시간 모두 입력해 주세요.",
   "missingField": "필수 입력값이 누락되었습니다.",
-  "isRequired": "은(는) 필수 항목입니다."
+  "isRequired": "은(는) 필수 항목입니다.",
+  "Gate": "{{number}}번 게이트"
 }

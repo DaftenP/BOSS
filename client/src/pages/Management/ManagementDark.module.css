@@ -409,3 +409,7 @@
   border-color: transparent transparent #bbb transparent;
   z-index: 9;
 }
+
+.tableRow:nth-child(even) {
+  background-color: #444;
+}

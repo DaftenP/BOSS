@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import classes from './Login.module.css';
-import { login, logout } from "../../store/login"; // 비동기 액션을 import
+import { login, logout } from "../../store/login";
 import sampleImage from '../../assets/Login/Login_background_image.png';
 import logoImage from '../../assets/Login/Logo_icon.png';
 import idIcon from '../../assets/Login/Id_icon.png'

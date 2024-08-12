@@ -95,7 +95,6 @@ export default function Main() {
           setIsCheckedIn(true);
           const formattedTime = formatTime(earliestLog.time);
           setIncheckTime(formattedTime);
-          console.log(matchingLogs);
         }
       } catch (error) {
         console.error('Error checking in automatically:', error);
@@ -103,11 +102,8 @@ export default function Main() {
     };
     
     checkInAutomatically();
-    console.log(isCheckedIn, incheckTime);
     
   }, [logsData, member]);
-
-  
 
   const checkOut = () => {
     const now = new Date();
@@ -116,7 +112,6 @@ export default function Main() {
       hour: '2-digit',
       minute: '2-digit',
     }));
-    console.log(outcheckTime);
   };
 
   const toggleDropdown = () => {

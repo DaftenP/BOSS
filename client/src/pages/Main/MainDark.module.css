@@ -315,8 +315,8 @@ position: relative;
   align-items: center;
   padding: 20px;
   margin: 10px;
-  width: 180px;
-  height: 100px;
+  width: 11.7vw;
+  height: 14.2vh;
   text-align: center;
   transition: transform 0.3s ease;
 }

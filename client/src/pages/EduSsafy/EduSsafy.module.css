@@ -78,12 +78,12 @@ button {
   z-index: 52;
   overflow: hidden;
 }
-.line {
+.line-job-ssafy {
   position: relative;
   width: 53px;
   height: 2px;
   margin: 12px 0 0 20px;
-  background: url(../../assets/EduSsafy/054bbfde-f06e-4cff-98ac-85f0b229e3bf.png)
+  background: url(../../assets/EduSsafy/Line_job_ssafy_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 55;
@@ -117,12 +117,12 @@ button {
   z-index: 53;
   overflow: hidden;
 }
-.line-2 {
+.line-ssafy-git {
   position: relative;
   width: 53px;
   height: 2px;
   margin: 12px 0 0 17px;
-  background: url(../../assets/EduSsafy/9380121c-dd2b-4ce1-9fda-caa5f0c85642.png)
+  background: url(../../assets/EduSsafy/Line_ssafy_git_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 56;
@@ -156,34 +156,34 @@ button {
   z-index: 54;
   overflow: hidden;
 }
-.line-4 {
+.line-meeting-ssafy {
   position: relative;
   width: 68px;
   height: 2px;
   margin: 12px 0 0 11px;
-  background: url(../../assets/EduSsafy/42cac9be-7dc4-4ed7-a626-07991611a5cf.png)
+  background: url(../../assets/EduSsafy/Line_meeting_ssafy_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 57;
 }
-.rectangle-5 {
+.ssafy-logo {
   position: absolute;
   width: 95px;
   height: 70.174px;
   top: 16px;
   left: 0;
-  background: url(../../assets/EduSsafy/f839699249316d1342762bcf044c9241a34a93a2.png)
+  background: url(../../assets/EduSsafy/Ssafy_logo_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 5;
 }
-.ellipse {
+.profile {
   position: absolute;
   width: 40px;
   height: 40px;
   top: 31px;
   left: 858px;
-  background: url(../../assets/EduSsafy/a6593be3-0022-4110-9190-3f4311c16844.png)
+  background: url(../../assets/EduSsafy/Profile_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 45;
@@ -305,12 +305,12 @@ button {
   z-index: 43;
   overflow: hidden;
 }
-.icon {
+.bell-icon {
   position: relative;
   width: 20.5px;
   height: 22.496px;
   margin: 0.75px 0 0 1.75px;
-  background: url(../../assets/EduSsafy/8204991c-5f18-4509-87db-79ddcf23b099.png)
+  background: url(../../assets/EduSsafy/Bell_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 44;
@@ -438,12 +438,12 @@ button {
   white-space: nowrap;
   z-index: 10;
 }
-.icon-7 {
+.plus-icon-1 {
   flex-shrink: 0;
   position: relative;
   width: 17.5px;
   height: 17.5px;
-  background: url(../../assets/EduSsafy/d5805da6-02dd-4657-823d-8d98365c14ff.png)
+  background: url(../../assets/EduSsafy/Plus_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 47;
@@ -530,12 +530,12 @@ button {
   white-space: nowrap;
   z-index: 98;
 }
-.icon-out {
+.logout-icon {
   position: relative;
   width: 20px;
   height: 20px;
   margin: 18px 0 0 30px;
-  background: url(../../assets/EduSsafy/5d973a44-7f07-4793-b438-828668c94ff5.png)
+  background: url(../../assets/EduSsafy/Logout_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 101;
@@ -644,12 +644,12 @@ button {
   white-space: nowrap;
   z-index: 16;
 }
-.line-c {
+.blue-line-row {
   position: relative;
   width: 297px;
   height: 1px;
   margin: 24px 0 0 46px;
-  background: url(../../assets/EduSsafy/be9a3d42-f090-4718-aa02-48f7eecb7d2e.png)
+  background: url(../../assets/EduSsafy/Blue_line_row_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 19;
@@ -722,12 +722,12 @@ button {
   text-align: left;
   text-transform: capitalize;
 }
-.screenshot {
+.tier-gauge {
   position: relative;
   width: 324px;
   height: 96px;
   margin: 10px 0 0 38px;
-  background: url(../../assets/EduSsafy/6eebedb6cb1a373ac7405cdc587efdbdafd6e383.png)
+  background: url(../../assets/EduSsafy/Tier_gauge_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 58;
@@ -749,13 +749,13 @@ button {
   left: 0;
   z-index: 36;
 }
-.line-12 {
+.blue-line-column {
   position: absolute;
   width: 1px;
   height: 174px;
   top: 0;
   left: 0;
-  background: url(../../assets/EduSsafy/e86c497b-1586-429c-b260-ec1840f47a8e.png)
+  background: url(../../assets/EduSsafy/Blue_line_column_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 14;
@@ -786,13 +786,13 @@ button {
   white-space: nowrap;
   z-index: 36;
 }
-.icon-13 {
+.mail-icon-1 {
   position: absolute;
   width: 20px;
   height: 16px;
   top: 62px;
   left: 0;
-  background: url(../../assets/EduSsafy/cad78796-1996-4060-9d06-1f605b19206c.png)
+  background: url(../../assets/EduSsafy/Mail-icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 31;
@@ -833,24 +833,24 @@ button {
   white-space: nowrap;
   z-index: 27;
 }
-.line-14 {
+.blue-line-row-1 {
   position: absolute;
   width: 297px;
   height: 1px;
   top: 94px;
   left: 34px;
-  background: url(../../assets/EduSsafy/d3ee815a-54c4-4fdc-91bb-195a2049f7d1.png)
+  background: url(../../assets/EduSsafy/Blue_line_row_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 25;
 }
-.line-15 {
+.blue-line-row-2 {
   position: absolute;
   width: 297px;
   height: 1px;
   top: 140px;
   left: 34px;
-  background: url(../../assets/EduSsafy/44722b1e-8b9e-4f10-aba8-c49bfd83aac7.png)
+  background: url(../../assets/EduSsafy/Blue_line_row_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 26;
@@ -949,12 +949,12 @@ button {
   left: 263px;
   z-index: 37;
 }
-.icon-19 {
+.mail-icon-2 {
   flex-shrink: 0;
   position: relative;
   width: 20px;
   height: 16px;
-  background: url(../../assets/EduSsafy/d411e651-50cd-4f61-896c-f4791b0df55c.png)
+  background: url(../../assets/EduSsafy/Mail-icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 33;
@@ -1028,12 +1028,12 @@ button {
   left: 263px;
   z-index: 38;
 }
-.icon-1c {
+.mail-icon-3 {
   flex-shrink: 0;
   position: relative;
   width: 20px;
   height: 16px;
-  background: url(../../assets/EduSsafy/20e7c18f-e5e0-45e5-88cb-eb19cc9cb07a.png)
+  background: url(../../assets/EduSsafy/Mail-icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 35;
@@ -1104,12 +1104,12 @@ button {
   white-space: nowrap;
   z-index: 67;
 }
-.icon-22 {
+.plus-icon-2 {
   flex-shrink: 0;
   position: relative;
   width: 17.5px;
   height: 17.5px;
-  background: url(../../assets/EduSsafy/37033aa4-82bd-4d6b-acbe-8f9943017690.png)
+  background: url(../../assets/EduSsafy/Plus_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 69;
@@ -1145,12 +1145,12 @@ button {
   z-index: 78;
   overflow: hidden;
 }
-.icon-23 {
+.clock-icon {
   position: relative;
   width: 29.667px;
   height: 29.667px;
   margin: 1.167px 0 0 1.167px;
-  background: url(../../assets/EduSsafy/c533769d-11ee-4a3b-9e24-3dac5a5e768d.png)
+  background: url(../../assets/EduSsafy/Clock_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 79;
@@ -1163,13 +1163,13 @@ button {
   left: 67px;
   z-index: 80;
 }
-.line-24 {
+.gray-line-icon {
   position: absolute;
   width: 6px;
   height: 203px;
   top: 0;
   left: 131px;
-  background: url(../../assets/EduSsafy/11b918d8-9f25-45c0-a232-57f79f252d29.png)
+  background: url(../../assets/EduSsafy/Gray_line_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 77;
@@ -1275,13 +1275,13 @@ button {
   white-space: nowrap;
   z-index: 73;
 }
-.ellipse-27 {
+.pink-ellipse-icon-1 {
   position: absolute;
   width: 8px;
   height: 8px;
   top: 28px;
   left: 20px;
-  background: url(../../assets/EduSsafy/689fe61f-0e20-4489-87e1-de3f55ff9743.png)
+  background: url(../../assets/EduSsafy/Pink_ellipse_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 81;
@@ -1304,13 +1304,13 @@ button {
   white-space: nowrap;
   z-index: 64;
 }
-.flex-row-a {
+.blue-ellipse-index-1 {
   position: absolute;
   width: 16px;
   height: 16px;
   top: 34px;
   left: 126px;
-  background: url(../../assets/EduSsafy/dba0407c-0029-47ee-ac92-9e9e273a40dd.png)
+  background: url(../../assets/EduSsafy/Blue_ellipse_index.png)
     no-repeat center;
   background-size: cover;
   z-index: 80;
@@ -1388,25 +1388,25 @@ button {
   white-space: nowrap;
   z-index: 91;
 }
-.ellipse-2f {
+.pink-ellipse-icon-2 {
   position: absolute;
   width: 8px;
   height: 8px;
   top: 29px;
   left: 21px;
-  background: url(../../assets/EduSsafy/8fe14387-156c-473d-95de-876e236ce58b.png)
+  background: url(../../assets/EduSsafy/Pink_ellipse_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 93;
   border-radius: 50%;
 }
-.ellipse-30 {
+.blue-ellipse-index-2 {
   position: absolute;
   width: 16px;
   height: 16px;
   top: 21px;
   left: 126px;
-  background: url(../../assets/EduSsafy/b88d68cd-f75b-4a4e-8ccb-4f2cc8651c95.png)
+  background: url(../../assets/EduSsafy/Blue_ellipse_index.png)
     no-repeat center;
   background-size: cover;
   z-index: 89;
@@ -1494,13 +1494,13 @@ button {
   white-space: nowrap;
   z-index: 66;
 }
-.icon-32 {
+.plus-icon-3 {
   position: absolute;
   width: 17.5px;
   height: 17.5px;
   top: 6.25px;
   left: 308.25px;
-  background: url(../../assets/EduSsafy/667cd1f2-ed32-449f-9221-9aa1f6b9e62d.png)
+  background: url(../../assets/EduSsafy/Plus_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 71;
@@ -1577,13 +1577,13 @@ button {
   white-space: nowrap;
   z-index: 85;
 }
-.slice {
+.sliced-ellipse-icon {
   position: absolute;
   width: 66px;
   height: 45px;
   top: 248px;
   left: 0;
-  background: url(../../assets/EduSsafy/5d4133f3bc7ca8a911ee47d2859927f70f1d9719.png)
+  background: url(../../assets/EduSsafy/Sliced_ellipse_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 96;
@@ -1632,35 +1632,35 @@ button {
   left: 31px;
   z-index: 86;
 }
-.ellipse-38 {
+.gray-ellipse-icon-ellipse-1 {
   position: relative;
   width: 66px;
   height: 66px;
   margin: 0 0 0 0;
-  background: url(../../assets/EduSsafy/3dcb4812-a8e7-4870-91bb-f111d5a24f7c.png)
+  background: url(../../assets/EduSsafy/Gray_ellipse_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 82;
   border-radius: 50%;
 }
-.ellipse-39 {
+.gray-ellipse-icon-ellipse-2 {
   position: relative;
   width: 66px;
   height: 66px;
   margin: 26px 0 0 0;
-  background: url(../../assets/EduSsafy/dc3010f2-4379-43f4-b263-157315c327a4.png)
+  background: url(../../assets/EduSsafy/Gray_ellipse_icon.png)
     no-repeat center;
   background-size: cover;
   z-index: 86;
   border-radius: 50%;
 }
-.line-3a {
+.nav-line {
   position: absolute;
   width: 1440px;
   height: 1px;
   top: 98px;
   left: 0;
-  background: url(../../assets/EduSsafy/89b0ef42-a586-4eac-86f5-de1adb29f23c.png)
+  background: url(../../assets/EduSsafy/Line_nav.png)
     no-repeat center;
   background-size: cover;
   z-index: 4;

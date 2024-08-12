@@ -291,6 +291,17 @@ function Management() {
     }
   };
 
+  const handleBatchSubmit = (event) => {
+    event.preventDefault();
+
+    Swal.fire({
+      icon: 'error',
+      title: `<strong>${t('invalidFormat', '유효하지 않은 형식입니다.')}</strong>`,
+      html: `<b>${t('selectValidBatchFile', 'CSV')} ${t('file', '파일을 첨부해주세요.')}</b>`
+    });
+    return;
+  }
+
   const handleFileInputClick = () => {
     fileInputRef.current.click();
   };
@@ -353,8 +364,8 @@ function Management() {
               {t('batchRegistration', '일괄 등록하기')}
             </label>
           </div>
-          <form onSubmit={handleSubmit} className={classes.relativeBoxContainer}>
-            {selectedOption === 'direct' ? (
+          {selectedOption === 'direct' ? (
+            <form onSubmit={handleSubmit} className={classes.relativeBoxContainer}>
               <table className={classes.filterTable}>
                 <tbody>
                   <tr>
@@ -422,17 +433,19 @@ function Management() {
                   </tr>
                 </tbody>
               </table>
+            </form>
             ) : (
-              <div>
-                <label htmlFor="new file" className={classes.labelText}>{t('selectBatchFile', '일괄 등록을 위해 파일을 선택해 주세요!')}</label>
-                <input className={classes.hiddenFileInput} type="file" id="new file" placeholder={t('batchFile', '일괄 등록 파일')} />
-                <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
-                  {t('selectFile', '파일 선택')}
-                </button>
-                <button type="submit" className={classes.formButton}>{t('Register', '등 록')}</button>
-              </div>
+              <form onSubmit={handleBatchSubmit}>
+                <div>
+                  <label htmlFor="new file" className={classes.labelText}>{t('selectBatchFile', '일괄 등록을 위해 파일을 선택해 주세요!')}</label>
+                  <input className={classes.hiddenFileInput} type="file" id="new file" name="batchFile" placeholder={t('batchFile', '일괄 등록 파일')} accept='.csv'onChange={handleSubmitChange} ref={fileInputRef} />
+                  <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
+                    {fileName === '' ? t('selectFile', '파일 선택') : fileName}
+                  </button>
+                  <button type="submit" className={classes.formButton}>{t('Register', '등 록')}</button>
+                </div>
+              </form>
             )}
-          </form>
         </div>  
       </div>
       
@@ -613,7 +626,7 @@ function Management() {
             </thead>
             <tbody>
               {displayedLogs.map((log, index) => (
-                <tr key={index}>
+                <tr key={index} className={classes.tableRow}>
                   <td>{log.memberId}</td>
                   <td>{log.name}</td>
                   <td>{log.department.departmentName}</td>

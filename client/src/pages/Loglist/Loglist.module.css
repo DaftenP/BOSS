@@ -507,3 +507,11 @@
 .sortCell {
   min-width: 75px;;
 }
+
+.tableRow:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tableRow:nth-child(odd) {
+  background-color: white;
+}

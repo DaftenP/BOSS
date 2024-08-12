@@ -7,6 +7,8 @@ import com.ssafy.BOSS.dto.enteringLog.EnteringLogRegistDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
 import com.ssafy.BOSS.dto.sseDto.SseEmitters;
+import com.ssafy.BOSS.exception.BossException;
+import com.ssafy.BOSS.exception.errorCode.MemberErrorCode;
 import com.ssafy.BOSS.repository.MemberRepository;
 import com.ssafy.BOSS.service.EnteringLogService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -34,13 +35,9 @@ public class EnteringLogController {
 
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
-        Optional<Member> member = memberRepository.findById(id);
-        if (member.isPresent()) {
-            List<EnteringLog> logs = enteringLogService.findLogsByMember(member);
-            return ResponseEntity.ok(logs);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        Member member = memberRepository.findById(id).orElseThrow(() -> new BossException(MemberErrorCode.MEMBER_NOT_FOUND));
+        List<EnteringLog> logs = enteringLogService.findLogsByMember(member);
+        return ResponseEntity.ok(logs);
     }
 
     @PutMapping("/update/{id}")

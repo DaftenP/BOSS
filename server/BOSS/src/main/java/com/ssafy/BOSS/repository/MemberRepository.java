@@ -13,6 +13,8 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByNfc(String nfc);
 
+    boolean existsByNfc(String nfc);
+
     @Query("SELECT m " +
             " FROM Member m " +
             "WHERE (:#{#memberDto.name} IS NULL OR m.name LIKE %:#{#memberDto.name}%) " +

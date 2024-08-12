@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -83,15 +82,14 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        Optional<Member> joinMember = memberRepository.findByNfc(member.getNfc());
-        if (joinMember.isPresent()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        if (!memberRepository.existsByNfc(member.getNfc())) {
+            throw new RuntimeException("이미 존재하는 회원입니다.");
         }
     }
 
     public MemberDto findbyNfc(String nfc) {
-        Optional<Member> member = memberRepository.findByNfc(nfc);
-        return member.map(memberMapper::memberToMemberDto).orElse(null);
+        Member member = memberRepository.findByNfc(nfc).orElseThrow(() -> new RuntimeException("해당하는 멤버가 존재하지 않습니다."));
+        return memberMapper.memberToMemberDto(member);
     }
 
     @Transactional(readOnly = true)

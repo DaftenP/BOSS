@@ -46,11 +46,7 @@ public class MemberController {
     @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
         MemberDto member = memberService.findbyNfc(nfc);
-        if (member != null) {
-            return ResponseEntity.ok(member);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
+        return ResponseEntity.ok(member);
     }
 
     @GetMapping("/check")

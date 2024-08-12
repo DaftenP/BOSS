@@ -77,11 +77,8 @@ public class MemberService {
     }
 
     public MemberLoginDto login(MemberLoginDto memberLoginDto) {
-        Optional<Member> member = memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw());
-        if (member.isPresent()) {
-            return memberLoginDto;
-        }
-        return null;
+        memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw()).orElseThrow(() -> new RuntimeException("해당하는 멤버가 존재하지 않습니다."));
+        return memberLoginDto;
     }
 
     private void validateDuplicateMember(Member member) {

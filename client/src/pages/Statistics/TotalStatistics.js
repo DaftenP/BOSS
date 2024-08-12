@@ -495,7 +495,7 @@ function TotalStatistics({ loglist }) {
             const data = filterDataForTotal(loglist, item);
             return (
               <div key={item} className={classes.graphBox}>
-                <div className={classes.graphTitle}>{item}</div>
+                <div className={classes.graphTitle}>{t('Gate', { number: item })}</div>
                 <Line data={data} options={options} />
               </div>
             );

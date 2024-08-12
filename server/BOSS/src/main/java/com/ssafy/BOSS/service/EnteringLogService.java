@@ -56,6 +56,11 @@ public class EnteringLogService {
         String deviceBackImageLink = s3UploadService.upload(deviceBackImage);
         EnteringLog enteringLog = enteringLogMapper.enteringLogRegistDtoToEnteringLog(enteringLogRegistDto, member.get(), deviceFrontImageLink, deviceBackImageLink);
         enteringLog = enteringLogRepository.save(enteringLog);
+
+        if (enteringLog.getIssue() == 1) {
+            member.get().setIssueCount(member.get().getIssueCount() + 1);
+        }
+
         return enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
     }
 

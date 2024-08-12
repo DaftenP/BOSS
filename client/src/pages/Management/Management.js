@@ -32,8 +32,9 @@ function Management() {
   const [isPositionDirect, setIsPositionDirect] = useState(false)
   const [departmentDirect, setDepartmentDirect] = useState('')
   const [positionDirect, setPositionDirect] = useState('')
-  const [visibleCount, setVisibleCount] = useState(20);
+  const [visibleCount, setVisibleCount] = useState(50);
   const fileInputRef = useRef(null);
+  const [fileName, setFileName] = useState('')
   const [filters, setFilters] = useState({
     name: '',
     departmentName: '',
@@ -93,7 +94,7 @@ function Management() {
   }, [dispatch]);
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 10);
+    setVisibleCount((prevCount) => prevCount + 50);
   };
 
   const handleFilterChange = (event) => {
@@ -110,7 +111,7 @@ function Management() {
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
-    setVisibleCount(20);
+    setVisibleCount(50);
     dispatch(fetchFilteredMember(filteredFilters));
     setFilters({
       name: '',
@@ -125,10 +126,19 @@ function Management() {
     const { name, id, value, type, files } = event.target;
     if (type === 'file') {
       const file = files[0];
-      setSubmitMemberData((prevState) => ({
-        ...prevState,
-        [name]: file,
-      }));
+      if (file) {
+        setFileName(file.name);
+        setSubmitMemberData((prevState) => ({
+          ...prevState,
+          [name]: file,
+        }));
+      } else {
+        setFileName('')
+        setSubmitMemberData((prevState) => ({
+          ...prevState,
+          [name]: null,
+        }));
+      }
     } else {
       if (name === 'department') {
         if (id === 'departmentSelect') {
@@ -205,10 +215,31 @@ function Management() {
     if (submitMemberData.profileImage && !['image/jpg', 'image/jpeg', 'image/png'].includes(submitMemberData.profileImage.type)) {
       Swal.fire({
         icon: 'error',
-        title: `<strong>${t('invalidFormat', '유효하지 않은 형식입니다!')}</strong>`,
-        html: `<b>${t('selectValidFile', 'JPG, JPEG, PNG')} ${t('file', '파일을 첨부해주세요!')}</b>`
+        title: `<strong>${t('invalidFormat', '유효하지 않은 형식입니다.')}</strong>`,
+        html: `<b>${t('selectValidFile', 'JPG, JPEG, PNG')} ${t('file', '파일을 첨부해주세요.')}</b>`
       });
       return;
+    }
+
+    const requiredFields = [
+      { field: submitMemberData.phoneNumber, name: t('phoneNumber', '연락처') },
+      { field: submitMemberData.name, name: t('name', '이름') },
+      { field: submitMemberData.nfc, name: t('nfc', 'NFC') },
+      { field: submitMemberData.departmentId, name: t('department', '부서') },
+      { field: submitMemberData.departmentName, name: t('departmentName', '부서명') },
+      { field: submitMemberData.positionId, name: t('position', '직책') },
+      { field: submitMemberData.positionName, name: t('positionName', '직책명') },
+    ];
+  
+    for (const { field, name } of requiredFields) {
+      if (!field) {
+        Swal.fire({
+          icon: 'error',
+          title: `<strong>${t('missingField', '필수 입력값이 누락되었습니다.')}</strong>`,
+          html: `<b>${name} ${t('isRequired', '은(는) 필수 항목입니다.')}</b>`
+        });
+        return;
+      }
     }
 
     const formData = new FormData();
@@ -343,7 +374,7 @@ function Management() {
                       <label htmlFor="new profile" className={classes.labelText}>{t('selectProfileImage', '프로필 사진 파일을 선택해 주세요!')}</label>
                       <input className={classes.hiddenFileInput} type="file" id="new profile" name="profileImage" placeholder={t('profileImage', '프로필 사진')} accept='.jpg, .jpeg, .png' onChange={handleSubmitChange} ref={fileInputRef} />
                       <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
-                        {t('selectFile', '파일 선택')}
+                        {fileName === '' ? t('selectFile', '파일 선택') : fileName}
                       </button>
                     </td>
                   </tr>
@@ -467,7 +498,7 @@ function Management() {
                     </td>
                     <td>
                       <label htmlFor="issue" className={classes.labelText}>{t('Issues', '누적 이슈')}</label>
-                      <input className={classes.inputText} type="number" id="issue" placeholder={t('Issues', '누적 이슈')} value={filters.issue} onChange={handleFilterChange} />
+                      <input className={classes.inputText} min="0" type="number" id="issue" placeholder={t('Issues', '누적 이슈')} value={filters.issue} onChange={handleFilterChange} />
                     </td>
                   </tr>
                   <tr>

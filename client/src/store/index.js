@@ -6,7 +6,6 @@ import navigationReducer from './navigation';
 import managementReducer from './management';
 import adminReducer from './admin';
 import loglistReducer from './loglist';
-import monitoringReducer from './monitoring';
 import themeReducer from './theme';
 import languageReducer from './language';
 import departmentReducer from './department';
@@ -27,11 +26,10 @@ const store = configureStore({
     management: managementReducer,
     admin: adminReducer,
     loglist: loglistReducer,
-    monitoring: monitoringReducer,
     theme: themeReducer,
     language: languageReducer,
     department: departmentReducer,
-    position: positionReducer
+    position: positionReducer,
   },
   // serializableCheck 옵션을 구성하여 redux-persist 의 액션을 무시하는 설정
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

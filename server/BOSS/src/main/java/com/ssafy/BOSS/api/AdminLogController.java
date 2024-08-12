@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,14 +27,9 @@ public class AdminLogController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getAdminLogById(@PathVariable String name) {
-        Optional<Admin> admin = adminService.findByName(name);
-        if (admin.isPresent()) {
-            List<LoginLog> loginLogs = adminLogService.findByAdmin(admin);
-            return ResponseEntity.ok(loginLogs);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
+        Admin admin = adminService.findByName(name);
+        List<LoginLog> loginLogs = adminLogService.findByAdmin(admin);
+        return ResponseEntity.ok(loginLogs);
     }
 
     @PutMapping("/regist")

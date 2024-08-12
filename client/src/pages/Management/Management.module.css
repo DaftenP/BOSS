@@ -31,9 +31,9 @@
   background-color: #B0D2FA;
   color: #0A47A3;
   border: none;
-  padding: 8px 30px;
+  padding: 6px 20px;
   min-width: 100px;
-  margin: 0 0 0 25px;
+  margin: 5px 0 0 25px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 20px;
@@ -340,6 +340,7 @@
 }
 
 .buttonCell {
+  text-align: right;
   vertical-align: middle;
   padding-top: 0;
   line-height: 1;
@@ -347,4 +348,56 @@
 
 .inputText option {
   text-align: center;
+}
+
+.sortIcon {
+  position: absolute;
+  right: 7px;
+  top: 28%;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  outline: none;
+  background-color: #82bcff;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 2px;
+}
+
+.sortIcon:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sortIconWrapper:hover::after {
+  content: attr(data-direction);
+  position: absolute;
+  top: -35px;
+  left: 88%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.sortIconWrapper:hover::before {
+  content: "";
+  position: absolute;
+  top: -5px; 
+  left: 88%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+  z-index: 9;
+}
+
+.fileName {
+  font-size: 13px;
 }

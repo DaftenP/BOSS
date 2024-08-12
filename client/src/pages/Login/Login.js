@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import classes from './Login.module.css';
-import { login, logout } from "../../store/login"; // 비동기 액션을 import
+import { login, logout } from "../../store/login";
 import sampleImage from '../../assets/Login/Login_background_image.png';
 import logoImage from '../../assets/Login/Logo_icon.png';
 import idIcon from '../../assets/Login/Id_icon.png'
@@ -26,6 +26,13 @@ function Login() {
   }
 
   useEffect(() => {
+    if (error) {
+      setErrorMessage(error);
+      setErrorKey(prev => prev + 1);
+    }
+  }, [error]);
+
+  useEffect(() => {
     if (isSuccess !== null) {
       if (!adminInfo.adminLoginId && !adminInfo.adminLoginPw) {
         setErrorMessage('아이디와 비밀번호를 입력해 주세요!');
@@ -43,13 +50,6 @@ function Login() {
       dispatch(logout());
     }
   }, [isSuccess, dispatch]);
-
-  useEffect(() => {
-    if (error) {
-      setErrorMessage(error);
-      setErrorKey(prev => prev + 1);
-    }
-  }, [error]);
 
   const handleAdminInfo = (event) => {
     const { id, value } = event.target;

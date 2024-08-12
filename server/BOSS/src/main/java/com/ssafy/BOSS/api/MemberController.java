@@ -39,21 +39,14 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity<?> memberLogin(@RequestBody MemberLoginDto memberLoginDto) {
-        MemberLoginDto memberLogin = memberService.login(memberLoginDto);
-        if (memberLogin != null) {
-            return ResponseEntity.ok(memberLogin);
-        }
-        return ResponseEntity.noContent().build();
+        memberService.login(memberLoginDto);
+        return ResponseEntity.ok(memberLoginDto);
     }
 
     @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
-        MemberDto member = memberService.findbyNfc(nfc);
-        if (member != null) {
-            return ResponseEntity.ok(member);
-        } else {
-            return ResponseEntity.noContent().build();
-        }
+        MemberDto member = memberService.findByNfc(nfc);
+        return ResponseEntity.ok(member);
     }
 
     @GetMapping("/check")

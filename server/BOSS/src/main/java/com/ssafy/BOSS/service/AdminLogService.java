@@ -29,7 +29,7 @@ public class AdminLogService {
         return all.stream().map(adminLogMapper::loginLogToAdminLogDto).toList();
     }
 
-    public List<LoginLog> findByAdmin(Optional<Admin> admin) {
+    public List<LoginLog> findByAdmin(Admin admin) {
         return adminLogRepository.findByAdmin(admin);
     }
 

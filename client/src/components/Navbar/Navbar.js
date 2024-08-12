@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import lightClasses from './Navbar.module.css';
 import darkClasses from './NavbarDark.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
+import logoutIconDark from '../../assets/Layout/Logout_icon_darkmode.png';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ function Navbar() {
       return !prevShowLogs;
     })
   };
+
+  useEffect(() => {
+    dispatch(fetchAdminLogs())
+  }, [dispatch])
 
   useEffect(() => {
   }, [adminName]);
@@ -58,14 +63,14 @@ function Navbar() {
     <div className={classes.navbar}>
       <div className={classes.navbarContainer}>
         <span className={classes.adminName}>
-          {adminName ? `${t('Admin')}: ${adminName}` : t('Anonymous Admin')}
+          {t('Admin')} : {logs.length > 0 ? logs[0].admin.adminName : t('Anonymous Admin')}
         </span>
         <span className={classes.loginTime}>
           {loginTime ? `${t('Login Time')}: ${new Date(loginTime).toLocaleTimeString('en-US')} (${elapsedTime} ${t('Elapsed Time')})` : ''}
         </span>
         <button onClick={logoutHandler} className={classes.logoutButton}>
           {t('Logout')}
-          <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
+          {isDarkMode ? (<img src={logoutIconDark} alt="logout_icon" className={classes.labelIcon} />) : (<img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />)}
         </button>
       </div>
       <span className={classes.loginTimeButton} onClick={handleToggleLogs}>

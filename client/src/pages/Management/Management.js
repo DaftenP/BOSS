@@ -1,20 +1,28 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Swal from 'sweetalert2';
 import lightClasses from './Management.module.css';
 import darkClasses from './ManagementDark.module.css';
 import detailIcon from '../../assets/List/Detail_icon.png';
+import detailIconDarkMode from '../../assets/List/Detail_icon_darkmode.png';
 import normalProfile from '../../assets/List/Normal_profile_image.png';
+import ascendingIcon  from '../../assets/List/Ascending_icon.png';
+import ascendingIconDark  from '../../assets/List/Ascending_icon_darkmode.png';
+import descendingIcon  from '../../assets/List/Descending_icon.png';
+import descendingIconDark from '../../assets/List/Descending_icon_darkmode.png';
+
 import { fetchMembers, memberRegistration, fetchFilteredMember } from '../../store/management';
-import { fetchDepartmentLists, departmentRegistration } from '../../store/department';
-import { fetchPositionLists, positionRegistration } from '../../store/position';
+import { fetchDepartmentLists } from '../../store/department';
+import { fetchPositionLists } from '../../store/position';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function Management() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const classes = isDarkMode ? darkClasses : lightClasses;
+
+  const currentDetailIcon = isDarkMode ? detailIconDarkMode : detailIcon;
 
   const { t } = useTranslation();
 
@@ -24,8 +32,9 @@ function Management() {
   const [isPositionDirect, setIsPositionDirect] = useState(false)
   const [departmentDirect, setDepartmentDirect] = useState('')
   const [positionDirect, setPositionDirect] = useState('')
-  const [visibleCount, setVisibleCount] = useState(20);
+  const [visibleCount, setVisibleCount] = useState(50);
   const fileInputRef = useRef(null);
+  const [fileName, setFileName] = useState('')
   const [filters, setFilters] = useState({
     name: '',
     departmentName: '',
@@ -85,7 +94,7 @@ function Management() {
   }, [dispatch]);
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 10);
+    setVisibleCount((prevCount) => prevCount + 50);
   };
 
   const handleFilterChange = (event) => {
@@ -102,8 +111,7 @@ function Management() {
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
-    console.log(filteredFilters)
-    setVisibleCount(20);
+    setVisibleCount(50);
     dispatch(fetchFilteredMember(filteredFilters));
     setFilters({
       name: '',
@@ -118,10 +126,19 @@ function Management() {
     const { name, id, value, type, files } = event.target;
     if (type === 'file') {
       const file = files[0];
-      setSubmitMemberData((prevState) => ({
-        ...prevState,
-        [name]: file,
-      }));
+      if (file) {
+        setFileName(file.name);
+        setSubmitMemberData((prevState) => ({
+          ...prevState,
+          [name]: file,
+        }));
+      } else {
+        setFileName('')
+        setSubmitMemberData((prevState) => ({
+          ...prevState,
+          [name]: null,
+        }));
+      }
     } else {
       if (name === 'department') {
         if (id === 'departmentSelect') {
@@ -198,10 +215,31 @@ function Management() {
     if (submitMemberData.profileImage && !['image/jpg', 'image/jpeg', 'image/png'].includes(submitMemberData.profileImage.type)) {
       Swal.fire({
         icon: 'error',
-        title: `<strong>${t('invalidFormat', '유효하지 않은 형식입니다!')}</strong>`,
-        html: `<b>${t('selectValidFile', 'JPG, JPEG, PNG')} ${t('file', '파일을 첨부해주세요!')}</b>`
+        title: `<strong>${t('invalidFormat', '유효하지 않은 형식입니다.')}</strong>`,
+        html: `<b>${t('selectValidFile', 'JPG, JPEG, PNG')} ${t('file', '파일을 첨부해주세요.')}</b>`
       });
       return;
+    }
+
+    const requiredFields = [
+      { field: submitMemberData.phoneNumber, name: t('phoneNumber', '연락처') },
+      { field: submitMemberData.name, name: t('name', '이름') },
+      { field: submitMemberData.nfc, name: t('nfc', 'NFC') },
+      { field: submitMemberData.departmentId, name: t('department', '부서') },
+      { field: submitMemberData.departmentName, name: t('departmentName', '부서명') },
+      { field: submitMemberData.positionId, name: t('position', '직책') },
+      { field: submitMemberData.positionName, name: t('positionName', '직책명') },
+    ];
+  
+    for (const { field, name } of requiredFields) {
+      if (!field) {
+        Swal.fire({
+          icon: 'error',
+          title: `<strong>${t('missingField', '필수 입력값이 누락되었습니다.')}</strong>`,
+          html: `<b>${name} ${t('isRequired', '은(는) 필수 항목입니다.')}</b>`
+        });
+        return;
+      }
     }
 
     const formData = new FormData();
@@ -257,16 +295,147 @@ function Management() {
     fileInputRef.current.click();
   };
 
-  const displayedLogs = logsData.slice(0, visibleCount);
+  // ascending: 오름차순(1, 2, 3...), descending: 내림차순(5, 4, 3...)
+  const [sortConfig, setSortConfig] = useState({ key: 'memberId', direction: 'descending' })
+  const sortedLogs = useMemo(() => {
+    const sortableLogs = [...(logsData || [])]
+    sortableLogs.sort((a, b) => {
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1
+      }
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1
+      }
+      return 0
+    })
+    return sortableLogs
+  }, [logsData, sortConfig])
 
-  useEffect(() => {
-    setVisibleCount(20);
-  }, [logsData]);
-
+  // ascending일 때 누르면 descending으로, descending일 때 누르면 asending으로 변경, key는 그대로 
+  const requestSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+    setSortConfig({ key, direction })
+  }
+  
+  const displayedLogs = sortedLogs.slice(0, visibleCount);
   const totalLogsCount = logsData.length;
 
   return (
     <div className={classes.mainContainer}>
+      <div className={`${classes.registrationContainer} ${classes.relativeBoxContainer}`}>
+        <div className={classes.filteringBox}>
+          {t('NEW', 'NEW')}
+        </div>
+        <div className={classes.inputContainer}>
+          <div className={classes.optionLabel}>{t('registrationOptions', '등록 옵션')}</div>
+          <div className={classes.optionContainer}>
+            <label className={classes.radioLabel}>
+              <input
+                type="radio"
+                value="direct"
+                checked={selectedOption === 'direct'}
+                onChange={handleOptionChange}
+                className={classes.radioInput}
+              />
+              {t('directRegistration', '직접 등록하기')}
+            </label>
+            <label className={classes.radioLabel}>
+              <input
+                type="radio"
+                value="batch"
+                checked={selectedOption === 'batch'}
+                onChange={handleOptionChange}
+                className={classes.radioInput}
+              />
+              {t('batchRegistration', '일괄 등록하기')}
+            </label>
+          </div>
+          <form onSubmit={handleSubmit} className={classes.relativeBoxContainer}>
+            {selectedOption === 'direct' ? (
+              <table className={classes.filterTable}>
+                <tbody>
+                  <tr>
+                    <td>
+                      <label htmlFor="new memberName" className={classes.labelText}>{t('Name', '이름')}</label>
+                      <input className={classes.inputText} name="name" type="text" id="new memberName" value={submitMemberData.name} placeholder={t('Name', '이름')} onChange={handleSubmitChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="new phoneNumber" className={classes.labelText}>{t('phoneNumber', '연락처')}</label>
+                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" value={submitMemberData.phoneNumber} placeholder={t('phoneNumber', '연락처')} onChange={handleSubmitChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="new nfc" className={classes.labelText}>{t('NFC', 'NFC')}</label>
+                      <input className={classes.inputText} name="nfc" type="text" id="new nfc" value={submitMemberData.nfc} placeholder={t('NFC', 'NFC')} onChange={handleSubmitChange} />
+                    </td>
+                    <td>
+                      <label htmlFor="new profile" className={classes.labelText}>{t('selectProfileImage', '프로필 사진 파일을 선택해 주세요!')}</label>
+                      <input className={classes.hiddenFileInput} type="file" id="new profile" name="profileImage" placeholder={t('profileImage', '프로필 사진')} accept='.jpg, .jpeg, .png' onChange={handleSubmitChange} ref={fileInputRef} />
+                      <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
+                        {fileName === '' ? t('selectFile', '파일 선택') : fileName}
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <label htmlFor="departmentSelect" className={classes.labelText}>{t('Department', '부서')}</label>
+                      <select className={classes.inputText} name ="department" id="departmentSelect" value={submitMemberData.departmentId} onChange={handleSubmitChange}>
+                        <option value="">
+                          {isDepartmentDirect ? t('Enter Department Directly', '부서 직접 입력하기') : t('Select Department', '부서 선택')}
+                        </option>
+                        {departmentLists.map((department) => (
+                          <option key={department.departmentId} value={department.departmentId}>
+                            {department.departmentName}
+                          </option>
+                        ))}
+                        <option value="direct">{t('Enter Department Directly', '부서 직접 입력하기')}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <label htmlFor="departmentDirect" className={classes.labelText}>{t('Enter Department Directly', '부서 직접 입력하기')}</label>
+                      <input className={`${classes.inputText} ${!isDepartmentDirect ? classes.disabledInput : ''}`} name="department" type="text" id="departmentDirect" placeholder={t('Department', '부서')} value={departmentDirect} onChange={handleDirectSubmitChange} disabled={!isDepartmentDirect}/>
+                    </td>
+                    <td>
+                      <label htmlFor="positionSelect" className={classes.labelText}>{t('Position', '직책')}</label>
+                      <select className={classes.inputText} name="position" id="positionSelect" value={submitMemberData.positionId} onChange={handleSubmitChange}>
+                        <option value="">
+                          {isDepartmentDirect ? t('Enter Position Directly', '부서 직접 입력하기') : t('Select Position', '직책 선택')}
+                        </option>
+                        {positionLists.map((position) => (
+                          <option key={position.positionId} value={position.positionId}>
+                            {position.positionName}
+                          </option>
+                        ))}
+                        <option value="direct">{t('Enter Position Directly', '직책 직접 입력하기')}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <label htmlFor="positionDirect" className={classes.labelText}>{t('Enter Position Directly', '직책 직접 입력하기')}</label>
+                      <input className={`${classes.inputText} ${!isPositionDirect ? classes.disabledInput : ''}`} name="position" type="text" id="positionDirect" placeholder={t('Position', '직책')} value={positionDirect} onChange={handleDirectSubmitChange} disabled={!isPositionDirect}/>
+                    </td>
+                    <td className={classes.buttonCell}>
+                      <br />
+                      <button type="submit" className={classes.formButton}>{t('Register', '등 록')}</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) : (
+              <div>
+                <label htmlFor="new file" className={classes.labelText}>{t('selectBatchFile', '일괄 등록을 위해 파일을 선택해 주세요!')}</label>
+                <input className={classes.hiddenFileInput} type="file" id="new file" placeholder={t('batchFile', '일괄 등록 파일')} />
+                <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
+                  {t('selectFile', '파일 선택')}
+                </button>
+                <button type="submit" className={classes.formButton}>{t('Register', '등 록')}</button>
+              </div>
+            )}
+          </form>
+        </div>  
+      </div>
+      
       <div className={`${classes.filteringContainer} ${classes.relativeBoxContainer}`}>
         <div className={classes.filteringBox}>
           {t('FILTERING', 'FILTERING')}
@@ -329,7 +498,7 @@ function Management() {
                     </td>
                     <td>
                       <label htmlFor="issue" className={classes.labelText}>{t('Issues', '누적 이슈')}</label>
-                      <input className={classes.inputText} type="number" id="issue" placeholder={t('Issues', '누적 이슈')} value={filters.issue} onChange={handleFilterChange} />
+                      <input className={classes.inputText} min="0" type="number" id="issue" placeholder={t('Issues', '누적 이슈')} value={filters.issue} onChange={handleFilterChange} />
                     </td>
                   </tr>
                   <tr>
@@ -370,116 +539,7 @@ function Management() {
           </form>
         </div>
       </div>
-      <div className={`${classes.registrationContainer} ${classes.relativeBoxContainer}`}>
-        <div className={classes.filteringBox}>
-          {t('NEW', 'NEW')}
-        </div>
-        <div className={classes.inputContainer}>
-          <div className={classes.optionLabel}>{t('registrationOptions', '등록 옵션')}</div>
-          <div className={classes.optionContainer}>
-            <label className={classes.radioLabel}>
-              <input
-                type="radio"
-                value="direct"
-                checked={selectedOption === 'direct'}
-                onChange={handleOptionChange}
-                className={classes.radioInput}
-              />
-              {t('directRegistration', '직접 등록하기')}
-            </label>
-            <label className={classes.radioLabel}>
-              <input
-                type="radio"
-                value="batch"
-                checked={selectedOption === 'batch'}
-                onChange={handleOptionChange}
-                className={classes.radioInput}
-              />
-              {t('batchRegistration', '일괄 등록하기')}
-            </label>
-          </div>
-          <form onSubmit={handleSubmit} className={classes.relativeBoxContainer}>
-            {selectedOption === 'direct' ? (
-              <table className={classes.filterTable}>
-                <tbody>
-                  <tr>
-                    <td>
-                      <label htmlFor="new memberName" className={classes.labelText}>{t('Name', '이름')}</label>
-                      <input className={classes.inputText} name="name" type="text" id="new memberName" value={submitMemberData.name} placeholder={t('Name', '이름')} onChange={handleSubmitChange} />
-                    </td>
-                    <td>
-                      <label htmlFor="new phoneNumber" className={classes.labelText}>{t('phoneNumber', '연락처')}</label>
-                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" value={submitMemberData.phoneNumber} placeholder={t('phoneNumber', '연락처')} onChange={handleSubmitChange} />
-                    </td>
-                    <td>
-                      <label htmlFor="new nfc" className={classes.labelText}>{t('NFC', 'NFC')}</label>
-                      <input className={classes.inputText} name="nfc" type="text" id="new nfc" value={submitMemberData.nfc} placeholder={t('NFC', 'NFC')} onChange={handleSubmitChange} />
-                    </td>
-                    <td>
-                      <label htmlFor="new profile" className={classes.labelText}>{t('selectProfileImage', '프로필 사진 파일을 선택해 주세요!')}</label>
-                      <input className={classes.hiddenFileInput} type="file" id="new profile" name="profileImage" placeholder={t('profileImage', '프로필 사진')} accept='.jpg, .jpeg, .png' onChange={handleSubmitChange} ref={fileInputRef} />
-                      <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
-                        {t('selectFile', '파일 선택')}
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <label htmlFor="departmentSelect" className={classes.labelText}>{t('Department', '부서')}</label>
-                      <select className={classes.inputText} name ="department" id="departmentSelect" value={submitMemberData.departmentId} onChange={handleSubmitChange}>
-                        <option value="">
-                          {isDepartmentDirect ? t('Enter Department Directly', '부서 직접 입력하기') : t('Select Department', '부서 선택')}
-                        </option>
-                        {departmentLists.map((department) => (
-                          <option key={department.departmentId} value={department.departmentId}>
-                            {department.departmentName}
-                          </option>
-                        ))}
-                        <option value="direct">{t('Enter Department Directly', '부서 직접 입력하기')}</option>
-                      </select>
-                    </td>
-                    <td>
-                      <label htmlFor="departmentDirect" className={classes.labelText}>{t('Enter Department Directly', '부서 직접 입력하기')}</label>
-                      <input className={`${classes.inputText} ${!isDepartmentDirect ? classes.disabledInput : ''}`} name="department" type="text" id="departmentDirect" placeholder={t('Department', '부서')} value={departmentDirect} onChange={handleDirectSubmitChange} disabled={!isDepartmentDirect}/>
-                    </td>
-                    <td>
-                      <label htmlFor="positionSelect" className={classes.labelText}>{t('Position', '직책')}</label>
-                      <select className={classes.inputText} name="position" id="positionSelect" value={submitMemberData.positionId} onChange={handleSubmitChange}>
-                        <option value="">
-                          {isDepartmentDirect ? t('Enter Position Directly', '부서 직접 입력하기') : t('Select Position', '직책 선택')}
-                        </option>
-                        {positionLists.map((position) => (
-                          <option key={position.positionId} value={position.positionId}>
-                            {position.positionName}
-                          </option>
-                        ))}
-                        <option value="direct">{t('Enter Position Directly', '직책 직접 입력하기')}</option>
-                      </select>
-                    </td>
-                    <td>
-                      <label htmlFor="positionDirect" className={classes.labelText}>{t('Enter Position Directly', '직책 직접 입력하기')}</label>
-                      <input className={`${classes.inputText} ${!isPositionDirect ? classes.disabledInput : ''}`} name="position" type="text" id="positionDirect" placeholder={t('Position', '직책')} value={positionDirect} onChange={handleDirectSubmitChange} disabled={!isPositionDirect}/>
-                    </td>
-                    <td className={classes.buttonCell}>
-                      <br />
-                      <button type="submit" className={classes.formButton}>{t('Register', '등 록')}</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            ) : (
-              <div>
-                <label htmlFor="new file" className={classes.labelText}>{t('selectBatchFile', '일괄 등록을 위해 파일을 선택해 주세요!')}</label>
-                <input className={classes.hiddenFileInput} type="file" id="new file" placeholder={t('batchFile', '일괄 등록 파일')} />
-                <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
-                  {t('selectFile', '파일 선택')}
-                </button>
-                <button type="submit" className={classes.formButton}>{t('Register', '등 록')}</button>
-              </div>
-            )}
-          </form>
-        </div>  
-      </div>
+      
       <div className={classes.listContainer}>
         <div className={classes.listTitle}>
           {t('registeredMembersList', '등록 인원 목록')}
@@ -491,13 +551,63 @@ function Management() {
           <table className={classes.logTable}>
             <thead>
               <tr>
-                <th>ID</th>
+                <th className={classes.relativeBoxContainer}>
+                  {t('Member ID', '이용자 ID')}
+                  <span
+                    className={classes.sortIconWrapper}
+                    data-direction={sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? t('Sort: Ascending') : t('Sort: Descending')}
+                    onClick={() => requestSort('memberId')}
+                  >
+                    {isDarkMode ? (
+                      <span>
+                        {sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                        )}
+                      </span>
+                      ) : (
+                      <span>
+                        {sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                        )}
+                      </span>
+                    )}
+                  </span>
+                </th>
                 <th>{t('Name', '이름')}</th>
                 <th>{t('Department', '부서')}</th>
                 <th>{t('Position', '직책')}</th>
                 <th>{t('phoneNumber', '연락처')}</th>
                 <th>NFC UID</th>
-                <th>{t('Issues', '누적 이슈')}</th>
+                <th className={classes.relativeBoxContainer}>
+                  {t('Issues', '누적 이슈')}
+                  <span
+                    className={classes.sortIconWrapper}
+                    data-direction={sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? t('Sort: Ascending') : t('Sort: Descending')}
+                    onClick={() => requestSort('issueCount')}
+                  >
+                    {isDarkMode ? (
+                      <span>
+                        {sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                        )}
+                      </span>
+                      ) : (
+                      <span>
+                        {sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? (
+                          <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                        ) : (
+                          <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                        )}
+                      </span>
+                      )}
+                    </span>
+                </th>
                 <th>{t('profileImage', '프로필 사진')}</th>
               </tr>
             </thead>
@@ -518,7 +628,7 @@ function Management() {
                     )}
                   </td>
                   <td>
-                    <img src={detailIcon}
+                    <img src={currentDetailIcon}
                       alt="detail_icon"
                       className={classes.listIcon}
                       onClick={() => handleDetailClick(log)} />

@@ -7,6 +7,8 @@ import com.ssafy.BOSS.dto.memberDto.MemberDto;
 import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
 import com.ssafy.BOSS.dto.memberDto.RequestMemberDto;
+import com.ssafy.BOSS.exception.BossException;
+import com.ssafy.BOSS.exception.errorCode.MemberErrorCode;
 import com.ssafy.BOSS.mapper.MemberMapper;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.MemberRepository;
@@ -17,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -45,56 +46,52 @@ public class MemberService {
         member.setNfc(memberRegistDto.getNfc());
         member.setProfileImage("");
         member.setPhoneNumber(memberRegistDto.getPhoneNumber());
-
-        if (memberRegistDto.getDepartmentId() == -1) {
-            String departmentName = memberRegistDto.getDepartmentName();
-            if (departmentRepository.existsByDepartmentName(departmentName)) {
-                member.setDepartment(departmentRepository.findByDepartmentName(departmentName));
-            } else {
-                Department department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
-                departmentRepository.save(department);
-                member.setDepartment(department);
-            }
-        } else {
-            member.setDepartment(departmentRepository.getReferenceById(memberRegistDto.getDepartmentId()));
-        }
-
-        if (memberRegistDto.getPositionId() == -1) {
-            String positionName = memberRegistDto.getPositionName();
-            if (positionRepository.existsByPositionName(positionName)) {
-                member.setPosition(positionRepository.findByPositionName(positionName));
-            } else {
-                Position position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
-                positionRepository.save(position);
-                member.setPosition(position);
-            }
-        } else {
-            member.setPosition(positionRepository.getReferenceById(memberRegistDto.getPositionId()));
-        }
-
+        member.setDepartment(getOrCreateDepartment(memberRegistDto));
+        member.setPosition(getOrCreatePosition(memberRegistDto));
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
         return member;
     }
 
-    public MemberLoginDto login(MemberLoginDto memberLoginDto) {
-        Optional<Member> member = memberRepository.findByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw());
-        if (member.isPresent()) {
-            return memberLoginDto;
+    private Department getOrCreateDepartment(MemberRegistDto memberRegistDto) {
+        if (memberRegistDto.getDepartmentId() != -1) {
+            return departmentRepository.getReferenceById(memberRegistDto.getDepartmentId());
         }
-        return null;
+        if (departmentRepository.existsByDepartmentName(memberRegistDto.getDepartmentName())) {
+            return departmentRepository.findByDepartmentName(memberRegistDto.getDepartmentName());
+        }
+        Department department = Department.builder().departmentName(memberRegistDto.getDepartmentName()).build();
+        departmentRepository.save(department);
+        return department;
+    }
+
+    private Position getOrCreatePosition(MemberRegistDto memberRegistDto) {
+        if (memberRegistDto.getPositionId() != -1) {
+            return positionRepository.getReferenceById(memberRegistDto.getPositionId());
+        }
+        if (positionRepository.existsByPositionName(memberRegistDto.getPositionName())) {
+            return positionRepository.findByPositionName(memberRegistDto.getPositionName());
+        }
+        Position position = Position.builder().positionName(memberRegistDto.getPositionName()).build();
+        positionRepository.save(position);
+        return position;
+    }
+
+    public void login(MemberLoginDto memberLoginDto) {
+        if (!memberRepository.existsByMemberLoginIdAndMemberLoginPw(memberLoginDto.getMemberLoginId(), memberLoginDto.getMemberLoginPw())) {
+            throw new BossException(MemberErrorCode.MEMBER_NOT_FOUND);
+        }
     }
 
     private void validateDuplicateMember(Member member) {
-        Optional<Member> joinMember = memberRepository.findByNfc(member.getNfc());
-        if (joinMember.isPresent()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        if (memberRepository.existsByNfc(member.getNfc())) {
+            throw new BossException(MemberErrorCode.MEMBER_ALREADY_EXISTS);
         }
     }
 
-    public MemberDto findbyNfc(String nfc) {
-        Optional<Member> member = memberRepository.findByNfc(nfc);
-        return member.map(memberMapper::memberToMemberDto).orElse(null);
+    public MemberDto findByNfc(String nfc) {
+        Member member = memberRepository.findByNfc(nfc).orElseThrow(() -> new BossException(MemberErrorCode.MEMBER_NOT_FOUND));
+        return memberMapper.memberToMemberDto(member);
     }
 
     @Transactional(readOnly = true)

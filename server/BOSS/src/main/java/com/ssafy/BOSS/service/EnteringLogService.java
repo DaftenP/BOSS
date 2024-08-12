@@ -44,30 +44,22 @@ public class EnteringLogService {
     }
 
     @Transactional
-    public EnteringLog save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile file1, MultipartFile file2) {
-        EnteringLog enteringLog = new EnteringLog();
+    public EnteringLogDto save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile deviceFrontImage, MultipartFile deviceBackImage) {
         Optional<Member> member = memberRepository.findById(enteringLogRegistDto.getMemberId());
         if (member.isEmpty()) {
-            throw new RuntimeException("Member not found");
+            throw new BossException(MemberErrorCode.MEMBER_NOT_FOUND);
         }
         // 이미지 업로드
-        String image1 = s3UploadService.upload(file1);
-        String image2 = s3UploadService.upload(file2);
-        enteringLog.setMember(member.get());
-        enteringLog.setDeviceFrontImage(image1);
-        enteringLog.setDeviceBackImage(image2);
-        enteringLog.setEntering(enteringLogRegistDto.getEntering());
-        enteringLog.setGateNumber(enteringLogRegistDto.getGateNumber());
-        enteringLog.setStickerCount(enteringLogRegistDto.getStickerCount());
-        enteringLog.setIssue(enteringLogRegistDto.getIssue());
-        enteringLog.setCameraLens(enteringLogRegistDto.getCameraLens());
-        enteringLogRepository.save(enteringLog);
+        String deviceFrontImageLink = s3UploadService.upload(deviceFrontImage);
+        String deviceBackImageLink = s3UploadService.upload(deviceBackImage);
+        EnteringLog enteringLog = enteringLogMapper.enteringLogRegistDtoToEnteringLog(enteringLogRegistDto, member.get(), deviceFrontImageLink, deviceBackImageLink);
+        enteringLog = enteringLogRepository.save(enteringLog);
 
         if (enteringLog.getIssue() == 1) {
             member.get().setIssueCount(member.get().getIssueCount() + 1);
         }
 
-        return enteringLog;
+        return enteringLogMapper.enteringLogToEnteringLogDto(enteringLog);
     }
 
     @Transactional(readOnly = true)

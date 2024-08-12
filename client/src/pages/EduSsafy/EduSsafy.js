@@ -82,7 +82,7 @@ export default function Main() {
                  log.nfcName === member.nfcName &&
                  log.entering === 0 && 
                  log.issue === 0 &&
-                  // isToday(logTime) && 
+                  isToday(logTime) && 
                  logTime.getHours() >= 6;
         });
   
@@ -95,7 +95,6 @@ export default function Main() {
           setIsCheckedIn(true);
           const formattedTime = formatTime(earliestLog.time);
           setIncheckTime(formattedTime);
-          console.log(matchingLogs);
         }
       } catch (error) {
         console.error('Error checking in automatically:', error);
@@ -103,11 +102,8 @@ export default function Main() {
     };
     
     checkInAutomatically();
-    console.log(isCheckedIn, incheckTime);
     
   }, [logsData, member]);
-
-  
 
   const checkOut = () => {
     const now = new Date();
@@ -116,7 +112,6 @@ export default function Main() {
       hour: '2-digit',
       minute: '2-digit',
     }));
-    console.log(outcheckTime);
   };
 
   const toggleDropdown = () => {
@@ -190,7 +185,7 @@ export default function Main() {
             <br />
             SSAFY
           </span>
-          <div className={classes['line']} />
+          <div className={classes['line-job-ssafy']} />
         </div>
         <div className={classes['rectangle-1']}>
           <span className={classes['ssafy-git']}>
@@ -198,7 +193,7 @@ export default function Main() {
             <br />
             GIT
           </span>
-          <div className={classes['line-2']} />
+          <div className={classes['line-ssafy-git']} />
         </div>
         <div className={classes['rectangle-3']}>
           <span className={classes['meeting-ssafy']}>
@@ -206,11 +201,11 @@ export default function Main() {
             <br />
             SSAFY
           </span>
-          <div className={classes['line-4']} />
+          <div className={classes['line-meeting-ssafy']} />
         </div>
-        <div onClick={handleToMain} className={classes['rectangle-5']} />
+        <div onClick={handleToMain} className={classes['ssafy-logo']} />
 
-        <div className={classes['ellipse']} />
+        <div className={classes['profile']} />
         
         <span className={classes['my-campus']}>마이캠퍼스</span>
         <span className={classes['classroom']}>강의실</span>
@@ -218,7 +213,7 @@ export default function Main() {
         <span className={classes['help-desk']}>HELP DESK</span>
         <span className={classes['mentoring-board']}>멘토링 게시판</span>
         <div className={classes['bell']}>
-          <div className={classes['icon']} />
+          <div className={classes['bell-icon']} />
         </div>
 
         <div className={classes['navigate-container']}>
@@ -239,7 +234,7 @@ export default function Main() {
         <div className={classes['rectangle-6']}>
           <div className={classes['flex-row-def']}>
             <span className={classes['check-status']}>출석체크 & 현황</span>
-            <div className={classes['icon-7']} />
+            <div className={classes['plus-icon-1']} />
           </div>
           <div className={classes['flex-row-da']}>
 
@@ -268,7 +263,7 @@ export default function Main() {
                 {isCheckedOut ? (
                   <span className={classes['time']} onClick={checkOut}>{outcheckTime}</span>
                 ) : (
-                  <div className={classes['icon-out']} onClick={checkOut}></div>
+                  <div className={classes['logout-icon']} onClick={checkOut}></div>
                 )}
 
                 <span className={isCheckedOut ? classes['check-on'] : classes['check-off']}
@@ -287,7 +282,7 @@ export default function Main() {
             <span className={classes['mileage']}>마일리지</span>
             <span className={classes['m-amount']}>1,000,000 M</span>
           </div>
-          <div className={classes['line-c']} />
+          <div className={classes['blue-line-row']} />
           <div className={classes['flex-row-d']}>
             <span className={classes['level-exp']}>레벨&경험치</span>
             <div className={classes['exp']}>
@@ -296,19 +291,19 @@ export default function Main() {
               <span className={classes['exp-amount-f']}>EXP</span>
             </div>
           </div>
-          <div className={classes['screenshot']} />
+          <div className={classes['tier-gauge']} />
         </div>
         <div className={classes['rectangle-10']}>
           <div className={classes['flex-row-d-11']}>
-            <div className={classes['line-12']} />
+            <div className={classes['blue-line-column']} />
             <div className={classes['regroup-i']}>
               <span className={classes['span-dot']}>07.26</span>
-              <div className={classes['icon-13']} />
+              <div className={classes['mail-icon-1']} />
             </div>
             <span className={classes['text-19']}>필독</span>
             <span className={classes['text-1a']}>09:00에 유튜브 라이브 방..</span>
-            <div className={classes['line-14']} />
-            <div className={classes['line-15']} />
+            <div className={classes['blue-line-row-1']} />
+            <div className={classes['blue-line-row-2']} />
           </div>
           <div className={classes['flex-row-16']}>
             <span className={classes['text-1b']}>알림</span>
@@ -318,7 +313,7 @@ export default function Main() {
             <span className={classes['text-1d']}>필독</span>
             <span className={classes['text-1e']}>09:00에 유튜브 라이브 방..</span>
             <div className={classes['regroup-i-18']}>
-              <div className={classes['icon-19']} />
+              <div className={classes['mail-icon-2']} />
               <span className={classes['span-dot-1a']}>07.24</span>
             </div>
           </div>
@@ -326,7 +321,7 @@ export default function Main() {
             <span className={classes['text-20']}>필독</span>
             <span className={classes['text-21']}>09:00에 유튜브 라이브 방..</span>
             <div className={classes['regroup-i-1b']}>
-              <div className={classes['icon-1c']} />
+              <div className={classes['mail-icon-3']} />
               <span className={classes['span-dot-1d']}>07.23</span>
             </div>
           </div>
@@ -337,16 +332,16 @@ export default function Main() {
         <div className={classes['rectangle-20']}>
           <div className={classes['flex-row-c']}>
             <span className={classes['span-21']}>주차별 커리큘럼</span>
-            <div className={classes['icon-22']} />
+            <div className={classes['plus-icon-2']} />
           </div>
           <div className={classes['flex-row-fa']}>
             <span className={classes['fulldate']}>{year}.{month}.{day}({dayOfWeek})</span>
             <div className={classes['clock']}>
-              <div className={classes['icon-23']} />
+              <div className={classes['clock-icon']} />
             </div>
           </div>
           <div className={classes['flex-row-f']}>
-            <div className={classes['line-24']} />
+            <div className={classes['gray-line-icon']} />
             <div className={classes['rectangle-25']}>
               <div className={classes['flex-column-ad']}>
                 <div className={classes['common-project']}>
@@ -359,10 +354,10 @@ export default function Main() {
                 </span>
               </div>
               <span className={classes['project-26']}>프로젝트</span>
-              <div className={classes['ellipse-27']} />
+              <div className={classes['pink-ellipse-icon-1']} />
             </div>
             <span className={classes['ellipse-28']}>09:00~10:00</span>
-            <div className={classes['flex-row-a']} />
+            <div className={classes['blue-ellipse-index-1']} />
           </div>
           <div className={classes['rectangle-29']}>
             <div className={classes['common-project-2a']}>
@@ -371,9 +366,9 @@ export default function Main() {
                 <span className={classes['project-2d']}> 프로젝트</span>
               </div>
               <span className={classes['project-2e']}>프로젝트</span>
-              <div className={classes['ellipse-2f']} />
+              <div className={classes['pink-ellipse-icon-2']} />
             </div>
-            <div className={classes['ellipse-30']} />
+            <div className={classes['blue-ellipse-index-2']} />
             <span className={classes['time-slot']}>09:00~10:00</span>
           </div>
         </div>
@@ -382,7 +377,7 @@ export default function Main() {
             <span className={classes['quest']}>Quest</span>
             <span className={classes['evaluation']}>평가</span>
             <span className={classes['quest-evaluation']}>Quest/평가</span>
-            <div className={classes['icon-32']} />
+            <div className={classes['plus-icon-3']} />
             <span className={classes['complete']}>완료</span>
             <span className={classes['python-track']}>
               240524_11기_Python 트랙_5회차_..
@@ -391,19 +386,19 @@ export default function Main() {
             <span className={classes['python-track-34']}>
               240513_11기_Python 트랙_10회차...
             </span>
-            <div className={classes['slice']} />
+            <div className={classes['sliced-ellipse-icon']} />
             <span className={classes['quest-35']}>Quest</span>
             <span className={classes['python-track-36']}>
               240429_11기_Python 트랙_4회차_..
             </span>
           </div>
           <div className={classes['flex-column-37']}>
-            <div className={classes['ellipse-38']} />
-            <div className={classes['ellipse-39']} />
+            <div className={classes['gray-ellipse-icon-ellipse-1']}/>
+            <div className={classes['gray-ellipse-icon-ellipse-2']} />
           </div>
         </div>
       </div>
-      <div className={classes['line-3a']} />
+      <div className={classes['nav-line']} />
     </div>
     </div>
   );

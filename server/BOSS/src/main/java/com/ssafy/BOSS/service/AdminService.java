@@ -4,6 +4,8 @@ import com.ssafy.BOSS.domain.Admin;
 import com.ssafy.BOSS.dto.adminDto.AdminDto;
 import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
+import com.ssafy.BOSS.exception.BossException;
+import com.ssafy.BOSS.exception.errorCode.AdminErrorCode;
 import com.ssafy.BOSS.jwt.JwtTokenProvider;
 import com.ssafy.BOSS.mapper.AdminMapper;
 import com.ssafy.BOSS.repository.AdminRepository;
@@ -38,25 +40,20 @@ public class AdminService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
-
-        return jwtToken;
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     @Transactional
     public AdminLogDto checkAdmin(String adminLoginId, String adminLoginPw) {
         Optional<Admin> admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw);
-        if (admin.isPresent()) {
-            AdminLogDto adminLogDto = new AdminLogDto();
-            AdminDto adminDto = adminMapper.adminToAdminDto(admin.get());
-            adminLogDto.setAdmin(adminDto);
-            return adminLogDto;
-        } else {
-            return null;
-        }
+        if (admin.isEmpty()) throw new BossException(AdminErrorCode.ADMIN_NOT_FOUND);
+        AdminLogDto adminLogDto = new AdminLogDto();
+        AdminDto adminDto = adminMapper.adminToAdminDto(admin.get());
+        adminLogDto.setAdmin(adminDto);
+        return adminLogDto;
     }
 
-    public Optional<Admin> findByName(String adminName) {
-        return adminRepository.findByAdminName(adminName);
+    public Admin findByName(String adminName) {
+        return adminRepository.findByAdminName(adminName).orElseThrow(() -> new BossException(AdminErrorCode.ADMIN_NOT_FOUND));
     }
 }

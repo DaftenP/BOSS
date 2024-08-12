@@ -792,7 +792,7 @@ button {
   height: 16px;
   top: 62px;
   left: 0;
-  background: url(../../assets/EduSsafy/Mail-icon.png)
+  background: url(../../assets/EduSsafy/Mail_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 31;
@@ -954,7 +954,7 @@ button {
   position: relative;
   width: 20px;
   height: 16px;
-  background: url(../../assets/EduSsafy/Mail-icon.png)
+  background: url(../../assets/EduSsafy/Mail_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 33;
@@ -1033,7 +1033,7 @@ button {
   position: relative;
   width: 20px;
   height: 16px;
-  background: url(../../assets/EduSsafy/Mail-icon.png)
+  background: url(../../assets/EduSsafy/Mail_icon.png)
     no-repeat center;
   background-size: 100% 100%;
   z-index: 35;

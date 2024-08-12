@@ -397,3 +397,7 @@
   border-color: transparent transparent #333 transparent;
   z-index: 9;
 }
+
+.fileName {
+  font-size: 13px;
+}

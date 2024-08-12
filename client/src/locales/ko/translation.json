@@ -1,7 +1,7 @@
 {
-  "invalidFormat": "유효하지 않은 형식입니다!",
+  "invalidFormat": "유효하지 않은 형식입니다.",
   "selectValidFile": "JPG, JPEG, PNG",
-  "file": "파일을 첨부해주세요!",
+  "file": "파일을 첨부해주세요.",
   "hour": "시",
   "people": " 명",
   "Detected People": "적발 인원",
@@ -137,5 +137,10 @@
   "Security Issue Text": "보안 이슈 선택",
   "Cnt": "개",
   "Sort: Ascending": "정렬: 오름차순",
-  "Sort: Descending": "정렬: 내림차순"
+  "Sort: Descending": "정렬: 내림차순",
+  "incompleteFields": "입력하지 않은 필드가 있습니다.",
+  "startDateTime": "시작 날짜와 시작 시간 모두 입력해 주세요.",
+  "endDateTime": "종료 날짜와 종료 시간 모두 입력해 주세요.",
+  "missingField": "필수 입력값이 누락되었습니다.",
+  "isRequired": "은(는) 필수 항목입니다."
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import Swal from 'sweetalert2';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchLogs, updateLog, fetchFilteredLogs, loglistActions } from '../../store/loglist';
@@ -171,7 +172,7 @@ function LogTable() {
     setSelectedSearchOption(event.target.value)
   }
 
-  const [visibleCount, setVisibleCount] = useState(20);
+  const [visibleCount, setVisibleCount] = useState(50);
   const [update, setUpdate] = useState(false);
   const [filters, setFilters] = useState({
     name: '',
@@ -189,7 +190,7 @@ function LogTable() {
   const [selectedLog, setSelectedLog] = useState(null);
 
   const handleInputChange = (event) => {
-    const { name, value, type } = event.target;
+    const { name, value } = event.target;
     const processedValue = (['entering', 'memberId', 'issue'].includes(name)) ? (value === '' ? '' : Number(value)) : value;
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -198,11 +199,30 @@ function LogTable() {
   };
 
   const handleLoadMore = () => {
-    setVisibleCount((prevCount) => prevCount + 10);
+    setVisibleCount((prevCount) => prevCount + 50);
   };
 
   const handleFilter = (event) => {
     event.preventDefault();
+
+    if ((filters.startDate && !filters.startTime) || (!filters.startDate && filters.startTime)) {
+      Swal.fire({
+        icon: 'error',
+        title: `<strong>${t('incompleteFields', '입력하지 않은 필드가 있습니다.')}</strong>`,
+        html: `<b>${t('startDateTime', '시작 날짜와 시작 시간 모두 입력해 주세요.')}</b>`
+      });
+      return;
+    }
+
+    if ((filters.endDate && !filters.endTime) || (!filters.endDate && filters.endTime)) {
+      Swal.fire({
+        icon: 'error',
+        title: `<strong>${t('invalidFormat', '입력하지 않은 필드가 있습니다.')}</strong>`,
+        html: `<b>${t('endDateTime', '종료 날짜와 종료 시간 모두 입력해 주세요.')}</b>`
+      });
+      return;
+    }
+
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).map(([key, value]) => [key, value === '' ? null : value])
     );
@@ -224,7 +244,7 @@ function LogTable() {
       memberId: transformedFilters.memberId,
     };
 
-    setVisibleCount(20);
+    setVisibleCount(50);
     dispatch(fetchFilteredLogs(finalFilters));
     setFilters({
       name: '',
@@ -287,7 +307,7 @@ function LogTable() {
   const displayedLogs = sortedLogs.slice(0, visibleCount);
 
   useEffect(() => {
-    setVisibleCount(20);
+    setVisibleCount(50);
   }, [logsData]);
 
   const totalLogsCount = logsData.length;

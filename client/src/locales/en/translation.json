@@ -1,5 +1,5 @@
 {
-  "invalidFormat": "Invalid format!",
+  "invalidFormat": "Invalid format.",
   "selectValidFile": "Please attach a valid(JPG, JPEG, PNG)",
   "file": "file!",
   "hour": "hr",
@@ -137,5 +137,10 @@
   "Security Issue Text": "Select Security Issue",
   "Cnt": "Cnt",
   "Sort: Ascending": "Sort: Ascending",
-  "Sort: Descending": "Sort: Descending"
+  "Sort: Descending": "Sort: Descending",
+  "incompleteFields": "There are incomplete fields.",
+  "startDateTime": "Please enter both the start date and start time.",
+  "endDateTime": "Please enter both the end date and end time.",
+  "missingField": "Required field is missing.",
+  "isRequired": "is a required field."
 }

@@ -1,6 +1,7 @@
 package com.ssafy.BOSS.exception;
 
 import com.ssafy.BOSS.exception.errorCode.ErrorCode;
+import com.ssafy.BOSS.exception.errorCode.ErrorCodeProblemDetail;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -15,7 +16,8 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleBossException(BossException e) {
         log.error(e.getMessage());
         ErrorCode errorCode = e.getErrorCode();
-        return ProblemDetail.forStatusAndDetail(errorCode.getHttpStatus(), errorCode.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(errorCode.getHttpStatus(), errorCode.getErrorCode());
+        return new ErrorCodeProblemDetail(problemDetail, errorCode.getMessage());
     }
 
     @ExceptionHandler

@@ -30,10 +30,6 @@ public class EnteringLogService {
     private final S3UploadService s3UploadService;
     private final EnteringLogMapper enteringLogMapper;
 
-    public Page<EnteringLog> getEnteringLogs(EnteringLogSpecifiedDto dto, Pageable pageable) {
-        return enteringLogRepository.getEnteringLogs(dto, pageable);
-    }
-
     @Transactional
     public void updateEnteringLog(Long logId, int stickerCount, int issue) {
         EnteringLog enteringLog = enteringLogRepository.findById(logId).orElse(null);

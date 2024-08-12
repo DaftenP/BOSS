@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AdminLogRepository extends JpaRepository<LoginLog, Long> {
-    List<LoginLog> findByAdmin(Optional<Admin> admin);
+    List<LoginLog> findByAdmin(Admin admin);
 }

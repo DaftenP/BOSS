@@ -53,7 +53,7 @@ public class AdminService {
         return adminLogDto;
     }
 
-    public Optional<Admin> findByName(String adminName) {
-        return adminRepository.findByAdminName(adminName);
+    public Admin findByName(String adminName) {
+        return adminRepository.findByAdminName(adminName).orElseThrow(() -> new RuntimeException("해당하는 관리자가 존재하지 않습니다."));
     }
 }

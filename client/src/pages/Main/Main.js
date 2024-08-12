@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { fetchFilteredLogs } from '../../store/loglist';
-// import { fetchTodayLogs } from '../../store/todayIssue';
-// import { addLogs, setLoading, setError, setSuccess } from '../../store/todayIssue';
 import lightClasses from './Main.module.css';
 import darkClasses from './MainDark.module.css';
 import { Line, Doughnut } from 'react-chartjs-2';
@@ -12,6 +10,7 @@ import ruleImage from '../../assets/Main/Rule_background_image.png';
 import damageImage from '../../assets/Main/Damage_state.png';
 import noAttachedImage from '../../assets/Main/No_attached_state.png';
 import changeImage from '../../assets/Main/Change_state.png';
+import lockImage from '../../assets/Main/Lock_image.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCogs, faExclamationTriangle, faPercentage } from '@fortawesome/free-solid-svg-icons';
 import { EventSourcePolyfill } from 'event-source-polyfill';
@@ -262,7 +261,7 @@ function Main() {
     <div className={classes.mainContainer}>
       <div className={classes.todayIssueContainer}>
         <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issues Summary', "이슈 요약")}</div>
-        <div className={classes.statisticsContainer}>
+        <div className={classes.statisticsContainer} style={{ backgroundImage: `url(${lockImage})` }}>
           <div className={`${classes.card} ${classes.topCard}`}>
             <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
             <div className={classes.cardContent}>

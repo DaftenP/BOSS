@@ -4,15 +4,12 @@ import api from '../utils/api';
 // 전체 직책 목록 조회 요청
 export const fetchPositionLists = createAsyncThunk('position/fetchPositionLists', async () => {
   const response = await api.get('/api/position/view');
-  console.log('전체직책', response.data)
   return response.data.length ? response.data : [];
 });
 
 // 직책 등록 요청
 export const positionRegistration = createAsyncThunk('position/positionRegistration', async (data) => {
-  console.log('직책등록요청', data)
   const response = await api.post('/api/position/regist', data);
-  console.log('직책등록', response.data)
   return response.data.length ? response.data : [];
 });
 

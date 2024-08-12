@@ -39,11 +39,8 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity<?> memberLogin(@RequestBody MemberLoginDto memberLoginDto) {
-        MemberLoginDto memberLogin = memberService.login(memberLoginDto);
-        if (memberLogin != null) {
-            return ResponseEntity.ok(memberLogin);
-        }
-        return ResponseEntity.noContent().build();
+        memberService.login(memberLoginDto);
+        return ResponseEntity.ok(memberLoginDto);
     }
 
     @GetMapping("/check/{nfc}")

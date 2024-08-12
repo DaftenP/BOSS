@@ -22,5 +22,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             "AND (:#{#memberDto.issue} < 0 OR m.issueCount = :#{#memberDto.issue})")
     List<Member> searchMember(@Param("memberDto") RequestMemberDto memberDto);
 
-    Optional<Member> findByMemberLoginIdAndMemberLoginPw(String loginId, String loginPw);
+    boolean existsByMemberLoginIdAndMemberLoginPw(String loginId, String loginPw);
 }

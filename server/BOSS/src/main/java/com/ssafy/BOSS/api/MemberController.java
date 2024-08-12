@@ -45,7 +45,7 @@ public class MemberController {
 
     @GetMapping("/check/{nfc}")
     public ResponseEntity<?> getMemberByNfc(@PathVariable String nfc) {
-        MemberDto member = memberService.findbyNfc(nfc);
+        MemberDto member = memberService.findByNfc(nfc);
         return ResponseEntity.ok(member);
     }
 

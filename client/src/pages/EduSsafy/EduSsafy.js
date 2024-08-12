@@ -398,7 +398,7 @@ export default function Main() {
           </div>
         </div>
       </div>
-      <div className={classes['line-nav']} />
+      <div className={classes['nav-line']} />
     </div>
     </div>
   );

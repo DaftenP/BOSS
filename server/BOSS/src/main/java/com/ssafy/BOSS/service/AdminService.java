@@ -46,14 +46,11 @@ public class AdminService {
     @Transactional
     public AdminLogDto checkAdmin(String adminLoginId, String adminLoginPw) {
         Optional<Admin> admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw);
-        if (admin.isPresent()) {
-            AdminLogDto adminLogDto = new AdminLogDto();
-            AdminDto adminDto = adminMapper.adminToAdminDto(admin.get());
-            adminLogDto.setAdmin(adminDto);
-            return adminLogDto;
-        } else {
-            return null;
-        }
+        if (admin.isEmpty()) throw new RuntimeException("해당 관리자가 존재하지 않습니다.");
+        AdminLogDto adminLogDto = new AdminLogDto();
+        AdminDto adminDto = adminMapper.adminToAdminDto(admin.get());
+        adminLogDto.setAdmin(adminDto);
+        return adminLogDto;
     }
 
     public Optional<Admin> findByName(String adminName) {

@@ -8,8 +8,9 @@ import com.ssafy.BOSS.dto.memberDto.MemberLoginDto;
 import com.ssafy.BOSS.dto.memberDto.MemberRegistDto;
 import com.ssafy.BOSS.repository.DepartmentRepository;
 import com.ssafy.BOSS.repository.PositionRepository;
-import lombok.RequiredArgsConstructor;
-import org.mapstruct.*;
+import org.mapstruct.BeforeMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public abstract class MemberMapper {
@@ -29,19 +30,19 @@ public abstract class MemberMapper {
 
     @Mapping(target = "profileImage", constant = "")
     public Member memberRegistDtoToMember(MemberRegistDto memberRegistDto) {
-        if(memberRegistDto == null) {
+        if (memberRegistDto == null) {
             return null;
         }
 
         Member member = new Member();
 
-        member.setName( memberRegistDto.getName() );
-        member.setMemberLoginId( memberRegistDto.getMemberLoginId() );
-        member.setMemberLoginPw( memberRegistDto.getMemberLoginPw() );
-        member.setNfc( memberRegistDto.getNfc() );
-        member.setPhoneNumber( memberRegistDto.getPhoneNumber() );
+        member.setName(memberRegistDto.getName());
+        member.setMemberLoginId(memberRegistDto.getMemberLoginId());
+        member.setMemberLoginPw(memberRegistDto.getMemberLoginPw());
+        member.setNfc(memberRegistDto.getNfc());
+        member.setPhoneNumber(memberRegistDto.getPhoneNumber());
 
-        member.setProfileImage( "" );
+        member.setProfileImage("");
 
         member.setDepartment(getOrCreateDepartment(memberRegistDto));
         member.setPosition(getOrCreatePosition(memberRegistDto));

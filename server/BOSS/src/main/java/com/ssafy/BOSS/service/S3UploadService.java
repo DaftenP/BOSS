@@ -37,7 +37,7 @@ public class S3UploadService {
         return this.uploadImage(image);
     }
 
-    private static void validateEmptyImage(MultipartFile image) {
+    private void validateEmptyImage(MultipartFile image) {
         if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
             throw new MultipartException("파일이 비었음. " + image.getOriginalFilename());
         }

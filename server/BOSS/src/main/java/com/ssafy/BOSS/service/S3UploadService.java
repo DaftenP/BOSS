@@ -32,15 +32,19 @@ public class S3UploadService {
 
     public String upload(MultipartFile image) {
         //입력받은 이미지 파일이 빈 파일인지 검증
-        if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
-            throw new MultipartException("파일이 비었음. " + image.getOriginalFilename());
-        }
+        validateEmptyImage(image);
         //uploadImage를 호출하여 S3에 저장된 이미지의 public url을 반환한다.
         return this.uploadImage(image);
     }
 
+    private static void validateEmptyImage(MultipartFile image) {
+        if (image.isEmpty() || Objects.isNull(image.getOriginalFilename())) {
+            throw new MultipartException("파일이 비었음. " + image.getOriginalFilename());
+        }
+    }
+
     private String uploadImage(MultipartFile image) {
-        this.validateImageFileExtention(image.getOriginalFilename());
+        validateImageFileExtension(image.getOriginalFilename());
         try {
             return this.uploadImageToS3(image);
         } catch (IOException e) {
@@ -48,23 +52,23 @@ public class S3UploadService {
         }
     }
 
-    private void validateImageFileExtention(String filename) {
+    private void validateImageFileExtension(String filename) {
         int lastDotIndex = filename.lastIndexOf(".");
         if (lastDotIndex == -1) {
             throw new MultipartException("파일 이름 없음. " + filename);
         }
 
-        String extention = filename.substring(lastDotIndex + 1).toLowerCase();
+        String extension = filename.substring(lastDotIndex + 1).toLowerCase();
         List<String> allowedExtentionList = Arrays.asList("jpg", "jpeg", "png", "gif");
 
-        if (!allowedExtentionList.contains(extention)) {
+        if (!allowedExtentionList.contains(extension)) {
             throw new MultipartException("파일형식오류! " + filename);
         }
     }
 
     private String uploadImageToS3(MultipartFile image) throws IOException {
         String originalFilename = image.getOriginalFilename(); //원본 파일 명
-        String extention = originalFilename.substring(originalFilename.lastIndexOf(".")); //확장자 명
+        String extension = originalFilename.substring(originalFilename.lastIndexOf(".")); //확장자 명
 
         String s3FileName = UUID.randomUUID().toString().substring(0, 10) + originalFilename; //변경된 파일 명
 
@@ -72,7 +76,7 @@ public class S3UploadService {
         byte[] bytes = IOUtils.toByteArray(is); //image를 byte[]로 변환
 
         ObjectMetadata metadata = new ObjectMetadata(); //metadata 생성
-        metadata.setContentType("image/" + extention);
+        metadata.setContentType("image/" + extension);
         metadata.setContentLength(bytes.length);
 
         //S3에 요청할 때 사용할 byteInputStream 생성

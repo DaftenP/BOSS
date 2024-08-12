@@ -7,7 +7,6 @@ export const login = createAsyncThunk('login/login', async (adminInfo) => {
 
   const accessToken = response.data.accessToken;
   const refreshToken = response.data.refreshToken;
-  console.log('reponse데이터', response.data)
 
   setAccessToken(accessToken);
   setRefreshToken(refreshToken);
@@ -58,7 +57,6 @@ const loginSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLogin = true;
         state.success = true;
-        console.log(action.payload)
         state.adminName = action.payload.adminName;
         state.loginTime = new Date().toISOString();
         state.error = null;

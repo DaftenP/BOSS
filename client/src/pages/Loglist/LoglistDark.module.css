@@ -158,8 +158,6 @@
 }
 
 .listTitle {
-  /* background-color: #B0D2FA; */
-  /* color: #bbb; */
   border-radius: 18px 18px 0 0;
   text-align: center;
   padding: 10px;
@@ -169,7 +167,6 @@
 
 .logCount {
   background-color: #333333;
-  /* color: #bbb; */
   text-align: center;
   padding: 10px;
   font-size: 15px;
@@ -177,7 +174,6 @@
 }
 
 .logTable {
-  /* color: #bbb; */
   width: 97%;
   border-collapse: collapse;
   margin: 20px;
@@ -241,6 +237,7 @@
   text-align: center;
   padding-top: 10px;
 }
+
 /* 모달 css */
 .modal {
   display: flex;
@@ -336,7 +333,6 @@
 }
 
 .updateModalContainer {
-  /* background-color: #4d505f; */
   padding: 20px;
 }
 

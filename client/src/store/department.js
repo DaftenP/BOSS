@@ -4,15 +4,12 @@ import api from '../utils/api';
 // 전체 부서 목록 조회 요청
 export const fetchDepartmentLists = createAsyncThunk('department/fetchDepartmentList', async () => {
   const response = await api.get('/api/department/view');
-  console.log('전체부서', response.data)
   return response.data.length ? response.data : [];
 });
 
 // 부서 등록 요청
 export const departmentRegistration = createAsyncThunk('department/departmentRegistration', async (data) => {
-  console.log('부서등록요청', data)
   const response = await api.post('/api/department/regist', data);
-  console.log('부서등록', response.data)
   return response.data.length ? response.data : [];
 });
 

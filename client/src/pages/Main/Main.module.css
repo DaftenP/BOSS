@@ -279,7 +279,6 @@ position: relative;
 
 /* 카드 css */
 .statisticsContainer {
-  background-color: #ffffff;
   position: relative;
   display: flex;
   justify-content: center;
@@ -289,6 +288,11 @@ position: relative;
   border-radius: 0 0 20px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  background-blend-mode: overlay;
 }
 
 .centerCircle {
@@ -343,27 +347,39 @@ position: relative;
 
 .topCard {
   top: 20px;
-  background: linear-gradient(135deg, #cceeff, #99ccff);
-  color: #003366;
+  background: linear-gradient(135deg, rgba(204, 238, 255, 0.45), rgba(153, 204, 255, 0.45));
   position: absolute;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-blend-mode: overlay; 
 }
 
 .bottomRightCard {
   position: absolute;
   bottom: 20px;
   right: 20px;
-  background: linear-gradient(135deg, #ffcccc, #ff9999);
+  background: linear-gradient(135deg, rgba(255, 204, 204, 0.45), rgba(255, 153, 153, 0.45));
   color: #660000;
-  position: absolute;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-blend-mode: overlay;
 }
 
 .bottomLeftCard {
   position: absolute;
   bottom: 20px;
   left: 20px;
-  background: linear-gradient(135deg, #ccffcc, #99ff99);
+  background: linear-gradient(135deg, rgba(204, 255, 204, 0.45), rgba(153, 255, 153, 0.45));
   color: #006600;
-  position: absolute;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-blend-mode: overlay;
 }
 
 .todayTitle {

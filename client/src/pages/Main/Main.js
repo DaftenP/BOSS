@@ -143,7 +143,7 @@ function Main() {
     }));
 
   // 시간 단위로 그룹화 (9시부터 21시까지)
-  const startHour = 9;
+  const startHour = 6;
   const endHour = 21;
   const groupedData = new Array(endHour - startHour + 1).fill(0);
 

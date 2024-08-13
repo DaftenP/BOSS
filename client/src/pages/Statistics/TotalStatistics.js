@@ -117,7 +117,7 @@ function TotalStatistics({ loglist }) {
 
   const generateTotalHourlyLabels = () => {
     const labels = [];
-    for (let hour = 9; hour < 21; hour++) {
+    for (let hour = 6; hour < 22; hour++) {
       labels.push(`${hour}~${hour + 1}${t('hour')}`);
     }
     return labels;

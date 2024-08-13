@@ -44,6 +44,8 @@ public class SseEmitters {
         try {
             emitter.send(message);
         } catch (IOException | IllegalStateException e) {
+            log.error("Error sending message to emitter: {}", e.getMessage());
+            emitters.remove(emitter);  // 오류 발생 시 리스트에서 제거
             emitter.completeWithError(e);
         }
     }

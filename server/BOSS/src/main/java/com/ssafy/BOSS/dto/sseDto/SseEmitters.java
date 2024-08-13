@@ -32,7 +32,7 @@ public class SseEmitters {
     private void send(SseEmitter emitter, String message) {
         try {
             emitter.send(message);
-        } catch (IOException e) {
+        } catch (IOException | IllegalStateException e) {
             emitter.complete();
         }
     }

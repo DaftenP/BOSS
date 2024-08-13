@@ -5,14 +5,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 @Component
 @Slf4j
 public class SseEmitters {
 
-    private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
+    private final Set<SseEmitter> emitters = new CopyOnWriteArraySet<>();
 
     public SseEmitter add(SseEmitter emitter) {
         this.emitters.add(emitter);
@@ -33,6 +35,8 @@ public class SseEmitters {
     public void createIssue() {
         log.info("createIssue callback");
 
+        List<SseEmitter> removedEmitters = new ArrayList<>();
+
         emitters.forEach(emitter -> {
             log.info("emitter createIssue callback");
             log.info(emitter.toString());
@@ -41,9 +45,14 @@ public class SseEmitters {
                 log.info("전송 성공!");
             } catch (IOException e) {
                 emitter.completeWithError(e);
-                emitters.remove(emitter);
+                removedEmitters.add(emitter);
                 System.out.println("로그 전송에 실패했습니다.");
             }
         });
+
+        for(SseEmitter emitter : removedEmitters) {
+            emitters.remove(emitter);
+        }
+
     }
 }

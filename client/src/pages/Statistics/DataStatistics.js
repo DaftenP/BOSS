@@ -178,7 +178,7 @@ function DateStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         }
       },
       y: {
@@ -195,7 +195,7 @@ function DateStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         }
       }
     },

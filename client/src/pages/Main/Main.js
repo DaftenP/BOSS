@@ -189,7 +189,7 @@ function Main() {
           },
         },
         grid: {
-          color: '#555555',
+          color: isDarkMode ? '#bbb' : '#555555',
         },
       },
       x: {
@@ -201,7 +201,7 @@ function Main() {
           },
         },
         grid: {
-          color: '#555555',
+          color: isDarkMode ? '#bbb' : '#555555',
         },
       },
     },

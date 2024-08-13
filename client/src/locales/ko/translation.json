@@ -91,7 +91,7 @@
   "batchRegistration": "일괄 등록하기",
   "selectProfileImage": "프로필 사진",
   "selectBatchFile": "일괄 등록",
-  "selectFile" : "파일 선택",
+  "selectFile" : "파일 선택 / 파일 드롭",
   "Register": "등 록",
   "registeredMembersList": "등록 인원 목록",
   "currentViewCount": "현재 조회 인원",

@@ -35,7 +35,7 @@ position: relative;
   border: 1px solid #242424;
   border-radius: 20px;
   background-color: #393944;
-  min-height: 595px;
+  min-height: 598px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -57,23 +57,17 @@ position: relative;
 
 .lineChartContainer {
   background-color: #393944;
-  display: flex;
-  border-radius: 0 0 20px 20px;
-  padding: 20px 20px 20px 20px;
-  justify-content: center;
-  flex-direction: column;
-  height: 270px;
-  width: 350px;
+  border-radius: 20px;
+  width: 52%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .doughnutChartContainer {
-  display: flex;
-  padding: 0 20px 10px 20px;
-  justify-content: center;
-  flex-direction: column;
-  height: 300px;
-  width: 240px;
+  background-color: #393944;
+  border-radius: 20px;
+  width: 45%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-right: 10px;
 }
 
 .chartTitle {
@@ -88,16 +82,8 @@ position: relative;
   margin-right: 20px;
 }
 
-.doughnutChartTitle {
-  color: #e3e3e3;
-  margin-top: 70px;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-}
-
 .tableContainer{
-  padding: 25px 25px 5px 25px;
+  padding: 35px 25px 5px 25px;
 }
 
 .logTable {
@@ -134,7 +120,7 @@ position: relative;
   background-position: center;
   background-color: rgba(0, 0, 0, 0.7);
   background-blend-mode: overlay;
-  margin: 0px 10px;
+  margin: 10px 10px 0 9px;
 }
 
 .threeRuleContainer {
@@ -144,14 +130,13 @@ position: relative;
 
 .ruleContainer {
   color: #bbb;
-  position: relative;
   border: 1px solid rgba(207, 102, 121, 0.2);
   border-radius: 20px;
   background: rgba(134, 102, 207, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 10px;
-  margin: 97px 25px 20px 25px;
+  margin: 87px 25px 20px 25px;
   font-size: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -201,7 +186,6 @@ position: relative;
 }
 
 .ruleContent{
-  width: 320px;
   align-items: center;
   margin : 5px 0px;
   padding: 5px;
@@ -333,7 +317,7 @@ position: relative;
   font-size: 1.5em;
 }
 
-.topCard {
+.leftCard {
   background: linear-gradient(135deg, rgba(74, 74, 90, 0.45), rgba(106, 106, 122, 0.45));
   color: #ffffff;
   border-radius: 15px;
@@ -341,9 +325,10 @@ position: relative;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
+  margin-left: 10px;
 }
 
-.bottomRightCard {
+.middleCard {
   margin: 25px;
   background: linear-gradient(135deg, rgba(90, 74, 74, 0.45), rgba(122, 106, 106, 0.45));
   color: #ffffff;
@@ -354,7 +339,7 @@ position: relative;
   background-blend-mode: overlay;
 }
 
-.bottomLeftCard {
+.rightCard {
   background: linear-gradient(135deg, rgba(74, 90, 74, 0.45), rgba(106, 122, 106, 0.45));
   color: #ffffff;
   border-radius: 15px;
@@ -362,6 +347,7 @@ position: relative;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
+  margin-right: 10px;
 }
 
 .todayTitle {
@@ -374,7 +360,8 @@ position: relative;
   font-weight: bold;
   text-align: center;
   box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 -4px 8px -4px rgba(0, 0, 0, 0.3), -4px 0 8px -4px rgba(0, 0, 0, 0.3), 4px 0 8px -4px rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
 
 .entryText {
@@ -389,4 +376,15 @@ position: relative;
 
 .twoGraphContainer {
   display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 360px;
+}
+
+.doughnut {
+  margin: 60px 30px 20px 30px;
+}
+
+.line {
+  margin: 60px 20px 20px 20px;
 }

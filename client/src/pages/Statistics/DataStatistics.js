@@ -23,22 +23,22 @@ function DateStatistics({ loglist }) {
 
   // 날짜 범위를 설정하는 함수
   const setDefaultDate = () => {
-      const today = new Date();
-      if (selectedDateXOption === 'day') {
-        setSelectedDate(format(today, 'yyyy-MM-dd'));
-        setSelectedDateRange('');
-      } else if (selectedDateXOption === 'week') {
-        const startOfSelectedWeek = format(startOfWeek(today), 'yyyy-MM-dd');
-        const endOfSelectedWeek = format(addDays(startOfWeek(today), 6), 'yyyy-MM-dd');
-        setSelectedDate(startOfSelectedWeek);
-        setSelectedDateRange(`${startOfSelectedWeek} ~ ${endOfSelectedWeek}`);
-      } else if (selectedDateXOption === 'month') {
-        setSelectedDate(format(startOfMonth(today), 'yyyy-MM'));
-        setSelectedDateRange(''); 
-      } else if (selectedDateXOption === 'year') {
-        setSelectedDate(format(startOfYear(today), 'yyyy'));
-        setSelectedDateRange('');
-      }
+    const today = new Date();
+    if (selectedDateXOption === 'day') {
+      setSelectedDate(format(today, 'yyyy-MM-dd'));
+      setSelectedDateRange('');
+    } else if (selectedDateXOption === 'week') {
+      const startOfSelectedWeek = format(startOfWeek(today), 'yyyy-MM-dd');
+      const endOfSelectedWeek = format(addDays(startOfWeek(today), 6), 'yyyy-MM-dd');
+      setSelectedDate(startOfSelectedWeek);
+      setSelectedDateRange(`${startOfSelectedWeek} ~ ${endOfSelectedWeek}`);
+    } else if (selectedDateXOption === 'month') {
+      setSelectedDate(format(startOfMonth(today), 'yyyy-MM'));
+      setSelectedDateRange(''); 
+    } else if (selectedDateXOption === 'year') {
+      setSelectedDate(format(startOfYear(today), 'yyyy'));
+      setSelectedDateRange('');
+    }
   };
 
   const handleDateXOption = (event) => {
@@ -300,7 +300,7 @@ function DateStatistics({ loglist }) {
               )}
               {selectedDateXOption === 'week' && (
                 <div className={classes.dateRangeText}>
-                    {selectedDateRange}
+                  {selectedDateRange}
                 </div>
               )}
               {selectedDateXOption === 'month' && (

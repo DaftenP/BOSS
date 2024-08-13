@@ -180,6 +180,8 @@ function Main() {
   };
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         beginAtZero: true,
@@ -250,7 +252,7 @@ function Main() {
   const optionsDoughnut = {
     responsive: true,
     maintainAspectRatio: false,
-    cutout: '70%',
+    cutout: '30%',
     scales: {},
     plugins: {
       legend: {
@@ -274,8 +276,10 @@ function Main() {
         },
         formatter: function(value, context) {
           const label = context.chart.data.labels[context.dataIndex];
-          return `${label}: ${value}`;
-        },    
+          const total = context.dataset.data.reduce((acc, val) => acc + val, 0);
+          const percentage = ((value / total) * 100).toFixed(2); // 퍼센트 계산
+          return `${value}${t('people')}\n(${percentage}%)`
+        },
       },
     },
   };
@@ -288,21 +292,21 @@ function Main() {
         <div className={classes.todayIssueContainer}>
           <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issues Summary', "이슈 요약")}</div>
           <div className={classes.statisticsContainer}>
-            <div className={`${classes.card} ${classes.topCard}`}>
+            <div className={`${classes.card} ${classes.leftCard}`}>
               <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
               <div className={classes.cardContent}>
                 <div className={classes.cardTitle}>{t('Total Inspections Today')}</div>
                 <div className={classes.cardValue}>{firstFilteredLogs.length} {t('times')}</div>
               </div>
             </div>
-            <div className={`${classes.card} ${classes.bottomRightCard}`}>
+            <div className={`${classes.card} ${classes.middleCard}`}>
               <FontAwesomeIcon icon={faExclamationTriangle} className={classes.cardIcon} />
               <div className={classes.cardContent}>
                 <div className={classes.cardTitle}>{t('Issues Detected')}</div>
                 <div className={classes.cardValue}>{secondFilteredLogs.length} {t('times')}</div>
               </div>
             </div>
-            <div className={`${classes.card} ${classes.bottomLeftCard}`}>
+            <div className={`${classes.card} ${classes.rightCard}`}>
               <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
               <div className={classes.cardContent}>
                 <div className={classes.cardTitle}>{t('Issue Ratio')}</div>
@@ -311,19 +315,17 @@ function Main() {
             </div>
           </div>
           <div className={classes.twoGraphContainer}>
-            <div>
-              <div className={classes.todayTitle} style={{ marginRight: '20px' }}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Ratio')}</div>
-              <div className={classes.chartTitle}>
-                <div className={classes.doughnutChartContainer}>
-                  <Doughnut data={doughnutData} options={optionsDoughnut} />
-                </div>
+            <div className={classes.doughnutChartContainer}>
+              <div className={classes.relativeBoxContainer}>
+                <div className={classes.todayTitle} style={{position: 'absolute'}}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Ratio')}</div>
               </div>
+              <Doughnut className={classes.doughnut} data={doughnutData} options={optionsDoughnut} />
             </div>
-            <div>
-              <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Overview')}</div>
-              <div className={classes.lineChartContainer}>
-                  <Line data={chartData} options={{ ...options, responsive: true, maintainAspectRatio: false }} />
+            <div className={classes.lineChartContainer}>
+              <div className={classes.relativeBoxContainer}>
+                <div className={classes.todayTitle} style={{position: 'absolute'}}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Overview')}</div>
               </div>
+              <Line className={classes.line} data={chartData} options={options} />
             </div>
           </div>
         </div>

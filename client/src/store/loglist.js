@@ -4,6 +4,7 @@ import api from '../utils/api';
 // 전체 로그 조회 요청
 export const fetchLogs = createAsyncThunk('loglist/fetchLogs', async () => {
   const response = await api.get('/api/log/view');
+  console.log(response.data)
   return response.data.length ? response.data.reverse() : [];
 });
 

@@ -25,7 +25,7 @@ public class SseEmitters {
         emitter.onError((e) -> {
             log.info("onError callback");
             log.error(e.getMessage(), e);
-            emitter.complete();
+            emitter.completeWithError(e);
         });
         emitter.onTimeout(() -> {
             log.info("onTimeout callback");
@@ -42,7 +42,7 @@ public class SseEmitters {
         try {
             emitter.send(message);
         } catch (IOException | IllegalStateException e) {
-            emitter.complete();
+            emitter.completeWithError(e);
         }
     }
 }

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import lightClasses from './Statistics.module.css';
 import darkClasses from './StatisticsDark.module.css';
-import { format, startOfWeek, startOfMonth, startOfYear, getDaysInMonth, isLeapYear } from 'date-fns';
+import { parseISO, addDays, format, startOfWeek, startOfMonth, startOfYear, getDaysInMonth, isLeapYear } from 'date-fns';
 
 function SummaryStatistics({ loglist }) {
   const { t } = useTranslation();
@@ -22,16 +22,26 @@ function SummaryStatistics({ loglist }) {
     calculateStatistics();
   }, [selectedSummaryDate, selectedSummaryOption, loglist]);
 
+  const [selectedDateRange, setSelectedDateRange] = useState('');
+
   const setDefaultSummaryDate = () => {
     const today = new Date();
     if (selectedSummaryOption === 'day') {
       setSelectedSummaryDate(format(today, 'yyyy-MM-dd'));
+      setSelectedDateRange(''); // 주가 아닌 경우 빈 범위로 설정
     } else if (selectedSummaryOption === 'week') {
-      setSelectedSummaryDate(format(startOfWeek(today), 'yyyy-MM-dd'));
+      const startOfWeekDate = startOfWeek(today, { weekStartsOn: 0 }); // 일요일을 기준으로 한 주의 시작
+      const endOfWeekDate = new Date(startOfWeekDate);
+      endOfWeekDate.setDate(startOfWeekDate.getDate() + 6); // 7일 후의 날짜 계산
+  
+      setSelectedSummaryDate(format(startOfWeekDate, 'yyyy-MM-dd'));
+      setSelectedDateRange(`${format(startOfWeekDate, 'yyyy-MM-dd')} ~ ${format(endOfWeekDate, 'yyyy-MM-dd')}`);
     } else if (selectedSummaryOption === 'month') {
       setSelectedSummaryDate(format(startOfMonth(today), 'yyyy-MM'));
+      setSelectedDateRange(''); // 주가 아닌 경우 빈 범위로 설정
     } else if (selectedSummaryOption === 'year') {
       setSelectedSummaryDate(format(startOfYear(today), 'yyyy'));
+      setSelectedDateRange(''); // 주가 아닌 경우 빈 범위로 설정
     }
   };
 
@@ -40,7 +50,16 @@ function SummaryStatistics({ loglist }) {
   };
 
   const handleSummaryDateChange = (event) => {
-    setSelectedSummaryDate(event.target.value);
+    const newDate = event.target.value;
+    setSelectedSummaryDate(newDate);
+  
+    if (selectedSummaryOption === 'week') {
+      const startOfSelectedWeek = format(parseISO(newDate), 'yyyy-MM-dd');
+      const endOfSelectedWeek = format(addDays(parseISO(newDate), 6), 'yyyy-MM-dd');
+      setSelectedDateRange(`${startOfSelectedWeek} ~ ${endOfSelectedWeek}`);
+    } else {
+      setSelectedDateRange('');
+    }
   };
 
   const calculateStatistics = () => {
@@ -149,6 +168,11 @@ function SummaryStatistics({ loglist }) {
                   value={selectedSummaryDate}
                   onChange={handleSummaryDateChange}
                 />
+              )}
+              {selectedSummaryOption === 'week' && (
+                <div className={classes.dateRangeText}>
+                  {selectedDateRange}
+                </div>
               )}
               {selectedSummaryOption === 'month' && (
                 <input

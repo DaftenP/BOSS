@@ -22,11 +22,14 @@ public class SseEmitters {
         log.info("emitter list size: {}", emitters.size());
         emitter.onCompletion(() -> {
             log.info("onCompletion callback");
-            this.emitters.remove(emitter);    // 만료되면 리스트에서 삭제
+            emitters.remove(emitter);
         });
         emitter.onTimeout(() -> {
             log.info("onTimeout callback");
-            emitter.complete();
+        });
+        emitter.onError((e) -> {
+            log.info("onError callback");
+            log.error(e.getMessage());
         });
 
         return emitter;
@@ -44,14 +47,13 @@ public class SseEmitters {
                 emitter.send("ok");
                 log.info("전송 성공!");
             } catch (IOException e) {
-                emitter.completeWithError(e);
                 removedEmitters.add(emitter);
                 System.out.println("로그 전송에 실패했습니다.");
             }
         });
 
         for(SseEmitter emitter : removedEmitters) {
-            emitters.remove(emitter);
+            emitter.complete();
         }
 
     }

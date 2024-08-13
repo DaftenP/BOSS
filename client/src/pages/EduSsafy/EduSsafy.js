@@ -218,17 +218,19 @@ export default function Main() {
 
         <div className={classes['navigate-container']}>
           <span className={classes['number']}>{memberId}</span>
-          <div>
-            <span className={classes['name']}>{name}</span>
-            <span className={classes['sir']}>님</span>
-          </div>
+          <span className={classes['name']}>
+            {name}
+            <span style={{ color: 'black' }}>님</span>
+          </span>
+
+
           {/* 드롭다운을 여는 버튼 */}
           <div className={classes['navigate-next']} onClick={toggleDropdown} />
           {/* 드롭다운 메뉴 */}
           <div className={`${classes['dropdown-menu']} ${isDropdownOpen ? classes['is-show'] : classes['hidden']}`}>
             <div onClick={handleLogout}>로그아웃</div>
           </div>
-          </div>
+        </div>
         
 
       </div>

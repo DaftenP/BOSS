@@ -6,7 +6,6 @@ import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.EnteringLogRegistDto;
 import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
 import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
-import com.ssafy.BOSS.dto.sseDto.SseEmitters;
 import com.ssafy.BOSS.exception.BossException;
 import com.ssafy.BOSS.exception.errorCode.MemberErrorCode;
 import com.ssafy.BOSS.repository.MemberRepository;

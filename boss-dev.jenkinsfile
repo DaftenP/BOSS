@@ -22,22 +22,26 @@ pipeline {
                 sh 'docker compose -f $COMPOSE_DEV build'
             }
         }
-        stage('image backup') {
-            steps {
-                script {
-                    echo 'trying to push docker images...'
-                    docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
-                        echo 'now push...'
-                        sh 'docker compose -f $COMPOSE_DEV push'
+        stage('backup and run') {
+            parallel {
+                stage('image backup') {
+                    steps {
+                        script {
+                            echo 'trying to push docker images...'
+                            docker.withRegistry('https://index.docker.io/v1/', DOCKER_CREDENTIALS_ID) {
+                                echo 'now push...'
+                                sh 'docker compose -f $COMPOSE_DEV push'
+                            }
+                            echo 'done!'
+                        }
                     }
-                    echo 'done!'
                 }
-            }
-        }
-        stage('run container') {
-            steps {
-                sh 'docker compose -f $COMPOSE_DEV down'
-                sh 'docker compose -f $COMPOSE_DEV up -d'
+                stage('run container') {
+                    steps {
+                        sh 'docker compose -f $COMPOSE_DEV down'
+                        sh 'docker compose -f $COMPOSE_DEV up -d'
+                    }
+                }
             }
         }
     }

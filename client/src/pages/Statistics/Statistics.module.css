@@ -395,3 +395,17 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.dateRangeText {
+  font-size: 12px;
+  text-align: center;
+  margin-left: 50px;
+  color: gray;
+}
+
+.totalRangeText {
+  font-size: 12px;
+  text-align: center;
+  margin-left: 15px;
+  color: gray;
+}

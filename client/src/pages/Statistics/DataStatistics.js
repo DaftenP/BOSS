@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import lightClasses from './Statistics.module.css';
 import darkClasses from './StatisticsDark.module.css';
-import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO } from 'date-fns';
+import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO, addDays } from 'date-fns';
 
 function DateStatistics({ loglist }) {
   const { t } = useTranslation();
@@ -19,17 +19,26 @@ function DateStatistics({ loglist }) {
     setDefaultDate();
   }, [selectedDateXOption]);
 
+  const [selectedDateRange, setSelectedDateRange] = useState('');
+
+  // 날짜 범위를 설정하는 함수
   const setDefaultDate = () => {
-    const today = new Date();
-    if (selectedDateXOption === 'day') {
-      setSelectedDate(format(today, 'yyyy-MM-dd'));
-    } else if (selectedDateXOption === 'week') {
-      setSelectedDate(format(startOfWeek(today), 'yyyy-MM-dd'));
-    } else if (selectedDateXOption === 'month') {
-      setSelectedDate(format(startOfMonth(today), 'yyyy-MM'));
-    } else if (selectedDateXOption === 'year') {
-      setSelectedDate(format(startOfYear(today), 'yyyy'));
-    }
+      const today = new Date();
+      if (selectedDateXOption === 'day') {
+        setSelectedDate(format(today, 'yyyy-MM-dd'));
+        setSelectedDateRange('');
+      } else if (selectedDateXOption === 'week') {
+        const startOfSelectedWeek = format(startOfWeek(today), 'yyyy-MM-dd');
+        const endOfSelectedWeek = format(addDays(startOfWeek(today), 6), 'yyyy-MM-dd');
+        setSelectedDate(startOfSelectedWeek);
+        setSelectedDateRange(`${startOfSelectedWeek} ~ ${endOfSelectedWeek}`);
+      } else if (selectedDateXOption === 'month') {
+        setSelectedDate(format(startOfMonth(today), 'yyyy-MM'));
+        setSelectedDateRange(''); 
+      } else if (selectedDateXOption === 'year') {
+        setSelectedDate(format(startOfYear(today), 'yyyy'));
+        setSelectedDateRange('');
+      }
   };
 
   const handleDateXOption = (event) => {
@@ -42,7 +51,16 @@ function DateStatistics({ loglist }) {
   };
 
   const handleDateChange = (event) => {
-    setSelectedDate(event.target.value);
+    const newDate = event.target.value;
+    setSelectedDate(newDate);
+
+    if (selectedDateXOption === 'week') {
+        const startOfSelectedWeek = format(parseISO(newDate), 'yyyy-MM-dd');
+        const endOfSelectedWeek = format(addDays(parseISO(newDate), 6), 'yyyy-MM-dd');
+        setSelectedDateRange(`${startOfSelectedWeek} ~ ${endOfSelectedWeek}`);
+    } else {
+        setSelectedDateRange('');
+    }
   };
 
   const generateHourlyLabels = () => {
@@ -178,7 +196,7 @@ function DateStatistics({ loglist }) {
           }
         },
         grid: {
-          color: isDarkMode ? '#bbb' : '#444',
+          color: isDarkMode ? '#bbb' : '#bbb',
         }
       },
       y: {
@@ -195,7 +213,7 @@ function DateStatistics({ loglist }) {
           }
         },
         grid: {
-          color: isDarkMode ? '#bbb' : '#444',
+          color: isDarkMode ? '#bbb' : '#bbb',
         }
       }
     },
@@ -208,6 +226,9 @@ function DateStatistics({ loglist }) {
             weight: 'bold'
           }
         }
+      },
+      datalabels: {
+        display: false,
       },
     }
   };
@@ -276,6 +297,11 @@ function DateStatistics({ loglist }) {
                   value={selectedDate}
                   onChange={handleDateChange}
                 />
+              )}
+              {selectedDateXOption === 'week' && (
+                <div className={classes.dateRangeText}>
+                    {selectedDateRange}
+                </div>
               )}
               {selectedDateXOption === 'month' && (
                 <input

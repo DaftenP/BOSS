@@ -3,13 +3,13 @@
 }
 
 .todayIssueContainer {
-  width: 50%;
+  width: 55%;
   padding: 10px;
 }
 
 .issueLogContainer{
   background-color: #EEEEEE;
-  width: 50%;
+  width: 45%;
   margin: 10px;
 }
 
@@ -35,7 +35,7 @@ position: relative;
   border: 1px solid #CDCDCD;
   border-radius: 20px;
   background-color: white;
-  min-height: 600px;
+  min-height: 595px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -58,10 +58,11 @@ position: relative;
   background-color: #ffffff;
   display: flex;
   border-radius: 0 0 20px 20px;
-  padding: 0 20px 10px 20px;
+  padding: 20px 20px 20px 20px;
   justify-content: center;
   flex-direction: column;
-  height: 400px;
+  height: 270px;
+  width: 350px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -70,7 +71,8 @@ position: relative;
   padding: 0 20px 10px 20px;
   justify-content: center;
   flex-direction: column;
-  height: 610px;
+  height: 300px;
+  width: 240px;
 }
 
 .chartTitle {
@@ -81,6 +83,7 @@ position: relative;
   border-radius: 0 0 20px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .doughnutChartTitle {
@@ -122,7 +125,6 @@ position: relative;
 .totalRuleContainer {
   border: 1px solid #CDCDCD;
   border-radius: 20px;
-  margin-top: 20px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   background-size: cover;
@@ -130,6 +132,12 @@ position: relative;
   background-position: center;
   background-color: rgba(255, 255, 255, 0.7);
   background-blend-mode: overlay;
+  margin: 0px 10px;
+}
+
+.threeRuleContainer {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .ruleContainer {
@@ -140,23 +148,9 @@ position: relative;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   padding: 10px;
-  margin: 50px 25px 20px 25px;
-  font-size: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.firstRuleContainer {
-  position: relative;
-  border: 1px solid rgba(255, 127, 80, 0.2);
-  border-radius: 20px;
-  background: rgba(255, 127, 80, 0.2);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 10px;
   margin: 97px 25px 20px 25px;
   font-size: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .ruleTitle {
@@ -167,10 +161,12 @@ position: relative;
   border: 0;
   border-radius: 15px;
   background-color: #ff7f50;
-  padding: 7px 40px 7px 40px;
+  padding: 7px 40px 8px 40px;
   font-weight: bold;
   font-size: 17px;
   color: white;
+  min-width: 105px;
+  text-align: center;
 }
 
 .ruleTitleBox {
@@ -190,15 +186,23 @@ position: relative;
 
 .guideImage {
   width: auto;
-  height: 170px;;
+  height: 170px;
+  border-radius: 15px;
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.guideImage:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .ruleContent{
-  display: flex;
+  width: 320px;
   align-items: center;
   margin : 5px 0px;
   padding: 5px;
+  text-align: center;
 }
 
 .ruleContent ul {
@@ -279,52 +283,32 @@ position: relative;
 
 /* 카드 css */
 .statisticsContainer {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 400px;
+  height: 170px;
   border-radius: 0 0 20px 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   margin-bottom: 20px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: rgba(255, 255, 255, 0.7);
-  background-blend-mode: overlay;
-}
-
-.centerCircle {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: #f0f0f0;
-  border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
 }
 
 .card {
-  position: absolute;
+  padding: 6px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  padding: 20px;
-  margin: 10px;
   width: 11.7vw;
   height: 14.2vh;
   text-align: center;
   transition: transform 0.3s ease;
 }
 
-.card:hover {
-  transform: scale(1.2);
-}
-
 .cardIcon {
   font-size: 2em;
-  margin-right: 10px;
+  margin: 0 5px;
 }
 
 .cardContent {
@@ -346,21 +330,17 @@ position: relative;
 }
 
 .topCard {
-  top: 20px;
-  background: linear-gradient(135deg, rgba(204, 238, 255, 0.45), rgba(153, 204, 255, 0.45));
-  position: absolute;
+  background: linear-gradient(135deg, rgba(204, 238, 255, 0.6), rgba(153, 204, 255, 0.6));
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  background-blend-mode: overlay; 
+  background-blend-mode: overlay;
 }
 
 .bottomRightCard {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, rgba(255, 204, 204, 0.45), rgba(255, 153, 153, 0.45));
+  margin: 25px;
+  background: linear-gradient(135deg, rgba(255, 204, 204, 0.6), rgba(255, 153, 153, 0.6));
   color: #660000;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -370,10 +350,7 @@ position: relative;
 }
 
 .bottomLeftCard {
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  background: linear-gradient(135deg, rgba(204, 255, 204, 0.45), rgba(153, 255, 153, 0.45));
+  background: linear-gradient(135deg, rgba(204, 255, 204, 0.6), rgba(153, 255, 153, 0.6));
   color: #006600;
   border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
@@ -391,4 +368,18 @@ position: relative;
   text-align: center;
   box-sizing: border-box;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.entryText {
+  color: #007BFF;
+  font-weight: bold;
+}
+
+.exitText {
+  color: #28A745;
+  font-weight: bold;
+}
+
+.twoGraphContainer {
+  display: flex;
 }

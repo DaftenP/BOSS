@@ -5,8 +5,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -24,37 +22,18 @@ public class SseEmitters {
             log.info("onCompletion callback");
             emitters.remove(emitter);
         });
-        emitter.onTimeout(() -> {
-            log.info("onTimeout callback");
-        });
-        emitter.onError((e) -> {
-            log.info("onError callback");
-            log.error(e.getMessage());
-        });
-
         return emitter;
     }
 
-    public void createIssue() {
-        log.info("createIssue callback");
+    public void send(String ok) {
+        emitters.forEach(emitter -> send(emitter, ok));
+    }
 
-        List<SseEmitter> removedEmitters = new ArrayList<>();
-
-        emitters.forEach(emitter -> {
-            log.info("emitter createIssue callback");
-            log.info(emitter.toString());
-            try {
-                emitter.send("ok");
-                log.info("전송 성공!");
-            } catch (IOException e) {
-                removedEmitters.add(emitter);
-                System.out.println("로그 전송에 실패했습니다.");
-            }
-        });
-
-        for(SseEmitter emitter : removedEmitters) {
+    private void send(SseEmitter emitter, String message) {
+        try {
+            emitter.send(message);
+        } catch (IOException e) {
             emitter.complete();
         }
-
     }
 }

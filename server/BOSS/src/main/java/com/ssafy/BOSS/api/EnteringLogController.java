@@ -10,6 +10,7 @@ import com.ssafy.BOSS.dto.sseDto.SseEmitters;
 import com.ssafy.BOSS.exception.BossException;
 import com.ssafy.BOSS.exception.errorCode.MemberErrorCode;
 import com.ssafy.BOSS.repository.MemberRepository;
+import com.ssafy.BOSS.service.CommentService;
 import com.ssafy.BOSS.service.EnteringLogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class EnteringLogController {
 
     private final MemberRepository memberRepository;
     private final EnteringLogService enteringLogService;
-    private final SseEmitters sseEmitters;
+    private final CommentService commentService;
 
     @GetMapping("/view")
     public ResponseEntity<?> getAllEnteringLogs() {
@@ -54,7 +55,7 @@ public class EnteringLogController {
     ) {
         EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, deviceFrontImage, deviceBackImage);
         if (enteringLog.getIssue() == 1) {
-            sseEmitters.createIssue();
+            commentService.createIssue();
         }
         return ResponseEntity.ok().build();
     }

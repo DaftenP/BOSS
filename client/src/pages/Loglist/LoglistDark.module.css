@@ -443,10 +443,12 @@
 
 .entryText {
   color: #1E90FF;
+  font-weight: bold;
 }
 
 .exitText {
   color: #A9A9A9;
+  font-weight: bold;
 }
 
 .noIssue {

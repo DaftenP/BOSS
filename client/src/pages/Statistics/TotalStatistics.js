@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import lightClasses from './Statistics.module.css';
 import darkClasses from './StatisticsDark.module.css';
-import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO } from 'date-fns';
+import { format, startOfWeek, startOfMonth, startOfYear, isValid, parseISO, addDays } from 'date-fns';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,8 +28,9 @@ function TotalStatistics({ loglist }) {
     const departments = new Set();
 
     loglist.forEach(log => {
-      if (!gates.includes(log.gateNumber)) {
-        gates.push(log.gateNumber);
+      const gateLabel = `Gate ${log.gateNumber}`
+      if (!gates.includes(gateLabel)) {
+        gates.push(gateLabel);
       }
       departments.add(log.member.department.departmentName);
     });
@@ -41,16 +42,24 @@ function TotalStatistics({ loglist }) {
     }
   }, [loglist, selectedTotalXOption, selectedTotalPopOption]);
 
+  const [selectedDateRange, setSelectedDateRange] = useState('');
+
   const setDefaultTotalDate = () => {
     const today = new Date();
     if (selectedTotalXOption === 'day') {
       setSelectedTotalDate(format(today, 'yyyy-MM-dd'));
+      setSelectedDateRange('');
     } else if (selectedTotalXOption === 'week') {
-      setSelectedTotalDate(format(startOfWeek(today), 'yyyy-MM-dd'));
+      const startOfSelectedWeek = format(startOfWeek(today), 'yyyy-MM-dd');
+      const endOfSelectedWeek = format(addDays(startOfWeek(today), 6), 'yyyy-MM-dd');
+      setSelectedTotalDate(startOfSelectedWeek);
+      setSelectedDateRange(`${startOfSelectedWeek} ~ ${endOfSelectedWeek}`);
     } else if (selectedTotalXOption === 'month') {
       setSelectedTotalDate(format(startOfMonth(today), 'yyyy-MM'));
+      setSelectedDateRange('');
     } else if (selectedTotalXOption === 'year') {
       setSelectedTotalDate(format(startOfYear(today), 'yyyy'));
+      setSelectedDateRange('');
     }
   };
 
@@ -68,8 +77,17 @@ function TotalStatistics({ loglist }) {
   };
 
   const handleTotalDateChange = (event) => {
-    setSelectedTotalDate(event.target.value);
-  };
+    const newDate = event.target.value;
+    setSelectedTotalDate(newDate);
+
+    if (selectedTotalXOption === 'week') {
+        const startOfSelectedWeek = format(parseISO(newDate), 'yyyy-MM-dd');
+        const endOfSelectedWeek = format(addDays(parseISO(newDate), 6), 'yyyy-MM-dd');
+        setSelectedDateRange(`${startOfSelectedWeek} ~ ${endOfSelectedWeek}`);
+    } else {
+        setSelectedDateRange('');
+    }
+};
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -105,8 +123,8 @@ function TotalStatistics({ loglist }) {
   const departments = new Set();
 
   loglist.forEach(log => {
-    if (!gates.includes(log.gateNumber)) {
-      gates.push(log.gateNumber);
+    if (!gates.includes(`Gate ${log.gateNumber}`)) {
+      gates.push(`Gate ${log.gateNumber}`);
     }
     departments.add(log.member.department.departmentName);
   });
@@ -155,14 +173,15 @@ function TotalStatistics({ loglist }) {
 
   const filterDataForTotal = (loglist, filterBy) => {
     const filteredLogs = loglist.filter(log => {
+      const gateNumber = `Gate ${log.gateNumber}`
       const filteredLog = {
-        gate: log.gateNumber,
+        gate: gateNumber,
         date: log.time.split('T')[0],
         time: log.time.split('T')[1],
         department: log.member.department.departmentName,
         issue: log.issue,
       };
-      if (selectedTotalYOption === 'fail' && filteredLog.issue !== 1) return false;
+      if (selectedTotalPopOption === 'gate' && filteredLog.gate !== filterBy) return false;
       if (selectedTotalYOption === 'pass' && filteredLog.issue !== 0) return false;
   
       if (selectedTotalPopOption === 'gate' && filteredLog.gate !== filterBy) return false;
@@ -249,7 +268,7 @@ function TotalStatistics({ loglist }) {
           }
         },
         grid: {
-          color: isDarkMode ? '#bbb' : '#444',
+          color: isDarkMode ? '#bbb' : '#bbb',
         }
       },
       y: {
@@ -265,9 +284,9 @@ function TotalStatistics({ loglist }) {
           }
         },
         grid: {
-          color: isDarkMode ? '#bbb' : '#444',
+          color: isDarkMode ? '#bbb' : '#bbb',
         },
-      }
+      },
     },
     plugins: {
       legend: {
@@ -279,9 +298,12 @@ function TotalStatistics({ loglist }) {
           }
         }
       },
+      datalabels: {
+        display: false,
+      },
     },
   };  
-  
+
   return (
     <div className={classes.dateStatisticsContainer}>
       <div className={classes.relativeBoxContainer}>
@@ -346,6 +368,11 @@ function TotalStatistics({ loglist }) {
                   value={selectedTotalDate}
                   onChange={handleTotalDateChange}
                 />
+              )}
+              {selectedTotalXOption === 'week' && (
+                <div className={classes.totalRangeText}>
+                  {selectedDateRange}
+                </div>
               )}
               {selectedTotalXOption === 'month' && (
                 <input
@@ -495,7 +522,9 @@ function TotalStatistics({ loglist }) {
             const data = filterDataForTotal(loglist, item);
             return (
               <div key={item} className={classes.graphBox}>
-                <div className={classes.graphTitle}>{t('Gate', { number: item })}</div>
+                <div className={classes.graphTitle}>
+                  {item}
+                </div>
                 <Line data={data} options={options} />
               </div>
             );

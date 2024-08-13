@@ -20,9 +20,10 @@ export const fetchFilteredLogs = createAsyncThunk('loglist/fetchFilteredLogs', a
   const response = await api.get('/api/log/search', {
     params: filters,
   });
-  return response.data.length ? response.data : [];
-});
+  const sortedData = response.data.sort((a, b) => a.logId - b.logId);
 
+  return sortedData.length ? sortedData : [];
+});
 const initialLoglistState = {
   data: [],
   status: 'idle',

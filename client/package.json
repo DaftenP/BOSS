@@ -12,6 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.3",
     "chart.js": "^4.4.3",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "event-source-polyfill": "^1.0.31",

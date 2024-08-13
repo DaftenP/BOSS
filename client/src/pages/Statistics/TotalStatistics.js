@@ -249,7 +249,7 @@ function TotalStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         }
       },
       y: {
@@ -265,7 +265,7 @@ function TotalStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         },
       }
     },

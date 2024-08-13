@@ -35,7 +35,8 @@ public class MemberService {
     public MemberDto join(MemberRegistDto memberRegistDto, MultipartFile file) {
         Member member = memberRegistDtoToMember(memberRegistDto);
         validateDuplicateMember(member); // 중복 검사
-        String image = s3UploadService.upload(file);
+        int var = 1;
+        String image = s3UploadService.upload(file, var);
         member.setProfileImage(image);
         return memberMapper.memberToMemberDto(memberRepository.save(member));
     }

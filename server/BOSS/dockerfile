@@ -2,7 +2,6 @@ FROM gradle:jdk17-alpine AS build
 WORKDIR /builder/
 
 COPY build.gradle /builder/
-COPY gradle /builder/gradle
 RUN --mount=type=cache,target=/root/.gradle/caches \
     --mount=type=cache,target=/root/.gradle/wrapper \
     gradle --no-daemon dependencies

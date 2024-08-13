@@ -35,7 +35,9 @@ public class SseEmitters {
     }
 
     public void send(String ok) {
-        emitters.forEach(emitter -> send(emitter, ok));
+        for(SseEmitter emitter : emitters) {
+            send(emitter, ok);
+        }
     }
 
     private void send(SseEmitter emitter, String message) {

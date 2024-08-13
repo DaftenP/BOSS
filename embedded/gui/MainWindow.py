@@ -44,24 +44,27 @@ class LogThread(QThread):
 
     async def fetch_data(self):
         response = await post_log(self.image1, self.image2, self.data)
-        # if response:
-        # 시그널을 통해 결과를 전달
-        #    self.finished.emit(response)
 
 
 class MainWindow(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
+        self.member_id = 0
+        self.video_processor = None
         self.setupUi(self)
-        self.btn_1.clicked.connect(self.set_member_info)
+        self.btn_load.clicked.connect(self.load_member_info)
         self.btn_clear.clicked.connect(self.set_default)
         self.set_default()
         self.serial_ = serial.Serial(port='/dev/ttyTHS0', baudrate=115200, timeout=1)
 
         # QTimer 설정
         self.timer = QTimer()
+        self.timer.setInterval(100)  # 약 100ms마다 호출
         self.timer.timeout.connect(self.read_nfc)
-        self.timer.start(100)  # 약 100ms마다 호출
+        self.timer.start()
+
+    def load_member_info(self):
+        self.set_member_info(self.text_nfc.toPlainText())
 
     def set_member_info(self, nfc_uid: str) -> None:
         # WorkerThread 인스턴스 생성
@@ -71,35 +74,39 @@ class MainWindow(QMainWindow, form_class):
 
     async def handle_member_info(self, response):
         # 사용자 정보 출력
+        self.member_id = response['memberId']
         self.member_name.setText(response['name'])
         self.member_department.setText(response['department']['departmentName'])
         self.member_position.setText(response['position']['positionName'])
 
         # 프로필 이미지 조회
         if response['profileImage']:
-            image = await get_image(response['profileImage'])  # await 추가
+            image = await get_image(response['profileImage'])
             if image:
                 self.profile_image.setPixmap(QPixmap.fromImage(QImage.fromData(image)))
 
         # 보안 이슈 조회
-        issue_logs = await get_member_logs(response['memberId'])  # await 추가
+        issue_logs = await get_member_logs(response['memberId'])
         for log in issue_logs:
             self.issue_list.addItem(f'{log["time"]} : {log["gateNumber"]}번 게이트')
         self.issue_count.setText(str(len(issue_logs)))
 
         # 이전 출입 기록 조회
-        entering_logs = await get_member_logs(response['memberId'], issue=False)  # await 추가
+        entering_logs = await get_member_logs(response['memberId'], issue=False)
         last_in_log = entering_logs[-1] if entering_logs else None
 
         if last_in_log:
-            device_front_image = await get_image(last_in_log['deviceFrontImage'])  # await 추가
-            device_back_image = await get_image(last_in_log['deviceBackImage'])  # await 추가
+            device_front_image = await get_image(last_in_log['deviceFrontImage'])
+            device_back_image = await get_image(last_in_log['deviceBackImage'])
             if device_front_image:
                 self.front_image.setPixmap(QPixmap.fromImage(QImage.fromData(device_front_image)))
             if device_back_image:
                 self.back_image.setPixmap(QPixmap.fromImage(QImage.fromData(device_back_image)))
 
+        self.video_processor.start_validation()
+
     def set_default(self) -> None:
+        self.member_id = 0
         self.member_name.setText('')
         self.member_department.setText('')
         self.member_position.setText('')
@@ -134,19 +141,18 @@ class MainWindow(QMainWindow, form_class):
         return None
 
     def set_status_bar(self, is_pass: bool):
-        self.status_bar.setText(is_pass)
+        self.status_bar.setText('pass' if is_pass else 'fail')
         emit_result(17 if is_pass else 18)
 
-    def send_log(self, image1, image2):
+    def send_log(self, image1, image2, sticker_count: int, is_pass: bool, lens: int):
         data = {
-            'memberId': 15,
-            'entering': 1,
+            'memberId': self.member_id,
+            'entering': 0,
             'gateNumber': 1,
-            'stickerCount': 4,
-            'issue': 0,
-            'cameraLens': 4
+            'stickerCount': sticker_count,
+            'issue': 0 if is_pass else 1,
+            'cameraLens': lens
         }
         # WorkerThread 인스턴스 생성
         self.thread = LogThread(image1, image2, data)
-        # self.thread.finished.connect(lambda response: asyncio.run(self.handle_member_info(response)))  # 비동기 호출
         self.thread.start()  # 스레드 시작

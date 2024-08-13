@@ -11,7 +11,7 @@ async def get_member_info(nfc_id: str):
             if response.status == 200:
                 return await response.json()
             else:
-                print(f'get_member_info : error {response.status}')
+                print(f'get_member_info : error {response.status} | params : {nfc_id}')
                 return None
 
 

@@ -6,7 +6,7 @@ import sys
 import threading
 
 if __name__ == '__main__':
-    model = Model('./model/best.pt')
+    model = Model('./model/best_s.pt')
 
     # QApplication : 프로그램을 실행시켜주는 클래스
     app = QApplication(sys.argv)
@@ -20,6 +20,7 @@ if __name__ == '__main__':
     # 객체 탐지
 
     video_processor = VideoProcessor(model, myWindow, 640, 360, 5)
+    myWindow.video_processor = video_processor
 
     # 프로그램을 이벤트루프로 진입시키는(프로그램을 작동시키는) 코드
     app.exec()

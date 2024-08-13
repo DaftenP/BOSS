@@ -3,7 +3,8 @@ from collections import deque, Counter
 from PyQt6.QtCore import QTimer
 
 COLOR_PALETTE = [(220, 220, 0), (255, 0, 0), (255, 255, 255), (0, 0, 220), (0, 220, 0)]
-THRESHOLD = {0: 0.3, 1: 0.4, 2: 0.8, 3: 0.4, 4: 0.4}
+# 0 : sticker | 1 : removed_sticker | 2 : phone | 3 : lens_back | 4 : lens_front
+THRESHOLD = {0: 0.3, 1: 0.55, 2: 0.7, 3: 0.6, 4: 0.5}
 
 
 class VideoProcessor:
@@ -26,6 +27,9 @@ class VideoProcessor:
         # 인식 프레임 레이트
         self.frame_skip = rate
         self.frame_count = 0
+        self.detection_frame = -1
+        self.correct_cnt = 0
+        self.incorrect_cnt = 0
         self.inferences = []
         self.model = model
         self.window = window
@@ -34,8 +38,9 @@ class VideoProcessor:
 
         # QTimer 설정
         self.timer = QTimer()
+        self.timer.setInterval(50)  # 약 50ms마다 호출
         self.timer.timeout.connect(self.process_frames)
-        self.timer.start(50)  # 약 50ms마다 호출
+        self.timer.start()
 
     def process_frames(self):
         ret1, frame1 = self.cap1.read()
@@ -57,6 +62,7 @@ class VideoProcessor:
 
             results = list(map(self.model.predict, resized_frame))
             self.inferences.clear()
+            class_cnt = [Counter(), Counter()]
 
             for idx, result in enumerate(results):
                 for data in result[0].boxes.data.tolist():
@@ -70,6 +76,24 @@ class VideoProcessor:
 
                     label = f'{self.model.model.names[class_id]}: {confidence: .2f}'
                     self.inferences.append([idx, x1, y1, x2, y2, confidence, class_id, label])
+                    class_cnt[idx][class_id] += 1
+
+            if self.detection_frame != -1:
+                if self.detection_frame + 100 > self.frame_count:
+                    if class_cnt[0][2] or class_cnt[1][2]:
+                        if (class_cnt[0][1] == 0 and class_cnt[1][1] == 0 and
+                                class_cnt[0][3] == 0 or class_cnt[1][3] == 0):
+                            if class_cnt[0][0] > 0 and class_cnt[1][0] > 0:
+                                self.correct_cnt += 1
+                        else:
+                            self.incorrect_cnt += 1
+                else:
+                    self.emit_validation(frame[0], frame[1], False)
+
+            if self.correct_cnt > 2:
+                self.emit_validation(frame[0], frame[1], True)
+            elif self.incorrect_cnt > 2:
+                self.emit_validation(frame[0], frame[1], False)
 
         for idx, x1, y1, x2, y2, confidence, class_id, label in self.inferences:
             cv2.rectangle(frame[idx],
@@ -86,12 +110,20 @@ class VideoProcessor:
                         1)
 
         self.window.update_cam(frame)
-        if self.frame_count == 150:
-            _, image1 = cv2.imencode('.jpg', frame[0])
-            _, image2 = cv2.imencode('.jpg', frame[1])
-            self.window.send_log(image1, image2)
 
     def release_resources(self):
         self.cap1.release()
         self.cap2.release()
         cv2.destroyAllWindows()
+
+    def start_validation(self):
+        self.detection_frame = self.frame_count
+        self.correct_cnt = 0
+        self.incorrect_cnt = 0
+
+    def emit_validation(self, frame1, frame2, is_pass: bool):
+        self.detection_frame = -1
+        _, image1 = cv2.imencode('.jpg', frame1)
+        _, image2 = cv2.imencode('.jpg', frame2)
+        self.window.set_status_bar(is_pass)
+        self.window.send_log(image1, image2, 4, is_pass, 0)

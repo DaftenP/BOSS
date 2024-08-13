@@ -359,7 +359,11 @@ button {
   background-color: #f0f0f0;
 }
 
-.kim-ji-hwan {
+.name-bar{
+  display: flex;
+  
+}
+.name {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
@@ -377,7 +381,7 @@ button {
   white-space: nowrap;
   z-index: 1;
 }
-.name {
+.sir {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;

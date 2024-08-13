@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useContext  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMembers } from '../../store/management';
+import { fetchMembersPw } from '../../store/management';
 import classes from './EduSsafyLogin.module.css';
 import { useNavigate } from 'react-router-dom';
 import Modal from '../../components/ErrorModal/ErrorModal';
 import { SsafyLoginContext } from '../../App';
 
-
+//memberLoginPw
 export default function Main() {
   const dispatch = useDispatch();
-  const members = useSelector((state) => state.management.data);
+  const members = useSelector((state) => state.management.members);
+  const membersPw = useSelector((state) => state.management.membersPw);
   const [memberId, setMemberId] = useState('');
-  const [nfc, setNfc] = useState('');
+  const [memberLoginPw, setMemberLoginPw] = useState('');
   const [errorMessage, setErrorMessage] = useState();
   // const [ssafyLogin, setSsafyLogin] = useState(false);
   const { setSsafyLogin } = useContext(SsafyLoginContext);
@@ -20,6 +22,7 @@ export default function Main() {
   useEffect(() => {
     // 페이지 로드 시 멤버 데이터 불러오기
     dispatch(fetchMembers());
+    dispatch(fetchMembersPw());
   }, [dispatch]);
 
   const handleLogin = (e) => {
@@ -29,29 +32,31 @@ export default function Main() {
     if (!memberId) {
       setErrorMessage('[아이디]은(는) 필수값입니다.');
       return;
-    } else if (!nfc) {
+    } else if (!memberLoginPw) {
       setErrorMessage('[비밀번호]은(는) 필수값입니다.');
       return;
     }
+    console.log(members);
+    console.log(membersPw);
 
-    // 입력된 memberId와 nfc로 멤버 데이터에서 찾기
-    const member = members.find(
-      (m) => m.memberId === parseInt(memberId) && m.nfc === nfc
-    );
+    // 입력된 memberId로 멤버 찾기
+    const member = members.find((m) => m.memberId === parseInt(memberId));
 
     if (member) {
-      console.log('로그인 성공:', member);
-      setSsafyLogin(true);
-      navigate('/edussafy', { state: { member } });
-      // handleLoginClick();
+      // membersPw에서 입력된 비밀번호와 일치하는지 확인
+      const isPasswordCorrect = membersPw.some((pwData) => pwData.memberLoginPw === memberLoginPw);
+
+      if (isPasswordCorrect) {
+        console.log('로그인 성공:', member);
+        setSsafyLogin(true);
+        navigate('/edussafy', { state: { member } });
+      } else {
+        setErrorMessage('아이디 또는 비밀번호를 잘못 입력했습니다.');
+      }
     } else {
       setErrorMessage('아이디 또는 비밀번호를 잘못 입력했습니다.');
     }
   };
-
-  // const handleLoginClick = () => {
-  //   navigate('/edussafy');
-  // };
 
   const closeModal = () => {
     setErrorMessage(null);
@@ -87,9 +92,9 @@ export default function Main() {
               type='password' 
               placeholder="PASSWORD" 
               className={classes['inputText']} 
-              id="nfc"
-              value={nfc}
-              onChange={(e) => setNfc(e.target.value)}
+              id="memberLoginPw"
+              value={memberLoginPw}
+              onChange={(e) => setMemberLoginPw(e.target.value)}
             />
 
             <button className={classes['rectangle-5']}>

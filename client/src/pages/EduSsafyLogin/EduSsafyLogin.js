@@ -10,12 +10,11 @@ import { SsafyLoginContext } from '../../App';
 //memberLoginPw
 export default function Main() {
   const dispatch = useDispatch();
-  const members = useSelector((state) => state.management.members);
+  const members = useSelector((state) => state.management.data);
   const membersPw = useSelector((state) => state.management.membersPw);
   const [memberId, setMemberId] = useState('');
   const [memberLoginPw, setMemberLoginPw] = useState('');
   const [errorMessage, setErrorMessage] = useState();
-  // const [ssafyLogin, setSsafyLogin] = useState(false);
   const { setSsafyLogin } = useContext(SsafyLoginContext);
   const navigate = useNavigate();
 

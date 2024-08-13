@@ -574,17 +574,17 @@ function Management() {
                     {isDarkMode ? (
                       <span>
                         {sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? (
-                          <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                          <img className={classes.sortIcon} src={ascendingIconDark} alt="ascending_icon_dark" />
                         ) : (
-                          <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                          <img className={classes.sortIcon} src={descendingIconDark} alt="dscending_icon_dark" />
                         )}
                       </span>
                       ) : (
                       <span>
                         {sortConfig.key === 'memberId' && sortConfig.direction === 'ascending' ? (
-                          <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                          <img className={classes.sortIcon} src={ascendingIcon} alt="ascending_icon" />
                         ) : (
-                          <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                          <img className={classes.sortIcon} src={descendingIcon} alt="dscending_icon" />
                         )}
                       </span>
                     )}
@@ -605,17 +605,17 @@ function Management() {
                     {isDarkMode ? (
                       <span>
                         {sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? (
-                          <img className={classes.sortIcon} src={ascendingIconDark} art="ascending_icon_dark" />
+                          <img className={classes.sortIcon} src={ascendingIconDark} alt="ascending_icon_dark" />
                         ) : (
-                          <img className={classes.sortIcon} src={descendingIconDark} art="dscending_icon_dark" />
+                          <img className={classes.sortIcon} src={descendingIconDark} alt="dscending_icon_dark" />
                         )}
                       </span>
                       ) : (
                       <span>
                         {sortConfig.key === 'issueCount' && sortConfig.direction === 'ascending' ? (
-                          <img className={classes.sortIcon} src={ascendingIcon} art="ascending_icon" />
+                          <img className={classes.sortIcon} src={ascendingIcon} alt="ascending_icon" />
                         ) : (
-                          <img className={classes.sortIcon} src={descendingIcon} art="dscending_icon" />
+                          <img className={classes.sortIcon} src={descendingIcon} alt="dscending_icon" />
                         )}
                       </span>
                       )}

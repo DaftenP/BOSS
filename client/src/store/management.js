@@ -50,7 +50,7 @@ const managementSlice = createSlice({
       })
       .addCase(fetchMembers.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.members  = action.payload;
+        state.data  = action.payload;
       })
       .addCase(fetchMembers.rejected, (state, action) => {
         state.status = 'failed';

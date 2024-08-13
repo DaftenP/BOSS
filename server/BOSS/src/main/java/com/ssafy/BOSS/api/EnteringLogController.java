@@ -2,39 +2,30 @@ package com.ssafy.BOSS.api;
 
 import com.ssafy.BOSS.domain.EnteringLog;
 import com.ssafy.BOSS.domain.Member;
-import com.ssafy.BOSS.dto.enteringLog.*;
-import com.ssafy.BOSS.dto.sseDto.SseEmitters;
+import com.ssafy.BOSS.dto.enteringLog.EnteringLogDto;
+import com.ssafy.BOSS.dto.enteringLog.EnteringLogRegistDto;
+import com.ssafy.BOSS.dto.enteringLog.RequestEnteringLogDto;
+import com.ssafy.BOSS.dto.enteringLog.UpdateEnteringLog;
+import com.ssafy.BOSS.exception.BossException;
+import com.ssafy.BOSS.exception.errorCode.MemberErrorCode;
 import com.ssafy.BOSS.repository.MemberRepository;
+import com.ssafy.BOSS.service.CommentService;
 import com.ssafy.BOSS.service.EnteringLogService;
-import com.ssafy.BOSS.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/log")
 public class EnteringLogController {
 
-    private final MemberService memberService;
     private final MemberRepository memberRepository;
     private final EnteringLogService enteringLogService;
-    private final SimpMessagingTemplate messagingTemplate;
-    private final SseEmitters sseEmiiters;
-
-    @Deprecated
-    @GetMapping
-    public ResponseEntity<?> getEnteringLog(@RequestParam EnteringLogSpecifiedDto dto, @RequestParam Pageable pageable) {
-        Page<EnteringLog> logs = enteringLogService.getEnteringLogs(dto, pageable);
-        return ResponseEntity.ok(logs);
-    }
+    private final CommentService commentService;
 
     @GetMapping("/view")
     public ResponseEntity<?> getAllEnteringLogs() {
@@ -42,16 +33,11 @@ public class EnteringLogController {
         return ResponseEntity.ok(logs);
     }
 
-    @Deprecated
     @GetMapping("/view/{id}")
     public ResponseEntity<?> getEnteringLogByMemberId(@PathVariable long id) {
-        Optional<Member> member = memberRepository.findById(id);
-        if (member.isPresent()) {
-            List<EnteringLog> logs = enteringLogService.findLogsByMember(member);
-            return ResponseEntity.ok(logs);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        Member member = memberRepository.findById(id).orElseThrow(() -> new BossException(MemberErrorCode.MEMBER_NOT_FOUND));
+        List<EnteringLog> logs = enteringLogService.findLogsByMember(member);
+        return ResponseEntity.ok(logs);
     }
 
     @PutMapping("/update/{id}")
@@ -62,19 +48,14 @@ public class EnteringLogController {
 
     @PostMapping("/regist")
     public ResponseEntity<Void> saveEnteringLog(
-            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile file1,
-            @RequestPart(value = "deviceBackImage", required = false) MultipartFile file2,
+            @RequestPart(value = "deviceFrontImage", required = false) MultipartFile deviceFrontImage,
+            @RequestPart(value = "deviceBackImage", required = false) MultipartFile deviceBackImage,
             @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
     ) {
-        EnteringLog enteringLog = enteringLogService.save(enteringLogRegistDto, file1, file2);
-        EnteringLogDto enteringLogDto = EnteringLogDto.of(enteringLog);
-
-        if(enteringLog.getIssue() == 1) {
-            sseEmiiters.createIssue(enteringLogDto);
+        EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, deviceFrontImage, deviceBackImage);
+        if (enteringLog.getIssue() == 1) {
+            commentService.createIssue();
         }
-//        if (enteringLog.isFail()) {
-//            messagingTemplate.convertAndSend("/api/topic/log-fail", enteringLog);
-//        }
         return ResponseEntity.ok().build();
     }
 

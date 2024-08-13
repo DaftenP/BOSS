@@ -2,9 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import api from '../utils/api';
 
 export const fetchAdminLogs = createAsyncThunk('admin/fetchAdminLogs', async () => {
-  const response = await api.get('/api/admin/log');
-  console.log('관리자 데이터', response.data)
-  return response.data.length ? response.data : [];
+  const response = await api.get('/api/admin/log/check');
+  return response.data.length ? response.data.reverse().slice(0, 10) : [];
 });
 
 const initialAdminState = {

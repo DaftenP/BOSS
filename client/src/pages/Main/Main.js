@@ -10,8 +10,11 @@ import ruleImage from '../../assets/Main/Rule_background_image.png';
 import damageImage from '../../assets/Main/Damage_state.png';
 import noAttachedImage from '../../assets/Main/No_attached_state.png';
 import changeImage from '../../assets/Main/Change_state.png';
+import lockImage from '../../assets/Main/Lock_image.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faCogs, faExclamationTriangle, faPercentage } from '@fortawesome/free-solid-svg-icons';
+import { EventSourcePolyfill } from 'event-source-polyfill';
+import { getAccessToken } from '../../utils/token'
 
 function Main() {
   const dispatch = useDispatch();
@@ -32,16 +35,18 @@ function Main() {
   };
 
   const logs = useSelector((state) => state.loglist.data);
-  useEffect(() => {
-    const getTodayDateString = () => {
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
-      const day = String(today.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    };
 
-    const todayDateString = getTodayDateString();
+  const getTodayDateString = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 필요
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const todayDateString = getTodayDateString()
+
+  useEffect(() => {
     const startTime = `${todayDateString}T00:00:01`;
     const endTime = `${todayDateString}T23:59:59`;
     const transformedFilters = {
@@ -54,6 +59,71 @@ function Main() {
       issue: null,
     };
     dispatch(fetchFilteredLogs(transformedFilters));
+  }, [dispatch]);
+
+  useEffect(() => {
+    const setupSSEConnection = () => {
+      const accessToken = getAccessToken(); // 로컬 스토리지에서 JWT 토큰을 가져옴
+
+      if (!accessToken) {
+        return;
+      }
+
+      // EventSourcePolyfill을 사용하여 JWT 토큰을 헤더에 포함
+      const eventSource = new EventSourcePolyfill(
+        `${process.env.REACT_APP_API_URL}/api/connect`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`, // JWT 토큰 추가
+          },
+        }
+      );
+
+      // 연결이 성공적으로 열렸을 때 호출
+      // eventSource.onopen = () => {
+      //   console.log('SSE connection opened successfully.');
+      // };
+
+      // 서버로부터 메시지가 수신될 때마다 호출
+      eventSource.onmessage = (event) => {
+        const startTime = `${todayDateString}T00:00:01`;
+        const endTime = `${todayDateString}T23:59:59`;
+
+        const transformedFilters = {
+          name: null,
+          departmentName: null,
+          positionName: null,
+          entering: null,
+          startTime: startTime,
+          endTime: endTime,
+          issue: null,
+        };
+
+        // 로그 필터링 요청을 보냄
+        dispatch(fetchFilteredLogs(transformedFilters));
+      };
+
+      // SSE 연결 오류 처리
+      eventSource.onerror = (error) => {
+        console.error('SSE error occurred:', error); // 오류 발생 시 로그 출력
+        eventSource.close();
+
+        setTimeout(() => {
+          // console.log('Attempting to reconnect SSE...');
+          setupSSEConnection(); // SSE 재연결 시도
+        }, 1000);
+      };
+
+      return eventSource;
+    };
+
+    // 첫 연결 설정
+    let eventSource = setupSSEConnection();
+
+    // 컴포넌트가 언마운트될 때 연결 종료
+    return () => {
+      // console.log('Closing SSE connection');
+      eventSource.close();
+    };
   }, [dispatch]);
 
   const today = new Date();
@@ -73,7 +143,7 @@ function Main() {
     }));
 
   // 시간 단위로 그룹화 (9시부터 21시까지)
-  const startHour = 9;
+  const startHour = 6;
   const endHour = 21;
   const groupedData = new Array(endHour - startHour + 1).fill(0);
 
@@ -119,7 +189,7 @@ function Main() {
           },
         },
         grid: {
-          color: '#555555',
+          color: isDarkMode ? '#bbb' : '#555555',
         },
       },
       x: {
@@ -131,7 +201,7 @@ function Main() {
           },
         },
         grid: {
-          color: '#555555',
+          color: isDarkMode ? '#bbb' : '#555555',
         },
       },
     },
@@ -185,44 +255,45 @@ function Main() {
   };
 
   // 20개의 데이터만 보여주는 코드
-  const sliceLogs = secondFilteredLogs.slice(0, 15);
+  const sliceLogs = secondFilteredLogs.reverse().slice(0, 15);
 
   return (
     <div className={classes.mainContainer}>
       <div className={classes.todayIssueContainer}>
+        <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issues Summary', "이슈 요약")}</div>
+        <div className={classes.statisticsContainer} style={{ backgroundImage: `url(${lockImage})` }}>
+          <div className={`${classes.card} ${classes.topCard}`}>
+            <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
+            <div className={classes.cardContent}>
+              <div className={classes.cardTitle}>{t('Total Inspections Today')}</div>
+              <div className={classes.cardValue}>{firstFilteredLogs.length} {t('times')}</div>
+            </div>
+          </div>
+          <div className={`${classes.card} ${classes.bottomRightCard}`}>
+            <FontAwesomeIcon icon={faExclamationTriangle} className={classes.cardIcon} />
+            <div className={classes.cardContent}>
+              <div className={classes.cardTitle}>{t('Issues Detected')}</div>
+              <div className={classes.cardValue}>{secondFilteredLogs.length} {t('times')}</div>
+            </div>
+          </div>
+          <div className={`${classes.card} ${classes.bottomLeftCard}`}>
+            <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
+            <div className={classes.cardContent}>
+              <div className={classes.cardTitle}>{t('Issue Ratio')}</div>
+              <div className={classes.cardValue}>{errorPercent} %</div>
+            </div>
+          </div>
+        </div>
         <div>
+          <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Overview')}</div>
           <div className={classes.chartTitle}>
-            {t('Today\'s Issues')}
-            <div className={classes.lineChartContainer}>
+            <div className={classes.doughnutChartContainer}>
+              <Doughnut data={doughnutData} options={optionsDoughnut} />
+            </div>
+          </div>
+          <div className={classes.todayTitle}>{`${parseInt(todayDateString.split('-')[1], 10)} / ${parseInt(todayDateString.split('-')[2], 10)}`} {t('Issue Ratio')}</div>
+          <div className={classes.lineChartContainer}>
               <Line data={chartData} options={options} />
-            </div>
-          </div>
-          <div className={classes.doughnutChartTitle}>{t('Today\'s Issue Ratio')}</div>
-          <div className={classes.doughnutChartContainer}>
-            <Doughnut data={doughnutData} options={optionsDoughnut} />
-          </div>
-          <div className={classes.statisticsContainer}>
-            <div className={`${classes.card} ${classes.topCard}`}>
-              <FontAwesomeIcon icon={faCogs} className={classes.cardIcon} />
-              <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>{t('Total Inspections Today')}</div>
-                <div className={classes.cardValue}>{firstFilteredLogs.length} {t('times')}</div>
-              </div>
-            </div>
-            <div className={`${classes.card} ${classes.bottomRightCard}`}>
-              <FontAwesomeIcon icon={faExclamationTriangle} className={classes.cardIcon} />
-              <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>{t('Issues Detected')}</div>
-                <div className={classes.cardValue}>{secondFilteredLogs.length} {t('times')}</div>
-              </div>
-            </div>
-            <div className={`${classes.card} ${classes.bottomLeftCard}`}>
-              <FontAwesomeIcon icon={faPercentage} className={classes.cardIcon} />
-              <div className={classes.cardContent}>
-                <div className={classes.cardTitle}>{t('Issue Ratio Today')}</div>
-                <div className={classes.cardValue}>{errorPercent} %</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -240,7 +311,7 @@ function Main() {
                   <th>{t('Name')}</th>
                   <th>{t('Department')}</th>
                   <th>{t('Position')}</th>
-                  <th>{t('In/Out')}</th>
+                  <th>{t('Entry/Exit')}</th>
                 </tr>
               </thead>
               <tbody>

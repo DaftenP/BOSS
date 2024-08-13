@@ -3,16 +3,9 @@
 }
 
 .todayIssueContainer {
-  /* background-color: #222222; */
-  background-color: #393944;
-  color: #bbb;
-  border-radius: 20px;
   width: 50%;
-  margin: 10px;
-  padding: 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  padding: 10px;
 }
-
 .issueLogContainer{
   width: 50%;
   margin: 10px;
@@ -28,8 +21,6 @@ position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  /* background-color: #bb86fc;
-  outline: 1px solid #bb86fc; */
   border-radius: 18px 18px 0 0;
   padding: 10px 15px 10px 15px;
   font-size: 20px;
@@ -64,21 +55,18 @@ position: relative;
 }
 
 .lineChartContainer {
+  background-color: #393944;
   display: flex;
-  border: 1px solid #4d505f;
-  border-radius: 15px;
-  margin-top: 20px;
+  border-radius: 0 0 20px 20px;
   padding: 0 20px 10px 20px;
   justify-content: center;
   flex-direction: column;
   height: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .doughnutChartContainer {
   display: flex;
-  border: 1px solid #4d505f;
-  border-radius: 15px;
-  margin-top: 20px;
   padding: 0 20px 10px 20px;
   justify-content: center;
   flex-direction: column;
@@ -86,10 +74,14 @@ position: relative;
 }
 
 .chartTitle {
+  background-color: #393944;
   color: #e3e3e3;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
 }
 
 .doughnutChartTitle {
@@ -123,6 +115,10 @@ position: relative;
   border: 1px solid #ccc;
   padding: 8px;
   text-align: center;
+}
+
+.logTable th {
+  background-color: #333333;
 }
 
 .totalRuleContainer {
@@ -186,8 +182,6 @@ position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  /* background-color: #CF6679;
-  outline: 1px solid #CF6679; */
   border-radius: 18px 18px 0 0;
   padding: 10px 15px 10px 15px;
   font-size: 20px;
@@ -199,7 +193,7 @@ position: relative;
 
 .guideImage {
   width: auto;
-  height: 200px;;
+  height: 170px;
   cursor: pointer;
 }
 
@@ -232,11 +226,6 @@ position: relative;
 
 .warningFont {
   color: #CF6679;
-  font-weight: bold;
-}
-
-.highlight {
-  color: #BB86FC;
   font-weight: bold;
 }
 
@@ -299,6 +288,14 @@ position: relative;
   align-items: center;
   width: 100%;
   height: 400px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  background-blend-mode: overlay;
 }
 
 .centerCircle {
@@ -318,8 +315,8 @@ position: relative;
   align-items: center;
   padding: 20px;
   margin: 10px;
-  width: 180px;
-  height: 100px;
+  width: 11.7vw;
+  height: 14.2vh;
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -352,24 +349,52 @@ position: relative;
 }
 
 .topCard {
-  top: 50px;
-  background: linear-gradient(135deg, #4a4a5a, #6a6a7a);
+  top: 20px;
+  background: linear-gradient(135deg, rgba(74, 74, 90, 0.45), rgba(106, 106, 122, 0.45));
   color: #ffffff;
   position: absolute;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-blend-mode: overlay;
 }
 
 .bottomRightCard {
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(135deg, #5a4a4a, #7a6a6a);
-  color: #ffffff;
   position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, rgba(90, 74, 74, 0.45), rgba(122, 106, 106, 0.45));
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-blend-mode: overlay;
 }
 
 .bottomLeftCard {
-  bottom: 0;
-  left: 0;
-  background: linear-gradient(135deg, #4a5a4a, #6a7a6a);
-  color: #ffffff;
   position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, rgba(74, 90, 74, 0.45), rgba(106, 122, 106, 0.45));
+  color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background-blend-mode: overlay;
+}
+
+.todayTitle {
+  color: #e3e3e3;
+  background-color: #4d505f;
+  color: #e3e3e3;
+  border-radius: 18px 18px 0 0;
+  padding: 10px 15px 10px 15px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }

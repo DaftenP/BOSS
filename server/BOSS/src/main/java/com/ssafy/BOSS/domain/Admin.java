@@ -19,11 +19,11 @@ public class Admin {
     @Column(name = "admin_id")
     private Long id;
 
-    private String adminLoginId;
 
     @OneToMany(mappedBy = "admin")
     private List<LoginLog> loginLogs;
 
+    private String adminLoginId;
     private String adminLoginPw;
 
     private String adminName;

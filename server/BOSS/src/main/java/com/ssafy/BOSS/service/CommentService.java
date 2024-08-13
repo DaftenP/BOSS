@@ -2,15 +2,13 @@ package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.dto.sseDto.SseEmitters;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
+@Slf4j
 @AllArgsConstructor
 @Service
 public class CommentService {
@@ -33,5 +31,9 @@ public class CommentService {
         return emitter;
     }
 
+    public void createIssue() {
+        log.info("createIssue callback");
+        sseEmitters.send("ok");
+    }
 
 }

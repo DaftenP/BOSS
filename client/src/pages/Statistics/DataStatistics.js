@@ -47,7 +47,7 @@ function DateStatistics({ loglist }) {
 
   const generateHourlyLabels = () => {
     const labels = [];
-    for (let hour = 9; hour < 21; hour++) {
+    for (let hour = 6; hour < 22; hour++) {
       labels.push(`${hour}~${hour + 1}${t('hour')}`);
     }
     return labels;
@@ -178,7 +178,7 @@ function DateStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         }
       },
       y: {
@@ -195,7 +195,7 @@ function DateStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         }
       }
     },
@@ -260,6 +260,15 @@ function DateStatistics({ loglist }) {
               </label>
             </div>
             <div className={classes.buttonContainer}>
+              {selectedDateXOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedDateXOption === 'year' || selectedDateXOption === 'month' || selectedDateXOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedDateXOption === 'year' || selectedDateXOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
               {(selectedDateXOption === 'day' || selectedDateXOption === 'week') && (
                 <input
                   className={classes.inputText}

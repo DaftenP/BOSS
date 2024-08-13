@@ -1,8 +1,13 @@
 package com.ssafy.BOSS.service;
 
 import com.ssafy.BOSS.domain.Admin;
+import com.ssafy.BOSS.dto.adminDto.AdminDto;
+import com.ssafy.BOSS.dto.adminDto.AdminLogDto;
 import com.ssafy.BOSS.dto.jwt.JwtToken;
+import com.ssafy.BOSS.exception.BossException;
+import com.ssafy.BOSS.exception.errorCode.AdminErrorCode;
 import com.ssafy.BOSS.jwt.JwtTokenProvider;
+import com.ssafy.BOSS.mapper.AdminMapper;
 import com.ssafy.BOSS.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,14 +16,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
 public class AdminService {
 
     private final AdminRepository adminRepository;
+
+    private final AdminMapper adminMapper;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -33,21 +38,19 @@ public class AdminService {
         Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
-        JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
-
-        return jwtToken;
+        return jwtTokenProvider.generateToken(authentication);
     }
 
-    public Admin login(String adminLoginId, String adminLoginPw) {
-        Optional<Admin> admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw);
-        if (admin.isPresent()) {
-            return admin.get();
-        } else {
-            return null;
-        }
+    @Transactional
+    public AdminLogDto checkAdmin(String adminLoginId, String adminLoginPw) {
+        Admin admin = adminRepository.findByAdminLoginIdAndAdminLoginPw(adminLoginId, adminLoginPw).orElseThrow(() -> new BossException(AdminErrorCode.ADMIN_NOT_FOUND));
+        AdminLogDto adminLogDto = new AdminLogDto();
+        AdminDto adminDto = adminMapper.adminToAdminDto(admin);
+        adminLogDto.setAdmin(adminDto);
+        return adminLogDto;
     }
 
-    public Optional<Admin> findByName(String adminName) {
-        return adminRepository.findByAdminName(adminName);
+    public Admin findByName(String adminName) {
+        return adminRepository.findByAdminName(adminName).orElseThrow(() -> new BossException(AdminErrorCode.ADMIN_NOT_FOUND));
     }
 }

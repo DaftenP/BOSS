@@ -117,7 +117,7 @@ function TotalStatistics({ loglist }) {
 
   const generateTotalHourlyLabels = () => {
     const labels = [];
-    for (let hour = 9; hour < 21; hour++) {
+    for (let hour = 6; hour < 22; hour++) {
       labels.push(`${hour}~${hour + 1}${t('hour')}`);
     }
     return labels;
@@ -249,7 +249,7 @@ function TotalStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         }
       },
       y: {
@@ -265,7 +265,7 @@ function TotalStatistics({ loglist }) {
           }
         },
         grid: {
-          color: '#444'
+          color: isDarkMode ? '#bbb' : '#444',
         },
       }
     },
@@ -330,6 +330,15 @@ function TotalStatistics({ loglist }) {
               </label>
             </div>
             <div className={classes.buttonContainer}>
+              {selectedTotalXOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month' || selectedTotalXOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedTotalXOption === 'year' || selectedTotalXOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
               {(selectedTotalXOption === 'day' || selectedTotalXOption === 'week') && (
                 <input
                   className={`${classes.inputText} ${classes.specificInputText}`}
@@ -468,12 +477,6 @@ function TotalStatistics({ loglist }) {
                           </td>
                         </React.Fragment>
                       ))}
-                      {Array.from({ length: (selectedTotalPopOption === 'gate' ? 4 : 2) - row.length }).map((_, i) => (
-                        <React.Fragment key={`empty-${i}`}>
-                          <td key={`empty-checkbox-${i}`}></td>
-                          <td key={`empty-name-${i}`}></td>
-                        </React.Fragment>
-                      ))}
                     </tr>
                   ))}
                 </tbody>
@@ -492,7 +495,7 @@ function TotalStatistics({ loglist }) {
             const data = filterDataForTotal(loglist, item);
             return (
               <div key={item} className={classes.graphBox}>
-                <div className={classes.graphTitle}>{item}</div>
+                <div className={classes.graphTitle}>{t('Gate', { number: item })}</div>
                 <Line data={data} options={options} />
               </div>
             );

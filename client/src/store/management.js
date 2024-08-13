@@ -5,26 +5,20 @@ import api from '../utils/api';
 export const fetchMembers = createAsyncThunk('management/fetchMembers', async () => {
   const response = await api.get('/api/member/check');
   const data = Array.isArray(response.data) ? response.data : [response.data];
-  console.log('전체데이터', data)
-  return response.data;
+  return data;
 });
 
 // 멤버 등록하기
 export const memberRegistration = createAsyncThunk('management/memberRegistration', async (formData) => {
-  console.log('등록 보낸 것', formData)
-  const response = await api.post('/api/member/regist', formData, {
-  });
-  console.log('등록 받은 것', response.data)
+  const response = await api.post('/api/member/regist', formData);
   return response.data
 })
 
 // 멤버 필터링
 export const fetchFilteredMember = createAsyncThunk('management/fetchFilteredMember', async (filters) => {
-  console.log('필터 보낸 것', filters)
   const response = await api.get('/api/member/search', {
     params: filters,
   });
-  console.log('필터 받은 것', response.data)
   return response.data.length ? response.data : [];
 })
 

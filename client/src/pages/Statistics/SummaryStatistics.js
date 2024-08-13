@@ -133,6 +133,15 @@ function SummaryStatistics({ loglist }) {
               </label>
             </div>
             <div className={classes.buttonContainer}>
+              {selectedSummaryOption === 'year' &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedSummaryOption === 'year' || selectedSummaryOption === 'month' || selectedSummaryOption === 'week') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
+              {(selectedSummaryOption === 'year' || selectedSummaryOption === 'month') &&
+                <div className={classes.emptySpace}>EMPTY</div>
+              }
               {(selectedSummaryOption === 'day' || selectedSummaryOption === 'week') && (
                 <input
                   className={classes.inputText}
@@ -176,8 +185,8 @@ function SummaryStatistics({ loglist }) {
               <p className={classes.value}>{statistics.logs} {t('logs')}</p>
             </div>
             <div className={classes.statisticsCard}>
-              <h3>{t('Average Issue Rate')}</h3>
-              <p className={classes.value}>{statistics.averageIssues.toFixed(2)}</p>
+              <h3>{t('Average detections')}</h3>
+              <p className={classes.value}>{statistics.averageIssues.toFixed(1)} {t('Cnt', '개')}</p>
             </div>
           </div>
         </div>

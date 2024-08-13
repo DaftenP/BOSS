@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import lightClasses from './Navbar.module.css';
 import darkClasses from './NavbarDark.module.css';
 import logoutIcon from '../../assets/Layout/Logout_icon.png';
+import logoutIconDark from '../../assets/Layout/Logout_icon_darkmode.png';
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ function Navbar() {
   const { t } = useTranslation();
 
   const adminName = useSelector((state) => state.login.adminName);
-  const loginTime = useSelector((state) => state.login.loginTime);
+  const loginTime = useSelector((state) => state.login.loginTime) || localStorage.getItem('loginTime');
   const logs = useSelector((state) => state.admin.data);
 
   const [elapsedTime, setElapsedTime] = useState('');
@@ -31,6 +32,10 @@ function Navbar() {
   };
 
   useEffect(() => {
+    dispatch(fetchAdminLogs())
+  }, [dispatch])
+
+  useEffect(() => {
   }, [adminName]);
 
   useEffect(() => {
@@ -43,7 +48,7 @@ function Navbar() {
         const minutes = Math.floor(difference / 60000);
         const seconds = Math.floor((difference % 60000) / 1000);
 
-        setElapsedTime(`${minutes}분 ${seconds}초`);
+        setElapsedTime(`${minutes}${t('minutes', '분')} ${seconds}${t('seconds', '초')}`);
       }, 1000);
 
       return () => clearInterval(interval);
@@ -58,14 +63,14 @@ function Navbar() {
     <div className={classes.navbar}>
       <div className={classes.navbarContainer}>
         <span className={classes.adminName}>
-          {adminName ? `${t('Admin')}: ${adminName}` : t('Anonymous Admin')}
+          {t('Admin')} : {logs.length > 0 ? logs[0].admin.adminName : t('Anonymous Admin')}
         </span>
         <span className={classes.loginTime}>
-          {loginTime ? `${t('Login Time')}: ${new Date(loginTime).toLocaleTimeString()} (${elapsedTime} ${t('Elapsed Time')})` : ''}
+          {loginTime ? `${t('Login Time')}: ${new Date(loginTime).toLocaleTimeString('en-US')} (${elapsedTime} ${t('Elapsed Time')})` : ''}
         </span>
         <button onClick={logoutHandler} className={classes.logoutButton}>
           {t('Logout')}
-          <img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />
+          {isDarkMode ? (<img src={logoutIconDark} alt="logout_icon" className={classes.labelIcon} />) : (<img src={logoutIcon} alt="logout_icon" className={classes.labelIcon} />)}
         </button>
       </div>
       <span className={classes.loginTimeButton} onClick={handleToggleLogs}>
@@ -83,9 +88,9 @@ function Navbar() {
           <tbody>
             {logs.map((log, index) => (
               <tr key={index}>
-                <td className={classes.cell}>{log.date}</td>
-                <td className={classes.cell}>{log.time}</td>
-                <td className={classes.cell}>{log.name}</td>
+                <td className={classes.cell}>{log.time.split('T')[0]}</td>
+                <td className={classes.cell}>{log.time.split('T')[1].split('.')[0]}</td>
+                <td className={classes.cell}>{log.admin.adminName}</td>
               </tr>
             ))}
           </tbody>

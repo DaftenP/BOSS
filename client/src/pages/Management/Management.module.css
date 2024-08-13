@@ -27,14 +27,13 @@
 }
 
 .formButton {
-  position: absolute;
-  bottom: 8px;
-  right: 2px;
   cursor: pointer;
   background-color: #B0D2FA;
   color: #0A47A3;
   border: none;
-  padding: 8px 30px;
+  padding: 6px 20px;
+  min-width: 100px;
+  margin: 5px 0 0 25px;
   font-size: 14px;
   font-weight: bold;
   border-radius: 20px;
@@ -66,10 +65,12 @@
 }
 
 .inputText {
-  width: 100%;
+  width: 15vw;
   margin: 0;
   margin-bottom: 10px;
-  padding: 5px;
+  padding-left: 6.5px;
+  padding-right: 10px;
+  height: 32px;
   box-sizing: border-box;
   border-radius: 10px;
   border: 1px solid #CDCDCD;
@@ -84,7 +85,6 @@
 }
 
 .filterTable {
-  width: 100%;
   border-collapse: collapse;
 }
   
@@ -99,11 +99,6 @@
   margin-bottom: 3px;
 }
 
-.submitButtonCell {
-  text-align: center;
-  padding-top: 10px;
-}
-
 .inputContainer {
   margin: 20px;
   width: 80%;
@@ -115,7 +110,6 @@
 }
 
 .optionLabel {
-  /* background-color: #4d505f; */
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -183,6 +177,10 @@
   border: 1px solid #ccc;
   padding: 8px;
   text-align: center;
+}
+
+.logTable th {
+  background-color: #B0D2FA;
 }
 
 .listIcon {
@@ -279,4 +277,144 @@
   margin: 5px 0 15px 0;
   font-weight: 500;
   letter-spacing: 1px;
+}
+
+.disabledInput {
+  background-color: rgba(211, 211, 211, 0.5);
+  cursor: not-allowed;
+}
+
+.inputText:focus {
+  border: 1px solid #4A90E2;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+  outline: none;
+}
+
+.hiddenFileInput {
+  display: none;
+}
+
+.customFileInput {
+  display: inline-block;
+  width: 15vw;
+  height: 30px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 11px;
+  background-color: #4A90E2;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.customFileInput:hover {
+  background-color: #357ABD;
+}
+
+.noIssue {
+  font-weight: bold;
+  color: #28a745;
+}
+
+.issueDetected {
+  font-weight: bold;
+  color: #dc3545;
+}
+
+.tdCell {
+  display: block;
+}
+
+.tdCell div {
+  text-align: center;
+  padding: 5px 15px;
+  background-color: #B0D2FA;
+  border-radius: 10px;
+  color: #0A47A3;
+  border: none;
+  margin: 0 10px 0 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.buttonCell {
+  text-align: right;
+  vertical-align: middle;
+  padding-top: 0;
+  line-height: 1;
+}
+
+.inputText option {
+  text-align: center;
+}
+
+.sortIcon {
+  position: absolute;
+  right: 7px;
+  top: 28%;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  outline: none;
+  background-color: #82bcff;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  padding: 2px;
+}
+
+.sortIcon:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sortIconWrapper:hover::after {
+  content: attr(data-direction);
+  position: absolute;
+  top: -35px;
+  left: 88%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.sortIconWrapper:hover::before {
+  content: "";
+  position: absolute;
+  top: -5px; 
+  left: 88%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+  z-index: 9;
+}
+
+.fileName {
+  font-size: 13px;
+}
+
+.tableRow:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tableRow:nth-child(odd) {
+  background-color: white;
+}
+
+.customFileInput.dragging {
+  background-color: #0056b3;
+  border: 2px dashed #fff; /* 드래그 시 경계선을 강조 */
+}
+
+/* 버튼 호버 스타일 */
+.customFileInput:hover {
+  background-color: #0056b3;
 }

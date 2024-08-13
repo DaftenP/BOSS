@@ -330,7 +330,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QLabel" name="status_bar">
+   <widget class="QGroupBox" name="groupBox_3">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -339,13 +339,26 @@
       <height>200</height>
      </rect>
     </property>
-    <property name="text">
+    <property name="title">
      <string/>
     </property>
+    <widget class="QLabel" name="status_bar">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>1920</width>
+       <height>200</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
    </widget>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
-   <zorder>status_bar</zorder>
+   <zorder>groupBox_3</zorder>
   </widget>
  </widget>
  <resources/>

@@ -112,9 +112,9 @@ class MainWindow(QMainWindow, form_class):
         self.member_position.setText('')
         self.issue_count.setText('0')
         self.profile_image.setPixmap(QPixmap('./gui/profile.png'))
+        self.status_bar.setPixmap(QPixmap('./gui/default.png'))
         self.front_image.setText('')
         self.back_image.setText('')
-        self.status_bar.setText('default')
         self.issue_list.clear()
 
     def update_cam(self, frames) -> None:
@@ -141,7 +141,7 @@ class MainWindow(QMainWindow, form_class):
         return None
 
     def set_status_bar(self, is_pass: bool):
-        self.status_bar.setText('pass' if is_pass else 'fail')
+        self.status_bar.setPixmap(QPixmap(f'./gui/{"pass" if is_pass else "fail"}.png'))
         emit_result(17 if is_pass else 18)
 
     def send_log(self, image1, image2, sticker_count: int, is_pass: bool, lens: int):

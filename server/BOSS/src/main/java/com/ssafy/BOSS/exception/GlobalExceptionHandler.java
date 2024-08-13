@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BossException.class)
     public ProblemDetail handleBossException(BossException e) {
-        log.error(e.getMessage());
+        e.printStackTrace();
         ErrorCode errorCode = e.getErrorCode();
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(errorCode.getHttpStatus(), errorCode.getMessage());
         return new ErrorCodeProblemDetail(problemDetail, errorCode.getErrorCode());
@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler
     public ProblemDetail handleException(Exception e) {
-        log.error(e.getMessage());
+        e.printStackTrace();
         return ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 

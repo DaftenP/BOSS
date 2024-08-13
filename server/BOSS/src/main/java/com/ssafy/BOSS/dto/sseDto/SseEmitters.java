@@ -22,6 +22,15 @@ public class SseEmitters {
             log.info("onCompletion callback");
             emitters.remove(emitter);
         });
+        emitter.onError((e) -> {
+            log.info("onError callback");
+            log.error(e.getMessage(), e);
+            emitter.complete();
+        });
+        emitter.onTimeout(() -> {
+            log.info("onTimeout callback");
+            emitter.complete();
+        });
         return emitter;
     }
 

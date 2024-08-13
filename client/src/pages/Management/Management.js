@@ -180,6 +180,12 @@ function Management() {
             }))
           }
         }
+      } else if (name === 'phoneNumber') {
+        const numericValue = value.replace(/[^0-9]/g, '');
+        setSubmitMemberData((prevState) => ({
+          ...prevState,
+          [name]: numericValue,
+        }));
       } else {
         const processedValue = type === 'number' ? (value === '' ? '' : Number(value)) : value;
         setSubmitMemberData((prevState) => ({
@@ -187,6 +193,41 @@ function Management() {
           [name]: processedValue,
         }));
       }
+    }
+  };
+
+  const buttonRef = useRef(null);
+  const handleDragOver = (event) => {
+    event.preventDefault();
+    buttonRef.current.classList.add('dragging'); // 드래그 중일 때 클래스 추가
+  };
+
+  const handleDragLeave = () => {
+    buttonRef.current.classList.remove('dragging'); // 드래그가 끝났을 때 클래스 제거
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    buttonRef.current.classList.remove('dragging'); // 드래그가 끝났을 때 클래스 제거
+  
+    const file = event.dataTransfer.files[0];
+    const { name } = event.target;
+  
+    if (file) {
+      // 드롭된 파일을 input 요소에 수동으로 설정
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      fileInputRef.current.files = dataTransfer.files;
+  
+      // onChange 이벤트 트리거
+      fileInputRef.current.dispatchEvent(new Event('change', { bubbles: true }));
+  
+      // 상태 업데이트
+      setFileName(file.name);
+      setSubmitMemberData((prevState) => ({
+        ...prevState,
+        [name]: file,
+      }));
     }
   };
 
@@ -286,6 +327,9 @@ function Management() {
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
+
+      setFileName('');
+      
     } catch (error) {
       console.error('Error during registration:', error);
     }
@@ -375,7 +419,7 @@ function Management() {
                     </td>
                     <td>
                       <label htmlFor="new phoneNumber" className={classes.labelText}>{t('phoneNumber', '연락처')}</label>
-                      <input className={classes.inputText} name="phoneNumber" type="number" id="new phoneNumber" value={submitMemberData.phoneNumber} placeholder={t('phoneNumber', '연락처')} onChange={handleSubmitChange} />
+                      <input className={classes.inputText} name="phoneNumber" type="text" id="new phoneNumber" value={submitMemberData.phoneNumber} placeholder={t('phoneNumber', '연락처')} onChange={handleSubmitChange} />
                     </td>
                     <td>
                       <label htmlFor="new nfc" className={classes.labelText}>{t('NFC', 'NFC')}</label>
@@ -384,7 +428,15 @@ function Management() {
                     <td>
                       <label htmlFor="new profile" className={classes.labelText}>{t('selectProfileImage', '프로필 사진 파일을 선택해 주세요!')}</label>
                       <input className={classes.hiddenFileInput} type="file" id="new profile" name="profileImage" placeholder={t('profileImage', '프로필 사진')} accept='.jpg, .jpeg, .png' onChange={handleSubmitChange} ref={fileInputRef} />
-                      <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
+                      <button
+                        ref={buttonRef}
+                        type="button"
+                        onClick={handleFileInputClick}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
+                        onDrop={handleDrop}
+                        className={classes.customFileInput}
+                      >
                         {fileName === '' ? t('selectFile', '파일 선택') : fileName}
                       </button>
                     </td>
@@ -439,9 +491,17 @@ function Management() {
                 <div>
                   <label htmlFor="new file" className={classes.labelText}>{t('selectBatchFile', '일괄 등록을 위해 파일을 선택해 주세요!')}</label>
                   <input className={classes.hiddenFileInput} type="file" id="new file" name="batchFile" placeholder={t('batchFile', '일괄 등록 파일')} accept='.csv'onChange={handleSubmitChange} ref={fileInputRef} />
-                  <button type="button" onClick={handleFileInputClick} className={classes.customFileInput}>
-                    {fileName === '' ? t('selectFile', '파일 선택') : fileName}
-                  </button>
+                  <button
+                      ref={buttonRef}
+                      type="button"
+                      onClick={handleFileInputClick}
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      className={classes.customFileInput}
+                    >
+                      {fileName === '' ? t('selectFile', '파일 선택') : fileName}
+                    </button>
                   <button type="submit" className={classes.formButton}>{t('Register', '등 록')}</button>
                 </div>
               </form>

@@ -408,3 +408,13 @@
 .tableRow:nth-child(odd) {
   background-color: white;
 }
+
+.customFileInput.dragging {
+  background-color: #0056b3;
+  border: 2px dashed #fff; /* 드래그 시 경계선을 강조 */
+}
+
+/* 버튼 호버 스타일 */
+.customFileInput:hover {
+  background-color: #0056b3;
+}

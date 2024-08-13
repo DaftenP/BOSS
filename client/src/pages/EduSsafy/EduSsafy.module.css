@@ -193,7 +193,7 @@ button {
   position: absolute;
   height: 15px;
   top: 36px;
-  left: 917px;
+  left: 910px;
   color: #000000;
   font-family: Roboto, var(--default-font-family);
   font-size: 12px;
@@ -315,6 +315,7 @@ button {
 
 .navigate-container {
   position: relative;
+  width: 300px;
 }
 .navigate-next {
   position: absolute;
@@ -359,14 +360,14 @@ button {
   background-color: #f0f0f0;
 }
 
-.kim-ji-hwan {
+.name {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   position: absolute;
   height: 15px;
   top: 52px;
-  left: 917px;
+  left: 910px;
   color: #5d9ff4;
   font-family: Roboto, var(--default-font-family);
   font-size: 12px;
@@ -377,23 +378,8 @@ button {
   white-space: nowrap;
   z-index: 1;
 }
-.name {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: absolute;
-  height: 15px;
-  top: 52px;
-  left: 953px;
+.sir {
   color: #000000;
-  font-family: Roboto, var(--default-font-family);
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14.523px;
-  text-align: left;
-  text-transform: capitalize;
-  white-space: nowrap;
-  z-index: 2;
 }
 .flex-row-e {
   position: relative;

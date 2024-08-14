@@ -13,7 +13,7 @@ class VideoProcessor:
         self.cap1 = cv2.VideoCapture(0)
         self.cap2 = cv2.VideoCapture(2)
 
-        # 카메라 인식 실패 시
+        # 카메라 인식 실패 시ㅠ
         if not (self.cap1.isOpened() and self.cap2.isOpened()):
             print("Error: Could not open camera.")
             exit()

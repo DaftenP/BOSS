@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>1920</width>
-    <height>1077</height>
+    <height>1080</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string notr="true">BOSS</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGroupBox" name="groupBox">
@@ -23,30 +23,28 @@
       <height>880</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #444444; border: 5  solid</string>
+    </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>320</y>
-       <width>56</width>
-       <height>12</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>이름 :</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>360</y>
+       <y>390</y>
        <width>56</width>
-       <height>12</height>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none</string>
      </property>
      <property name="text">
       <string>부서 :</string>
@@ -56,35 +54,21 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>400</y>
+       <y>430</y>
        <width>56</width>
-       <height>12</height>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none</string>
      </property>
      <property name="text">
       <string>직책 :</string>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="member_name">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>315</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="acceptDrops">
-      <bool>false</bool>
-     </property>
-     <property name="verticalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
     </widget>
     <widget class="QTextEdit" name="member_department">
@@ -93,14 +77,22 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>355</y>
-       <width>91</width>
-       <height>20</height>
+       <x>190</x>
+       <y>390</y>
+       <width>131</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
      </property>
      <property name="acceptDrops">
       <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none;</string>
      </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -115,33 +107,28 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>395</y>
-       <width>91</width>
-       <height>20</height>
+       <x>190</x>
+       <y>430</y>
+       <width>131</width>
+       <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
      </property>
      <property name="acceptDrops">
       <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none;</string>
      </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
      <property name="horizontalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="btn_load">
-     <property name="geometry">
-      <rect>
-       <x>180</x>
-       <y>440</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Load</string>
      </property>
     </widget>
     <widget class="QLabel" name="profile_image">
@@ -150,39 +137,20 @@
        <x>100</x>
        <y>40</y>
        <width>200</width>
-       <height>250</height>
+       <height>300</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border: none</string>
+     </property>
      <property name="frameShape">
-      <enum>QFrame::Box</enum>
+      <enum>QFrame::NoFrame</enum>
      </property>
      <property name="frameShadow">
       <enum>QFrame::Plain</enum>
      </property>
      <property name="text">
       <string/>
-     </property>
-    </widget>
-    <widget class="QTextEdit" name="text_nfc">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>440</y>
-       <width>91</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="acceptDrops">
-      <bool>false</bool>
-     </property>
-     <property name="verticalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
-     </property>
-     <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
     </widget>
     <widget class="QLabel" name="label_4">
@@ -192,13 +160,21 @@
      <property name="geometry">
       <rect>
        <x>50</x>
-       <y>560</y>
-       <width>291</width>
-       <height>20</height>
+       <y>559</y>
+       <width>121</width>
+       <height>21</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none;</string>
+     </property>
      <property name="text">
-      <string>확인된 보안 이슈 :                                                     건</string>
+      <string>확인된 보안 이슈 :  </string>
      </property>
      <property name="alignment">
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -209,9 +185,17 @@
       <rect>
        <x>160</x>
        <y>560</y>
-       <width>141</width>
+       <width>151</width>
        <height>20</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none;</string>
      </property>
      <property name="text">
       <string>0</string>
@@ -223,24 +207,113 @@
     <widget class="QListWidget" name="issue_list">
      <property name="geometry">
       <rect>
-       <x>40</x>
+       <x>50</x>
        <y>590</y>
        <width>311</width>
        <height>251</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: none; color: white;</string>
+     </property>
     </widget>
     <widget class="QPushButton" name="btn_clear">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>440</y>
+       <x>280</x>
+       <y>390</y>
        <width>75</width>
        <height>23</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">border: none;</string>
+     </property>
      <property name="text">
-      <string>Clear</string>
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>560</y>
+       <width>31</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none;</string>
+     </property>
+     <property name="text">
+      <string>건</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>350</y>
+       <width>56</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none</string>
+     </property>
+     <property name="text">
+      <string>이름 :</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="member_name">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>350</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="acceptDrops">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: none;</string>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
     </widget>
    </widget>
@@ -249,9 +322,12 @@
      <rect>
       <x>400</x>
       <y>0</y>
-      <width>1520</width>
+      <width>760</width>
       <height>880</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #444444; border: 5px solid</string>
     </property>
     <property name="title">
      <string/>
@@ -259,14 +335,17 @@
     <widget class="QLabel" name="cam1">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>50</y>
+       <x>80</x>
+       <y>60</y>
        <width>640</width>
        <height>360</height>
       </rect>
      </property>
      <property name="contextMenuPolicy">
       <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: npne;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
@@ -278,11 +357,14 @@
     <widget class="QLabel" name="cam2">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>500</y>
+       <x>80</x>
+       <y>480</y>
        <width>640</width>
        <height>360</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: npne;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::Box</enum>
@@ -291,42 +373,25 @@
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="front_image">
+    <widget class="QLabel" name="label_7">
      <property name="geometry">
       <rect>
-       <x>770</x>
-       <y>50</y>
-       <width>640</width>
-       <height>360</height>
+       <x>80</x>
+       <y>20</y>
+       <width>151</width>
+       <height>31</height>
       </rect>
      </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::NoContextMenu</enum>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="back_image">
-     <property name="geometry">
-      <rect>
-       <x>770</x>
-       <y>500</y>
-       <width>640</width>
-       <height>360</height>
-      </rect>
-     </property>
-     <property name="contextMenuPolicy">
-      <enum>Qt::NoContextMenu</enum>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::Box</enum>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: npne;</string>
      </property>
      <property name="text">
-      <string/>
+      <string>실시간 모니터링 :</string>
      </property>
     </widget>
    </widget>
@@ -351,6 +416,111 @@
        <height>200</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: #444444; border: 5px solid</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_4">
+    <property name="geometry">
+     <rect>
+      <x>1160</x>
+      <y>0</y>
+      <width>760</width>
+      <height>880</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #444444; border: 5px solid</string>
+    </property>
+    <property name="title">
+     <string/>
+    </property>
+    <widget class="QLabel" name="front_image">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>60</y>
+       <width>640</width>
+       <height>360</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: npne;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="back_image">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>480</y>
+       <width>640</width>
+       <height>360</height>
+      </rect>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::NoContextMenu</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border: npne;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_10">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: npne;</string>
+     </property>
+     <property name="text">
+      <string>직전 출입 기록 :</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_last_io">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>20</y>
+       <width>451</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white; border: npne;</string>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -359,6 +529,7 @@
    <zorder>groupBox_2</zorder>
    <zorder>groupBox</zorder>
    <zorder>groupBox_3</zorder>
+   <zorder>groupBox_4</zorder>
   </widget>
  </widget>
  <resources/>

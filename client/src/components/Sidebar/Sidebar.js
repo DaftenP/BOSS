@@ -28,7 +28,7 @@ function Sidebar() {
       </NavLink>
       <div className={classes.linkContainer}>
         <div className={`${activePage === 'main' ? classes.activeText : undefined} ${classes.normalLink}`}>
-          <NavLink to="/main">
+          <NavLink to="/main" className={classes.navLink}>
             <img src={mainIcon} alt="main_icon" className={classes.labelIcon} />
             <span>
               {t('Main', '메인')}
@@ -36,7 +36,7 @@ function Sidebar() {
           </NavLink>
         </div>
         <div className={`${activePage === 'loglist' ? classes.activeText : undefined} ${classes.normalLink}`}>
-          <NavLink to="/loglist">
+          <NavLink to="/loglist" className={classes.navLink}>
             <img src={loglistIcon} alt="loglist_icon" className={classes.labelIcon} />
             <span>
               {t('Log List', '조회')}
@@ -44,7 +44,7 @@ function Sidebar() {
           </NavLink>
         </div>
         <div className={`${activePage === 'statistics' ? classes.activeText : undefined} ${classes.normalLink}`}>
-          <NavLink to="/statistics">
+          <NavLink to="/statistics" className={classes.navLink}>
             <img src={statisticsIcon} alt="statistics_icon" className={classes.labelIcon} />
             <span>
               {t('Statistics', '통계')}
@@ -52,7 +52,7 @@ function Sidebar() {
           </NavLink>
         </div>
         <div className={`${activePage === 'management' ? classes.activeText : undefined} ${classes.normalLink}`}>
-          <NavLink to="/management">
+          <NavLink to="/management" className={classes.navLink}>
             <img src={managementIcon} alt="management_icon" className={classes.labelIcon} />
             <span>
               {t('Management', '관리')}

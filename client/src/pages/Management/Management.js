@@ -329,9 +329,20 @@ function Management() {
       }
 
       setFileName('');
+
+      Swal.fire({
+        icon: 'success',
+        title: `<strong>${t('registrationSuccess', '등록 성공')}</strong>`,
+        html: `<b>${t('registrationCompleted', '회원 등록이 성공적으로 완료되었습니다.')}</b>`,
+      });
       
     } catch (error) {
       console.error('Error during registration:', error);
+      Swal.fire({
+        icon: 'error',
+        title: `<strong>${t('registrationFailed', '등록 실패')}</strong>`,
+        html: `<b>${t('errorOccurred', '회원 등록 중 오류가 발생했습니다.')}</b>`,
+      });
     }
   };
 

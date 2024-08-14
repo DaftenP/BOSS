@@ -7,9 +7,13 @@
 }
 
 .normalLink {
-  padding: 15px 15px;
+  padding: 0 15px;
   margin: 20px 0 10px 0;
+}
+
+.navLink {
   cursor: pointer;
+  padding: 15px 0 ;
 }
 
 .labelIcon {

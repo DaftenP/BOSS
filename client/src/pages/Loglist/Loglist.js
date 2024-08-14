@@ -103,6 +103,7 @@ const Modal = ({ show, onClose, log, update }) => {
                         <label htmlFor="countOfSticker" className={classes.updateLabelText}>{t('Number of Stickers Issued')}</label>
                         <input
                           className={classes.updateInputText}
+                          min="0"
                           type="number"
                           name="countOfSticker"
                           placeholder={t('Number of Stickers Issued')}
@@ -354,7 +355,7 @@ function LogTable() {
                     </td>
                     <td>
                       <label htmlFor="memberId" className={classes.labelText}>{t('Member ID')}</label>
-                      <input className={classes.inputText} type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
+                      <input className={classes.inputText} min="0" type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
                     </td>
                     <td className={classes.buttonCell}>
                       <br />
@@ -377,7 +378,7 @@ function LogTable() {
                     </td>
                     <td>
                       <label htmlFor="memberId" className={classes.labelText}>{t('Member ID')}</label>
-                      <input className={classes.inputText} type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
+                      <input className={classes.inputText} min="0" type="number" name="memberId" placeholder={t('Member ID')} value={filters.memberId} onChange={handleInputChange} />
                     </td>
                     <td className={`${classes.tdCell} ${classes.timeCell}`}>
                       <br />

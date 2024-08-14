@@ -40,10 +40,16 @@ public class EnteringLogService {
     @Transactional
     public EnteringLogDto save(EnteringLogRegistDto enteringLogRegistDto, MultipartFile deviceFrontImage, MultipartFile deviceBackImage) {
         Member member = memberRepository.findById(enteringLogRegistDto.getMemberId()).orElseThrow(() -> new BossException(MemberErrorCode.MEMBER_NOT_FOUND));
+
+        List<EnteringLog> logs = findLogsByMember(member);
+
         // 이미지 업로드
         String deviceFrontImageLink = s3UploadService.upload(deviceFrontImage);
         String deviceBackImageLink = s3UploadService.upload(deviceBackImage);
         EnteringLog enteringLog = enteringLogMapper.enteringLogRegistDtoToEnteringLog(enteringLogRegistDto, member, deviceFrontImageLink, deviceBackImageLink);
+        if(!logs.isEmpty() && logs.get(logs.size() - 1).getEntering() == 0) {
+            enteringLog.setEntering(1);
+        }
         enteringLog = enteringLogRepository.save(enteringLog);
 
         if (enteringLog.getIssue() == 1) {

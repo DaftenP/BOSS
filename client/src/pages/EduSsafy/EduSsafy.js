@@ -35,7 +35,7 @@ export default function Main() {
     dispatch(fetchLogs());
   }, [dispatch]);
 
-
+    console.log(member);
   // 2023-01-23T12:00:00 => 12:00 형식으로 변환
   const formatTime = (datetime) => {
     const time = datetime.split('T')[1].split(':');
@@ -218,15 +218,19 @@ export default function Main() {
 
         <div className={classes['navigate-container']}>
           <span className={classes['number']}>{memberId}</span>
-          <span className={classes['kim-ji-hwan']}>{name}</span>
-          <span className={classes['name']}>님</span>
+          <span className={classes['name']}>
+            {name}
+            <span style={{ color: 'black' }}>님</span>
+          </span>
+
+
           {/* 드롭다운을 여는 버튼 */}
           <div className={classes['navigate-next']} onClick={toggleDropdown} />
           {/* 드롭다운 메뉴 */}
           <div className={`${classes['dropdown-menu']} ${isDropdownOpen ? classes['is-show'] : classes['hidden']}`}>
             <div onClick={handleLogout}>로그아웃</div>
           </div>
-          </div>
+        </div>
         
 
       </div>

@@ -8,6 +8,13 @@ export const fetchMembers = createAsyncThunk('management/fetchMembers', async ()
   return data;
 });
 
+// 멤버 ID, PW 데이터 불러오기
+export const fetchMembersPw = createAsyncThunk('management/fetchMembersPw', async () => {
+  const response = await api.get('/api/member/find');
+  const data = Array.isArray(response.data) ? response.data : [response.data];
+  return data;
+});
+
 // 멤버 등록하기
 export const memberRegistration = createAsyncThunk('management/memberRegistration', async (formData) => {
   const response = await api.post('/api/member/regist', formData);
@@ -43,9 +50,20 @@ const managementSlice = createSlice({
       })
       .addCase(fetchMembers.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.data = action.payload;
+        state.data  = action.payload;
       })
       .addCase(fetchMembers.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(fetchMembersPw.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchMembersPw.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.membersPw  = action.payload;
+      })
+      .addCase(fetchMembersPw.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })

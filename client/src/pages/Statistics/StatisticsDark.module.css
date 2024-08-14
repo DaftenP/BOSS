@@ -403,3 +403,17 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.dateRangeText {
+  font-size: 12px;
+  text-align: center;
+  margin-left: 50px;
+  color: #bbb;
+}
+
+.totalRangeText {
+  font-size: 12px;
+  text-align: center;
+  margin-left: 15px;
+  color: #bbb;
+}

@@ -21,7 +21,7 @@
   "Department": "Dept",
   "Position": "Pos",
   "Entry/Exit": "Entry/Exit",
-  "Issue Handling": "Handling",
+  "Issue Handling": "Issue Handling",
   "Sticker Damage": "Damage",
   "damage_image": "damage_img",
   "Example Photo": "Example",
@@ -91,7 +91,7 @@
   "batchRegistration": "Batch Reg.",
   "selectProfileImage": "Select picture!",
   "selectBatchFile": "Select Batch file!",
-  "selectFile" : "Select file",
+  "selectFile" : "Select file / File drop",
   "Register": "Register",
   "registeredMembersList": "Members List",
   "currentViewCount": "Current Count",
@@ -143,6 +143,5 @@
   "endDateTime": "Please enter both the end date and end time.",
   "missingField": "Required field is missing.",
   "isRequired": "is a required field.",
-  "Gate": "Gate {{number}}",
   "selectValidBatchFile": "Please attach a valid(CSV)"
 }

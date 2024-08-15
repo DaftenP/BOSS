@@ -100,6 +100,7 @@ export default function Main() {
         console.error('Error checking in automatically:', error);
       }
     };
+    checkInAutomatically();
     // 주기적으로 로그 데이터를 확인하도록 폴링 설정
     const intervalId = setInterval(() => {
       dispatch(fetchLogs());

@@ -31,6 +31,12 @@ position: relative;
   color: #e3e3e3;
 }
 
+@media screen and (max-width: 60rem) {
+  .issueTitleBox {
+    font-size: 12px;
+  }
+}
+
 .totalIssueContainer {
   border: 1px solid #242424;
   border-radius: 20px;
@@ -289,7 +295,7 @@ position: relative;
   display: flex;
   align-items: center;
   width: 11.7vw;
-  height: 14.2vh;
+  /* height: 14.2vh; */
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -297,6 +303,13 @@ position: relative;
 .cardIcon {
   font-size: 2em;
   margin-left: 20px;
+}
+
+@media screen and (max-width: 60rem) {
+  .cardIcon {
+    font-size: 1.2em;
+    margin-left: 0px;
+  }
 }
 
 .cardContent {
@@ -317,6 +330,18 @@ position: relative;
   font-size: 1.5em;
 }
 
+@media screen and (max-width: 60rem) {
+  .cardTitle {
+    font-size: 0.8em;
+  }
+}
+
+@media screen and (max-width: 60rem) {
+  .cardValue {
+    font-size: 0.8em;
+  }
+}
+
 .leftCard {
   background: linear-gradient(135deg, rgba(74, 74, 90, 0.45), rgba(106, 106, 122, 0.45));
   color: #ffffff;
@@ -326,10 +351,11 @@ position: relative;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
   margin-left: 10px;
+  height: 70%;
 }
 
 .middleCard {
-  margin: 25px;
+  margin: 0 25px;
   background: linear-gradient(135deg, rgba(90, 74, 74, 0.45), rgba(122, 106, 106, 0.45));
   color: #ffffff;
   border-radius: 15px;
@@ -337,6 +363,7 @@ position: relative;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
+  height: 70%;
 }
 
 .rightCard {
@@ -348,6 +375,30 @@ position: relative;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
   margin-right: 10px;
+  height: 70%;
+}
+
+@media screen and (max-width: 60rem) {
+  .leftCard {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 60rem) {
+  .middleCard {
+    width: 30%;
+    margin: 10px;
+  }
+}
+@media screen and (max-width: 40rem) {
+  .middleCard {
+    width: 30%;
+    margin: 0px;
+  }
+}
+@media screen and (max-width: 60rem) {
+  .rightCard {
+    width: 30%;
+  }
 }
 
 .todayTitle {
@@ -362,6 +413,12 @@ position: relative;
   box-sizing: border-box;
   box-shadow: 0 -4px 8px -4px rgba(0, 0, 0, 0.3), -4px 0 8px -4px rgba(0, 0, 0, 0.3), 4px 0 8px -4px rgba(0, 0, 0, 0.3);
   width: 100%;
+}
+
+@media screen and (max-width: 60rem) {
+  .todayTitle {
+    font-size: 12px;
+  }
 }
 
 .entryText {

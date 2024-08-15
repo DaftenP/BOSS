@@ -286,7 +286,7 @@ position: relative;
   display: flex;
   align-items: center;
   width: 11.7vw;
-  height: 14.2vh;
+  /* height: 14.2vh; */
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -326,7 +326,7 @@ position: relative;
 }
 
 .middleCard {
-  margin: 25px;
+  margin: 0 25px;
   background: linear-gradient(135deg, rgba(255, 204, 204, 0.6), rgba(255, 153, 153, 0.6));
   color: #660000;
   border-radius: 15px;

@@ -289,7 +289,7 @@ position: relative;
   display: flex;
   align-items: center;
   width: 11.7vw;
-  height: 14.2vh;
+  /* height: 14.2vh; */
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -326,10 +326,11 @@ position: relative;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
   margin-left: 10px;
+  height: 70%;
 }
 
 .middleCard {
-  margin: 25px;
+  margin: 0 25px;
   background: linear-gradient(135deg, rgba(90, 74, 74, 0.45), rgba(122, 106, 106, 0.45));
   color: #ffffff;
   border-radius: 15px;
@@ -337,6 +338,7 @@ position: relative;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
+  height: 70%;
 }
 
 .rightCard {
@@ -348,6 +350,7 @@ position: relative;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
   margin-right: 10px;
+  height: 70%;
 }
 
 .todayTitle {

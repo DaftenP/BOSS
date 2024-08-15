@@ -267,6 +267,7 @@ position: relative;
 
 /* 카드 css */
 .statisticsContainer {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -321,6 +322,7 @@ position: relative;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
   margin-left: 10px;
+  height: 70%;
 }
 
 .middleCard {
@@ -332,6 +334,7 @@ position: relative;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
+  height: 70%;
 }
 
 .rightCard {
@@ -343,6 +346,7 @@ position: relative;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background-blend-mode: overlay;
   margin-right: 10px;
+  height: 70%;
 }
 
 .todayTitle {

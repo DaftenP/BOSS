@@ -183,6 +183,8 @@ function TotalStatistics({ loglist }) {
       };
       if (selectedTotalPopOption === 'gate' && filteredLog.gate !== filterBy) return false;
       if (selectedTotalYOption === 'pass' && filteredLog.issue !== 0) return false;
+      if (selectedTotalYOption === 'fail' && filteredLog.issue !== 1) return false;
+
   
       if (selectedTotalPopOption === 'gate' && filteredLog.gate !== filterBy) return false;
       if (selectedTotalPopOption === 'department' && filteredLog.department !== filterBy) return false;
@@ -249,9 +251,11 @@ function TotalStatistics({ loglist }) {
       datasets: [{
         label: selectedTotalYOption === 'fail' ? t('Detection Count') : t('Pass Count'),
         data: sortedLabels.map(label => groupedData[label]),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1
+        backgroundColor: selectedTotalYOption === 'fail' ? 'rgba(255, 99, 132, 0.4)' : 'rgba(75, 192, 192, 0.3)',
+        borderColor: selectedTotalYOption === 'fail' ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)',
+        borderWidth: 3,
+        fill: true
+
       }]
     };
   };

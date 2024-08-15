@@ -52,10 +52,8 @@ public class EnteringLogController {
             @RequestPart(value = "deviceBackImage", required = false) MultipartFile deviceBackImage,
             @RequestPart(value = "enteringLogRegistDto", required = false) EnteringLogRegistDto enteringLogRegistDto
     ) {
-        EnteringLogDto enteringLog = enteringLogService.save(enteringLogRegistDto, deviceFrontImage, deviceBackImage);
-        if (enteringLog.getIssue() == 1) {
-            commentService.createIssue();
-        }
+        enteringLogService.save(enteringLogRegistDto, deviceFrontImage, deviceBackImage);
+        commentService.createIssue();
         return ResponseEntity.ok().build();
     }
 

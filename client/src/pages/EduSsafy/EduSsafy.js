@@ -35,7 +35,7 @@ export default function Main() {
     dispatch(fetchLogs());
   }, [dispatch]);
 
-    console.log(member);
+    // console.log(member);
   // 2023-01-23T12:00:00 => 12:00 형식으로 변환
   const formatTime = (datetime) => {
     const time = datetime.split('T')[1].split(':');
@@ -100,10 +100,15 @@ export default function Main() {
         console.error('Error checking in automatically:', error);
       }
     };
+    // 주기적으로 로그 데이터를 확인하도록 폴링 설정
+    const intervalId = setInterval(() => {
+      dispatch(fetchLogs());
+      checkInAutomatically();
+    }, 3000); // 3초마다 실행
     
-    checkInAutomatically();
+    return () => clearInterval(intervalId);
     
-  }, [logsData, member]);
+  }, [logsData, member, dispatch]);
 
   const checkOut = () => {
     const now = new Date();

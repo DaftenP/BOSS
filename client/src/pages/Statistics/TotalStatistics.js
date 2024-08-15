@@ -183,6 +183,8 @@ function TotalStatistics({ loglist }) {
       };
       if (selectedTotalPopOption === 'gate' && filteredLog.gate !== filterBy) return false;
       if (selectedTotalYOption === 'pass' && filteredLog.issue !== 0) return false;
+      if (selectedTotalYOption === 'fail' && filteredLog.issue !== 1) return false;
+
   
       if (selectedTotalPopOption === 'gate' && filteredLog.gate !== filterBy) return false;
       if (selectedTotalPopOption === 'department' && filteredLog.department !== filterBy) return false;

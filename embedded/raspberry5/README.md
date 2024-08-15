@@ -83,7 +83,6 @@ SCL	SCL0
 - nfc-list
 - nfc-poll
 
-![alt text](image.png)
 
 
 
@@ -99,3 +98,22 @@ SCL	SCL0
 ## 젯슨 오린 나노 설정
 - `pip install pyserial` 다운
 - `dmesg | grep tty` 를 이용해서 연결 가능한 port 확인
+
+
+
+
+# 포팅 메뉴얼
+
+## 1. Project Skill Stack Version
+
+| Skill                 | Version   |
+|-----------------------|-----------|
+| Python                | 3.8.18    |
+| Anaconda              | 24.5.0    |
+| Jetpack (Jetson SDK)  | 5.1.3     |
+| Raspberry PI Kernel   | 6.6.31    |
+| Cuda                  | 11.4      |
+
+
+## 2. 회로 연결도
+

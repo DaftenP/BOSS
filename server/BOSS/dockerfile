@@ -1,0 +1,16 @@
+FROM gradle:jdk17-alpine AS build
+WORKDIR /builder/
+
+COPY build.gradle /builder/
+RUN --mount=type=cache,target=/root/.gradle/caches \
+    --mount=type=cache,target=/root/.gradle/wrapper \
+    gradle --no-daemon dependencies
+
+COPY src /builder/src/
+RUN --mount=type=cache,target=/root/.gradle/caches \
+    --mount=type=cache,target=/root/.gradle/wrapper \
+    gradle --no-daemon build
+
+FROM openjdk:17-jdk-slim
+COPY --from=build /builder/build/libs/*.jar /app.jar
+ENTRYPOINT [ "java", "-jar", "/app.jar" ]

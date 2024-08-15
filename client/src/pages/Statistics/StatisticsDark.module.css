@@ -1,0 +1,419 @@
+.statisticsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.dateStatisticsContainer {
+  background-color: #393944;
+  border: 1px solid #242424;
+  border-radius: 20px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.relativeBoxContainer {
+  position: relative;
+}
+
+.statisticsTitleBox {
+  background-color: #4d505f;
+  color: #e3e3e3;
+  border-radius: 18px 0 18px 0;
+  display: inline-block;
+  padding: 7px 17px 7px 17px;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.statisticsContent {
+  margin: 30px 30px 30px 130px;
+  display: flex;
+}
+
+.totalStatisticsContent {
+  margin: 30px 30px 30px 130px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dataSelectContainer {
+  color: #bbb;
+  border: 1px solid #242424;
+  border-radius: 20px;
+  padding: 0 23px 15px 18px;
+  margin-right: 40px;
+  min-width: 400px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(128, 128, 128, 0.21);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px -15px #000;
+  border-width: 1px 1px 0 0;
+  border-style: solid;
+  max-height: 380px;
+}
+
+.totalDataSelectContainer {
+  color: #bbb;
+  display: flex;
+  border: 1px solid #242424;
+  border-radius: 20px;
+  padding: 0 23px 15px 18px;
+  width: auto;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: rgba(128, 128, 128, 0.21);
+  border-radius: 10px;
+  box-shadow: 0 6px 20px -15px #000;
+  border-width: 1px 1px 0 0;
+  border-style: solid;
+  max-height: 380px;
+}
+
+.axisSelectBox {
+  display: flex;
+  margin-top: 20px;
+}
+
+.totalAxisSelectBox {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 35px;
+}
+
+.axisSelectTitle {
+  margin-right: 40px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #bbb;
+}
+
+.totalAxisSelectTitle {
+  margin-right: 13px;
+  font-size: 15px;
+  font-weight: bold;
+  color: #bbb;
+}
+
+.dataSelectBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.graphContainer {
+  color: #e3e3e3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.graphContainer > div {
+  min-width: 50px;
+  min-height: 200px;
+  background-color: #4d505f;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.10);
+}
+
+.graphBox {
+  margin-top: 30px;
+}
+
+.graphTitle {
+  text-align: center;
+  font-size: 19px;
+  font-weight: bold;
+  margin: 10px 0px
+}
+
+.summaryStatisticsContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.statisticsCard {
+  color: #e3e3e3;
+  border: 1px solid #333333;
+  border-radius: 8px;
+  padding: 10px 18px 23px 18px;
+  background-color: #444444;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.statisticsCard h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.statisticsCard p {
+  font-size: 16px;
+  margin: 0;
+}
+
+.statisticsCard .value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #bb86fc;
+}
+
+.inputText {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border: 2px solid #bbb;
+  border-radius: 10px;
+  background-color: #cecece;
+  margin-left: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: #242424;
+  width: 135px;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.specificInputText {
+  margin-left: 15px;
+}
+
+.inputText::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+.inputText[type="date"]::after {
+  content: '📅';
+  font-size: 16px;
+  position: absolute;
+  right: 7px;
+  top: 8px;
+  pointer-events: none;
+}
+
+.inputText[type="month"]::after {
+  content: '📅';
+  font-size: 16px;
+  position: absolute;
+  right: 1px;
+  top: 8px;
+  pointer-events: none;
+}
+
+.yearInputText {
+  width: 132px;
+  height: 35px;
+  background-color: #dec3ff;
+}
+
+.dateInputText, .inputText[type="date"], .inputText[type="month"] {
+  background-color: #dec3ff;
+}
+
+.inputText:hover {
+  cursor: pointer;
+  border-color: #bb86fc;
+  box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
+}
+
+.chartContainer {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15), 0 4px 8px rgba(0, 0, 0, 0.10);
+  padding: 12px;
+}
+
+.chartCanvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+.labelBox {
+  margin-bottom: 10px;
+  font-size: 17px
+}
+
+.emptySpace {
+  visibility: hidden;
+  margin: 5px;
+}
+
+.buttonContainer {
+  display: inline-block;
+  align-items: center;
+}
+
+.buttonBox {
+  cursor: pointer;
+  background-color: #52e2c2;
+  border: 1px solid #52e2c2;
+  border-radius: 10px;
+  color: whitesmoke;
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 15px;
+  padding: 5px 7px 5px 7px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #242424;
+  color: #bbb;
+  padding: 5px 35px 25px 35px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
+}
+
+.modalTopContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 17px;
+  font-weight: 500;
+  color: #bbb;
+  margin-right: 20px;
+}
+
+.itemsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.itemsTable td {
+  border: 1px solid #ccc;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.checkCell {
+  padding: 10px 10px;
+}
+
+.nameCell {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.selectedRow {
+  background-color: #444444;
+}
+
+.clickableCell {
+  cursor: pointer;
+}
+
+.modalButtonContainer {
+  display: flex;
+  justify-content: right;
+  margin-top: 20px;
+}
+
+.confirmButton {
+  cursor: pointer;
+  background-color: #bb86fc;
+  color: whitesmoke;
+  border: none;
+  padding: 8px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.selectButtonsContainer {
+  display: flex;
+}
+
+.selectAllButton {
+  cursor: pointer;
+  background-color: #64acffab;
+  color: #bbb;
+  border: none;
+  padding: 8px 30px;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.deselectAllButton {
+  cursor: pointer;
+  background-color: #CF6679;
+  color: #bbb;
+  border: none;
+  padding: 8px 30px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  transition: background-color 0.2s ease;
+}
+
+.confirmButton:hover {
+  background-color: #bb86fca7;
+}
+
+.selectAllButton:hover {
+  background-color: #64acff85;
+}
+
+.deselectAllButton:hover {
+  background-color: rgba(255, 121, 121, 0.697);
+}
+
+.closeButton {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: #c0c0c0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dateRangeText {
+  font-size: 12px;
+  text-align: center;
+  margin-left: 50px;
+  color: #bbb;
+}
+
+.totalRangeText {
+  font-size: 12px;
+  text-align: center;
+  margin-left: 15px;
+  color: #bbb;
+}

@@ -1,0 +1,112 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  background-color: #444444;
+  color: #bbb;
+  padding: 0 20px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  z-index: 10
+}
+
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+.adminName {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.loginTime {
+  font-size: 14px;
+  color: #bbb;
+}
+
+.logoutButton {
+  background: none;
+  color: #bbb;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.logoutButton:hover {
+  color: #bbbbbb6c;
+}
+
+.labelIcon {
+  margin-left: 13px;
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.loginTimeButton {
+  cursor: pointer;
+  color: #bbb;
+  font-weight: bold;
+  position: relative;
+  padding: 0 20px;
+  border-left: 1px solid gray;
+  white-space: nowrap;
+}
+
+.loginTimeButton:hover {
+  color: #bbbbbb6c;
+}
+
+.logsDropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 46px;
+  right: 20px;
+  background-color: #444444;
+  border: 1px solid #555555;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+  width: 270px;
+  color: #bbb;
+}
+
+.logsDropdown.open {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.logsDropdown table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.logsDropdown th, .logsDropdown td {
+  padding: 8px;
+  text-align: center;
+}
+
+.logsDropdown th {
+  background-color: #666666;
+}
+
+.logsDropdown tr:hover {
+  background-color: #666666;
+  transition: background-color 0.4s ease;
+}

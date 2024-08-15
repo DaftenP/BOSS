@@ -1,0 +1,46 @@
+name: boss-dev
+
+services:
+
+  frontend:
+    build: ./client
+    image: slowcloud/boss-frontend:latest
+    container_name: boss-dev-frontend
+    environment:
+      - TZ=Asia/Seoul
+
+  backend:
+    build: ./server/BOSS
+    image: slowcloud/boss-backend:latest
+    container_name: boss-dev-backend
+    depends_on:
+      - db
+    environment:
+      - TZ=Asia/Seoul
+      - SPRING_PROFILES_ACTIVE=dev
+
+  db:
+    build: ./mysql
+    image: slowcloud/boss-mysql:latest
+    container_name: boss-dev-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=ssafy
+      - TZ=Asia/Seoul
+    volumes:
+      - db-volume:/var/lib/mysql:rw
+  
+  server:
+    build: ./nginx
+    image: slowcloud/boss-server:latest
+    container_name: boss-dev-nginx
+    depends_on:
+      - frontend
+      - backend
+    ports:
+      - 8888:80
+    environment:
+      - TZ=Asia/Seoul
+
+volumes:
+  db-volume:
+    name: mysql-boss-dev

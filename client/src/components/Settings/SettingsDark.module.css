@@ -1,0 +1,50 @@
+.settingsButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.settingsPanel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #333;
+  border: 1px solid #666;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  display: none;
+  z-index: 1000;
+}
+
+.settingsPanel.open {
+  display: block;
+}
+
+.settingsPanel span {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.subTitle {
+  font-size: 12px;
+  color: #bbb
+}
+
+.settingTitle {
+  font-size: 15px;
+  font-weight: 600;
+}

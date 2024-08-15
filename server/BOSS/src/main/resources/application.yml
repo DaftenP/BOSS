@@ -1,0 +1,29 @@
+spring:
+  config:
+    import:
+      - application-aws.yml
+      - application-jwt.yml
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/boss?autoReconnect=true&useUnicode=true&serverTimezone=Asia/Seoul&createDatabaseIfNotExist=true"
+    username: root
+    password: ssafy
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        storage_engine: innodb
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: create # 설정해야 테이블 자동생성
+    open-in-view: false
+    show_sql: true
+  mvc:
+    problemdetails:
+      enabled: true

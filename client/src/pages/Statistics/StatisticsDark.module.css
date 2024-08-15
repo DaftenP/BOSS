@@ -57,6 +57,12 @@
   max-height: 380px;
 }
 
+@media screen and (max-width: 1200px) {
+  .dataSelectContainer {
+    min-width: 250px;
+  }
+}
+
 .totalDataSelectContainer {
   color: #bbb;
   display: flex;
@@ -137,6 +143,13 @@
   margin-top: 20px;
 }
 
+@media screen and (max-width: 1200px) {
+  .summaryStatisticsContainer {
+    grid-template-columns: repeat(2, 2fr);
+    gap:5px;
+  }
+}
+
 .statisticsCard {
   color: #e3e3e3;
   border: 1px solid #333333;
@@ -157,10 +170,34 @@
   margin: 0;
 }
 
+@media screen and (max-width: 1000px) {
+  .statisticsCard h3 {
+    font-size: 10px;
+  }
+}
+
+@media screen and (1000px < width <= 1430px) {
+  .statisticsCard h3 {
+    font-size: 14px;
+  }
+}
+
 .statisticsCard .value {
   font-size: 24px;
   font-weight: bold;
   color: #bb86fc;
+}
+
+@media screen and (max-width: 1000px) {
+  .statisticsCard .value {
+    font-size: 16px;
+  }
+}
+
+@media screen and (1000px < width <= 1430px) {
+  .statisticsCard .value {
+    font-size: 20px;
+  }
 }
 
 .inputText {

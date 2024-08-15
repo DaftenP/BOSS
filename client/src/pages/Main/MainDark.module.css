@@ -31,6 +31,12 @@ position: relative;
   color: #e3e3e3;
 }
 
+@media screen and (max-width: 60rem) {
+  .issueTitleBox {
+    font-size: 12px;
+  }
+}
+
 .totalIssueContainer {
   border: 1px solid #242424;
   border-radius: 20px;
@@ -299,6 +305,13 @@ position: relative;
   margin-left: 20px;
 }
 
+@media screen and (max-width: 60rem) {
+  .cardIcon {
+    font-size: 1.2em;
+    margin-left: 0px;
+  }
+}
+
 .cardContent {
   display: flex;
   flex-direction: column;
@@ -315,6 +328,18 @@ position: relative;
 
 .cardValue {
   font-size: 1.5em;
+}
+
+@media screen and (max-width: 60rem) {
+  .cardTitle {
+    font-size: 0.8em;
+  }
+}
+
+@media screen and (max-width: 60rem) {
+  .cardValue {
+    font-size: 0.8em;
+  }
 }
 
 .leftCard {
@@ -353,6 +378,29 @@ position: relative;
   height: 70%;
 }
 
+@media screen and (max-width: 60rem) {
+  .leftCard {
+    width: 30%;
+  }
+}
+@media screen and (max-width: 60rem) {
+  .middleCard {
+    width: 30%;
+    margin: 10px;
+  }
+}
+@media screen and (max-width: 40rem) {
+  .middleCard {
+    width: 30%;
+    margin: 0px;
+  }
+}
+@media screen and (max-width: 60rem) {
+  .rightCard {
+    width: 30%;
+  }
+}
+
 .todayTitle {
   color: #e3e3e3;
   background-color: #4d505f;
@@ -365,6 +413,12 @@ position: relative;
   box-sizing: border-box;
   box-shadow: 0 -4px 8px -4px rgba(0, 0, 0, 0.3), -4px 0 8px -4px rgba(0, 0, 0, 0.3), 4px 0 8px -4px rgba(0, 0, 0, 0.3);
   width: 100%;
+}
+
+@media screen and (max-width: 60rem) {
+  .todayTitle {
+    font-size: 12px;
+  }
 }
 
 .entryText {

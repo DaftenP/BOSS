@@ -254,8 +254,29 @@
  <div align="center" >
      <img src="docs/images/mockup_4.png" width="500px">
 </div>
- <div align="center" style="padding-bottom: 40px;">
+<div align="center" style="padding-bottom: 40px;">
      <img src="docs/images/mockup_5.png" width="500px">
+</div>
+
+- **요구사항 명세서**
+
+<div align="center" style="padding-bottom: 40px;">
+     <img src="docs/images/requirements.png" width="500px">
+</div>
+
+- **API 연동 규격서**
+
+<div align="center" style="padding-bottom: 40px;">
+     <img src="docs/images/api.png" width="500px">
+</div>
+
+- **기능 명세서**
+
+<div align="center">
+     <img src="docs/images/functional specification1.png" width="500px">
+</div>
+<div align="center" style="padding-bottom: 40px;">
+     <img src="docs/images/functional specification2.png" width="500px">
 </div>
 
 - **[포팅 매뉴얼](./exec/포팅매뉴얼.md)**
